@@ -174,3 +174,131 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 </log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-12-22T10:40:04.545136500Z</date>
+  <millis>1513939204545</millis>
+  <nanos>136500</nanos>
+  <sequence>0</sequence>
+  <logger>NAODash Logger</logger>
+  <level>INFO</level>
+  <class>naoDash_main.Controller</class>
+  <method>lambda$initialize$1</method>
+  <thread>16</thread>
+  <message>Button W</message>
+</record>
+<record>
+  <date>2017-12-22T10:40:04.972273400Z</date>
+  <millis>1513939204972</millis>
+  <nanos>273400</nanos>
+  <sequence>1</sequence>
+  <logger>NAODash Logger</logger>
+  <level>INFO</level>
+  <class>naoDash_main.Controller</class>
+  <method>lambda$initialize$1</method>
+  <thread>16</thread>
+  <message>Button W</message>
+</record>
+<record>
+  <date>2017-12-22T10:40:05.224943600Z</date>
+  <millis>1513939205224</millis>
+  <nanos>943600</nanos>
+  <sequence>2</sequence>
+  <logger>NAODash Logger</logger>
+  <level>INFO</level>
+  <class>naoDash_main.Controller</class>
+  <method>lambda$initialize$1</method>
+  <thread>16</thread>
+  <message>Button W</message>
+</record>
+<record>
+  <date>2017-12-22T10:40:05.908665700Z</date>
+  <millis>1513939205908</millis>
+  <nanos>665700</nanos>
+  <sequence>3</sequence>
+  <logger>NAODash Logger</logger>
+  <level>INFO</level>
+  <class>naoDash_main.Controller</class>
+  <method>lambda$initialize$1</method>
+  <thread>16</thread>
+  <message>Button S</message>
+</record>
+<record>
+  <date>2017-12-22T10:40:06.501839Z</date>
+  <millis>1513939206501</millis>
+  <nanos>839000</nanos>
+  <sequence>4</sequence>
+  <logger>NAODash Logger</logger>
+  <level>INFO</level>
+  <class>naoDash_main.Controller</class>
+  <method>lambda$initialize$1</method>
+  <thread>16</thread>
+  <message>Button A</message>
+</record>
+<record>
+  <date>2017-12-22T10:40:07.087288Z</date>
+  <millis>1513939207087</millis>
+  <nanos>288000</nanos>
+  <sequence>5</sequence>
+  <logger>NAODash Logger</logger>
+  <level>INFO</level>
+  <class>naoDash_main.Controller</class>
+  <method>lambda$initialize$1</method>
+  <thread>16</thread>
+  <message>Button D</message>
+</record>
+<record>
+  <date>2017-12-22T10:40:07.486273600Z</date>
+  <millis>1513939207486</millis>
+  <nanos>273600</nanos>
+  <sequence>6</sequence>
+  <logger>NAODash Logger</logger>
+  <level>INFO</level>
+  <class>naoDash_main.Controller</class>
+  <method>lambda$initialize$1</method>
+  <thread>16</thread>
+  <message>Button W</message>
+</record>
+<record>
+  <date>2017-12-22T10:40:07.746966700Z</date>
+  <millis>1513939207746</millis>
+  <nanos>966700</nanos>
+  <sequence>7</sequence>
+  <logger>NAODash Logger</logger>
+  <level>INFO</level>
+  <class>naoDash_main.Controller</class>
+  <method>lambda$initialize$1</method>
+  <thread>16</thread>
+  <message>Button A</message>
+</record>
+<record>
+  <date>2017-12-22T10:40:07.748972800Z</date>
+  <millis>1513939207748</millis>
+  <nanos>972800</nanos>
+  <sequence>8</sequence>
+  <logger>NAODash Logger</logger>
+  <level>INFO</level>
+  <class>naoDash_main.Controller</class>
+  <method>lambda$initialize$1</method>
+  <thread>16</thread>
+  <message>Button S</message>
+</record>
+<record>
+  <date>2017-12-22T10:40:07.987803200Z</date>
+  <millis>1513939207987</millis>
+  <nanos>803200</nanos>
+  <sequence>9</sequence>
+  <logger>NAODash Logger</logger>
+  <level>INFO</level>
+  <class>naoDash_main.Controller</class>
+  <method>lambda$initialize$1</method>
+  <thread>16</thread>
+  <message>Button A</message>
+</record>
+</log>

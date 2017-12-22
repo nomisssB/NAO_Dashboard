@@ -12,3 +12,8 @@
 .ownStyle{
     -fx-font-size: 20pt;
 }
+
+
+.khaled{
+    -fx-font-family: DialogInput;
+}
