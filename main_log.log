@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-12-22T09:01:54.128504800Z</date>
+  <millis>1513933314128</millis>
+  <nanos>504800</nanos>
+  <sequence>0</sequence>
+  <logger>test</logger>
+  <level>INFO</level>
+  <class>naoDash_main.Main</class>
+  <method>lambda$start$0</method>
+  <thread>16</thread>
+  <message>Key W was pressed</message>
+</record>
+<record>
+  <date>2017-12-22T09:01:59.275880500Z</date>
+  <millis>1513933319275</millis>
+  <nanos>880500</nanos>
+  <sequence>1</sequence>
+  <logger>test</logger>
+  <level>INFO</level>
+  <class>naoDash_main.Main</class>
+  <method>lambda$start$0</method>
+  <thread>16</thread>
+  <message>Key W was pressed</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2017-12-22T09:30:13.550819200Z</date>
+  <millis>1513935013550</millis>
+  <nanos>819200</nanos>
+  <sequence>0</sequence>
+  <logger>NAODash Logger</logger>
+  <level>INFO</level>
+  <class>naoDash_main.Controller</class>
+  <method>lambda$initialize$1</method>
+  <thread>16</thread>
+  <message>Button W pressed and fired</message>
+</record>
+<record>
+  <date>2017-12-22T09:30:14.158844700Z</date>
+  <millis>1513935014158</millis>
+  <nanos>844700</nanos>
+  <sequence>1</sequence>
+  <logger>NAODash Logger</logger>
+  <level>INFO</level>
+  <class>naoDash_main.Controller</class>
+  <method>lambda$initialize$1</method>
+  <thread>16</thread>
+  <message>Button W pressed and fired</message>
+</record>
+<record>
+  <date>2017-12-22T09:30:15.204618900Z</date>
+  <millis>1513935015204</millis>
+  <nanos>618900</nanos>
+  <sequence>2</sequence>
+  <logger>NAODash Logger</logger>
+  <level>INFO</level>
+  <class>naoDash_main.Controller</class>
+  <method>lambda$initialize$1</method>
+  <thread>16</thread>
+  <message>Button W pressed and fired</message>
+</record>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+</log>

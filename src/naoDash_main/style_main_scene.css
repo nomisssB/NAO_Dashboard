@@ -1,0 +1,14 @@
+
+/*for a whole class*/
+.button {
+    -fx-font-family: "Arial Black";
+}
+/*for a single element*/
+#btn_w {
+    -fx-font-family: "Arial";
+}
+
+/*styleclass*/
+.ownStyle{
+    -fx-font-size: 20pt;
+}

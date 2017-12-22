@@ -43,7 +43,7 @@
     </MenuBar>
     <AnchorPane fx:id="anc1" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-        <Label fx:id="lbl_mid" alignment="CENTER" layoutX="34.0" layoutY="301.0" style="&#10;" text="...output..." textAlignment="CENTER" textFill="#9f9f9f" AnchorPane.leftAnchor="34.0" AnchorPane.rightAnchor="451.6">
+        <Label fx:id="lbl_mid" alignment="CENTER" layoutX="34.0" layoutY="301.0" style="&#10;" text="...output..."  textAlignment="CENTER" textFill="#9f9f9f" AnchorPane.leftAnchor="34.0" AnchorPane.rightAnchor="451.6" styleClass="ownStyle">
           <font>
             <Font size="36.0" />
           </font>
