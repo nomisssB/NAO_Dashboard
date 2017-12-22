@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.util.logging.FileHandler;
@@ -13,6 +14,7 @@ import java.util.logging.Logger;
 
 public class Controller {
     public double motionspeed = 0;
+    public Color color;
 
     @FXML
     public VBox vbox_main;
@@ -23,6 +25,7 @@ public class Controller {
     public Button btn_w;
     public Button btn_connect;
     public Label lbl_mid;
+    public ColorPicker col_picker;
 
 
     public Controller(){
@@ -85,6 +88,26 @@ public class Controller {
         alert.setTitle("Warning");
         alert.setHeaderText("Connection failed!");
         alert.setContentText("Try again");
+
+        alert.showAndWait();
+
+    }
+
+    public void colorchoice(ActionEvent actionEvent) {
+        color = col_picker.getValue();
+        lbl_mid.setText(color.toString());
+    }
+
+    public void menu_quit(ActionEvent actionEvent) {
+        System.exit(0);
+    }
+
+    public void menu_help(ActionEvent actionEvent) {
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("About...");
+        alert.setHeaderText("NAO Dashboard V1.0 Beta");
+        alert.setContentText("By Simon Bienroth, Mustafa Mado, Khaled Jebrini\n and Michael Bachmann");
 
         alert.showAndWait();
 

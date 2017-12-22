@@ -28,12 +28,12 @@
           <items>
             <MenuItem mnemonicParsing="false" text="Preferences…" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
+            <MenuItem mnemonicParsing="false" onAction="#menu_quit" text="Quit" />
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Help">
           <items>
-            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+                  <MenuItem mnemonicParsing="false" onAction="#menu_help" text="About..." />
           </items>
         </Menu>
       </menus>
@@ -60,7 +60,7 @@
                <tooltip>
                   <Tooltip text="e.g. 34486" />
                </tooltip></TextField>
-            <ColorPicker layoutX="492.0" layoutY="328.0" />
+            <ColorPicker fx:id="col_picker" layoutX="492.0" layoutY="328.0" onAction="#colorchoice" />
       </children>
     </AnchorPane>
   </children>
