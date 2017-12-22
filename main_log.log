@@ -2,79 +2,99 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2017-12-22T09:01:54.128504800Z</date>
-  <millis>1513933314128</millis>
-  <nanos>504800</nanos>
-  <sequence>0</sequence>
-  <logger>test</logger>
-  <level>INFO</level>
-  <class>naoDash_main.Main</class>
-  <method>lambda$start$0</method>
-  <thread>16</thread>
-  <message>Key W was pressed</message>
-</record>
-<record>
-  <date>2017-12-22T09:01:59.275880500Z</date>
-  <millis>1513933319275</millis>
-  <nanos>880500</nanos>
-  <sequence>1</sequence>
-  <logger>test</logger>
-  <level>INFO</level>
-  <class>naoDash_main.Main</class>
-  <method>lambda$start$0</method>
-  <thread>16</thread>
-  <message>Key W was pressed</message>
-</record>
-</log>
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE log SYSTEM "logger.dtd">
-<log>
-<record>
-  <date>2017-12-22T09:30:13.550819200Z</date>
-  <millis>1513935013550</millis>
-  <nanos>819200</nanos>
+  <date>2017-12-22T10:12:05.915814400Z</date>
+  <millis>1513937525915</millis>
+  <nanos>814400</nanos>
   <sequence>0</sequence>
   <logger>NAODash Logger</logger>
   <level>INFO</level>
   <class>naoDash_main.Controller</class>
   <method>lambda$initialize$1</method>
   <thread>16</thread>
-  <message>Button W pressed and fired</message>
+  <message>Button W</message>
 </record>
 <record>
-  <date>2017-12-22T09:30:14.158844700Z</date>
-  <millis>1513935014158</millis>
-  <nanos>844700</nanos>
+  <date>2017-12-22T10:12:06.295824300Z</date>
+  <millis>1513937526295</millis>
+  <nanos>824300</nanos>
   <sequence>1</sequence>
   <logger>NAODash Logger</logger>
   <level>INFO</level>
   <class>naoDash_main.Controller</class>
   <method>lambda$initialize$1</method>
   <thread>16</thread>
-  <message>Button W pressed and fired</message>
+  <message>Button A</message>
 </record>
 <record>
-  <date>2017-12-22T09:30:15.204618900Z</date>
-  <millis>1513935015204</millis>
-  <nanos>618900</nanos>
+  <date>2017-12-22T10:12:06.492675900Z</date>
+  <millis>1513937526492</millis>
+  <nanos>675900</nanos>
   <sequence>2</sequence>
   <logger>NAODash Logger</logger>
   <level>INFO</level>
   <class>naoDash_main.Controller</class>
   <method>lambda$initialize$1</method>
   <thread>16</thread>
-  <message>Button W pressed and fired</message>
+  <message>Button S</message>
 </record>
-</log>
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE log SYSTEM "logger.dtd">
-<log>
-</log>
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE log SYSTEM "logger.dtd">
-<log>
-</log>
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE log SYSTEM "logger.dtd">
-<log>
+<record>
+  <date>2017-12-22T10:12:06.775434800Z</date>
+  <millis>1513937526775</millis>
+  <nanos>434800</nanos>
+  <sequence>3</sequence>
+  <logger>NAODash Logger</logger>
+  <level>INFO</level>
+  <class>naoDash_main.Controller</class>
+  <method>lambda$initialize$1</method>
+  <thread>16</thread>
+  <message>Button D</message>
+</record>
+<record>
+  <date>2017-12-22T10:12:10.049460100Z</date>
+  <millis>1513937530049</millis>
+  <nanos>460100</nanos>
+  <sequence>4</sequence>
+  <logger>NAODash Logger</logger>
+  <level>INFO</level>
+  <class>naoDash_main.Controller</class>
+  <method>lambda$initialize$1</method>
+  <thread>16</thread>
+  <message>Button W</message>
+</record>
+<record>
+  <date>2017-12-22T10:12:10.429391800Z</date>
+  <millis>1513937530429</millis>
+  <nanos>391800</nanos>
+  <sequence>5</sequence>
+  <logger>NAODash Logger</logger>
+  <level>INFO</level>
+  <class>naoDash_main.Controller</class>
+  <method>lambda$initialize$1</method>
+  <thread>16</thread>
+  <message>Button A</message>
+</record>
+<record>
+  <date>2017-12-22T10:12:10.611081Z</date>
+  <millis>1513937530611</millis>
+  <nanos>81000</nanos>
+  <sequence>6</sequence>
+  <logger>NAODash Logger</logger>
+  <level>INFO</level>
+  <class>naoDash_main.Controller</class>
+  <method>lambda$initialize$1</method>
+  <thread>16</thread>
+  <message>Button S</message>
+</record>
+<record>
+  <date>2017-12-22T10:12:10.773541700Z</date>
+  <millis>1513937530773</millis>
+  <nanos>541700</nanos>
+  <sequence>7</sequence>
+  <logger>NAODash Logger</logger>
+  <level>INFO</level>
+  <class>naoDash_main.Controller</class>
+  <method>lambda$initialize$1</method>
+  <thread>16</thread>
+  <message>Button D</message>
+</record>
 </log>

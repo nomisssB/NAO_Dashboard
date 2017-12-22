@@ -1,27 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.SubScene?>
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ProgressIndicator?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<?import java.net.URL?>
 <VBox fx:id="vbox_main" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="naoDash_main.Controller">
   <stylesheets>
-      <URL value ="@style_main_scene.css"></URL>
+      <URL value="@style_main_scene.css" />
   </stylesheets>
 
     <children>
@@ -43,31 +40,26 @@
     </MenuBar>
     <AnchorPane fx:id="anc1" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-        <Label fx:id="lbl_mid" alignment="CENTER" layoutX="34.0" layoutY="301.0" style="&#10;" text="...output..."  textAlignment="CENTER" textFill="#9f9f9f" AnchorPane.leftAnchor="34.0" AnchorPane.rightAnchor="451.6" styleClass="ownStyle">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="39.0" layoutX="155.0" layoutY="245.0" stroke="BLACK" strokeType="INSIDE" width="302.0" />
+        <Label fx:id="lbl_mid" alignment="CENTER" layoutX="229.0" layoutY="245.0" style="&#10;" styleClass="ownStyle" text="...output..." textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="229.0" AnchorPane.rightAnchor="256.6">
           <font>
             <Font size="36.0" />
           </font>
         </Label>
-            <Button fx:id="btn_w" layoutX="291.0" layoutY="302.0" mnemonicParsing="false" onAction="#forward" text="W" />
-            <Button fx:id="btn_s" layoutX="294.0" layoutY="328.0" mnemonicParsing="false" text="S" />
-            <Button fx:id="btn_d" layoutX="316.0" layoutY="328.0" mnemonicParsing="false" text="D" />
-            <Button fx:id="btn_a" layoutX="270.0" layoutY="328.0" mnemonicParsing="false" onAction="#left" text="A" />
+            <Button fx:id="btn_w" layoutX="292.0" layoutY="301.0" mnemonicParsing="false" onAction="#forward" text="W" />
+            <Button fx:id="btn_s" layoutX="294.0" layoutY="328.0" mnemonicParsing="false" onAction="#backward" text="S" />
+            <Button fx:id="btn_d" layoutX="322.0" layoutY="328.0" mnemonicParsing="false" onAction="#right" text="D" />
+            <Button fx:id="btn_a" layoutX="265.0" layoutY="328.0" mnemonicParsing="false" onAction="#left" text="A" />
             <Slider fx:id="sldr_speed" layoutX="396.0" layoutY="16.0" prefHeight="35.0" prefWidth="229.0" showTickLabels="true" showTickMarks="true" value="50.0" AnchorPane.rightAnchor="14.799999999999955" AnchorPane.topAnchor="16.0" />
             <TextField layoutX="14.0" layoutY="20.0" promptText="Type in IP adress">
                <tooltip>
                   <Tooltip text="e.g. 192.168.1.123" />
                </tooltip></TextField>
-            <Button fx:id="btn_connect" layoutX="173.0" layoutY="22.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="68.0" text="Connect..." />
-            <TextField layoutX="14.0" layoutY="45.0" promptText="Port" />
-            <ProgressIndicator layoutX="244.0" layoutY="35.0" prefHeight="19.0" prefWidth="25.0" />
-            <SubScene fill="#949494" height="133.0" layoutX="40.0" layoutY="106.0" width="154.0">
-              <root>
-                <Region />
-              </root>
-               <cursor>
-                  <Cursor fx:constant="CLOSED_HAND" />
-               </cursor>
-            </SubScene>
+            <Button fx:id="btn_connect" layoutX="174.0" layoutY="22.0" mnemonicParsing="false" onAction="#connect" prefHeight="46.0" prefWidth="95.0" text="Connect..." />
+            <TextField layoutX="14.0" layoutY="45.0" promptText="Port">
+               <tooltip>
+                  <Tooltip text="e.g. 34486" />
+               </tooltip></TextField>
             <ColorPicker layoutX="492.0" layoutY="328.0" />
       </children>
     </AnchorPane>

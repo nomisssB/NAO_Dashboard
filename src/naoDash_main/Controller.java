@@ -15,13 +15,12 @@ public class Controller {
     public double motionspeed = 0;
     @FXML
     public VBox vbox_main;
-    @FXML
     public Slider sldr_speed;
-    @FXML
     public Button btn_s;
-    @FXML
+    public Button btn_a;
+    public Button btn_d;
     public Button btn_w;
-    @FXML
+    public Button btn_connect;
     public Label lbl_mid;
 
 
@@ -37,8 +36,11 @@ public class Controller {
         Logger logger = Logger.getLogger("NAODash Logger");
         logger.addHandler(handler);
 
+//        Abfangen von Werten des Sliders
         sldr_speed.valueProperty().addListener((observable, oldValue, newValue) -> {
+//            logger.info("value Slider changed to:" + newValue.intValue());
             lbl_mid.setText("value: " + newValue.intValue());
+            motionspeed = newValue.intValue();
 
         });
 
@@ -46,9 +48,11 @@ public class Controller {
 
         //Abfangen von KeyEvents
         vbox_main.setOnKeyPressed(e ->{
-            if(e.getCode() == KeyCode.W) {
-                logger.info("Button W pressed and fired");
-                btn_w.fire();
+            switch (e.getCode()){
+                case W:  logger.info("Button W");btn_w.fire(); break;
+                case A: logger.info("Button A");btn_a.fire(); break;
+                case S: logger.info("Button S");btn_s.fire(); break;
+                case D: logger.info("Button D");btn_d.fire(); break;
             }
         });
 
@@ -65,7 +69,17 @@ public class Controller {
         lbl_mid.setText("left");
 
     }
-    
+
+    public void backward(ActionEvent actionEvent) {
+        lbl_mid.setText("backward");
+    }
+
+    public void right(ActionEvent actionEvent) {
+        lbl_mid.setText("right");
+    }
+    public void connect(ActionEvent actionEvent) {
+        lbl_mid.setText("connect");
+    }
 }
 
 
