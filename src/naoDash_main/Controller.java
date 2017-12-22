@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 
 public class Controller {
     public double motionspeed = 0;
+
     @FXML
     public VBox vbox_main;
     public Slider sldr_speed;
@@ -79,6 +80,14 @@ public class Controller {
     }
     public void connect(ActionEvent actionEvent) {
         lbl_mid.setText("connect");
+
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Warning");
+        alert.setHeaderText("Connection failed!");
+        alert.setContentText("Try again");
+
+        alert.showAndWait();
+
     }
 }
 
