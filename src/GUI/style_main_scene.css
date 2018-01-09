@@ -20,3 +20,7 @@
 #lbl_mid {
     -fx-font-family: "Arial Black";
 }
+
+#pane_cam {
+    -fx-background-color: #ffffff;
+}

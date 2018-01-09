@@ -13,7 +13,7 @@ public class Main extends Application {
 
         //Erzeugung der Main-Scene "root" aus main_scene.fxml
 
-        Parent root = FXMLLoader.load(getClass().getResource("main_scene.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../GUI/main_scene.fxml"));
         primaryStage.setTitle("NaoDashboard MSKM");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();

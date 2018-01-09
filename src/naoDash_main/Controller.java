@@ -7,6 +7,7 @@ import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
@@ -32,6 +33,7 @@ public class Controller {
     public Label lbl_mid;
     public ColorPicker col_picker;
     public ListView motion_list;
+    public Pane pane_cam;
 
 
     public Controller(){
@@ -66,12 +68,12 @@ public class Controller {
             }
         });
 
-        //Füllen der ListView
+        //Füllen der ListView mit einer ArrayList
         ObservableList<String> items = FXCollections.observableArrayList(
                 "Crouch","Sit down","stand up","dance","shutDown");
-
         motion_list.setItems(items);
-
+        //Nur Auswählen eines Eintrages möglich:
+         motion_list.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
 
