@@ -5,12 +5,14 @@
 #logs
 main_log.log
 main_log.log.1
-main_log.lck
+main_log.log.lck
 
 # User-specific stuff:
 .idea/**/workspace.xml
 .idea/**/tasks.xml
 .idea/dictionaries
+lib/java-naoqi-sdk-2.1.4.13-linux64.jar
+lib/java-naoqi-sdk-2.1.4.13-mac64.jar
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/
