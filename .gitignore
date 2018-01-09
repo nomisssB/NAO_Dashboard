@@ -5,7 +5,7 @@
 #logs
 main_log.log
 main_log.log.1
-
+main_log.lck
 
 # User-specific stuff:
 .idea/**/workspace.xml

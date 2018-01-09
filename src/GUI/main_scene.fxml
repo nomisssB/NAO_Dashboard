@@ -74,7 +74,7 @@
                </cursor>
             </ListView>
             <Button fx:id="btn_execute" layoutX="491.0" layoutY="139.0" mnemonicParsing="false" onAction="#p_motion" prefHeight="25.0" prefWidth="130.0" text="execute" />
-            <Label layoutX="493.0" layoutY="246.0" styleClass="khaled" text="pick LED Color" />
+            <Label layoutX="493.0" layoutY="246.0" text="pick LED Color" />
             <Pane fx:id="pane_cam" layoutX="220.0" layoutY="112.0" prefHeight="200.0" prefWidth="200.0" />
             <Label layoutX="220.0" layoutY="90.0" text="LiveView" />
       </children>
