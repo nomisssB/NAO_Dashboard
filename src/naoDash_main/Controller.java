@@ -34,6 +34,9 @@ public class Controller {
     public ColorPicker col_picker;
     public ListView motion_list;
     public Pane pane_cam;
+    public ChoiceBox set_language;
+
+
 
 
     public Controller(){
@@ -74,6 +77,13 @@ public class Controller {
         motion_list.setItems(items);
         //Nur Auswählen eines Eintrages möglich:
          motion_list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+
+
+         // CHOICEBOX
+        ObservableList<String> languages = FXCollections.observableArrayList(
+                "ger","en");
+        set_language.setItems(languages);
     }
 
 
@@ -124,7 +134,7 @@ public class Controller {
         alert.setContentText("By Simon Bienroth, Mustafa Mado, Khaled Jebrini\n and Michael Bachmann");
 
         alert.showAndWait();
-//testComment
+
     }
 
     public void p_motion(ActionEvent actionEvent) {
