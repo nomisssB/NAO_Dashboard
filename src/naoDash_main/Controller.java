@@ -50,7 +50,7 @@ public class Controller {
 
 //        Abfangen von Werten des Sliders
         sldr_speed.valueProperty().addListener((observable, oldValue, newValue) -> {
-//            logger.info("value Slider changed to:" + newValue.intValue());
+            logger.info("value Slider changed to:" + newValue.intValue());
             lbl_mid.setText("value: " + newValue.intValue());
             motionspeed = newValue.intValue();
 
@@ -60,8 +60,8 @@ public class Controller {
 
         //Abfangen von KeyEvents
         vbox_main.setOnKeyPressed(e ->{
-            switch (e.getCode()){
-                case W:  logger.info("Button W");btn_w.fire(); break;
+                switch (e.getCode()){
+                case W: logger.info("Button W");btn_w.fire(); break;
                 case A: logger.info("Button A");btn_a.fire(); break;
                 case S: logger.info("Button S");btn_s.fire(); break;
                 case D: logger.info("Button D");btn_d.fire(); break;
@@ -73,7 +73,7 @@ public class Controller {
                 "Crouch","Sit down","stand up","dance","shutDown");
         motion_list.setItems(items);
         //Nur Auswählen eines Eintrages möglich:
-         motion_list.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+         motion_list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
 

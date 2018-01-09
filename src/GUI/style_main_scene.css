@@ -1,10 +1,10 @@
 
 /*for a whole class*/
-.button {
+.button.button_strong {
     -fx-font-family: "Arial Black";
 }
 /*for a single element*/
-#btn_w {
+.button.button_light {
     -fx-font-family: "Arial";
 }
 

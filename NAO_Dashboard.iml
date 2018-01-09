@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="java-naoqi-sdk-2.1.4.13-mac64" level="project" />
+    <orderEntry type="library" name="java-naoqi-sdk-2.1.4.13-win32-vs2010" level="project" />
   </component>
 </module>
