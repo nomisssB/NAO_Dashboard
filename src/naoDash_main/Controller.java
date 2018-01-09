@@ -1,5 +1,8 @@
 package naoDash_main;
 
+import javafx.collections.FXCollections;
+import javafx.collections.FXCollections.*;
+import javafx.collections.ObservableList;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
@@ -13,6 +16,7 @@ import java.util.logging.Logger;
 
 
 public class Controller {
+
     public double motionspeed = 0;
     public Color color;
 
@@ -24,8 +28,10 @@ public class Controller {
     public Button btn_d;
     public Button btn_w;
     public Button btn_connect;
+    public Button btn_execute;
     public Label lbl_mid;
     public ColorPicker col_picker;
+    public ListView motion_list;
 
 
     public Controller(){
@@ -59,6 +65,12 @@ public class Controller {
                 case D: logger.info("Button D");btn_d.fire(); break;
             }
         });
+
+        //Füllen der ListView
+        ObservableList<String> items = FXCollections.observableArrayList(
+                "Crouch","Sit down","stand up","dance","shutDown");
+
+        motion_list.setItems(items);
 
     }
 
@@ -111,6 +123,11 @@ public class Controller {
 
         alert.showAndWait();
 
+    }
+
+    public void p_motion(ActionEvent actionEvent) {
+       String motion =  motion_list.getSelectionModel().getSelectedItem().toString();
+        lbl_mid.setText("execute " + motion);
     }
 }
 

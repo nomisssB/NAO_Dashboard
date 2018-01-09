@@ -13,7 +13,10 @@
     -fx-font-size: 20pt;
 }
 
+.label {
+    -fx-font-family: "Calibri";
+}
 
-.khaled{
-    -fx-font-family: DialogInput;
+#lbl_mid {
+    -fx-font-family: "Arial Black";
 }
