@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ColorPicker?>
@@ -14,20 +15,23 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vbox_main" maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="naoDash_main.Controller">
+<AnchorPane fx:id="pane_main" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="naoDash_main.Controller">
   <stylesheets>
       <URL value="@style_main_scene.css" />
   </stylesheets>
 
     <children>
-    <MenuBar VBox.vgrow="NEVER">
+    <MenuBar fx:id="menubar" prefHeight="25.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="NEVER">
       <menus>
-        <Menu mnemonicParsing="false" text="File">
+        <Menu fx:id="menu1" mnemonicParsing="false" text="File">
           <items>
             <MenuItem mnemonicParsing="false" text="Preferences…" />
             <SeparatorMenuItem mnemonicParsing="false" />
@@ -41,52 +45,96 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane fx:id="anc1" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
-      <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cfcfcf" height="164.0" layoutX="9.0" layoutY="398.0" stroke="BLACK" strokeType="INSIDE" width="149.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="39.0" layoutX="171.0" layoutY="512.0" stroke="BLACK" strokeType="INSIDE" width="458.0" />
-        <Label fx:id="lbl_mid" alignment="CENTER" layoutX="171.0" layoutY="511.0" prefHeight="41.0" prefWidth="302.0" style="&#10;" styleClass="ownStyle" text="...output..." textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="171.0" AnchorPane.rightAnchor="171.0">
+
+        <Label fx:id="lbl_toolbar" layoutY="578.0" prefHeight="10.0" prefWidth="800.0" style="&#10;" text="...output..." textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
           <font>
             <Font size="36.0" />
           </font>
         </Label>
-            <Button fx:id="btn_w" layoutX="70.0" layoutY="438.0" mnemonicParsing="false" onAction="#forward" text="W" />
-            <Button fx:id="btn_s" layoutX="72.0" layoutY="465.0" mnemonicParsing="false" onAction="#backward" text="S" />
-            <Button fx:id="btn_d" layoutX="100.0" layoutY="465.0" mnemonicParsing="false" onAction="#right" text="D" />
-            <Button fx:id="btn_a" layoutX="43.0" layoutY="465.0" mnemonicParsing="false" onAction="#left" text="A" />
-            <Slider fx:id="sldr_speed" layoutX="27.0" layoutY="521.0" prefHeight="17.0" prefWidth="112.0" showTickLabels="true" showTickMarks="true" value="50.0" AnchorPane.rightAnchor="661.0" AnchorPane.topAnchor="521.0" />
-            <TextField fx:id="txt_ipadress" layoutX="14.0" layoutY="20.0" promptText="Type in IP adress">
-               <tooltip>
-                  <Tooltip text="e.g. 192.168.1.123" />
-               </tooltip></TextField>
-            <Button fx:id="btn_connect" layoutX="174.0" layoutY="22.0" mnemonicParsing="false" onAction="#connect" prefHeight="46.0" prefWidth="95.0" text="Connect..." />
-            <TextField fx:id="txt_port" layoutX="14.0" layoutY="45.0" promptText="Port">
-               <tooltip>
-                  <Tooltip text="e.g. 34486" />
-               </tooltip></TextField>
-            <ColorPicker fx:id="col_picker" layoutX="640.0" layoutY="199.0" onAction="#colorchoice" />
-            <Label layoutX="39.0" layoutY="412.0" text="Motion control:" />
-            <Label layoutX="67.0" layoutY="497.0" text="Speed:" />
-            <Label layoutX="639.0" layoutY="14.0" text="Predefined Motions" />
-            <ListView fx:id="motion_list" layoutX="638.0" layoutY="33.0" prefHeight="97.0" prefWidth="149.0">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </ListView>
-            <Button fx:id="btn_execute" layoutX="639.0" layoutY="131.0" mnemonicParsing="false" onAction="#p_motion" prefHeight="25.0" prefWidth="149.0" text="execute" />
-            <Label layoutX="640.0" layoutY="185.0" text="pick LED Color" />
-            <Pane fx:id="pane_cam" layoutX="300.0" layoutY="298.0" prefHeight="200.0" prefWidth="200.0" />
-            <Label layoutX="300.0" layoutY="280.0" text="LiveView" />
-            <Button fx:id="btn_test" layoutX="174.0" layoutY="477.0" mnemonicParsing="false" onAction="#test" text="test" />
-            <TextField fx:id="txt_sayText" layoutX="12.0" layoutY="336.0" prefHeight="25.0" prefWidth="142.0" promptText="Fuck" />
-            <Button fx:id="btn_sayText" layoutX="13.0" layoutY="365.0" mnemonicParsing="false" onAction="#sayText" prefHeight="25.0" prefWidth="42.0" text="say" />
-            <Rectangle fx:id="head_ctrl_Background" arcHeight="5.0" arcWidth="5.0" fill="#cfcfcf" height="170.0" layoutX="640.0" layoutY="391.0" stroke="BLACK" strokeType="INSIDE" width="149.0" AnchorPane.bottomAnchor="13.799999999999955" AnchorPane.rightAnchor="11.0" />
-            <Label layoutX="675.0" layoutY="409.0" text="Head Direction:" AnchorPane.bottomAnchor="151.79999999999995" AnchorPane.rightAnchor="48.599999999999994" />
-            <Button fx:id="btn_up" layoutX="691.0" layoutY="436.0" mnemonicParsing="false" onAction="#head_up" prefHeight="25.0" prefWidth="46.0" text="up" AnchorPane.bottomAnchor="110.0" AnchorPane.rightAnchor="60.0" />
-            <Button fx:id="btn_down" layoutX="691.0" layoutY="477.0" mnemonicParsing="false" onAction="#head_down" prefHeight="25.0" prefWidth="46.0" text="down" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="60.0" />
-            <Button fx:id="btn_right" layoutX="740.0" layoutY="436.0" mnemonicParsing="false" onAction="#head_right" prefHeight="65.0" prefWidth="42.0" text="right" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="15.0" />
-            <Button fx:id="btn_left" layoutX="643.0" layoutY="436.0" mnemonicParsing="false" onAction="#head_left" prefHeight="65.0" prefWidth="46.0" text="left" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="109.0" />
-      </children>
-    </AnchorPane>
+            <GridPane hgap="8.0" layoutX="26.0" layoutY="32.0" styleClass="module" vgap="8.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <TextField fx:id="txt_ipadress" promptText="Type in IP adress">
+                     <tooltip>
+                        <Tooltip text="e.g. 192.168.1.123" />
+                     </tooltip>
+                  </TextField>
+                  <Button fx:id="btn_connect" mnemonicParsing="false" onAction="#connect" prefHeight="24.0" prefWidth="95.0" text="Connect" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin></Button>
+                  <TextField fx:id="txt_port" promptText="Port" GridPane.rowIndex="1">
+                     <tooltip>
+                        <Tooltip text="e.g. 34486" />
+                     </tooltip>
+                  </TextField>
+                  <Button fx:id="btn_connect1" disable="true" mnemonicParsing="false" onAction="#connect" prefHeight="24.0" prefWidth="95.0" text="Disconnect" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+            </GridPane>
+      <AnchorPane fx:id="pane_control" disable="true" layoutX="26.0" layoutY="32.0" prefWidth="752.0">
+         <children>
+            <AnchorPane layoutY="337.0" prefHeight="181.0" prefWidth="150.0" styleClass="module">
+               <children>
+                        <Button fx:id="btn_w" layoutX="56.0" layoutY="34.0" mnemonicParsing="false" onAction="#forward" prefHeight="30.0" prefWidth="41.0" styleClass="movingbutton" text="W" AnchorPane.leftAnchor="56.0" AnchorPane.rightAnchor="54.0" />
+                        <Button fx:id="btn_s" layoutX="56.0" layoutY="68.0" mnemonicParsing="false" onAction="#backward" styleClass="movingbutton" text="S" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="56.0" AnchorPane.rightAnchor="54.0" />
+                        <Button fx:id="btn_d" layoutX="95.0" layoutY="68.0" mnemonicParsing="false" onAction="#right" styleClass="movingbutton" text="D" AnchorPane.bottomAnchor="83.0" AnchorPane.rightAnchor="10.0" />
+                        <Button fx:id="btn_a" layoutX="10.0" layoutY="68.0" mnemonicParsing="false" onAction="#left" styleClass="movingbutton" text="A" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="10.0" />
+                        <Slider fx:id="sldr_speed" layoutX="17.0" layoutY="117.0" prefHeight="17.0" prefWidth="112.0" showTickLabels="true" showTickMarks="true" value="50.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                        <Label layoutX="12.0" styleClass="headlines" text="Body Control" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Label layoutX="-3.0" layoutY="98.0" prefHeight="24.0" prefWidth="149.0" styleClass="headlines" text="Speed:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="583.0" layoutY="363.0" prefHeight="68.0" prefWidth="169.0" styleClass="module">
+               <children>
+                        <ColorPicker fx:id="col_picker" layoutX="18.0" layoutY="34.0" onAction="#colorchoice" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                        <Label styleClass="headlines" text="pick LED Color" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="583.0" prefHeight="232.0" prefWidth="169.0" styleClass="module">
+               <children>
+                        <Label layoutX="1.0" prefHeight="14.0" prefWidth="150.0" styleClass="headlines" text="Predefined Motions" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <ListView fx:id="motion_list" layoutX="10.0" layoutY="25.0" prefHeight="164.0" prefWidth="149.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
+                        </ListView>
+                        <Button fx:id="btn_execute" layoutX="10.0" layoutY="134.0" mnemonicParsing="false" onAction="#p_motion" prefHeight="25.0" prefWidth="149.0" text="execute" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="252.0" layoutY="276.0" prefHeight="242.0" prefWidth="244.0" styleClass="module">
+               <children>
+                        <Pane fx:id="pane_cam" layoutX="22.0" layoutY="24.0" prefHeight="200.0" prefWidth="200.0" />
+                        <Label prefHeight="14.0" prefWidth="200.0" styleClass="headlines" text="LiveView" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="583.0" layoutY="439.0" prefHeight="79.0" prefWidth="169.0" styleClass="module">
+               <children>
+                        <TextField fx:id="txt_sayText" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="142.0" promptText="Fuck" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                        <Button fx:id="btn_sayText" layoutX="10.0" layoutY="46.0" mnemonicParsing="false" onAction="#sayText" prefHeight="25.0" prefWidth="149.0" text="say" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutY="204.0" prefHeight="105.0" prefWidth="150.0" styleClass="module">
+               <children>
+                        <Label layoutX="-7.0" layoutY="2.0" styleClass="headlines" text="Head Direction:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Button fx:id="btn_up" layoutX="56.0" layoutY="22.0" mnemonicParsing="false" onAction="#head_up" prefHeight="25.0" prefWidth="46.0" styleClass="movingbutton" text="I" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0" />
+                        <Button fx:id="btn_down" layoutX="56.0" layoutY="71.0" mnemonicParsing="false" onAction="#head_down" prefHeight="25.0" prefWidth="46.0" styleClass="movingbutton" text="K" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0" />
+                        <Button fx:id="btn_right" layoutX="95.0" layoutY="71.0" mnemonicParsing="false" onAction="#head_right" prefHeight="65.0" prefWidth="42.0" styleClass="movingbutton" text="L" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                        <Button fx:id="btn_left" layoutX="9.0" layoutY="71.0" mnemonicParsing="false" onAction="#head_left" prefHeight="65.0" prefWidth="46.0" styleClass="movingbutton" text="J" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <Line endX="800.0" layoutY="573.0" />
+
   </children>
-</VBox>
+</AnchorPane>
