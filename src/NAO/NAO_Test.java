@@ -7,7 +7,7 @@ public class NAO_Test {
         nao.establishConnection("tcp://127.0.0.1:35961;");
 
 
-        nao.moveHead("left");
+
 
 
 

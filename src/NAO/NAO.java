@@ -15,6 +15,7 @@ public class NAO {
     private static Application app; // = new Application(new String[] {});
     private static ALMotion motion;
     private static ALTextToSpeech tts;
+    private static ALRobotPosture pose;
 
 
 
@@ -107,6 +108,16 @@ public class NAO {
     public void checkConnection() throws ConnectionException{
         if (app.session() == null) {
             throw new ConnectionException();
+        }
+    }
+
+    public void setPostures(String posture) throws ConnectionException {
+        checkConnection();
+        try {
+            pose = new ALRobotPosture(app.session());
+            pose.goToPosture(posture, 1.0f);
+        } catch(Exception e){
+            e.printStackTrace();
         }
     }
 
