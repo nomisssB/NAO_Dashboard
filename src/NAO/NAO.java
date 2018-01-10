@@ -16,7 +16,7 @@ public class NAO {
 
     public void establishConnection(String url) {
 
-        // Versuch die Verbindung auch mehrmals aufzubauen, funktioniert aktuell nicht.
+        // Versuch die Verbindung mehrmals aufzubauen / wiederaufzubauen, funktioniert aktuell nicht.
         /*if (app.session().isConnected()) { // Check if there is already a Connection
             closeConnection(); // and close it, if so.
             System.out.println("Connection closed");
@@ -42,7 +42,10 @@ public class NAO {
         app.session().close();
     }*/
 
-    public void sayText(String text) throws Exception {
+    public void sayText(String text) throws ConnectionException {
+        if (app.session() == null) {
+            throw new ConnectionException();
+        }
         try {
             ALTextToSpeech tts = new ALTextToSpeech(app.session());
             tts.say(text);
