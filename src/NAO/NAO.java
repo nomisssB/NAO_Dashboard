@@ -6,6 +6,7 @@ import com.aldebaran.qi.helper.proxies.ALTextToSpeech;
 import javafx.event.ActionEvent;
 
 import java.util.EmptyStackException;
+import java.util.List;
 
 
 public class NAO {
@@ -53,6 +54,16 @@ public class NAO {
             e.printStackTrace();
         }
 
+    }
+
+
+    public void getPostures() throws Exception {
+        ALRobotPosture moves = new ALRobotPosture();
+        List<String> postures = moves.getPostureList();
+
+        for(int i = 0;i<postures.size();i++){
+        System.out.println(postures.get(i).toString());
+        }
     }
 
 
