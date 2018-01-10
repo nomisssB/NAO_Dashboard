@@ -55,12 +55,12 @@
             <Button fx:id="btn_d" layoutX="84.0" layoutY="280.0" mnemonicParsing="false" onAction="#right" text="D" />
             <Button fx:id="btn_a" layoutX="27.0" layoutY="280.0" mnemonicParsing="false" onAction="#left" text="A" />
             <Slider fx:id="sldr_speed" layoutX="12.0" layoutY="334.0" prefHeight="17.0" prefWidth="112.0" showTickLabels="true" showTickMarks="true" value="50.0" AnchorPane.rightAnchor="516.0" AnchorPane.topAnchor="334.0" />
-            <TextField layoutX="14.0" layoutY="20.0" promptText="Type in IP adress">
+            <TextField fx:id="txt_ipadress" layoutX="14.0" layoutY="20.0" promptText="Type in IP adress">
                <tooltip>
                   <Tooltip text="e.g. 192.168.1.123" />
                </tooltip></TextField>
             <Button fx:id="btn_connect" layoutX="174.0" layoutY="22.0" mnemonicParsing="false" onAction="#connect" prefHeight="46.0" prefWidth="95.0" text="Connect..." />
-            <TextField layoutX="14.0" layoutY="45.0" promptText="Port">
+            <TextField fx:id="txt_port" layoutX="14.0" layoutY="45.0" promptText="Port">
                <tooltip>
                   <Tooltip text="e.g. 34486" />
                </tooltip></TextField>
@@ -77,6 +77,7 @@
             <Label layoutX="493.0" layoutY="246.0" text="pick LED Color" />
             <Pane fx:id="pane_cam" layoutX="220.0" layoutY="112.0" prefHeight="200.0" prefWidth="200.0" />
             <Label layoutX="220.0" layoutY="90.0" text="LiveView" />
+            <Button fx:id="btn_test" layoutX="331.0" layoutY="45.0" mnemonicParsing="false" onAction="#test" text="test" />
       </children>
     </AnchorPane>
   </children>

@@ -10,11 +10,11 @@ import java.util.EmptyStackException;
 
 public class NAO {
     //Variabeln Deklarationen
-    private static Application app; // = new Application(new String[] {});
+    public static Application app; // = new Application(new String[] {});
 
 
 
-    public void establishConnection(String url) {
+    public static void establishConnection(String url) {
 
         // Versuch die Verbindung mehrmals aufzubauen / wiederaufzubauen, funktioniert aktuell nicht.
         /*if (app.session().isConnected()) { // Check if there is already a Connection
