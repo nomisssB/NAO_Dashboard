@@ -9,6 +9,7 @@ public class NAO_Test {
 
 
 
+        nao.getPostures();
 
 
     }
