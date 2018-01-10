@@ -19,7 +19,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="vbox_main" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="naoDash_main.Controller">
+<VBox fx:id="vbox_main" prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="naoDash_main.Controller">
   <stylesheets>
       <URL value="@style_main_scene.css" />
   </stylesheets>
@@ -44,8 +44,8 @@
     <AnchorPane fx:id="anc1" maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cfcfcf" height="164.0" layoutX="-3.0" layoutY="212.0" stroke="BLACK" strokeType="INSIDE" width="149.0" />
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="39.0" layoutX="153.0" layoutY="332.0" stroke="BLACK" strokeType="INSIDE" width="302.0" />
-        <Label fx:id="lbl_mid" alignment="CENTER" layoutX="156.0" layoutY="332.0" prefHeight="39.0" prefWidth="292.0" style="&#10;" styleClass="ownStyle" text="...output..." textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="156.0" AnchorPane.rightAnchor="192.0">
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="39.0" layoutX="171.0" layoutY="334.0" stroke="BLACK" strokeType="INSIDE" width="302.0" />
+        <Label fx:id="lbl_mid" alignment="CENTER" layoutX="171.0" layoutY="333.0" prefHeight="41.0" prefWidth="302.0" style="&#10;" styleClass="ownStyle" text="...output..." textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="171.0" AnchorPane.rightAnchor="171.0">
           <font>
             <Font size="36.0" />
           </font>
@@ -64,22 +64,28 @@
                <tooltip>
                   <Tooltip text="e.g. 34486" />
                </tooltip></TextField>
-            <ColorPicker fx:id="col_picker" layoutX="493.0" layoutY="265.0" onAction="#colorchoice" />
+            <ColorPicker fx:id="col_picker" layoutX="496.0" layoutY="181.0" onAction="#colorchoice" />
             <Label layoutX="27.0" layoutY="226.0" text="Motion control:" />
             <Label layoutX="50.0" layoutY="313.0" text="Speed:" />
             <Label layoutX="491.0" layoutY="22.0" text="Predefined Motions" />
-            <ListView fx:id="motion_list" layoutX="490.0" layoutY="41.0" prefHeight="97.0" prefWidth="130.0">
+            <ListView fx:id="motion_list" layoutX="490.0" layoutY="41.0" prefHeight="97.0" prefWidth="149.0">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
             </ListView>
-            <Button fx:id="btn_execute" layoutX="491.0" layoutY="139.0" mnemonicParsing="false" onAction="#p_motion" prefHeight="25.0" prefWidth="130.0" text="execute" />
-            <Label layoutX="493.0" layoutY="246.0" text="pick LED Color" />
-            <Pane fx:id="pane_cam" layoutX="220.0" layoutY="112.0" prefHeight="200.0" prefWidth="200.0" />
-            <Label layoutX="220.0" layoutY="90.0" text="LiveView" />
+            <Button fx:id="btn_execute" layoutX="491.0" layoutY="139.0" mnemonicParsing="false" onAction="#p_motion" prefHeight="25.0" prefWidth="149.0" text="execute" />
+            <Label layoutX="492.0" layoutY="167.0" text="pick LED Color" />
+            <Pane fx:id="pane_cam" layoutX="220.0" layoutY="102.0" prefHeight="224.0" prefWidth="200.0" />
+            <Label layoutX="220.0" layoutY="83.0" text="LiveView" />
             <Button fx:id="btn_test" layoutX="331.0" layoutY="45.0" mnemonicParsing="false" onAction="#test" text="test" />
             <TextField fx:id="txt_sayText" layoutX="14.0" layoutY="104.0" promptText="Fuck" />
             <Button fx:id="btn_sayText" layoutX="14.0" layoutY="139.0" mnemonicParsing="false" onAction="#sayText" text="say" />
+            <Rectangle fx:id="head_ctrl_Background" arcHeight="5.0" arcWidth="5.0" fill="#cfcfcf" height="170.0" layoutX="495.0" layoutY="208.0" stroke="BLACK" strokeType="INSIDE" width="149.0" />
+            <Label layoutX="530.0" layoutY="226.0" text="Head Direction:" />
+            <Button fx:id="btn_up" layoutX="546.0" layoutY="253.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="46.0" text="up" />
+            <Button fx:id="btn_down" layoutX="546.0" layoutY="294.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="46.0" text="down" />
+            <Button fx:id="btn_right" layoutX="595.0" layoutY="253.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="42.0" text="right" />
+            <Button fx:id="btn_left" layoutX="498.0" layoutY="253.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="46.0" text="left" />
       </children>
     </AnchorPane>
   </children>
