@@ -41,7 +41,10 @@ public class Controller {
     public TextField txt_ipadress;
     public TextField txt_port;
     public TextField txt_sayText;
-
+    public Button btn_right;
+    public Button btn_left;
+    public Button btn_up;
+    public Button btn_down;
     public Controller(){
 
 
@@ -75,6 +78,10 @@ public class Controller {
                 case A: logger.info("Button A");btn_a.fire(); break;
                 case S: logger.info("Button S");btn_s.fire(); break;
                 case D: logger.info("Button D");btn_d.fire(); break;
+                case I: logger.info("Button I");btn_up.fire(); break;
+                case K: logger.info("Button K");btn_down.fire(); break;
+                case J: logger.info("Button J");btn_left.fire(); break;
+                case L: logger.info("Button L");btn_right.fire(); break;
             }
         });
 
