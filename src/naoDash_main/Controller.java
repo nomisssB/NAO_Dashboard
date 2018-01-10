@@ -33,12 +33,14 @@ public class Controller {
     public Button btn_w;
     public Button btn_connect;
     public Button btn_execute;
+    public Button btn_sayText;
     public Label lbl_mid;
     public ColorPicker col_picker;
     public ListView motion_list;
     public Pane pane_cam;
     public TextField txt_ipadress;
     public TextField txt_port;
+    public TextField txt_sayText;
 
     public Controller(){
 
@@ -110,17 +112,14 @@ public class Controller {
 
         nao1.establishConnection(robotURL);
 
-////        NAO.establishConnection(robotURL);
-////        if (NAO.app != null){
-//            System.out.println("success");
-//        }
-//        else {
+
 //            Alert alert = new Alert(Alert.AlertType.WARNING);
 //            alert.setTitle("Warning");
 //            alert.setHeaderText("Connection to " + robotURL + "failed!");
 //            alert.setContentText("Try again");
 //            alert.showAndWait();
-//        }
+
+
     }
 
     public void colorchoice(ActionEvent actionEvent) {
@@ -149,7 +148,12 @@ public class Controller {
     }
 
     public void test(ActionEvent actionEvent) throws Exception {
-       nao1.sayText("Hello");
+
+    }
+
+    public void sayText(ActionEvent actionEvent) throws Exception{
+        String TextToSay = txt_sayText.getText().toString();
+        nao1.sayText(TextToSay);
     }
 }
 
