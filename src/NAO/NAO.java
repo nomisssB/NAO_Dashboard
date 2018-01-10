@@ -57,17 +57,16 @@ public class NAO {
     }
 
 
-    public void getPostures() throws Exception {
-        ALRobotPosture moves = new ALRobotPosture();
+    public List<String> getPostures() throws Exception{
+        ALRobotPosture moves = new ALRobotPosture(app.session());
         List<String> postures = moves.getPostureList();
 
-        for(int i = 0;i<postures.size();i++){
-        System.out.println(postures.get(i).toString());
-        }
+        return postures;
+    }
     }
 
 
 
 
 
-}
+

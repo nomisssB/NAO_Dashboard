@@ -8,7 +8,6 @@ public class NAO_Test {
 
         nao.sayText("test1");
 
-        nao.getPostures();
 
 
     }
