@@ -1,5 +1,6 @@
 package naoDash_main;
 
+import NAO.NAO;
 import javafx.collections.FXCollections;
 import javafx.collections.FXCollections.*;
 import javafx.collections.ObservableList;
@@ -20,6 +21,7 @@ public class Controller {
 
     public double motionspeed = 0;
     public Color color;
+    public String robotURL;
 
     @FXML
     public VBox vbox_main;
@@ -34,18 +36,20 @@ public class Controller {
     public ColorPicker col_picker;
     public ListView motion_list;
     public Pane pane_cam;
-    public ChoiceBox set_language;
-
-
-
+    public TextField txt_ipadress;
+    public TextField txt_port;
 
     public Controller(){
+
 
 
     }
 
     @FXML
     public void initialize() throws IOException {
+
+
+
         //Logger um Events und Fehler zu dokumentieren. Log Datei unter root\main_log.log (XML)
         FileHandler handler = new FileHandler("main_log.log", true);
         Logger logger = Logger.getLogger("NAODash Logger");
@@ -53,7 +57,7 @@ public class Controller {
 
 //        Abfangen von Werten des Sliders
         sldr_speed.valueProperty().addListener((observable, oldValue, newValue) -> {
-            logger.info("value Slider changed to:" + newValue.intValue());
+//            logger.info("value Slider changed to:" + newValue.intValue());
             lbl_mid.setText("value: " + newValue.intValue());
             motionspeed = newValue.intValue();
 
@@ -63,8 +67,8 @@ public class Controller {
 
         //Abfangen von KeyEvents
         vbox_main.setOnKeyPressed(e ->{
-                switch (e.getCode()){
-                case W: logger.info("Button W");btn_w.fire(); break;
+            switch (e.getCode()){
+                case W:  logger.info("Button W");btn_w.fire(); break;
                 case A: logger.info("Button A");btn_a.fire(); break;
                 case S: logger.info("Button S");btn_s.fire(); break;
                 case D: logger.info("Button D");btn_d.fire(); break;
@@ -76,14 +80,7 @@ public class Controller {
                 "Crouch","Sit down","stand up","dance","shutDown");
         motion_list.setItems(items);
         //Nur Auswählen eines Eintrages möglich:
-         motion_list.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-
-
-
-         // CHOICEBOX
-        ObservableList<String> languages = FXCollections.observableArrayList(
-                "ger","en");
-        set_language.setItems(languages);
+         motion_list.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
 
 
@@ -107,14 +104,19 @@ public class Controller {
     }
     public void connect(ActionEvent actionEvent) {
         lbl_mid.setText("connect");
+        robotURL = "tcp:\\" + txt_ipadress.getText().toString() + ":" + txt_port.getText().toString();
 
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Warning");
-        alert.setHeaderText("Connection failed!");
-        alert.setContentText("Try again");
-
-        alert.showAndWait();
-
+        NAO.establishConnection(robotURL);
+        if (NAO.app != null){
+            System.out.println("success");
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Connection to " + robotURL + "failed!");
+            alert.setContentText("Try again");
+            alert.showAndWait();
+        }
     }
 
     public void colorchoice(ActionEvent actionEvent) {
@@ -140,6 +142,10 @@ public class Controller {
     public void p_motion(ActionEvent actionEvent) {
        String motion =  motion_list.getSelectionModel().getSelectedItem().toString();
         lbl_mid.setText("execute " + motion);
+    }
+
+    public void test(ActionEvent actionEvent) {
+//        nao.sayText("Hello");
     }
 }
 
