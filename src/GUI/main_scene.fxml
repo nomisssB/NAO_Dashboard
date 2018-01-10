@@ -82,10 +82,10 @@
             <Button fx:id="btn_sayText" layoutX="13.0" layoutY="365.0" mnemonicParsing="false" onAction="#sayText" prefHeight="25.0" prefWidth="42.0" text="say" />
             <Rectangle fx:id="head_ctrl_Background" arcHeight="5.0" arcWidth="5.0" fill="#cfcfcf" height="170.0" layoutX="640.0" layoutY="391.0" stroke="BLACK" strokeType="INSIDE" width="149.0" AnchorPane.bottomAnchor="13.799999999999955" AnchorPane.rightAnchor="11.0" />
             <Label layoutX="675.0" layoutY="409.0" text="Head Direction:" AnchorPane.bottomAnchor="151.79999999999995" AnchorPane.rightAnchor="48.599999999999994" />
-            <Button fx:id="btn_up" layoutX="691.0" layoutY="436.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="46.0" text="up" AnchorPane.bottomAnchor="110.0" AnchorPane.rightAnchor="60.0" />
-            <Button fx:id="btn_down" layoutX="691.0" layoutY="477.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="46.0" text="down" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="60.0" />
-            <Button fx:id="btn_right" layoutX="740.0" layoutY="436.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="42.0" text="right" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="15.0" />
-            <Button fx:id="btn_left" layoutX="643.0" layoutY="436.0" mnemonicParsing="false" prefHeight="65.0" prefWidth="46.0" text="left" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="109.0" />
+            <Button fx:id="btn_up" layoutX="691.0" layoutY="436.0" mnemonicParsing="false" onAction="#head_up" prefHeight="25.0" prefWidth="46.0" text="up" AnchorPane.bottomAnchor="110.0" AnchorPane.rightAnchor="60.0" />
+            <Button fx:id="btn_down" layoutX="691.0" layoutY="477.0" mnemonicParsing="false" onAction="#head_down" prefHeight="25.0" prefWidth="46.0" text="down" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="60.0" />
+            <Button fx:id="btn_right" layoutX="740.0" layoutY="436.0" mnemonicParsing="false" onAction="#head_right" prefHeight="65.0" prefWidth="42.0" text="right" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="15.0" />
+            <Button fx:id="btn_left" layoutX="643.0" layoutY="436.0" mnemonicParsing="false" onAction="#head_left" prefHeight="65.0" prefWidth="46.0" text="left" AnchorPane.bottomAnchor="70.0" AnchorPane.rightAnchor="109.0" />
       </children>
     </AnchorPane>
   </children>

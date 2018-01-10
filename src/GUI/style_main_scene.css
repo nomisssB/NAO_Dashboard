@@ -1,5 +1,19 @@
 
 /*for a whole class*/
+
+.VBox {
+    -fx-background-color: #f3f3f3;
+}
+
+.Rectangle {
+    -fx-background-color: #bfbfbf;
+}
+
+
+.button{
+    -fx-background-radius: 0;
+    -fx-background-color: #f0f0f0;
+}
 .button.button_strong {
     -fx-font-family: "Arial Black";
 }
@@ -9,8 +23,11 @@
 }
 
 /*styleclass*/
-.ownStyle{
-    -fx-font-size: 20pt;
+.toolbar_info{
+    -fx-font-size: 10pt;
+    -fx-text-fill: #8e8e8e;
+    -fx-font-family: Dialog;
+    -fx-alignment: left;
 }
 
 .label {

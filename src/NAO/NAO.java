@@ -111,18 +111,18 @@ public class NAO {
     }
 
 
-    public void getPostures() throws ConnectionException {
+    public List<String> getPostures() throws ConnectionException {
         checkConnection();
         ALRobotPosture moves = null;
         try {
             moves = new ALRobotPosture(app.session());
             List<String> postures = moves.getPostureList();
-            for(int i = 0;i<postures.size();i++){
-                System.out.println(postures.get(i).toString());
-            }
+            return postures;
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return null;
     }
 
 

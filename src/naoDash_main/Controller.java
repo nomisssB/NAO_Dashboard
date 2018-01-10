@@ -111,6 +111,8 @@ public class Controller {
 
     public void right(ActionEvent actionEvent) {
         lbl_mid.setText("right");
+
+
     }
     public void connect(ActionEvent actionEvent) {
         lbl_mid.setText("connect");
@@ -163,6 +165,26 @@ public class Controller {
     public void sayText(ActionEvent actionEvent) throws Exception{
         String TextToSay = txt_sayText.getText().toString();
         nao1.sayText(TextToSay);
+    }
+
+
+
+        //Methods for Head-Control
+
+    public void head_up(ActionEvent actionEvent) throws Exception{
+        nao1.moveHead("up");
+    }
+
+    public void head_down(ActionEvent actionEvent) throws Exception{
+        nao1.moveHead("down");
+    }
+
+    public void head_left(ActionEvent actionEvent) throws Exception{
+        nao1.moveHead("left");
+    }
+
+    public void head_right(ActionEvent actionEvent) throws Exception{
+        nao1.moveHead("right");
     }
 }
 
