@@ -1,5 +1,6 @@
 package naoDash_main;
 
+import NAO.NAO;
 import javafx.collections.FXCollections;
 import javafx.collections.FXCollections.*;
 import javafx.collections.ObservableList;
@@ -20,6 +21,7 @@ public class Controller {
 
     public double motionspeed = 0;
     public Color color;
+    public String robotURL;
 
     @FXML
     public VBox vbox_main;
@@ -34,15 +36,20 @@ public class Controller {
     public ColorPicker col_picker;
     public ListView motion_list;
     public Pane pane_cam;
-
+    public TextField txt_ipadress;
+    public TextField txt_port;
 
     public Controller(){
+
 
 
     }
 
     @FXML
     public void initialize() throws IOException {
+
+
+
         //Logger um Events und Fehler zu dokumentieren. Log Datei unter root\main_log.log (XML)
         FileHandler handler = new FileHandler("main_log.log", true);
         Logger logger = Logger.getLogger("NAODash Logger");
@@ -97,14 +104,19 @@ public class Controller {
     }
     public void connect(ActionEvent actionEvent) {
         lbl_mid.setText("connect");
+        robotURL = "tcp:\\" + txt_ipadress.getText().toString() + ":" + txt_port.getText().toString();
 
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Warning");
-        alert.setHeaderText("Connection failed!");
-        alert.setContentText("Try again");
-
-        alert.showAndWait();
-
+        NAO.establishConnection(robotURL);
+        if (NAO.app != null){
+            System.out.println("success");
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Warning");
+            alert.setHeaderText("Connection to " + robotURL + "failed!");
+            alert.setContentText("Try again");
+            alert.showAndWait();
+        }
     }
 
     public void colorchoice(ActionEvent actionEvent) {
@@ -130,6 +142,10 @@ public class Controller {
     public void p_motion(ActionEvent actionEvent) {
        String motion =  motion_list.getSelectionModel().getSelectedItem().toString();
         lbl_mid.setText("execute " + motion);
+    }
+
+    public void test(ActionEvent actionEvent) {
+//        nao.sayText("Hello");
     }
 }
 
