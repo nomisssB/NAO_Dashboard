@@ -22,6 +22,7 @@ public class Controller {
     public double motionspeed = 0;
     public Color color;
     public String robotURL;
+    public NAO nao1;
 
     @FXML
     public VBox vbox_main;
@@ -104,19 +105,22 @@ public class Controller {
     }
     public void connect(ActionEvent actionEvent) {
         lbl_mid.setText("connect");
-        robotURL = "tcp:\\" + txt_ipadress.getText().toString() + ":" + txt_port.getText().toString();
+        robotURL = "tcp://" + txt_ipadress.getText().toString() + ":" + txt_port.getText().toString();
+        nao1 = new NAO();
 
-        NAO.establishConnection(robotURL);
-        if (NAO.app != null){
-            System.out.println("success");
-        }
-        else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Warning");
-            alert.setHeaderText("Connection to " + robotURL + "failed!");
-            alert.setContentText("Try again");
-            alert.showAndWait();
-        }
+        nao1.establishConnection(robotURL);
+
+////        NAO.establishConnection(robotURL);
+////        if (NAO.app != null){
+//            System.out.println("success");
+//        }
+//        else {
+//            Alert alert = new Alert(Alert.AlertType.WARNING);
+//            alert.setTitle("Warning");
+//            alert.setHeaderText("Connection to " + robotURL + "failed!");
+//            alert.setContentText("Try again");
+//            alert.showAndWait();
+//        }
     }
 
     public void colorchoice(ActionEvent actionEvent) {
@@ -144,8 +148,8 @@ public class Controller {
         lbl_mid.setText("execute " + motion);
     }
 
-    public void test(ActionEvent actionEvent) {
-//        nao.sayText("Hello");
+    public void test(ActionEvent actionEvent) throws Exception {
+       nao1.sayText("Hello");
     }
 }
 
