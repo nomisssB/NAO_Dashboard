@@ -107,10 +107,12 @@ public class Controller {
     }
     public void connect(ActionEvent actionEvent) {
         lbl_mid.setText("connect");
-        robotURL = "tcp://" + txt_ipadress.getText().toString() + ":" + txt_port.getText().toString();
+        robotURL = "tcp://" + txt_ipadress.getText() + ":" + txt_port.getText();
         nao1 = new NAO();
 
         nao1.establishConnection(robotURL);
+
+
 
 
 //            Alert alert = new Alert(Alert.AlertType.WARNING);
