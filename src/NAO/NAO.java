@@ -61,11 +61,45 @@ public class NAO {
         checkConnection();
         try {
             motion = new ALMotion(app.session());
-            motion.stiffnessInterpolation("HeadYaw", 1.0f, 0.1f);
-            motion.angleInterpolation("HeadYaw", left-right, 0.1f, false);
-            motion.angleInterpolation("HeadPitch", up-down, 0.1f, false);
-            motion.stiffnessInterpolation("HeadYaw", 0.0f, 0.1f);
+            // motion.stiffnessInterpolation("HeadYaw", 1.0f, 0.1f); // Apparently not needed, but kept here, if needed later
+            motion.angleInterpolation("HeadYaw", left-right, 0.1f, false); // move Head left right
+            motion.angleInterpolation("HeadPitch", down-up, 0.1f, false); // move Head up down
+            //motion.stiffnessInterpolation("HeadYaw", 0.0f, 0.1f); // Apparently not needed, but kept here, if needed later
         } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void moveHead(String direction) throws ConnectionException{
+        checkConnection();
+        String joint; // Moving horizontal ("HeadPitch") or vertical ("HeadYaw")
+        float move; // moving up/right (negative value) or down/left (positive value)
+        switch (direction){ // set variables for the correct movement
+            case "up":
+                move = -0.1f;
+                joint = "HeadPitch";
+                break;
+            case "down":
+                move = 0.1f;
+                joint = "HeadPitch";
+                break;
+            case "right":
+                move = -0.1f;
+                joint = "HeadYaw";
+                break;
+            case "left":
+                move = 0.1f;
+                joint = "HeadYaw";
+                break;
+            default:
+                move = 99f;
+                joint = "HeadPitch";
+                break;
+        }
+        try {
+            motion = new ALMotion(app.session());
+            motion.angleInterpolation(joint, move, 0.01f, false);
+        } catch(Exception e){
             e.printStackTrace();
         }
     }
@@ -77,16 +111,22 @@ public class NAO {
     }
 
 
-    public List<String> getPostures() throws Exception{
-        ALRobotPosture moves = new ALRobotPosture(app.session());
-        List<String> postures = moves.getPostureList();
-
-        return postures;
+    public void getPostures() throws ConnectionException {
+        checkConnection();
+        ALRobotPosture moves = null;
+        try {
+            moves = new ALRobotPosture(app.session());
+            List<String> postures = moves.getPostureList();
+            for(int i = 0;i<postures.size();i++){
+                System.out.println(postures.get(i).toString());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-    }
 
 
 
 
 
-
+}

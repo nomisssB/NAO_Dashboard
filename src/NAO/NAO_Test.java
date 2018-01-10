@@ -4,9 +4,10 @@ public class NAO_Test {
     public static void main(String[] args) throws Exception {
         NAO nao = new NAO();
 
-        nao.establishConnection("tcp://127.0.0.1:43129;");
+        nao.establishConnection("tcp://127.0.0.1:35961;");
 
 
+        nao.moveHead("left");
 
 
 
