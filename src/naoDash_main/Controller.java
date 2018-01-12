@@ -1,5 +1,6 @@
 package naoDash_main;
 
+import GUI.InputParse;
 import NAO.NAO;
 import javafx.collections.FXCollections;
 import javafx.collections.FXCollections.*;
@@ -16,6 +17,8 @@ import javafx.scene.paint.Color;
 import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class Controller {
@@ -34,6 +37,7 @@ public class Controller {
     public Button btn_d;
     public Button btn_w;
     public Button btn_connect;
+    public Button btn_disconnect;
     public Button btn_execute;
     public Button btn_sayText;
     public ColorPicker col_picker;
@@ -102,14 +106,45 @@ public class Controller {
     //Button Connect
 
     public void connect(ActionEvent actionEvent) {
-        lbl_toolbar.setText("connect");
-        robotURL = "tcp://" + txt_ipadress.getText() + ":" + txt_port.getText();
-        nao1 = new NAO();
 
-        nao1.establishConnection(robotURL);
+        InputParse parser = new InputParse();
+        String warning="";
 
-        pane_control.setDisable(false);
+        //folgendes ist noch vereinfachbar
 
+        if(!parser.validateIP(txt_ipadress.getText()) || !parser.validatePort(txt_port.getText())){
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Wrong Input");
+            alert.setHeaderText("Please check your Input");
+            if(txt_ipadress.getText().isEmpty() == true){
+                warning = "Please type in an IP address!";
+            }
+            else if (!parser.validateIP(txt_ipadress.getText())) {
+                warning = txt_ipadress.getText() + " is not a valid IP address!";
+            }
+            if(txt_port.getText().isEmpty() == true){
+                warning = warning + "\n" + "Please type in a port number!";
+            }
+            else if (!parser.validatePort(txt_port.getText())){
+                warning = warning + "\n" + txt_port.getText() + " is not a valid port number!";
+            }
+            alert.setContentText(warning);
+            alert.showAndWait();
+        } else {
+            lbl_toolbar.setText("connect");
+            robotURL = "tcp://" + txt_ipadress.getText() + ":" + txt_port.getText();
+//            nao1 = new NAO();
+//            nao1.establishConnection(robotURL);
+            pane_control.setDisable(false);
+            btn_connect.setDisable(true);
+            btn_disconnect.setDisable(false);
+        }
+    }
+
+    public void disconnect(ActionEvent actionEvent) {
+        pane_control.setDisable(true);
+        btn_connect.setDisable(false);
+        btn_disconnect.setDisable(true);
     }
 
     //#####################  HEAD-CONTROL ##################
@@ -189,9 +224,6 @@ public class Controller {
        String motion =  motion_list.getSelectionModel().getSelectedItem().toString();
         lbl_toolbar.setText("execute " + motion);
     }
-
-
-
 
 
 
