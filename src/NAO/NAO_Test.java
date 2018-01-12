@@ -6,14 +6,7 @@ public class NAO_Test {
 
         nao.establishConnection("tcp://127.0.0.1:36723;");
 
-
-        nao.sayText("test1");
-
-        Thread.sleep(500);
-
-        nao.establishConnection("tcp://127.0.0.1:43207;");
-
-        nao.sayText("teste2");
+        nao.execPosture("Crouch");
 
 
 

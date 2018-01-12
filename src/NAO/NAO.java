@@ -1,6 +1,7 @@
 package NAO;
 
 import com.aldebaran.qi.Application;
+import com.aldebaran.qi.helper.proxies.ALLeds;
 import com.aldebaran.qi.helper.proxies.ALMotion;
 import com.aldebaran.qi.helper.proxies.ALRobotPosture;
 import com.aldebaran.qi.helper.proxies.ALTextToSpeech;
@@ -45,6 +46,22 @@ public class NAO {
         }
     }
 
+    public void checkConnection() throws ConnectionException{
+        if (app.session() == null) {
+            throw new ConnectionException();
+        }
+    }
+
+    public void rasta() throws ConnectionException{ // first LED test, but not working with Choregraphe
+        checkConnection();
+        try {
+            ALLeds led = new ALLeds(app.session());
+            led.rasta(3.0f);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void sayText(String text) throws ConnectionException {
         checkConnection();
         try {
@@ -56,6 +73,7 @@ public class NAO {
     }
 
     public void moveHead(float left, float right, float down, float up) throws ConnectionException{ // unfertig #testing
+        // not save, if motion.stiffnessInterpolation is needed. Should be tested with real NAO. (TODO)
         checkConnection();
         try {
             motion = new ALMotion(app.session());
@@ -69,6 +87,7 @@ public class NAO {
     }
 
     public void moveHead(String direction) throws ConnectionException{
+        // not save, if motion.stiffnessInterpolation is needed. Should be tested with real NAO. (TODO)
         checkConnection();
         String joint; // Moving horizontal ("HeadPitch") or vertical ("HeadYaw")
         float move; // moving up/right (negative value) or down/left (positive value)
@@ -102,13 +121,9 @@ public class NAO {
         }
     }
 
-    public void checkConnection() throws ConnectionException{
-        if (app.session() == null) {
-            throw new ConnectionException();
-        }
-    }
 
-    public void setPostures(String posture) throws ConnectionException {
+
+    public void execPosture(String posture) throws ConnectionException {
         checkConnection();
         try {
             pose = new ALRobotPosture(app.session());
@@ -117,7 +132,6 @@ public class NAO {
             e.printStackTrace();
         }
     }
-
 
     public List<String> getPostures() throws ConnectionException {
         checkConnection();
@@ -131,9 +145,4 @@ public class NAO {
 
         return null;
     }
-
-
-
-
-
 }

@@ -134,8 +134,8 @@ public class Controller {
         } else {
             lbl_toolbar.setText("connect");
             robotURL = "tcp://" + txt_ipadress.getText() + ":" + txt_port.getText();
-//            nao1 = new NAO();
-//            nao1.establishConnection(robotURL);
+            nao1 = new NAO();
+            nao1.establishConnection(robotURL);
             pane_control.setDisable(false);
             btn_connect.setDisable(true);
             btn_disconnect.setDisable(false);
