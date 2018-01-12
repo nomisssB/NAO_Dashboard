@@ -20,33 +20,30 @@ public class NAO {
 
 
     public void establishConnection(String url) {
-
-        // Versuch die Verbindung mehrmals aufzubauen / wiederaufzubauen, funktioniert aktuell nicht.
-        /*if (app.session().isConnected()) { // Check if there is already a Connection
-            closeConnection(); // and close it, if so.
-            System.out.println("Connection closed");
-        }
-        try {
-            app.session().connect(url); // Try Connection
-            System.out.println("connection_success");
-        } catch(Exception e){
-            System.out.println("connection_failed");
-            return false;               // Connection failed
-        }
-        return true;                    // Connection established
-    }*/
-        try {
-            app = new Application(new String[]{}, url);
-            app.start();
-            System.out.println("App has been started");
-        } catch (Exception e) {
-            e.printStackTrace();
+        if ( app != null){ // falls Verbindung schon besteht, soll sie neu aufgebaut werden
+            closeConnection(); // funktioniert allerdings noch nicht.
+            try {
+                app.session().connect(url);
+                app.start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else { // Establish a new connection, if there wasn't one yet.
+            try {
+                app = new Application(new String[]{}, url);
+                app.start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
-    /*public void closeConnection(){
-        app.session().close();
-    }*/
+    public void closeConnection(){
+        if ( app != null) {
+            app.session().close();
+            app.stop();
+        }
+    }
 
     public void sayText(String text) throws ConnectionException {
         checkConnection();
