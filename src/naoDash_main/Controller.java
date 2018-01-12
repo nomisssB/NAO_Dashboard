@@ -1,6 +1,7 @@
 package naoDash_main;
 
 import GUI.InputParse;
+import NAO.ConnectionException;
 import NAO.NAO;
 import javafx.collections.FXCollections;
 import javafx.collections.FXCollections.*;
@@ -14,7 +15,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
@@ -83,21 +87,18 @@ public class Controller {
         //Abfangen von KeyEvents
         pane_main.setOnKeyPressed(e ->{
             switch (e.getCode()){
-                case W: logger.info("Button W");btn_w.fire(); break;
-                case A: logger.info("Button A");btn_a.fire(); break;
-                case S: logger.info("Button S");btn_s.fire(); break;
-                case D: logger.info("Button D");btn_d.fire(); break;
-                case I: logger.info("Button I");btn_up.fire(); break;
-                case K: logger.info("Button K");btn_down.fire(); break;
-                case J: logger.info("Button J");btn_left.fire(); break;
-                case L: logger.info("Button L");btn_right.fire(); break;
+                case W: btn_w.fire(); break;
+                case A: btn_a.fire(); break;
+                case S: btn_s.fire(); break;
+                case D: btn_d.fire(); break;
+                case I: btn_up.fire(); break;
+                case K: btn_down.fire(); break;
+                case J: btn_left.fire(); break;
+                case L: btn_right.fire(); break;
             }
         });
 
-//        //Füllen der ListView mit einer ArrayList
-//        ObservableList<String> items = FXCollections.observableArrayList(
-//                "Crouch","Sit down","stand up","dance","shutDown");
-//        motion_list.setItems(items);
+
         //Nur Auswählen eines Eintrages möglich:
          motion_list.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
@@ -140,6 +141,19 @@ public class Controller {
             btn_connect.setDisable(true);
             btn_disconnect.setDisable(false);
             fillPostureList(nao1.getPostures());
+        }
+
+        PrintWriter writeSettings = null;
+        try {
+            writeSettings = new PrintWriter(new BufferedWriter(new FileWriter("settings.txt")));
+            writeSettings.println(robotURL);
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        } finally {
+            if (writeSettings != null){
+                writeSettings.flush();
+                writeSettings.close();
+            }
         }
     }
 
@@ -229,6 +243,11 @@ public class Controller {
 
     public void p_motion(ActionEvent actionEvent) {
        String motion =  motion_list.getSelectionModel().getSelectedItem().toString();
+        try {
+            nao1.execPosture(motion);
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+        }
         lbl_toolbar.setText("execute " + motion);
     }
 
