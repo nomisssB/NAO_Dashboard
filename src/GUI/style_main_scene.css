@@ -1,49 +1,70 @@
 
-/*for a whole class*/
-
-.VBox {
-    -fx-background-color: #f3f3f3;
-}
-
-.Rectangle {
-    -fx-background-color: #bfbfbf;
-}
 
 
+
+/*Button-Style*/
 .button{
     -fx-background-radius: 0;
-    -fx-background-color: #f0f0f0;
+    -fx-background-color: #cdcdcd;
+
 }
-.button.button_strong {
-    -fx-font-family: "Arial Black";
-}
-/*for a single element*/
-.button.button_light {
-    -fx-font-family: "Arial";
+.button:hover{
+    -fx-background-color: #d8d8d8;
 }
 
-/*styleclass*/
-.toolbar_info{
-    -fx-font-size: 10pt;
-    -fx-text-fill: #8e8e8e;
-    -fx-font-family: Dialog;
-    -fx-alignment: left;
+.button.movingbutton{
+    -fx-font-weight: bold;
+    -fx-font-size: 14;
+    -fx-text-fill: white;
+    -fx-pref-height: 20px;
+    -fx-pref-width: 40px;
+    -fx-background-color: #1d4360;
 }
 
-.label {
+.button.movingbutton:hover{
+    -fx-background-color: #357aaf;
+}
+
+/*Label-Style*/
+.headlines {
     -fx-font-family: "Calibri";
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-alignment: center;
+    -fx-padding: 5px;
 }
 
-#lbl_mid {
-    -fx-font-family: "Arial Black";
+/*Styleclasses*/
+
+.module {
+    -fx-background-color: rgba(0, 0, 0, 0.5);
+    -fx-background-radius: 2;
+
+}
+
+/*Single Elements*/
+
+#pane_main {
+    -fx-background-image: url("/pic/nao.jpg");
+    -fx-background-size: stretch;
 }
 
 #pane_cam {
-    -fx-background-color: #ffffff;
+    -fx-background-image: url("/pic/cam.png");
+    -fx-background-color: rgba(255,255,255,0.7);
+    -fx-background-size: cover;
 }
-#background_Text2speech{
 
-    -fx-background-color: ThreeDShadow;
+#lbl_toolbar{
+    -fx-font-size: 10pt;
+    -fx-text-fill: #8e8e8e;
+    -fx-font-family: Dialog;
+    -fx-alignment: center-left;
+    -fx-padding: 1px;
+}
+
+#menu1{
+    -fx-text-fill: #000000;
 }
 
 
