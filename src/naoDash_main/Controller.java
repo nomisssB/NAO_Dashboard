@@ -1,29 +1,23 @@
 package naoDash_main;
 
+import GUI.Configurator;
 import GUI.InputParse;
 import NAO.ConnectionException;
 import NAO.NAO;
 import javafx.collections.FXCollections;
-import javafx.collections.FXCollections.*;
 import javafx.collections.ObservableList;
 import javafx.fxml.*;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class Controller {
@@ -32,6 +26,8 @@ public class Controller {
     private Color color;
     private String robotURL;
     private NAO nao1;
+    private String configFile = "config.xml";
+    private Configurator configurator = new Configurator();
 
     @FXML
     public AnchorPane pane_main;
@@ -60,14 +56,16 @@ public class Controller {
 
     public Controller(){
 
-
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            public void run() {
+               saveConfig();
+            }
+        }));
 
     }
 
     @FXML
     public void initialize() throws IOException {
-
-
 
         //Logger um Events und Fehler zu dokumentieren. Log Datei unter root\main_log.log (XML)
         FileHandler handler = new FileHandler("main_log.log", true);
@@ -99,8 +97,13 @@ public class Controller {
         });
 
 
-        //Nur Auswählen eines Eintrages möglich:
-         motion_list.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        //Laden der Config
+
+        configurator.loader(configFile);
+
+            txt_ipadress.setText(Configurator.props.getProperty("ipAddress"));
+            txt_port.setText(Configurator.props.getProperty("port"));
+            System.out.println(Configurator.props.getProperty("ipAddress"));
     }
 
 
@@ -143,18 +146,7 @@ public class Controller {
             fillPostureList(nao1.getPostures());
         }
 
-        PrintWriter writeSettings = null;
-        try {
-            writeSettings = new PrintWriter(new BufferedWriter(new FileWriter("settings.txt")));
-            writeSettings.println(robotURL);
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        } finally {
-            if (writeSettings != null){
-                writeSettings.flush();
-                writeSettings.close();
-            }
-        }
+
     }
 
     public void disconnect(ActionEvent actionEvent) {
@@ -239,8 +231,6 @@ public class Controller {
 
     }
 
-
-
     public void p_motion(ActionEvent actionEvent) {
        String motion =  motion_list.getSelectionModel().getSelectedItem().toString();
         try {
@@ -251,6 +241,10 @@ public class Controller {
         lbl_toolbar.setText("execute " + motion);
     }
 
+    public void saveConfig(){
+        configurator.saver(configFile,"ipAddress",txt_ipadress.getText());
+        configurator.saver(configFile,"port",txt_port.getText());
+    }
 
 
 }
