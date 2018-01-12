@@ -127,8 +127,7 @@ public class NAO {
         ALRobotPosture moves = null;
         try {
             moves = new ALRobotPosture(app.session());
-            List<String> postures = moves.getPostureList();
-            return postures;
+            return moves.getPostureList();
         } catch (Exception e) {
             e.printStackTrace();
         }

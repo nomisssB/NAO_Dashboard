@@ -15,6 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -93,10 +94,10 @@ public class Controller {
             }
         });
 
-        //Füllen der ListView mit einer ArrayList
-        ObservableList<String> items = FXCollections.observableArrayList(
-                "Crouch","Sit down","stand up","dance","shutDown");
-        motion_list.setItems(items);
+//        //Füllen der ListView mit einer ArrayList
+//        ObservableList<String> items = FXCollections.observableArrayList(
+//                "Crouch","Sit down","stand up","dance","shutDown");
+//        motion_list.setItems(items);
         //Nur Auswählen eines Eintrages möglich:
          motion_list.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
     }
@@ -105,7 +106,7 @@ public class Controller {
     //#####################  CONNECTION ##################
     //Button Connect
 
-    public void connect(ActionEvent actionEvent) {
+    public void connect(ActionEvent actionEvent) throws Exception {
 
         InputParse parser = new InputParse();
         String warning="";
@@ -138,6 +139,7 @@ public class Controller {
             pane_control.setDisable(false);
             btn_connect.setDisable(true);
             btn_disconnect.setDisable(false);
+            fillPostureList(nao1.getPostures());
         }
     }
 
@@ -145,6 +147,11 @@ public class Controller {
         pane_control.setDisable(true);
         btn_connect.setDisable(false);
         btn_disconnect.setDisable(true);
+    }
+
+    private void fillPostureList(List<String> inputList){
+        ObservableList<String> insert = FXCollections.observableArrayList(inputList);
+        motion_list.setItems(insert);
     }
 
     //#####################  HEAD-CONTROL ##################
