@@ -51,7 +51,7 @@
             <Font size="36.0" />
           </font>
         </Label>
-      <AnchorPane fx:id="pane_control" disable="true" layoutX="26.0" layoutY="32.0" prefWidth="752.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
+      <AnchorPane fx:id="pane_control" layoutX="26.0" layoutY="32.0" prefWidth="752.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
          <children>
             <AnchorPane layoutY="337.0" prefHeight="181.0" prefWidth="150.0" styleClass="module">
                <children>
@@ -87,10 +87,14 @@
                         <Label prefHeight="14.0" prefWidth="200.0" styleClass="headlines" text="LiveView" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="583.0" layoutY="439.0" prefHeight="79.0" prefWidth="169.0" styleClass="module">
+            <AnchorPane layoutX="32.0" layoutY="28.0" prefHeight="174.0" prefWidth="150.0" styleClass="module" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="15.0">
                <children>
-                        <TextField fx:id="txt_sayText" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="142.0" promptText="Fuck" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
-                        <Button fx:id="btn_sayText" layoutX="10.0" layoutY="46.0" mnemonicParsing="false" onAction="#sayText" prefHeight="25.0" prefWidth="149.0" text="say" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                        <TextField fx:id="txt_sayText" layoutX="6.0" layoutY="4.0" prefHeight="55.0" prefWidth="138.0" promptText="Fuck" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="4.0" />
+                        <Button fx:id="btn_sayText" layoutX="33.0" layoutY="104.0" mnemonicParsing="false" onAction="#sayText" prefHeight="25.0" prefWidth="104.0" text="say" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="6.0" />
+                  <Slider fx:id="sldr_volume" layoutX="7.0" layoutY="80.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="3.0" />
+                  <Slider fx:id="sldr_pitch" layoutX="6.0" layoutY="115.0" AnchorPane.leftAnchor="6.0" AnchorPane.rightAnchor="3.0" />
+                  <Label layoutX="23.0" layoutY="60.0" text="volume" AnchorPane.leftAnchor="23.0" />
+                  <Label layoutX="21.0" layoutY="95.0" prefHeight="17.0" prefWidth="61.0" text="voice pitch" />
                </children>
             </AnchorPane>
             <AnchorPane layoutY="223.0" prefHeight="105.0" prefWidth="150.0" styleClass="module">

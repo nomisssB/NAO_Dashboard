@@ -53,6 +53,7 @@ public class Controller {
 
 
 
+
     //KONSTRUKTOR
     public Controller(){
         //Führt Methode "saveConfig" bei Schließen des Programms aus
@@ -79,6 +80,7 @@ public class Controller {
             motionspeed = newValue.intValue();
 
         });
+
 
 
 
