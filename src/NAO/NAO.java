@@ -1,6 +1,7 @@
 package NAO;
 
 import com.aldebaran.qi.Application;
+import com.aldebaran.qi.CallError;
 import com.aldebaran.qi.helper.proxies.ALLeds;
 import com.aldebaran.qi.helper.proxies.ALMotion;
 import com.aldebaran.qi.helper.proxies.ALRobotPosture;
@@ -145,4 +146,22 @@ public class NAO {
 
         return null;
     }
-}
+
+    public void moveToward( float x, float y, float thata, float v) throws ConnectionException {
+        checkConnection();
+
+        x = x*v;
+        y = y*v;
+        thata = thata*v;
+
+        try {
+            motion  = new ALMotion(app.session());
+            motion.moveToward(x, y, thata);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    }
+
