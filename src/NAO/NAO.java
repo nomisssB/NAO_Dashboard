@@ -124,6 +124,17 @@ public class NAO {
         }
     }
 
+    public void sayText(String text, String language) throws ConnectionException {
+        checkConnection();
+        try {
+            tts = new ALTextToSpeech(app.session());
+            tts.setLanguage(language);
+            tts.say(text);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<String> getLanguages() throws ConnectionException { // Returns all installed languages
         checkConnection();
         try {
