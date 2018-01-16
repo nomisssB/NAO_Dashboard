@@ -1,6 +1,7 @@
 package NAO;
 
 import com.aldebaran.qi.Application;
+import com.aldebaran.qi.CallError;
 import com.aldebaran.qi.helper.proxies.ALLeds;
 import com.aldebaran.qi.helper.proxies.ALMotion;
 import com.aldebaran.qi.helper.proxies.ALRobotPosture;
@@ -62,15 +63,6 @@ public class NAO {
         }
     }
 
-    public void sayText(String text) throws ConnectionException {
-        checkConnection();
-        try {
-            tts = new ALTextToSpeech(app.session());
-            tts.say(text);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public void moveHead(float left, float right, float down, float up) throws ConnectionException{ // unfertig #testing
         // not save, if motion.stiffnessInterpolation is needed. Should be tested with real NAO. (TODO)
@@ -89,23 +81,24 @@ public class NAO {
     public void moveHead(String direction) throws ConnectionException{
         // not save, if motion.stiffnessInterpolation is needed. Should be tested with real NAO. (TODO)
         checkConnection();
+        float strongness = 0.05f; // how much does the head move per call
         String joint; // Moving horizontal ("HeadPitch") or vertical ("HeadYaw")
         float move; // moving up/right (negative value) or down/left (positive value)
         switch (direction){ // set variables for the correct movement
             case "up":
-                move = -0.1f;
+                move = -1*strongness;
                 joint = "HeadPitch";
                 break;
             case "down":
-                move = 0.1f;
+                move = strongness;
                 joint = "HeadPitch";
                 break;
             case "right":
-                move = -0.1f;
+                move = -1*strongness;
                 joint = "HeadYaw";
                 break;
             case "left":
-                move = 0.1f;
+                move = strongness;
                 joint = "HeadYaw";
                 break;
             default:
@@ -121,7 +114,48 @@ public class NAO {
         }
     }
 
+    public void sayText(String text) throws ConnectionException {
+        checkConnection();
+        try {
+            tts = new ALTextToSpeech(app.session());
+            tts.say(text);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void sayText(String text, String language) throws ConnectionException {
+        checkConnection();
+        try {
+            tts = new ALTextToSpeech(app.session());
+            tts.setLanguage(language);
+            tts.say(text);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public List<String> getLanguages() throws ConnectionException { // Returns all installed languages
+        checkConnection();
+        try {
+            tts = new ALTextToSpeech(app.session());
+            return tts.getAvailableLanguages();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<String> getVoices() throws ConnectionException { // Returns all installed voices
+        checkConnection();
+        try {
+            tts = new ALTextToSpeech(app.session());
+            return tts.getAvailableVoices();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public void execPosture(String posture) throws ConnectionException {
         checkConnection();
@@ -133,7 +167,7 @@ public class NAO {
         }
     }
 
-    public List<String> getPostures() throws ConnectionException {
+    public List<String> getPostures() throws ConnectionException { // Returns all possible postures
         checkConnection();
         ALRobotPosture moves = null;
         try {
@@ -145,4 +179,22 @@ public class NAO {
 
         return null;
     }
-}
+
+    public void moveToward( float x, float y, float thata, float v) throws ConnectionException {
+        checkConnection();
+
+        x = x*v;
+        y = y*v;
+        thata = thata*v;
+
+        try {
+            motion  = new ALMotion(app.session());
+            motion.moveToward(x, y, thata);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    }
+
