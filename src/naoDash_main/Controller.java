@@ -15,7 +15,6 @@ import javafx.scene.paint.Color;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
@@ -27,7 +26,6 @@ public class Controller {
     private String robotURL;
     private NAO nao1;
     private String configFile = "config.xml";
-    private Configurator configurator = new Configurator();
 
     @FXML
     public AnchorPane pane_main;
@@ -42,7 +40,7 @@ public class Controller {
     public Button btn_execute;
     public Button btn_sayText;
     public ColorPicker col_picker;
-    public ListView motion_list;
+    public ListView<String> motion_list;
     public Pane pane_cam;
     public TextField txt_ipadress;
     public TextField txt_port;
@@ -54,8 +52,10 @@ public class Controller {
     public Label lbl_toolbar;
 
 
-    public Controller(){
 
+    //KONSTRUKTOR
+    public Controller(){
+        //Führt Methode "saveConfig" bei Schließen des Programms aus
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             public void run() {
                saveConfig();
@@ -82,7 +82,7 @@ public class Controller {
 
 
 
-        //Abfangen von KeyEvents
+        //Abfangen von KeyEvents und Auslösen der Buttons je nach Key
         pane_main.setOnKeyPressed(e ->{
             switch (e.getCode()){
                 case W: btn_w.fire(); break;
@@ -97,52 +97,52 @@ public class Controller {
         });
 
 
-        //Laden der Config
-
-        configurator.loader(configFile);
-
+        //Laden der Einstellungen aus XML-Config-Datei
+        Configurator.loader(configFile);
+            //Übernehmen der geladenen Werte in Text-Felder
             txt_ipadress.setText(Configurator.props.getProperty("ipAddress"));
             txt_port.setText(Configurator.props.getProperty("port"));
-            System.out.println(Configurator.props.getProperty("ipAddress"));
     }
 
 
     //#####################  CONNECTION ##################
     //Button Connect
-
     public void connect(ActionEvent actionEvent) throws Exception {
-
+        //neue Instanz von InputParse
         InputParse parser = new InputParse();
+        //Variable warning für Ausgabe der Fehlermeldung
         String warning="";
 
-        //folgendes ist noch vereinfachbar
-
+        //Erzeugen der Warnmeldung, falls Eingaben nicht in RegEx passen
         if(!parser.validateIP(txt_ipadress.getText()) || !parser.validatePort(txt_port.getText())){
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Wrong Input");
             alert.setHeaderText("Please check your Input");
-            if(txt_ipadress.getText().isEmpty() == true){
+            //Feld IP-Adresse leer:
+            if(txt_ipadress.getText().isEmpty()){
                 warning = "Please type in an IP address!";
-            }
+            } //Feld IP-Adresse falsche Eingabe:
             else if (!parser.validateIP(txt_ipadress.getText())) {
                 warning = txt_ipadress.getText() + " is not a valid IP address!";
-            }
-            if(txt_port.getText().isEmpty() == true){
+            } //Feld Port leer:
+            if(txt_port.getText().isEmpty()){
                 warning = warning + "\n" + "Please type in a port number!";
-            }
+            } //Feld Port falsche Eingabe:
             else if (!parser.validatePort(txt_port.getText())){
                 warning = warning + "\n" + txt_port.getText() + " is not a valid port number!";
-            }
+            } //Setzen der Warnmeldung und Anzeigen des Fehler-Dialogs
             alert.setContentText(warning);
             alert.showAndWait();
-        } else {
+        } else { //Falls Eingaben korrekt, Connection öffnen:
             lbl_toolbar.setText("connect");
             robotURL = "tcp://" + txt_ipadress.getText() + ":" + txt_port.getText();
             nao1 = new NAO();
             nao1.establishConnection(robotURL);
+            //Sperren/Entsperren der entsprechenden Kontroll-Objekte
             pane_control.setDisable(false);
             btn_connect.setDisable(true);
             btn_disconnect.setDisable(false);
+            //Füllen der ListView mit den Postures des Naos
             fillPostureList(nao1.getPostures());
         }
 
@@ -150,6 +150,7 @@ public class Controller {
     }
 
     public void disconnect(ActionEvent actionEvent) {
+        nao1.closeConnection();
         pane_control.setDisable(true);
         btn_connect.setDisable(false);
         btn_disconnect.setDisable(true);
@@ -232,7 +233,7 @@ public class Controller {
     }
 
     public void p_motion(ActionEvent actionEvent) {
-       String motion =  motion_list.getSelectionModel().getSelectedItem().toString();
+       String motion = motion_list.getSelectionModel().getSelectedItem();
         try {
             nao1.execPosture(motion);
         } catch (ConnectionException e) {
@@ -241,9 +242,9 @@ public class Controller {
         lbl_toolbar.setText("execute " + motion);
     }
 
-    public void saveConfig(){
-        configurator.saver(configFile,"ipAddress",txt_ipadress.getText());
-        configurator.saver(configFile,"port",txt_port.getText());
+    private void saveConfig(){
+        Configurator.saver(configFile,"ipAddress",txt_ipadress.getText());
+        Configurator.saver(configFile,"port",txt_port.getText());
     }
 
 

@@ -22,12 +22,12 @@ public class InputParse {
        patternPort = Pattern.compile(TCPPORT_PATTERN);
    }
 
-    public boolean validateIP(final String ip){
+    public boolean validateIP(String ip){
         matcher = patternIP.matcher(ip);
         return matcher.matches();
     }
 
-    public boolean validatePort(final String port){
+    public boolean validatePort(String port){
         matcher = patternPort.matcher(port);
         return matcher.matches();
     }
