@@ -2,12 +2,10 @@ package NAO;
 
 import com.aldebaran.qi.Application;
 import com.aldebaran.qi.CallError;
-import com.aldebaran.qi.helper.proxies.ALLeds;
-import com.aldebaran.qi.helper.proxies.ALMotion;
-import com.aldebaran.qi.helper.proxies.ALRobotPosture;
-import com.aldebaran.qi.helper.proxies.ALTextToSpeech;
+import com.aldebaran.qi.helper.proxies.*;
 import javafx.event.ActionEvent;
 
+import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.List;
 
@@ -18,8 +16,8 @@ public class NAO {
     private static ALMotion motion;
     private static ALTextToSpeech tts;
     private static ALRobotPosture pose;
-
-
+    private static ALLeds led ;
+    private static ALBattery bat;
 
     public void establishConnection(String url) {
         if ( app != null){ // falls Verbindung schon besteht, soll sie neu aufgebaut werden
@@ -162,6 +160,44 @@ public class NAO {
         }
     }
 
+    public void changeEyeColor(String eye, float red, float green, float blue) throws ConnectionException{
+        checkConnection();
 
+        try {
+            led = new ALLeds(app.session());
+            ArrayList<String> temp = new ArrayList<String>();
+            temp.add("RightFaceLed1");
+            temp.add("RightFaceLed2");
+            temp.add("RightFaceLed3");
+            temp.add("RightFaceLed4");
+            temp.add("RightFaceLed5");
+            temp.add("RightFaceLed6");
+            temp.add("RightFaceLed7");
+            led.createGroup( "RightEye" , temp );
+
+
+            ArrayList<String> temp1 = new ArrayList<String>();
+            temp1.add("LeftFaceLed1");
+            temp1.add("LeftFaceLed2");
+            temp1.add("LeftFaceLed3");
+            temp1.add("LeftFaceLed4");
+            temp1.add("LeftFaceLed5");
+            temp1.add("LeftFaceLed6");
+            temp1.add("LeftFaceLed7");
+            led.createGroup("LeftEye" , temp1);
+
+            if(eye == "Right" ) {
+                led.fadeRGB("RightEye", red, green, blue, 0f);
+            }else if(eye == "Left") {
+                led.fadeRGB("LeftEye", red, green, blue, 0f);
+            }else if ( eye == "Both") {
+                led.fadeRGB("RightEye", red, green, blue, 0f);
+                led.fadeRGB("LeftEye", red, green, blue, 0f);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+}
 
