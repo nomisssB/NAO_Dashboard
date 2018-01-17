@@ -12,16 +12,16 @@ import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
+
 
 
 public class Controller {
 
-    private double motionspeed = 0;
+    private double motionspeed = 50;
+    private float volume = 0.5f;
+    private float pitch = 0.5f;
     private Color color;
     private String robotURL;
     private NAO nao1;
@@ -50,11 +50,16 @@ public class Controller {
     public Button btn_up;
     public Button btn_down;
     public Label lbl_toolbar;
+    public Slider sldr_pitch;
+    public Slider sldr_volume;
+    public ChoiceBox cb_language;
+    public ChoiceBox cb_voice;
 
 
 
     //KONSTRUKTOR
     public Controller(){
+
         //Führt Methode "saveConfig" bei Schließen des Programms aus
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             public void run() {
@@ -67,17 +72,23 @@ public class Controller {
     @FXML
     public void initialize() throws IOException {
 
-        //Logger um Events und Fehler zu dokumentieren. Log Datei unter root\main_log.log (XML)
-        FileHandler handler = new FileHandler("main_log.log", true);
-        Logger logger = Logger.getLogger("NAODash Logger");
-        logger.addHandler(handler);
 
 //        Abfangen von Werten des Sliders
         sldr_speed.valueProperty().addListener((observable, oldValue, newValue) -> {
-//            logger.info("value Slider changed to:" + newValue.intValue());
             lbl_toolbar.setText("value: " + newValue.intValue());
             motionspeed = newValue.intValue();
 
+        });
+
+        sldr_pitch.valueProperty().addListener((observable, oldValue, newValue) -> {
+            lbl_toolbar.setText("value: " + newValue.intValue());
+            pitch = newValue.intValue();
+
+        });
+
+        sldr_volume.valueProperty().addListener((observable, oldValue, newValue) -> {
+            lbl_toolbar.setText("value: " + newValue.intValue());
+            volume = newValue.intValue();
         });
 
 
@@ -144,6 +155,9 @@ public class Controller {
             btn_disconnect.setDisable(false);
             //Füllen der ListView mit den Postures des Naos
             fillPostureList(nao1.getPostures());
+            fillLanguageList(nao1.getLanguages());
+            fillVoiceList(nao1.getVoices());
+
         }
 
 
@@ -159,6 +173,16 @@ public class Controller {
     private void fillPostureList(List<String> inputList){
         ObservableList<String> insert = FXCollections.observableArrayList(inputList);
         motion_list.setItems(insert);
+    }
+
+    private void fillVoiceList(List<String> inputList){
+        ObservableList<String> insert = FXCollections.observableArrayList(inputList);
+        cb_voice.setItems(insert);
+    }
+
+    private void fillLanguageList(List<String> inputList){
+        ObservableList<String> insert = FXCollections.observableArrayList(inputList);
+        cb_language.setItems(insert);
     }
 
     //#####################  HEAD-CONTROL ##################
@@ -204,7 +228,7 @@ public class Controller {
 
     public void sayText(ActionEvent actionEvent) throws Exception{
         String TextToSay = txt_sayText.getText();
-        nao1.sayText(TextToSay);
+        nao1.sayText(TextToSay,cb_language.getSelectionModel().getSelectedItem().toString(),cb_voice.getSelectionModel().getSelectedItem().toString(),volume,pitch);
     }
 
     //#####################  LED-CONTROL ##################

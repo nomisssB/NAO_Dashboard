@@ -1,10 +1,7 @@
 
-
-
-
 /*Button-Style*/
 .button{
-    -fx-background-radius: 0;
+    -fx-background-radius: 1;
     -fx-background-color: #cdcdcd;
 
 }
@@ -39,7 +36,12 @@
 .module {
     -fx-background-color: rgba(0, 0, 0, 0.5);
     -fx-background-radius: 2;
-
+}
+.module.once {
+    -fx-pref-width: 150;
+}
+.module.twice {
+    -fx-pref-width: 250;
 }
 
 /*Single Elements*/
