@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.List;
 
-
 public class NAO {
     //Variabeln Deklarationen
     private static Application app; // = new Application(new String[] {});
