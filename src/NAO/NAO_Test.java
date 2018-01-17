@@ -17,6 +17,7 @@ public class NAO_Test {
 
 
 
+        System.out.println(nao.batteryPercent());
 
     }
 }
