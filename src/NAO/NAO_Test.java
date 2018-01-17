@@ -21,6 +21,7 @@ public class NAO_Test {
         nao.changeEyeColor("Both", 1f,0f,1f);*/
 
 
+        System.out.println(nao.batteryPercent());
 
     }
 }

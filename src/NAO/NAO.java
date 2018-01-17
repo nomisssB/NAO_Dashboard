@@ -236,5 +236,18 @@ public class NAO {
         }
     }
 
+    public int batteryPercent() throws InterruptedException{       //Get the battery charge in percents
+
+        try {
+            bat = new ALBattery(app.session());
+            return bat.getBatteryCharge();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+
 }
 
