@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.EmptyStackException;
 import java.util.List;
 
-
 public class NAO {
     //Variabeln Deklarationen
     private static Application app; // = new Application(new String[] {});
@@ -32,6 +31,11 @@ public class NAO {
             try {
                 app = new Application(new String[]{}, url);
                 app.start();
+                motion = new ALMotion(app.session());
+                tts = new ALTextToSpeech(app.session());
+                pose = new ALRobotPosture(app.session());
+                led = new ALLeds(app.session());
+                bat = new ALBattery(app.session());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -51,22 +55,11 @@ public class NAO {
         }
     }
 
-    public void rasta() throws ConnectionException{ // first LED test, but not working with Choregraphe
-        checkConnection();
-        try {
-            ALLeds led = new ALLeds(app.session());
-            led.rasta(3.0f);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 
     public void moveHead(float left, float right, float down, float up) throws ConnectionException{ // unfertig #testing
         // not save, if motion.stiffnessInterpolation is needed. Should be tested with real NAO. (TODO)
         checkConnection();
         try {
-            motion = new ALMotion(app.session());
             // motion.stiffnessInterpolation("HeadYaw", 1.0f, 0.1f); // Apparently not needed, but kept here, if needed later
             motion.angleInterpolation("HeadYaw", left-right, 0.1f, false); // move Head left right
             motion.angleInterpolation("HeadPitch", down-up, 0.1f, false); // move Head up down
@@ -74,6 +67,8 @@ public class NAO {
         } catch(Exception e) {
             e.printStackTrace();
         }
+
+
     }
 
     public void moveHead(String direction) throws ConnectionException{
@@ -105,7 +100,6 @@ public class NAO {
                 break;
         }
         try {
-            motion = new ALMotion(app.session());
             motion.angleInterpolation(joint, move, 0.01f, false);
         } catch(Exception e){
             e.printStackTrace();
@@ -115,18 +109,15 @@ public class NAO {
     public void sayText(String text) throws ConnectionException {
         checkConnection();
         try {
-            tts = new ALTextToSpeech(app.session());
             tts.say(text);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void sayText(String text, String language, String voice, float volume, float pitch) throws ConnectionException {
+    public void sayText(String text, String voice, float volume, float pitch) throws ConnectionException {
         checkConnection();
         try {
-            tts = new ALTextToSpeech(app.session());
-            tts.setLanguage(language);
             tts.setVoice(voice);
             tts.setVolume(volume);
             tts.setParameter("pitchShift", pitch);
@@ -139,7 +130,6 @@ public class NAO {
     public List<String> getLanguages() throws ConnectionException { // Returns all installed languages
         checkConnection();
         try {
-            tts = new ALTextToSpeech(app.session());
             return tts.getAvailableLanguages();
         } catch (Exception e) {
             e.printStackTrace();
@@ -150,7 +140,6 @@ public class NAO {
     public List<String> getVoices() throws ConnectionException { // Returns all installed voices
         checkConnection();
         try {
-            tts = new ALTextToSpeech(app.session());
             return tts.getAvailableVoices();
         } catch (Exception e) {
             e.printStackTrace();
@@ -161,7 +150,6 @@ public class NAO {
     public void execPosture(String posture) throws ConnectionException {
         checkConnection();
         try {
-            pose = new ALRobotPosture(app.session());
             pose.goToPosture(posture, 1.0f);
         } catch(Exception e){
             e.printStackTrace();
@@ -172,7 +160,6 @@ public class NAO {
         checkConnection();
         ALRobotPosture moves = null;
         try {
-            moves = new ALRobotPosture(app.session());
             return moves.getPostureList();
         } catch (Exception e) {
             e.printStackTrace();
@@ -189,18 +176,28 @@ public class NAO {
         thata = thata*v;
 
         try {
-            motion  = new ALMotion(app.session());
             motion.moveToward(x, y, thata);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    public void moveArm( String joint, float direction) throws ConnectionException{
+        checkConnection();
+        try {
+            motion.angleInterpolation(joint, 0.1f*direction, 0.1f, false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
     public void changeEyeColor(String eye, float red, float green, float blue) throws ConnectionException{
         checkConnection();
 
         try {
-            led = new ALLeds(app.session());
             ArrayList<String> temp = new ArrayList<String>();
             temp.add("RightFaceLed1");
             temp.add("RightFaceLed2");
@@ -210,7 +207,6 @@ public class NAO {
             temp.add("RightFaceLed6");
             temp.add("RightFaceLed7");
             led.createGroup( "RightEye" , temp );
-
 
             ArrayList<String> temp1 = new ArrayList<String>();
             temp1.add("LeftFaceLed1");
@@ -230,11 +226,23 @@ public class NAO {
                 led.fadeRGB("RightEye", red, green, blue, 0f);
                 led.fadeRGB("LeftEye", red, green, blue, 0f);
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    public int batteryPercent() throws InterruptedException{       //Get the battery charge in percents
+
+        try {
+            bat = new ALBattery(app.session());
+            return bat.getBatteryCharge();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
 
 }
 
