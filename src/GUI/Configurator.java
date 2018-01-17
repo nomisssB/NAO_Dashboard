@@ -11,7 +11,6 @@ public class Configurator {
     public static void saver (String filename, String key, String value){
         try {
         props.setProperty(key, value);
-
         File file = new File(filename);
         FileOutputStream fileOut = new FileOutputStream(file);
         props.storeToXML(fileOut, "Configuration for NAO Dashboard");

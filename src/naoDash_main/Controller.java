@@ -12,18 +12,16 @@ import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.FileHandler;
-import java.util.logging.Logger;
+
 
 
 public class Controller {
 
     private double motionspeed = 50;
-    private double volume = 50;
-    private double pitch = 50;
+    private float volume = 0.5f;
+    private float pitch = 0.5f;
     private Color color;
     private String robotURL;
     private NAO nao1;
@@ -62,6 +60,7 @@ public class Controller {
 
     //KONSTRUKTOR
     public Controller(){
+
         //Führt Methode "saveConfig" bei Schließen des Programms aus
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             public void run() {
@@ -160,6 +159,7 @@ public class Controller {
             fillPostureList(nao1.getPostures());
             fillLanguageList(nao1.getLanguages());
             fillVoiceList(nao1.getVoices());
+
         }
 
 
@@ -230,7 +230,7 @@ public class Controller {
 
     public void sayText(ActionEvent actionEvent) throws Exception{
         String TextToSay = txt_sayText.getText();
-        nao1.sayText(TextToSay);
+        nao1.sayText(TextToSay,cb_language.getSelectionModel().getSelectedItem().toString(),cb_voice.getSelectionModel().getSelectedItem().toString(),volume,pitch);
     }
 
     //#####################  LED-CONTROL ##################
