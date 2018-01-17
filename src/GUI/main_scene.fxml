@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -51,9 +53,9 @@
             <Font size="36.0" />
           </font>
         </Label>
-      <AnchorPane fx:id="pane_control" disable="true" layoutX="26.0" layoutY="32.0" prefWidth="752.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="70.0">
+      <AnchorPane fx:id="pane_control" layoutX="26.0" layoutY="32.0" prefWidth="752.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
          <children>
-            <AnchorPane layoutY="337.0" prefHeight="181.0" prefWidth="150.0" styleClass="module">
+            <AnchorPane layoutY="337.0" prefHeight="181.0" prefWidth="150.0">
                <children>
                         <Button fx:id="btn_w" layoutX="56.0" layoutY="34.0" mnemonicParsing="false" onAction="#forward" prefHeight="30.0" prefWidth="41.0" styleClass="movingbutton" text="W" AnchorPane.leftAnchor="56.0" AnchorPane.rightAnchor="54.0" />
                         <Button fx:id="btn_s" layoutX="56.0" layoutY="68.0" mnemonicParsing="false" onAction="#backward" styleClass="movingbutton" text="S" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="56.0" AnchorPane.rightAnchor="54.0" />
@@ -63,14 +65,22 @@
                         <Label layoutX="12.0" styleClass="headlines" text="Body Control" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         <Label layoutX="-3.0" layoutY="98.0" prefHeight="24.0" prefWidth="149.0" styleClass="headlines" text="Speed:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                </children>
+               <styleClass>
+                  <String fx:value="module" />
+                  <String fx:value="once" />
+               </styleClass>
             </AnchorPane>
-            <AnchorPane layoutX="583.0" layoutY="250.0" prefHeight="181.0" prefWidth="169.0" styleClass="module">
+            <AnchorPane layoutX="611.0" layoutY="242.0" prefHeight="276.0" prefWidth="169.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="242.0">
                <children>
                         <ColorPicker fx:id="col_picker" layoutX="18.0" layoutY="34.0" onAction="#colorchoice" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                         <Label styleClass="headlines" text="pick LED Color" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
+               <styleClass>
+                  <String fx:value="module" />
+                  <String fx:value="once" />
+               </styleClass>
             </AnchorPane>
-            <AnchorPane layoutX="583.0" layoutY="8.0" prefHeight="232.0" prefWidth="169.0" styleClass="module">
+            <AnchorPane layoutX="611.0" prefHeight="232.0" prefWidth="169.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                         <Label layoutX="1.0" prefHeight="14.0" prefWidth="150.0" styleClass="headlines" text="Predefined Motions" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         <ListView fx:id="motion_list" layoutX="10.0" layoutY="25.0" prefHeight="164.0" prefWidth="149.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
@@ -80,20 +90,38 @@
                         </ListView>
                         <Button fx:id="btn_execute" layoutX="10.0" layoutY="134.0" mnemonicParsing="false" onAction="#p_motion" prefHeight="25.0" prefWidth="149.0" text="execute" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                </children>
+               <styleClass>
+                  <String fx:value="module" />
+                  <String fx:value="once" />
+               </styleClass>
             </AnchorPane>
-            <AnchorPane layoutX="252.0" layoutY="276.0" prefHeight="242.0" prefWidth="244.0" styleClass="module">
+            <AnchorPane layoutX="252.0" layoutY="276.0" prefHeight="242.0" prefWidth="244.0">
                <children>
-                        <Pane fx:id="pane_cam" layoutX="22.0" layoutY="24.0" prefHeight="200.0" prefWidth="200.0" />
+                        <Pane fx:id="pane_cam" layoutX="22.0" layoutY="24.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                         <Label prefHeight="14.0" prefWidth="200.0" styleClass="headlines" text="LiveView" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
+               <styleClass>
+                  <String fx:value="module" />
+                  <String fx:value="twice" />
+               </styleClass>
             </AnchorPane>
-            <AnchorPane layoutX="583.0" layoutY="439.0" prefHeight="79.0" prefWidth="169.0" styleClass="module">
+            <AnchorPane layoutY="29.0" prefHeight="213.0" prefWidth="150.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                        <TextField fx:id="txt_sayText" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="142.0" promptText="Fuck" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                        <TextField fx:id="txt_sayText" layoutX="10.0" layoutY="15.0" prefHeight="25.0" prefWidth="142.0" promptText="Fuck" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="15.0" />
                         <Button fx:id="btn_sayText" layoutX="10.0" layoutY="46.0" mnemonicParsing="false" onAction="#sayText" prefHeight="25.0" prefWidth="149.0" text="say" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                  <Slider fx:id="sldr_volume" layoutX="5.0" layoutY="61.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+                  <Slider fx:id="sldr_pitch" layoutX="5.0" layoutY="94.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+                  <Label layoutX="14.0" layoutY="75.0" styleClass="headlines" text="Pitch" />
+                  <Label layoutX="14.0" layoutY="43.0" styleClass="headlines" text="Volume" />
+                  <ChoiceBox fx:id="cb_voice" layoutX="10.0" layoutY="143.0" prefHeight="25.0" prefWidth="130.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                  <ChoiceBox fx:id="cb_language" layoutX="10.0" layoutY="113.0" prefHeight="25.0" prefWidth="130.0" />
                </children>
+               <styleClass>
+                  <String fx:value="module" />
+                  <String fx:value="once" />
+               </styleClass>
             </AnchorPane>
-            <AnchorPane layoutY="223.0" prefHeight="105.0" prefWidth="150.0" styleClass="module">
+            <AnchorPane layoutY="223.0" prefHeight="105.0" prefWidth="150.0">
                <children>
                         <Label layoutX="-7.0" layoutY="2.0" styleClass="headlines" text="Head Direction:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         <Button fx:id="btn_up" layoutX="56.0" layoutY="22.0" mnemonicParsing="false" onAction="#head_up" prefHeight="25.0" prefWidth="46.0" styleClass="movingbutton" text="I" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0" />
@@ -101,6 +129,10 @@
                         <Button fx:id="btn_right" layoutX="95.0" layoutY="71.0" mnemonicParsing="false" onAction="#head_right" prefHeight="65.0" prefWidth="42.0" styleClass="movingbutton" text="L" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                         <Button fx:id="btn_left" layoutX="9.0" layoutY="71.0" mnemonicParsing="false" onAction="#head_left" prefHeight="65.0" prefWidth="46.0" styleClass="movingbutton" text="J" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
                </children>
+               <styleClass>
+                  <String fx:value="module" />
+                  <String fx:value="once" />
+               </styleClass>
             </AnchorPane>
          </children>
       </AnchorPane>

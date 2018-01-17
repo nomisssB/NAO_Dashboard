@@ -21,7 +21,9 @@ import java.util.logging.Logger;
 
 public class Controller {
 
-    private double motionspeed = 0;
+    private double motionspeed = 50;
+    private double volume = 50;
+    private double pitch = 50;
     private Color color;
     private String robotURL;
     private NAO nao1;
@@ -50,6 +52,10 @@ public class Controller {
     public Button btn_up;
     public Button btn_down;
     public Label lbl_toolbar;
+    public Slider sldr_pitch;
+    public Slider sldr_volume;
+    public ChoiceBox cb_language;
+    public ChoiceBox cb_voice;
 
 
 
@@ -67,17 +73,23 @@ public class Controller {
     @FXML
     public void initialize() throws IOException {
 
-        //Logger um Events und Fehler zu dokumentieren. Log Datei unter root\main_log.log (XML)
-        FileHandler handler = new FileHandler("main_log.log", true);
-        Logger logger = Logger.getLogger("NAODash Logger");
-        logger.addHandler(handler);
 
 //        Abfangen von Werten des Sliders
         sldr_speed.valueProperty().addListener((observable, oldValue, newValue) -> {
-//            logger.info("value Slider changed to:" + newValue.intValue());
             lbl_toolbar.setText("value: " + newValue.intValue());
             motionspeed = newValue.intValue();
 
+        });
+
+        sldr_pitch.valueProperty().addListener((observable, oldValue, newValue) -> {
+            lbl_toolbar.setText("value: " + newValue.intValue());
+            pitch = newValue.intValue();
+
+        });
+
+        sldr_volume.valueProperty().addListener((observable, oldValue, newValue) -> {
+            lbl_toolbar.setText("value: " + newValue.intValue());
+            volume = newValue.intValue();
         });
 
 
@@ -144,6 +156,8 @@ public class Controller {
             btn_disconnect.setDisable(false);
             //Füllen der ListView mit den Postures des Naos
             fillPostureList(nao1.getPostures());
+            fillLanguageList(nao1.getLanguages());
+            fillVoiceList(nao1.getVoices());
         }
 
 
@@ -159,6 +173,16 @@ public class Controller {
     private void fillPostureList(List<String> inputList){
         ObservableList<String> insert = FXCollections.observableArrayList(inputList);
         motion_list.setItems(insert);
+    }
+
+    private void fillVoiceList(List<String> inputList){
+        ObservableList<String> insert = FXCollections.observableArrayList(inputList);
+        cb_voice.setItems(insert);
+    }
+
+    private void fillLanguageList(List<String> inputList){
+        ObservableList<String> insert = FXCollections.observableArrayList(inputList);
+        cb_language.setItems(insert);
     }
 
     //#####################  HEAD-CONTROL ##################

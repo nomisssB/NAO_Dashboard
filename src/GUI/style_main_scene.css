@@ -39,7 +39,12 @@
 .module {
     -fx-background-color: rgba(0, 0, 0, 0.5);
     -fx-background-radius: 2;
-
+}
+.module.once {
+    -fx-pref-width: 150;
+}
+.module.twice {
+    -fx-pref-width: 250;
 }
 
 /*Single Elements*/
