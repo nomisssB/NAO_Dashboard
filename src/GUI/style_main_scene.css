@@ -1,10 +1,7 @@
 
-
-
-
 /*Button-Style*/
 .button{
-    -fx-background-radius: 0;
+    -fx-background-radius: 1;
     -fx-background-color: #cdcdcd;
 
 }
