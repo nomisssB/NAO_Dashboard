@@ -22,8 +22,8 @@ import java.util.logging.Logger;
 public class Controller {
 
     private double motionspeed = 50;
-    private double volume = 50;
-    private double pitch = 50;
+    private float volume = 50f;
+    private float pitch = 50f;
     private Color color;
     private String robotURL;
     private NAO nao1;
@@ -228,7 +228,7 @@ public class Controller {
 
     public void sayText(ActionEvent actionEvent) throws Exception{
         String TextToSay = txt_sayText.getText();
-        nao1.sayText(TextToSay);
+        nao1.sayText(TextToSay,cb_language.getSelectionModel().getSelectedItem().toString(),cb_voice.getSelectionModel().getSelectedItem().toString(),volume,pitch);
     }
 
     //#####################  LED-CONTROL ##################

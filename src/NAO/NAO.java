@@ -124,11 +124,14 @@ public class NAO {
         }
     }
 
-    public void sayText(String text, String language) throws ConnectionException {
+    public void sayText(String text, String language, String voice, float volume, float pitch) throws ConnectionException {
         checkConnection();
         try {
             tts = new ALTextToSpeech(app.session());
             tts.setLanguage(language);
+            tts.setVoice(voice);
+            tts.setVolume(volume);
+            tts.setParameter("pitchShift", pitch);
             tts.say(text);
         } catch (Exception e) {
             e.printStackTrace();
