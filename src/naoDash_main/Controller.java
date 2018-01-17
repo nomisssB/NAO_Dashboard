@@ -12,6 +12,8 @@ import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+
+import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.util.List;
 
@@ -19,9 +21,9 @@ import java.util.List;
 
 public class Controller {
 
-    private double motionspeed = 50;
+    private float motionspeed = 0.5f;
     private float volume = 0.5f;
-    private float pitch = 0.5f;
+    private float pitch = 0f;
     private Color color;
     private String robotURL;
     private NAO nao1;
@@ -52,8 +54,10 @@ public class Controller {
     public Label lbl_toolbar;
     public Slider sldr_pitch;
     public Slider sldr_volume;
-    public ChoiceBox cb_language;
     public ChoiceBox cb_voice;
+    public CheckBox chb_pitch;
+    public CheckBox chb_volume;
+
 
 
 
@@ -75,20 +79,26 @@ public class Controller {
 
 //        Abfangen von Werten des Sliders
         sldr_speed.valueProperty().addListener((observable, oldValue, newValue) -> {
-            lbl_toolbar.setText("value: " + newValue.intValue());
-            motionspeed = newValue.intValue();
+            lbl_toolbar.setText("value: " + newValue.floatValue());
+            motionspeed = newValue.floatValue();
 
         });
 
         sldr_pitch.valueProperty().addListener((observable, oldValue, newValue) -> {
-            lbl_toolbar.setText("value: " + newValue.intValue());
-            pitch = newValue.intValue();
+            lbl_toolbar.setText("value: " + newValue.floatValue());
+            pitch = newValue.floatValue();
 
         });
 
         sldr_volume.valueProperty().addListener((observable, oldValue, newValue) -> {
-            lbl_toolbar.setText("value: " + newValue.intValue());
-            volume = newValue.intValue();
+            lbl_toolbar.setText("value: " + newValue.floatValue());
+            volume = newValue.floatValue();
+        });
+
+        chb_pitch.selectedProperty().addListener((observable, oldValue, newValue) -> {
+           if(chb_pitch.isSelected()){
+               sldr_pitch.setDisable(false);
+           } else { sldr_pitch.setDisable(true);}
         });
 
 
@@ -104,6 +114,36 @@ public class Controller {
                 case K: btn_down.fire(); break;
                 case J: btn_left.fire(); break;
                 case L: btn_right.fire(); break;
+            }
+        });
+
+        pane_main.setOnKeyReleased(e ->{
+            switch(e.getCode()){
+                case W:
+                    try {
+                        nao1.moveToward(0f,0f,0f,0f);
+                    } catch (ConnectionException e1) {
+                        e1.printStackTrace();
+                    }
+                    break;
+                case A: try {
+                    nao1.moveToward(0f,0f,0f,0f);
+                } catch (ConnectionException e1) {
+                    e1.printStackTrace();
+                }
+                    break;
+                case S:try {
+                    nao1.moveToward(0f,0f,0f,0f);
+                } catch (ConnectionException e1) {
+                    e1.printStackTrace();
+                }
+                    break;
+                case D: try {
+                    nao1.moveToward(0f,0f,0f,0f);
+                } catch (ConnectionException e1) {
+                    e1.printStackTrace();
+                }
+                    break;
             }
         });
 
@@ -155,7 +195,6 @@ public class Controller {
             btn_disconnect.setDisable(false);
             //Füllen der ListView mit den Postures des Naos
             fillPostureList(nao1.getPostures());
-            fillLanguageList(nao1.getLanguages());
             fillVoiceList(nao1.getVoices());
 
         }
@@ -180,10 +219,7 @@ public class Controller {
         cb_voice.setItems(insert);
     }
 
-    private void fillLanguageList(List<String> inputList){
-        ObservableList<String> insert = FXCollections.observableArrayList(inputList);
-        cb_language.setItems(insert);
-    }
+
 
     //#####################  HEAD-CONTROL ##################
     //Buttons IJKL for Head-Control
@@ -209,18 +245,39 @@ public class Controller {
 
     public void forward(ActionEvent actionEvent){
         lbl_toolbar.setText("forward");
+        try {
+            nao1.moveToward(1f,0f,0f,motionspeed);
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void left(ActionEvent actionEvent) {
         lbl_toolbar.setText("left");
+        try {
+            nao1.moveToward(0f,0f,-1f,motionspeed);
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+        }
     }
 
     public void backward(ActionEvent actionEvent) {
         lbl_toolbar.setText("backward");
+        try {
+            nao1.moveToward(0f,1f,0,motionspeed);
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+        }
     }
 
     public void right(ActionEvent actionEvent) {
         lbl_toolbar.setText("right");
+        try {
+            nao1.moveToward(0f,0f,1f,motionspeed);
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+        }
     }
 
     //#####################  SAY-TEXT ##################
@@ -228,7 +285,7 @@ public class Controller {
 
     public void sayText(ActionEvent actionEvent) throws Exception{
         String TextToSay = txt_sayText.getText();
-        nao1.sayText(TextToSay,cb_language.getSelectionModel().getSelectedItem().toString(),cb_voice.getSelectionModel().getSelectedItem().toString(),volume,pitch);
+        nao1.sayText(TextToSay,cb_voice.getSelectionModel().getSelectedItem().toString(),volume,pitch);
     }
 
     //#####################  LED-CONTROL ##################
