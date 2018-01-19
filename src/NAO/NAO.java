@@ -158,9 +158,8 @@ public class NAO {
 
     public List<String> getPostures() throws ConnectionException { // Returns all possible postures
         checkConnection();
-        ALRobotPosture moves = null;
         try {
-            return moves.getPostureList();
+            return pose.getPostureList();
         } catch (Exception e) {
             e.printStackTrace();
         }
