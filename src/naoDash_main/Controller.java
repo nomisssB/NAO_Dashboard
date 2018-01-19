@@ -89,7 +89,11 @@ public class Controller {
         sldr_speed.valueProperty().addListener((observable, oldValue, newValue) -> {
             lbl_toolbar.setText("value: " + newValue.floatValue());
             motionspeed = newValue.floatValue();
-
+            try {
+                nao1.setMoveV(motionspeed);
+            } catch (ConnectionException e) {
+                e.printStackTrace();
+            }
         });
 
         sldr_pitch.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -129,28 +133,31 @@ public class Controller {
             switch(e.getCode()){
                 case W:
                     try {
-                        nao1.moveToward(0f,0f,0f,0f);
+                        nao1.setMoveX(0f);
                     } catch (ConnectionException e1) {
                         e1.printStackTrace();
                     }
                     break;
-                case A: try {
-                    nao1.moveToward(0f,0f,0f,0f);
-                } catch (ConnectionException e1) {
-                    e1.printStackTrace();
-                }
+                case A:
+                    try {
+                        nao1.setMoveY(0f);
+                    } catch (ConnectionException e1) {
+                        e1.printStackTrace();
+                    }
                     break;
-                case S:try {
-                    nao1.moveToward(0f,0f,0f,0f);
-                } catch (ConnectionException e1) {
-                    e1.printStackTrace();
-                }
+                case S:
+                    try {
+                        nao1.setMoveX(0f);
+                    } catch (ConnectionException e1) {
+                        e1.printStackTrace();
+                    }
                     break;
-                case D: try {
-                    nao1.moveToward(0f,0f,0f,0f);
-                } catch (ConnectionException e1) {
-                    e1.printStackTrace();
-                }
+                case D:
+                    try {
+                        nao1.setMoveY(0f);
+                    } catch (ConnectionException e1) {
+                        e1.printStackTrace();
+                    }
                     break;
             }
         });
@@ -266,7 +273,7 @@ public class Controller {
     public void forward(ActionEvent actionEvent){
         lbl_toolbar.setText("forward");
         try {
-            nao1.moveToward(1f,0f,0f,motionspeed);
+            nao1.setMoveX(1f);
         } catch (ConnectionException e) {
             e.printStackTrace();
         }
@@ -276,7 +283,7 @@ public class Controller {
     public void left(ActionEvent actionEvent) {
         lbl_toolbar.setText("left");
         try {
-            nao1.moveToward(0f,0f,-1f,motionspeed);
+            nao1.setMoveY(1f);
         } catch (ConnectionException e) {
             e.printStackTrace();
         }
@@ -285,7 +292,7 @@ public class Controller {
     public void backward(ActionEvent actionEvent) {
         lbl_toolbar.setText("backward");
         try {
-            nao1.moveToward(0f,1f,0,motionspeed);
+            nao1.setMoveX(-1f);
         } catch (ConnectionException e) {
             e.printStackTrace();
         }
@@ -294,7 +301,7 @@ public class Controller {
     public void right(ActionEvent actionEvent) {
         lbl_toolbar.setText("right");
         try {
-            nao1.moveToward(0f,0f,1f,motionspeed);
+            nao1.setMoveY(-1f);
         } catch (ConnectionException e) {
             e.printStackTrace();
         }
