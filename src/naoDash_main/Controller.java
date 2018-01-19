@@ -157,7 +157,7 @@ public class Controller {
             //Übernehmen der geladenen Werte in Text-Felder
             txt_ipadress.setText(Configurator.props.getProperty("ipAddress"));
             txt_port.setText(Configurator.props.getProperty("port"));
-//            sldr_pitch.setValue(Float.parseFloat(Configurator.props.getProperty("pitch")));
+            sldr_volume.setValue(Float.parseFloat(Configurator.props.getProperty("volume")));
 
 
         // zweites Fenster für Einstellungen:
@@ -342,7 +342,7 @@ public class Controller {
     private void saveConfig(){
         Configurator.saver(configFile,"ipAddress",txt_ipadress.getText());
         Configurator.saver(configFile,"port",txt_port.getText());
-        Configurator.saver(configFile,"pitch",Float.toString(pitch));
+        Configurator.saver(configFile,"volume",Float.toString(volume));
     }
 
 
