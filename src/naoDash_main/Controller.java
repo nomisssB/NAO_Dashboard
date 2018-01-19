@@ -374,6 +374,11 @@ public class Controller {
     public void colorchoice(ActionEvent actionEvent) {
         color = col_picker.getValue();
         lbl_toolbar.setText(color.toString());
+        try {
+            nao1.changeEyeColor("Both", color);
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+        }
     }
 
 
