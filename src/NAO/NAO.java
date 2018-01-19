@@ -254,33 +254,13 @@ public class NAO {
         checkConnection();
 
         try {
-            ArrayList<String> temp = new ArrayList<String>();
-            temp.add("RightFaceLed1");
-            temp.add("RightFaceLed2");
-            temp.add("RightFaceLed3");
-            temp.add("RightFaceLed4");
-            temp.add("RightFaceLed5");
-            temp.add("RightFaceLed6");
-            temp.add("RightFaceLed7");
-            led.createGroup( "RightEye" , temp );
-
-            ArrayList<String> temp1 = new ArrayList<String>();
-            temp1.add("LeftFaceLed1");
-            temp1.add("LeftFaceLed2");
-            temp1.add("LeftFaceLed3");
-            temp1.add("LeftFaceLed4");
-            temp1.add("LeftFaceLed5");
-            temp1.add("LeftFaceLed6");
-            temp1.add("LeftFaceLed7");
-            led.createGroup("LeftEye" , temp1);
-
             if(eye == "Right" ) {
-                led.fadeRGB("RightEye", red, green, blue, 0f);
+                led.fadeRGB("RightFaceLeds", red, green, blue, 0f);
             }else if(eye == "Left") {
-                led.fadeRGB("LeftEye", red, green, blue, 0f);
+                led.fadeRGB("LeftFaceLeds", red, green, blue, 0f);
             }else if ( eye == "Both") {
-                led.fadeRGB("RightEye", red, green, blue, 0f);
-                led.fadeRGB("LeftEye", red, green, blue, 0f);
+                led.fadeRGB("RightFaceLeds", red, green, blue, 0f);
+                led.fadeRGB("LeftFaceLeds", red, green, blue, 0f);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -289,39 +269,18 @@ public class NAO {
 
     public void changeEyeColor(String eye, Color color) throws ConnectionException{
         checkConnection();
+        float red = (float) color.getRed();
+        float green = (float) color.getGreen();
+        float blue = (float) color.getBlue();
 
         try {
-            ArrayList<String> temp = new ArrayList<String>();
-            temp.add("RightFaceLed1");
-            temp.add("RightFaceLed2");
-            temp.add("RightFaceLed3");
-            temp.add("RightFaceLed4");
-            temp.add("RightFaceLed5");
-            temp.add("RightFaceLed6");
-            temp.add("RightFaceLed7");
-            temp.add("RightFaceLed8");
-            led.createGroup( "RightEye" , temp );
-
-            ArrayList<String> temp1 = new ArrayList<String>();
-            temp1.add("LeftFaceLed1");
-            temp1.add("LeftFaceLed2");
-            temp1.add("LeftFaceLed3");
-            temp1.add("LeftFaceLed4");
-            temp1.add("LeftFaceLed5");
-            temp1.add("LeftFaceLed6");
-            temp1.add("LeftFaceLed7");
-            temp1.add("LeftFaceLed8");
-            led.createGroup("LeftEye" , temp1);
-            float red = (float) color.getRed();
-            float green = (float) color.getGreen();
-            float blue = (float) color.getBlue();
             if(eye == "Right" ) {
-                led.fadeRGB("RightEye", red, green, blue, 0f);
+                led.fadeRGB("RightFaceLeds", red, green, blue, 0f);
             }else if(eye == "Left") {
-                led.fadeRGB("LeftEye", red, green, blue, 0f);
+                led.fadeRGB("LeftFaceLeds", red, green, blue, 0f);
             }else if ( eye == "Both") {
-                led.fadeRGB("RightEye", red, green, blue, 0f);
-                led.fadeRGB("LeftEye", red, green, blue, 0f);
+                led.fadeRGB("RightFaceLeds", red, green, blue, 0f);
+                led.fadeRGB("LeftFaceLeds", red, green, blue, 0f);
             }
         } catch (Exception e) {
             e.printStackTrace();
