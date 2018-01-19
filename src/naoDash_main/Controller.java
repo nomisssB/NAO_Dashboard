@@ -164,6 +164,20 @@ public class Controller {
                         e1.printStackTrace();
                     }
                     break;
+                case Q:
+                    try {
+                        nao1.setMoveT(0f);
+                    } catch (ConnectionException e1) {
+                        e1.printStackTrace();
+                    }
+                    break;
+                case E:
+                    try {
+                        nao1.setMoveT(0f);
+                    } catch (ConnectionException e1) {
+                        e1.printStackTrace();
+                    }
+                    break;
             }
         });
 
@@ -242,6 +256,7 @@ public class Controller {
             //Füllen der ListView mit den Postures des Naos
             fillPostureList(nao1.getPostures());
             fillVoiceList(nao1.getVoices());
+            nao1.setMoveV(motionspeed);
 
         }
 
@@ -327,9 +342,19 @@ public class Controller {
     }
 
     public void turnRight(ActionEvent actionEvent) {
+        try {
+            nao1.setMoveT(-1f);
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+        }
     }
 
     public void turnLeft(ActionEvent actionEvent) {
+        try {
+            nao1.setMoveT(1f);
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+        }
     }
 
     //#####################  SAY-TEXT ##################
