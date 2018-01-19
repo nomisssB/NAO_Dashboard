@@ -74,10 +74,13 @@
                   <String fx:value="once" />
                </styleClass>
             </AnchorPane>
-            <AnchorPane layoutX="611.0" layoutY="242.0" prefHeight="276.0" prefWidth="169.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="242.0">
+            <AnchorPane layoutX="611.0" layoutY="242.0" prefHeight="121.0" prefWidth="169.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
                         <ColorPicker fx:id="col_picker" layoutX="18.0" layoutY="34.0" onAction="#colorchoice" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                         <Label styleClass="headlines" text="pick LED Color" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <ColorPicker fx:id="col_picker1" layoutX="10.0" layoutY="37.000000000000014" onAction="#colorchoice" AnchorPane.bottomAnchor="58.999999999999986" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                  <Label layoutX="10.0" layoutY="17.0" styleClass="headlines" text="left eye" />
+                  <Label layoutX="10.0" layoutY="65.0" styleClass="headlines" text="right eye" />
                </children>
                <styleClass>
                   <String fx:value="module" />
@@ -138,7 +141,7 @@
                   <String fx:value="once" />
                </styleClass>
             </AnchorPane>
-            <ProgressBar fx:id="battery_Bar" disable="true" layoutX="266.0" layoutY="75.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="79.0" prefWidth="187.0" progress="0.37" />
+            <ProgressBar fx:id="battery_Bar" layoutX="180.0" layoutY="474.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="48.0" progress="0.37" />
          </children>
       </AnchorPane>
             <GridPane hgap="8.0" prefHeight="36.0" prefWidth="510.0" styleClass="module" vgap="8.0" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="30.0">

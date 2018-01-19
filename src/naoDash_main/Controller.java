@@ -19,7 +19,8 @@ import javafx.stage.Stage;
 import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.util.List;
-
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class Controller {
@@ -185,6 +186,19 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
+        Timer t = new Timer();
+
+        t.schedule(new TimerTask(){
+
+
+            @Override
+            public void run() {
+                batteryView();
+            }
+        }, 0, 5000);
+
     }
 
 
