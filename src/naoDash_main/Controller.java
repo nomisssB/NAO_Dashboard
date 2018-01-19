@@ -18,9 +18,13 @@ import javafx.stage.Stage;
 
 import java.awt.event.ItemListener;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
 public class Controller {
@@ -252,15 +256,14 @@ public class Controller {
         }
 
 
-        Timer t = new Timer();
-
-        t.schedule(new TimerTask(){
-
+        final ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
+        ses.scheduleWithFixedDelay(new Runnable() {
             @Override
             public void run() {
                 batteryView();
             }
-        }, 0, 5000);
+        }, 0, 20, TimeUnit.SECONDS);
+
 
     }
 
