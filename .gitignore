@@ -13,6 +13,7 @@ main_log.log.lck
 .idea/dictionaries
 lib/java-naoqi-sdk-2.1.4.13-linux64.jar
 lib/java-naoqi-sdk-2.1.4.13-mac64.jar
+config.xml
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/

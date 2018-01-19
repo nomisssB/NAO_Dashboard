@@ -203,7 +203,7 @@ public class NAO {
         checkConnection();                      //  recall the moveToward method to let the NAO move
 
         if (moveX == 0) {
-            float moveY = y;
+            moveY = y;
         }
 
         try {
