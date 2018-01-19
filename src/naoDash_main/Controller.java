@@ -7,11 +7,14 @@ import NAO.NAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.*;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.awt.event.ItemListener;
 import java.io.IOException;
@@ -28,6 +31,7 @@ public class Controller {
     private String robotURL;
     private NAO nao1;
     private String configFile = "config.xml";
+    public static Stage prefs;
 
     @FXML
     public AnchorPane pane_main;
@@ -153,7 +157,18 @@ public class Controller {
             //Übernehmen der geladenen Werte in Text-Felder
             txt_ipadress.setText(Configurator.props.getProperty("ipAddress"));
             txt_port.setText(Configurator.props.getProperty("port"));
-            sldr_pitch.setValue(Configurator.props.getProperty("pitch").);
+//            sldr_pitch.setValue(Float.parseFloat(Configurator.props.getProperty("pitch")));
+
+
+        // zweites Fenster für Einstellungen:
+        try {
+            Parent prefsParent = FXMLLoader.load(getClass().getResource("../GUI/preferences.fxml"));
+            prefs = new Stage();
+            prefs.setScene(new Scene(prefsParent));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -187,7 +202,7 @@ public class Controller {
             alert.showAndWait();
         } else { //Falls Eingaben korrekt, Connection öffnen:
             lbl_toolbar.setText("connect");
-            robotURL = "tcp://" + txt_ipadress.getText() + ":" + txt_port.getText();
+            String robotURL = "tcp://" + txt_ipadress.getText() + ":" + txt_port.getText();
             nao1 = new NAO();
             nao1.establishConnection(robotURL);
             //Sperren/Entsperren der entsprechenden Kontroll-Objekte
@@ -331,6 +346,9 @@ public class Controller {
     }
 
 
+    public void menu_prefs(ActionEvent actionEvent) {
+        prefs.show();
+    }
 }
 
 
