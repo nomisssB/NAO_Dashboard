@@ -304,7 +304,7 @@ public class Controller {
     }
 
 
-//daadsdasda
+//
     //#####################  MENU-BAR ##################
     public void menu_quit(ActionEvent actionEvent) {
         System.exit(0);
