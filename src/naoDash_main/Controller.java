@@ -42,6 +42,8 @@ public class Controller {
     public Button btn_a;
     public Button btn_d;
     public Button btn_w;
+    public Button btn_q;
+    public Button btn_e;
     public Button btn_connect;
     public Button btn_disconnect;
     public Button btn_execute;
@@ -106,11 +108,11 @@ public class Controller {
             lbl_toolbar.setText("value: " + newValue.floatValue());
             volume = newValue.floatValue();
         });
-
+        // Abfangen der Checkbox
         chb_pitch.selectedProperty().addListener((observable, oldValue, newValue) -> {
            if(chb_pitch.isSelected()){
                sldr_pitch.setDisable(false);
-           } else { sldr_pitch.setDisable(true);}
+           } else { sldr_pitch.setDisable(true); pitch = 0.0f;}
         });
 
 
@@ -122,6 +124,8 @@ public class Controller {
                 case A: btn_a.fire(); break;
                 case S: btn_s.fire(); break;
                 case D: btn_d.fire(); break;
+                case Q: btn_q.fire(); break;
+                case E: btn_e.fire(); break;
                 case I: btn_up.fire(); break;
                 case K: btn_down.fire(); break;
                 case J: btn_left.fire(); break;
@@ -308,6 +312,12 @@ public class Controller {
         }
     }
 
+    public void turnRight(ActionEvent actionEvent) {
+    }
+
+    public void turnLeft(ActionEvent actionEvent) {
+    }
+
     //#####################  SAY-TEXT ##################
     // Buttons WASD for Body-Control
 
@@ -370,6 +380,8 @@ public class Controller {
     public void menu_prefs(ActionEvent actionEvent) {
         prefs.show();
     }
+
+
 }
 
 
