@@ -171,6 +171,7 @@ public class Controller {
 //            sldr_volume.setValue(Float.parseFloat(Configurator.props.getProperty("volume")));
 
 
+
         // zweites Fenster für Einstellungen:
         try {
             Parent prefsParent = FXMLLoader.load(getClass().getResource("../GUI/preferences.fxml"));
