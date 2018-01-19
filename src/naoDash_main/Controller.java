@@ -202,16 +202,7 @@ public class Controller {
         }
 
 
-        Timer t = new Timer();
 
-        t.schedule(new TimerTask(){
-
-
-            @Override
-            public void run() {
-                batteryView();
-            }
-        }, 0, 5000);
 
     }
 
@@ -260,6 +251,16 @@ public class Controller {
 
         }
 
+
+        Timer t = new Timer();
+
+        t.schedule(new TimerTask(){
+
+            @Override
+            public void run() {
+                batteryView();
+            }
+        }, 0, 5000);
 
     }
 
