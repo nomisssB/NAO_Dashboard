@@ -13,6 +13,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
@@ -135,6 +136,7 @@
                   <String fx:value="once" />
                </styleClass>
             </AnchorPane>
+            <ProgressBar fx:id="battery_Bar" disable="true" layoutX="266.0" layoutY="75.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="79.0" prefWidth="187.0" progress="0.37" />
          </children>
       </AnchorPane>
             <GridPane hgap="8.0" prefHeight="36.0" prefWidth="510.0" styleClass="module" vgap="8.0" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="30.0">

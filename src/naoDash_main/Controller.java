@@ -19,15 +19,17 @@ import java.util.List;
 
 
 
+
 public class Controller {
 
     private float motionspeed = 0.5f;
-    private float volume = 0.5f;
+       private float volume = 0.5f;
     private float pitch = 0f;
     private Color color;
     private String robotURL;
     private NAO nao1;
     private String configFile = "config.xml";
+    private int batteryV;                               //  BatteryValue;
 
     @FXML
     public AnchorPane pane_main;
@@ -57,6 +59,9 @@ public class Controller {
     public ChoiceBox cb_voice;
     public CheckBox chb_pitch;
     public CheckBox chb_volume;
+    public ProgressBar battery_bar;
+
+
 
 
 
@@ -155,7 +160,7 @@ public class Controller {
             //Übernehmen der geladenen Werte in Text-Felder
             txt_ipadress.setText(Configurator.props.getProperty("ipAddress"));
             txt_port.setText(Configurator.props.getProperty("port"));
-            sldr_pitch.setValue(Configurator.props.getProperty("pitch").);
+        //    sldr_pitch.setValue(Configurator.props.getProperty("pitch"));
     }
 
 
@@ -331,7 +336,16 @@ public class Controller {
         Configurator.saver(configFile,"port",txt_port.getText());
         Configurator.saver(configFile,"pitch",Float.toString(pitch));
     }
+    public void batteryView (ActionEvent actionEvent) {
+        try {
+            batteryV =  nao1.batteryPercent();
+            battery_bar.setProgress(batteryV);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
+
+    }
 
 }
 
