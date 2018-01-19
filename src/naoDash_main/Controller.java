@@ -153,6 +153,7 @@ public class Controller {
             //Übernehmen der geladenen Werte in Text-Felder
             txt_ipadress.setText(Configurator.props.getProperty("ipAddress"));
             txt_port.setText(Configurator.props.getProperty("port"));
+            sldr_pitch.setValue(Configurator.props.getProperty("pitch").);
     }
 
 
@@ -326,6 +327,7 @@ public class Controller {
     private void saveConfig(){
         Configurator.saver(configFile,"ipAddress",txt_ipadress.getText());
         Configurator.saver(configFile,"port",txt_port.getText());
+        Configurator.saver(configFile,"pitch",Float.toString(pitch));
     }
 
 

@@ -62,7 +62,7 @@
                         <Button fx:id="btn_s" layoutX="56.0" layoutY="68.0" mnemonicParsing="false" onAction="#backward" styleClass="movingbutton" text="S" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="56.0" AnchorPane.rightAnchor="54.0" />
                         <Button fx:id="btn_d" layoutX="95.0" layoutY="68.0" mnemonicParsing="false" onAction="#right" styleClass="movingbutton" text="D" AnchorPane.bottomAnchor="83.0" AnchorPane.rightAnchor="10.0" />
                         <Button fx:id="btn_a" layoutX="10.0" layoutY="68.0" mnemonicParsing="false" onAction="#left" styleClass="movingbutton" text="A" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="10.0" />
-                        <Slider fx:id="sldr_speed" blockIncrement="0.01" layoutX="17.0" layoutY="117.0" max="1.0" prefHeight="17.0" prefWidth="112.0" showTickLabels="true" showTickMarks="true" value="0.5" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                        <Slider fx:id="sldr_speed" blockIncrement="0.01" layoutX="17.0" layoutY="117.0" max="1.0" prefHeight="17.0" prefWidth="112.0" value="0.5" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                         <Label layoutX="12.0" styleClass="headlines" text="Body Control" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         <Label layoutX="-3.0" layoutY="98.0" prefHeight="24.0" prefWidth="149.0" styleClass="headlines" text="Speed:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                </children>
@@ -115,7 +115,7 @@
                   <ChoiceBox fx:id="cb_voice" layoutX="10.0" layoutY="143.0" prefHeight="25.0" prefWidth="130.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                   <Label layoutX="10.0" layoutY="120.0" styleClass="headlines" text="voice" />
                   <CheckBox fx:id="chb_pitch" layoutX="13.0" layoutY="86.0" mnemonicParsing="false" styleClass="headlines" text="pitch" AnchorPane.leftAnchor="5.0" />
-                  <CheckBox fx:id="chb_volume" layoutX="10.0" layoutY="49.0" mnemonicParsing="false" styleClass="headlines" text="volume" AnchorPane.leftAnchor="5.0" />
+                  <Label layoutX="9.0" layoutY="49.0" styleClass="headlines" text="volume" />
                </children>
                <styleClass>
                   <String fx:value="module" />
