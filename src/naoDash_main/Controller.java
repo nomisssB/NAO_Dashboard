@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
 import java.awt.event.ItemListener;
 import java.io.IOException;
@@ -19,16 +20,16 @@ import java.util.List;
 
 
 
-
 public class Controller {
 
     private float motionspeed = 0.5f;
-       private float volume = 0.5f;
+    private float volume = 0.5f;
     private float pitch = 0f;
     private Color color;
     private String robotURL;
     private NAO nao1;
     private String configFile = "config.xml";
+    public static Stage prefs;
     private int batteryV;                               //  BatteryValue;
 
     @FXML
@@ -109,7 +110,6 @@ public class Controller {
 
 
 
-
         //Abfangen von KeyEvents und Auslösen der Buttons je nach Key
         pane_main.setOnKeyPressed(e ->{
             switch (e.getCode()){
@@ -160,7 +160,18 @@ public class Controller {
             //Übernehmen der geladenen Werte in Text-Felder
             txt_ipadress.setText(Configurator.props.getProperty("ipAddress"));
             txt_port.setText(Configurator.props.getProperty("port"));
-        //    sldr_pitch.setValue(Configurator.props.getProperty("pitch"));
+            sldr_volume.setValue(Float.parseFloat(Configurator.props.getProperty("volume")));
+
+
+        // zweites Fenster für Einstellungen:
+        try {
+            Parent prefsParent = FXMLLoader.load(getClass().getResource("../GUI/preferences.fxml"));
+            prefs = new Stage();
+            prefs.setScene(new Scene(prefsParent));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -304,7 +315,7 @@ public class Controller {
     }
 
 
-//
+
     //#####################  MENU-BAR ##################
     public void menu_quit(ActionEvent actionEvent) {
         System.exit(0);
@@ -347,6 +358,9 @@ public class Controller {
 
     }
 
+    public void menu_prefs(ActionEvent actionEvent) {
+        prefs.show();
+    }
 }
 
 

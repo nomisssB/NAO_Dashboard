@@ -17,6 +17,10 @@ public class NAO {
     private static ALRobotPosture pose;
     private static ALLeds led ;
     private static ALBattery bat;
+    private static float moveX;
+    private static float moveY;
+    private static float moveT;
+    private static float moveV;
 
     public void establishConnection(String url) {
         if ( app != null){ // falls Verbindung schon besteht, soll sie neu aufgebaut werden
@@ -181,6 +185,58 @@ public class NAO {
         }
     }
 
+    public void setMoveX (float x) throws ConnectionException { // set the x direction of motion and
+        checkConnection();                        //  recall the moveToward method to let the NAO move
+
+        if (moveY == 0) {
+            moveX = x;
+        }
+
+        try {
+            motion.moveToward(moveX * moveV, moveY * moveV, moveT * moveV);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setMoveY (float y) throws ConnectionException {// set the y direction of motion and
+        checkConnection();                      //  recall the moveToward method to let the NAO move
+
+        if (moveX == 0) {
+            float moveY = y;
+        }
+
+        try {
+            motion.moveToward(moveX * moveV, moveY * moveV, moveT * moveV);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setMoveT (float t) throws ConnectionException {
+        checkConnection();
+
+        moveT = t;
+
+        try {
+            motion.moveToward(moveX * moveV, moveY * moveV, moveT * moveV);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setMoveV (float v) throws ConnectionException {
+        checkConnection();
+        moveV = v;
+
+        try {
+            motion.moveToward(moveX * moveV, moveY * moveV, moveT * moveV);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     public void moveArm( String joint, float direction) throws ConnectionException{
         checkConnection();
         try {
@@ -241,7 +297,6 @@ public class NAO {
         }
         return -1;
     }
-
 
 }
 
