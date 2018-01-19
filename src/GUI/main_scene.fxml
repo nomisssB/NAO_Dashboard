@@ -74,11 +74,11 @@
                   <String fx:value="once" />
                </styleClass>
             </AnchorPane>
-            <AnchorPane layoutX="611.0" layoutY="242.0" prefHeight="121.0" prefWidth="169.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <AnchorPane layoutX="611.0" layoutY="242.0" prefHeight="125.0" prefWidth="169.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                        <ColorPicker fx:id="col_picker" layoutX="18.0" layoutY="34.0" onAction="#colorchoice" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                        <ColorPicker fx:id="col_picker_right" layoutX="18.0" layoutY="34.0" onAction="#colorchoice_right" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                         <Label styleClass="headlines" text="pick LED Color" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <ColorPicker fx:id="col_picker1" layoutX="10.0" layoutY="37.000000000000014" onAction="#colorchoice" AnchorPane.bottomAnchor="58.999999999999986" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                  <ColorPicker fx:id="col_picker_left" layoutX="10.0" layoutY="37.000000000000014" onAction="#colorchoice_left" AnchorPane.bottomAnchor="58.999999999999986" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                   <Label layoutX="10.0" layoutY="17.0" styleClass="headlines" text="left eye" />
                   <Label layoutX="10.0" layoutY="65.0" styleClass="headlines" text="right eye" />
                </children>

@@ -18,9 +18,13 @@ import javafx.stage.Stage;
 
 import java.awt.event.ItemListener;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 
 public class Controller {
@@ -49,7 +53,8 @@ public class Controller {
     public Button btn_disconnect;
     public Button btn_execute;
     public Button btn_sayText;
-    public ColorPicker col_picker;
+    public ColorPicker col_picker_left;
+    public ColorPicker col_picker_right;
     public ListView<String> motion_list;
     public Pane pane_cam;
     public TextField txt_ipadress;
@@ -252,15 +257,14 @@ public class Controller {
         }
 
 
-        Timer t = new Timer();
-
-        t.schedule(new TimerTask(){
-
+        final ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
+        ses.scheduleWithFixedDelay(new Runnable() {
             @Override
             public void run() {
                 batteryView();
             }
-        }, 0, 5000);
+        }, 0, 20, TimeUnit.SECONDS);
+
 
     }
 
@@ -368,11 +372,21 @@ public class Controller {
 
     //#####################  LED-CONTROL ##################
     //After picking a color in ColorPicker
-    public void colorchoice(ActionEvent actionEvent) {
-        color = col_picker.getValue();
+    public void colorchoice_left(ActionEvent actionEvent) {
+        color = col_picker_left.getValue();
         lbl_toolbar.setText(color.toString());
         try {
-            nao1.changeEyeColor("Both", color);
+            nao1.changeEyeColor("Left", color);
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+        }
+    }
+    //After picking a color in ColorPicker
+    public void colorchoice_right(ActionEvent actionEvent) {
+        color = col_picker_right.getValue();
+        lbl_toolbar.setText(color.toString());
+        try {
+            nao1.changeEyeColor("Right", color);
         } catch (ConnectionException e) {
             e.printStackTrace();
         }
