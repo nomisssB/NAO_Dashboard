@@ -7,6 +7,8 @@ import NAO.NAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.*;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
@@ -59,7 +61,6 @@ public class Controller {
     public Slider sldr_volume;
     public ChoiceBox cb_voice;
     public CheckBox chb_pitch;
-    public CheckBox chb_volume;
     public ProgressBar battery_bar;
 
 
@@ -160,7 +161,7 @@ public class Controller {
             //Übernehmen der geladenen Werte in Text-Felder
             txt_ipadress.setText(Configurator.props.getProperty("ipAddress"));
             txt_port.setText(Configurator.props.getProperty("port"));
-            sldr_volume.setValue(Float.parseFloat(Configurator.props.getProperty("volume")));
+//            sldr_volume.setValue(Float.parseFloat(Configurator.props.getProperty("volume")));
 
 
         // zweites Fenster für Einstellungen:
@@ -347,15 +348,14 @@ public class Controller {
         Configurator.saver(configFile,"port",txt_port.getText());
         Configurator.saver(configFile,"pitch",Float.toString(pitch));
     }
-    public void batteryView (ActionEvent actionEvent) {
+
+    public void batteryView () {
         try {
             batteryV =  nao1.batteryPercent();
             battery_bar.setProgress(batteryV);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
-
     }
 
 
