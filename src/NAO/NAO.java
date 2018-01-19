@@ -12,16 +12,16 @@ import javafx.scene.paint.Color;
 
 public class NAO {
     //Variabeln Deklarationen
-    private static Application app; // = new Application(new String[] {});
+    private static Application app;
     private static ALMotion motion;
     private static ALTextToSpeech tts;
     private static ALRobotPosture pose;
     private static ALLeds led ;
     private static ALBattery bat;
-    private static float moveX;
-    private static float moveY;
-    private static float moveT;
-    private static float moveV;
+    private static float moveX; // movement forwards / backwards
+    private static float moveY; // movement sideways
+    private static float moveT; // movement spinning
+    private static float moveV; // velocity of movement
 
     public void establishConnection(String url) {
         if ( app != null){ // falls Verbindung schon besteht, soll sie neu aufgebaut werden
@@ -34,8 +34,10 @@ public class NAO {
             }
         } else { // Establish a new connection, if there wasn't one yet.
             try {
+                // Initialisation of the Connection to the NAO
                 app = new Application(new String[]{}, url);
                 app.start();
+                // Initialisation of the NAO Control Objekts.
                 motion = new ALMotion(app.session());
                 tts = new ALTextToSpeech(app.session());
                 pose = new ALRobotPosture(app.session());
@@ -62,13 +64,10 @@ public class NAO {
 
 
     public void moveHead(float left, float right, float down, float up) throws ConnectionException{ // unfertig #testing
-        // not save, if motion.stiffnessInterpolation is needed. Should be tested with real NAO. (TODO)
         checkConnection();
         try {
-            // motion.stiffnessInterpolation("HeadYaw", 1.0f, 0.1f); // Apparently not needed, but kept here, if needed later
-            motion.angleInterpolation("HeadYaw", left-right, 0.1f, false); // move Head left right
-            motion.angleInterpolation("HeadPitch", down-up, 0.1f, false); // move Head up down
-            //motion.stiffnessInterpolation("HeadYaw", 0.0f, 0.1f); // Apparently not needed, but kept here, if needed later
+            motion.angleInterpolation("HeadYaw", left-right, 0.1f, false); // move Head left or right
+            motion.angleInterpolation("HeadPitch", down-up, 0.1f, false); // move Head up or down
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -77,7 +76,6 @@ public class NAO {
     }
 
     public void moveHead(String direction) throws ConnectionException{
-        // not save, if motion.stiffnessInterpolation is needed. Should be tested with real NAO. (TODO)
         checkConnection();
         float strongness = 0.05f; // how much does the head move per call
         String joint; // Moving horizontal ("HeadPitch") or vertical ("HeadYaw")
@@ -105,7 +103,7 @@ public class NAO {
                 break;
         }
         try {
-            motion.angleInterpolation(joint, move, 0.01f, false);
+            motion.angleInterpolation(joint, move, 0.01f, false); // move the head with the values from above
         } catch(Exception e){
             e.printStackTrace();
         }
@@ -152,7 +150,7 @@ public class NAO {
         return null;
     }
 
-    public void execPosture(String posture) throws ConnectionException {
+    public void execPosture(String posture) throws ConnectionException { // Goto a given Posture
         checkConnection();
         try {
             pose.goToPosture(posture, 1.0f);
@@ -189,11 +187,11 @@ public class NAO {
     public void setMoveX (float x) throws ConnectionException { // set the x direction of motion and
         checkConnection();                        //  recall the moveToward method to let the NAO move
 
-        if (moveY == 0) {
+        if (moveY == 0) { // Nao can only move in x or y. If both are set to move at once, nothing happens
             moveX = x;
         }
-
         try {
+            // set the new movement directions combined with the speed.
             motion.moveToward(moveX * moveV, moveY * moveV, moveT * moveV);
         } catch (Exception e) {
             e.printStackTrace();
@@ -203,11 +201,11 @@ public class NAO {
     public void setMoveY (float y) throws ConnectionException {// set the y direction of motion and
         checkConnection();                      //  recall the moveToward method to let the NAO move
 
-        if (moveX == 0) {
+        if (moveX == 0) { // Nao can only move in x or y. If both are set to move at once, nothing happens
             moveY = y;
         }
-
         try {
+            // set the new movement directions combined with the speed.
             motion.moveToward(moveX * moveV, moveY * moveV, moveT * moveV);
         } catch (Exception e) {
             e.printStackTrace();
@@ -217,20 +215,22 @@ public class NAO {
     public void setMoveT (float t) throws ConnectionException {
         checkConnection();
 
-        moveT = t;
+        moveT = t; // NAO can spin and walk in one direction at once, so just let him spin.
 
         try {
+            // set the new movement directions combined with the speed.
             motion.moveToward(moveX * moveV, moveY * moveV, moveT * moveV);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void setMoveV (float v) throws ConnectionException {
+    public void setMoveV (float v) throws ConnectionException { // sets the speed of the movement
         checkConnection();
         moveV = v;
 
         try {
+            // set the new speed combined with the movement directions
             motion.moveToward(moveX * moveV, moveY * moveV, moveT * moveV);
         } catch (Exception e) {
             e.printStackTrace();
@@ -292,7 +292,6 @@ public class NAO {
         try {
             bat = new ALBattery(app.session());
             return bat.getBatteryCharge();
-
         } catch (Exception e) {
             e.printStackTrace();
         }
