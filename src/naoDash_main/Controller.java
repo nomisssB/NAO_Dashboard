@@ -5,6 +5,9 @@ import GUI.InputParse;
 import GUI.Timers;
 import NAO.ConnectionException;
 import NAO.NAO;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.*;
@@ -16,14 +19,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
-import java.awt.event.ItemListener;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 
 public class Controller {
+
 
     private float motionspeed = 0.5f;
     private float volume = 0.5f;
@@ -32,10 +35,11 @@ public class Controller {
     private String robotURL;
     private NAO nao1;
     private String configFile = "config.xml";
+    private Timeline batteryTimeline;
     public static Stage prefs;
-    private int batteryV;                               //  BatteryValue;
 
     @FXML
+    public ProgressBar battery_Bar;
     public AnchorPane pane_main;
     public AnchorPane pane_control;
     public Slider sldr_speed;
@@ -65,18 +69,12 @@ public class Controller {
     public Slider sldr_volume;
     public ChoiceBox cb_voice;
     public CheckBox chb_pitch;
-    public ProgressBar battery_bar;
-
-
-
-
-
 
 
     //KONSTRUKTOR
     public Controller(){
 
-        //Führt Methode "saveConfig" bei Schließen des Programms aus
+        //Führt Methode "saveConfig" bei Schließen des Programms (des Threads) aus
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             public void run() {
                saveConfig();
@@ -89,7 +87,7 @@ public class Controller {
     public void initialize() throws IOException {
 
 
-//        Abfangen von Werten des Sliders
+//        Abfangen von Werten der Slider
         sldr_speed.valueProperty().addListener((observable, oldValue, newValue) -> {
             lbl_toolbar.setText("value: " + newValue.floatValue());
             motionspeed = newValue.floatValue();
@@ -192,7 +190,7 @@ public class Controller {
 
 
 
-        // zweites Fenster für Einstellungen:
+        // zweites Fenster für Einstellungen: (noch nicht in Benutzung)
         try {
             Parent prefsParent = FXMLLoader.load(getClass().getResource("../GUI/preferences.fxml"));
             prefs = new Stage();
@@ -201,10 +199,6 @@ public class Controller {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
-
     }
 
 
@@ -241,7 +235,7 @@ public class Controller {
             robotURL = "tcp://" + txt_ipadress.getText() + ":" + txt_port.getText();
             nao1 = new NAO();
             nao1.establishConnection(robotURL);
-            //Sperren/Entsperren der entsprechenden Kontroll-Objekte
+            //Sperren/Entsperren der entsprechenden GUI-Kontroll-Objekte
             pane_control.setDisable(false);
             btn_connect.setDisable(true);
             btn_disconnect.setDisable(false);
@@ -250,11 +244,8 @@ public class Controller {
             fillVoiceList(nao1.getVoices());
             nao1.setMoveV(motionspeed);
 
-            Timers.battery_timer(nao1);
-
+            batteryViewer();
         }
-
-
     }
 
     public void disconnect(ActionEvent actionEvent) {
@@ -415,15 +406,22 @@ public class Controller {
         Configurator.saver(configFile,"pitch",Float.toString(pitch));
     }
 
-    public void batteryView () {
+    public void setbatteryView () {
         try {
-            batteryV =  nao1.batteryPercent();
-            battery_bar.setProgress(batteryV);
+            battery_Bar.setProgress(nao1.batteryPercent());
+            System.out.println(nao1.batteryPercent());
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
+    private void batteryViewer(){
+        batteryTimeline = new Timeline(new KeyFrame(
+                Duration.millis(3000),
+                ae -> setbatteryView()));
+        batteryTimeline.setCycleCount(Animation.INDEFINITE);
+        batteryTimeline.play();
+    }
 
     public void menu_prefs(ActionEvent actionEvent) {
         prefs.show();

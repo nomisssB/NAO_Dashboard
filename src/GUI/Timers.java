@@ -13,19 +13,23 @@ public class Timers {
         timer_Bat = new Timer("NaoDash_BatteryTimer", true);
         timer_Bat.schedule(new BatteryTask(nao),1000,5000);
     }
+
+    public static void killBatTimer(){
+        timer_Bat.cancel();
+    }
 }
 
 class BatteryTask extends TimerTask
 {
     private NAO nao;
-
     BatteryTask(NAO nao){
         this.nao = nao;
 }
     @Override public void run()
     {
         try {
-            System.out.println(nao.batteryPercent());
+            Controller.batteryV = nao.batteryPercent();
+            System.out.println(Controller.batteryV);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
