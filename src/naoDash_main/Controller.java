@@ -2,24 +2,31 @@ package naoDash_main;
 
 import GUI.Configurator;
 import GUI.InputParse;
+import GUI.Timers;
 import NAO.ConnectionException;
 import NAO.NAO;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.*;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
-import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.util.List;
 
 
-
 public class Controller {
+
 
     private float motionspeed = 0.5f;
     private float volume = 0.5f;
@@ -28,8 +35,10 @@ public class Controller {
     private String robotURL;
     private NAO nao1;
     private String configFile = "config.xml";
+    public static Stage prefs;
 
     @FXML
+    public ProgressBar battery_Bar;
     public AnchorPane pane_main;
     public AnchorPane pane_control;
     public Slider sldr_speed;
@@ -37,11 +46,14 @@ public class Controller {
     public Button btn_a;
     public Button btn_d;
     public Button btn_w;
+    public Button btn_q;
+    public Button btn_e;
     public Button btn_connect;
     public Button btn_disconnect;
     public Button btn_execute;
     public Button btn_sayText;
-    public ColorPicker col_picker;
+    public ColorPicker col_picker_left;
+    public ColorPicker col_picker_right;
     public ListView<String> motion_list;
     public Pane pane_cam;
     public TextField txt_ipadress;
@@ -56,15 +68,12 @@ public class Controller {
     public Slider sldr_volume;
     public ChoiceBox cb_voice;
     public CheckBox chb_pitch;
-    public CheckBox chb_volume;
-
-
 
 
     //KONSTRUKTOR
     public Controller(){
 
-        //Führt Methode "saveConfig" bei Schließen des Programms aus
+        //Führt Methode "saveConfig" bei Schließen des Programms (des Threads) aus
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             public void run() {
                saveConfig();
@@ -77,11 +86,15 @@ public class Controller {
     public void initialize() throws IOException {
 
 
-//        Abfangen von Werten des Sliders
+//        Abfangen von Werten der Slider
         sldr_speed.valueProperty().addListener((observable, oldValue, newValue) -> {
             lbl_toolbar.setText("value: " + newValue.floatValue());
             motionspeed = newValue.floatValue();
-
+            try {
+                nao1.setMoveV(motionspeed);
+            } catch (ConnectionException e) {
+                e.printStackTrace();
+            }
         });
 
         sldr_pitch.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -94,11 +107,11 @@ public class Controller {
             lbl_toolbar.setText("value: " + newValue.floatValue());
             volume = newValue.floatValue();
         });
-
+        // Abfangen der Checkbox
         chb_pitch.selectedProperty().addListener((observable, oldValue, newValue) -> {
            if(chb_pitch.isSelected()){
                sldr_pitch.setDisable(false);
-           } else { sldr_pitch.setDisable(true);}
+           } else { sldr_pitch.setDisable(true); pitch = 0.0f;}
         });
 
 
@@ -110,6 +123,8 @@ public class Controller {
                 case A: btn_a.fire(); break;
                 case S: btn_s.fire(); break;
                 case D: btn_d.fire(); break;
+                case Q: btn_q.fire(); break;
+                case E: btn_e.fire(); break;
                 case I: btn_up.fire(); break;
                 case K: btn_down.fire(); break;
                 case J: btn_left.fire(); break;
@@ -121,28 +136,45 @@ public class Controller {
             switch(e.getCode()){
                 case W:
                     try {
-                        nao1.moveToward(0f,0f,0f,0f);
+                        nao1.setMoveX(0f);
                     } catch (ConnectionException e1) {
                         e1.printStackTrace();
                     }
                     break;
-                case A: try {
-                    nao1.moveToward(0f,0f,0f,0f);
-                } catch (ConnectionException e1) {
-                    e1.printStackTrace();
-                }
+                case A:
+                    try {
+                        nao1.setMoveY(0f);
+                    } catch (ConnectionException e1) {
+                        e1.printStackTrace();
+                    }
                     break;
-                case S:try {
-                    nao1.moveToward(0f,0f,0f,0f);
-                } catch (ConnectionException e1) {
-                    e1.printStackTrace();
-                }
+                case S:
+                    try {
+                        nao1.setMoveX(0f);
+                    } catch (ConnectionException e1) {
+                        e1.printStackTrace();
+                    }
                     break;
-                case D: try {
-                    nao1.moveToward(0f,0f,0f,0f);
-                } catch (ConnectionException e1) {
-                    e1.printStackTrace();
-                }
+                case D:
+                    try {
+                        nao1.setMoveY(0f);
+                    } catch (ConnectionException e1) {
+                        e1.printStackTrace();
+                    }
+                    break;
+                case Q:
+                    try {
+                        nao1.setMoveT(0f);
+                    } catch (ConnectionException e1) {
+                        e1.printStackTrace();
+                    }
+                    break;
+                case E:
+                    try {
+                        nao1.setMoveT(0f);
+                    } catch (ConnectionException e1) {
+                        e1.printStackTrace();
+                    }
                     break;
             }
         });
@@ -153,6 +185,19 @@ public class Controller {
             //Übernehmen der geladenen Werte in Text-Felder
             txt_ipadress.setText(Configurator.props.getProperty("ipAddress"));
             txt_port.setText(Configurator.props.getProperty("port"));
+//            sldr_volume.setValue(Float.parseFloat(Configurator.props.getProperty("volume")));
+
+
+
+        // zweites Fenster für Einstellungen: (noch nicht in Benutzung)
+        try {
+            Parent prefsParent = FXMLLoader.load(getClass().getResource("../GUI/preferences.fxml"));
+            prefs = new Stage();
+            prefs.setScene(new Scene(prefsParent));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -189,17 +234,19 @@ public class Controller {
             robotURL = "tcp://" + txt_ipadress.getText() + ":" + txt_port.getText();
             nao1 = new NAO();
             nao1.establishConnection(robotURL);
-            //Sperren/Entsperren der entsprechenden Kontroll-Objekte
+            //Sperren/Entsperren der entsprechenden GUI-Kontroll-Objekte
             pane_control.setDisable(false);
             btn_connect.setDisable(true);
             btn_disconnect.setDisable(false);
             //Füllen der ListView mit den Postures des Naos
             fillPostureList(nao1.getPostures());
             fillVoiceList(nao1.getVoices());
+            nao1.setMoveV(motionspeed);
 
+            //initalisiert Battery-ProgressBar und startet "Timeline" für die Batterie-Anzeige
+            battery_Bar.setProgress(nao1.batteryPercent());
+            batteryViewer();
         }
-
-
     }
 
     public void disconnect(ActionEvent actionEvent) {
@@ -246,7 +293,7 @@ public class Controller {
     public void forward(ActionEvent actionEvent){
         lbl_toolbar.setText("forward");
         try {
-            nao1.moveToward(1f,0f,0f,motionspeed);
+            nao1.setMoveX(1f);
         } catch (ConnectionException e) {
             e.printStackTrace();
         }
@@ -256,7 +303,7 @@ public class Controller {
     public void left(ActionEvent actionEvent) {
         lbl_toolbar.setText("left");
         try {
-            nao1.moveToward(0f,0f,-1f,motionspeed);
+            nao1.setMoveY(1f);
         } catch (ConnectionException e) {
             e.printStackTrace();
         }
@@ -265,7 +312,7 @@ public class Controller {
     public void backward(ActionEvent actionEvent) {
         lbl_toolbar.setText("backward");
         try {
-            nao1.moveToward(0f,1f,0,motionspeed);
+            nao1.setMoveX(-1f);
         } catch (ConnectionException e) {
             e.printStackTrace();
         }
@@ -274,7 +321,23 @@ public class Controller {
     public void right(ActionEvent actionEvent) {
         lbl_toolbar.setText("right");
         try {
-            nao1.moveToward(0f,0f,1f,motionspeed);
+            nao1.setMoveY(-1f);
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void turnRight(ActionEvent actionEvent) {
+        try {
+            nao1.setMoveT(-1f);
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void turnLeft(ActionEvent actionEvent) {
+        try {
+            nao1.setMoveT(1f);
         } catch (ConnectionException e) {
             e.printStackTrace();
         }
@@ -290,9 +353,24 @@ public class Controller {
 
     //#####################  LED-CONTROL ##################
     //After picking a color in ColorPicker
-    public void colorchoice(ActionEvent actionEvent) {
-        color = col_picker.getValue();
+    public void colorchoice_left(ActionEvent actionEvent) {
+        color = col_picker_left.getValue();
         lbl_toolbar.setText(color.toString());
+        try {
+            nao1.changeEyeColor("Left", color);
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+        }
+    }
+    //After picking a color in ColorPicker
+    public void colorchoice_right(ActionEvent actionEvent) {
+        color = col_picker_right.getValue();
+        lbl_toolbar.setText(color.toString());
+        try {
+            nao1.changeEyeColor("Right", color);
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -326,6 +404,28 @@ public class Controller {
     private void saveConfig(){
         Configurator.saver(configFile,"ipAddress",txt_ipadress.getText());
         Configurator.saver(configFile,"port",txt_port.getText());
+        Configurator.saver(configFile,"pitch",Float.toString(pitch));
+    }
+
+    public void setbatteryView () {
+        try {
+            battery_Bar.setProgress(nao1.batteryPercent());
+            System.out.println(nao1.batteryPercent());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void batteryViewer(){
+        Timeline batteryTimeline = new Timeline(new KeyFrame(
+                Duration.millis(3000),
+                ae -> setbatteryView()));
+        batteryTimeline.setCycleCount(Animation.INDEFINITE);
+        batteryTimeline.play();
+    }
+
+    public void menu_prefs(ActionEvent actionEvent) {
+        prefs.show();
     }
 
 

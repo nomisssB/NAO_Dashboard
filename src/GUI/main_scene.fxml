@@ -13,6 +13,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
@@ -36,7 +37,7 @@
       <menus>
         <Menu fx:id="menu1" mnemonicParsing="false" text="File">
           <items>
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
+            <MenuItem fx:id="menu_prefs" mnemonicParsing="false" onAction="#menu_prefs" text="Preferences…" />
             <SeparatorMenuItem mnemonicParsing="false" />
             <MenuItem mnemonicParsing="false" onAction="#menu_quit" text="Quit" />
           </items>
@@ -62,19 +63,24 @@
                         <Button fx:id="btn_s" layoutX="56.0" layoutY="68.0" mnemonicParsing="false" onAction="#backward" styleClass="movingbutton" text="S" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="56.0" AnchorPane.rightAnchor="54.0" />
                         <Button fx:id="btn_d" layoutX="95.0" layoutY="68.0" mnemonicParsing="false" onAction="#right" styleClass="movingbutton" text="D" AnchorPane.bottomAnchor="83.0" AnchorPane.rightAnchor="10.0" />
                         <Button fx:id="btn_a" layoutX="10.0" layoutY="68.0" mnemonicParsing="false" onAction="#left" styleClass="movingbutton" text="A" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="10.0" />
-                        <Slider fx:id="sldr_speed" blockIncrement="0.01" layoutX="17.0" layoutY="117.0" max="1.0" prefHeight="17.0" prefWidth="112.0" showTickLabels="true" showTickMarks="true" value="0.5" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                        <Slider fx:id="sldr_speed" blockIncrement="0.01" layoutX="17.0" layoutY="117.0" max="1.0" prefHeight="17.0" prefWidth="112.0" value="0.5" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                         <Label layoutX="12.0" styleClass="headlines" text="Body Control" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         <Label layoutX="-3.0" layoutY="98.0" prefHeight="24.0" prefWidth="149.0" styleClass="headlines" text="Speed:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                        <Button fx:id="btn_e" layoutX="100.0" layoutY="34.0" mnemonicParsing="false" onAction="#turnRight" prefHeight="30.0" prefWidth="41.0" styleClass="movingbutton" text="E" />
+                        <Button fx:id="btn_q" layoutX="10.0" layoutY="34.0" mnemonicParsing="false" onAction="#turnLeft" prefHeight="30.0" prefWidth="41.0" styleClass="movingbutton" text="Q" />
                </children>
                <styleClass>
                   <String fx:value="module" />
                   <String fx:value="once" />
                </styleClass>
             </AnchorPane>
-            <AnchorPane layoutX="611.0" layoutY="242.0" prefHeight="276.0" prefWidth="169.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="242.0">
+            <AnchorPane layoutX="611.0" layoutY="242.0" prefHeight="125.0" prefWidth="169.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
-                        <ColorPicker fx:id="col_picker" layoutX="18.0" layoutY="34.0" onAction="#colorchoice" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                        <ColorPicker fx:id="col_picker_right" layoutX="18.0" layoutY="34.0" onAction="#colorchoice_right" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                         <Label styleClass="headlines" text="pick LED Color" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <ColorPicker fx:id="col_picker_left" layoutX="10.0" layoutY="37.000000000000014" onAction="#colorchoice_left" AnchorPane.bottomAnchor="58.999999999999986" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                  <Label layoutX="10.0" layoutY="17.0" styleClass="headlines" text="left eye" />
+                  <Label layoutX="10.0" layoutY="65.0" styleClass="headlines" text="right eye" />
                </children>
                <styleClass>
                   <String fx:value="module" />
@@ -110,12 +116,12 @@
                <children>
                         <TextField fx:id="txt_sayText" layoutX="10.0" layoutY="15.0" prefHeight="25.0" prefWidth="142.0" promptText="Let me say something..." AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="15.0" />
                         <Button fx:id="btn_sayText" layoutX="10.0" layoutY="46.0" mnemonicParsing="false" onAction="#sayText" prefHeight="25.0" prefWidth="149.0" text="say" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-                  <Slider fx:id="sldr_volume" blockIncrement="0.1" disable="true" layoutX="5.0" layoutY="73.0" max="1.0" value="0.5" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
-                  <Slider fx:id="sldr_pitch" blockIncrement="0.1" disable="true" layoutX="5.0" layoutY="111.0" max="4.0" min="1.0" value="2.5" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+                  <Slider fx:id="sldr_volume" blockIncrement="0.1" layoutX="5.0" layoutY="73.0" majorTickUnit="0.1" max="1.0" minorTickCount="0" snapToTicks="true" value="0.5" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+                  <Slider fx:id="sldr_pitch" blockIncrement="0.1" disable="true" layoutX="5.0" layoutY="111.0" majorTickUnit="0.1" max="4.0" min="1.0" minorTickCount="0" snapToTicks="true" value="1.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
                   <ChoiceBox fx:id="cb_voice" layoutX="10.0" layoutY="143.0" prefHeight="25.0" prefWidth="130.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                   <Label layoutX="10.0" layoutY="120.0" styleClass="headlines" text="voice" />
                   <CheckBox fx:id="chb_pitch" layoutX="13.0" layoutY="86.0" mnemonicParsing="false" styleClass="headlines" text="pitch" AnchorPane.leftAnchor="5.0" />
-                  <CheckBox fx:id="chb_volume" layoutX="10.0" layoutY="49.0" mnemonicParsing="false" styleClass="headlines" text="volume" AnchorPane.leftAnchor="5.0" />
+                  <Label layoutX="9.0" layoutY="49.0" styleClass="headlines" text="volume" />
                </children>
                <styleClass>
                   <String fx:value="module" />
@@ -135,6 +141,7 @@
                   <String fx:value="once" />
                </styleClass>
             </AnchorPane>
+            <ProgressBar fx:id="battery_Bar" layoutX="180.0" layoutY="474.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="48.0" progress="0.37" />
          </children>
       </AnchorPane>
             <GridPane hgap="8.0" prefHeight="36.0" prefWidth="510.0" styleClass="module" vgap="8.0" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="30.0">
