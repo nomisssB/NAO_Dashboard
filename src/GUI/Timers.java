@@ -5,6 +5,9 @@ import java.util.TimerTask;
 import naoDash_main.Controller;
 import NAO.NAO;
 
+
+/*KLASSE NICHT IN BENUTZUNG...*/
+
 public class Timers {
 
     private static Timer timer_Bat;
@@ -27,11 +30,11 @@ class BatteryTask extends TimerTask
 }
     @Override public void run()
     {
-        try {
-            Controller.batteryV = nao.batteryPercent();
-            System.out.println(Controller.batteryV);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Controller.batteryV = nao.batteryPercent();
+//            System.out.println(Controller.batteryV);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
     }
 }

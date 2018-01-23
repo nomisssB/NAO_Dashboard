@@ -35,7 +35,6 @@ public class Controller {
     private String robotURL;
     private NAO nao1;
     private String configFile = "config.xml";
-    private Timeline batteryTimeline;
     public static Stage prefs;
 
     @FXML
@@ -244,6 +243,8 @@ public class Controller {
             fillVoiceList(nao1.getVoices());
             nao1.setMoveV(motionspeed);
 
+            //initalisiert Battery-ProgressBar und startet "Timeline" für die Batterie-Anzeige
+            battery_Bar.setProgress(nao1.batteryPercent());
             batteryViewer();
         }
     }
@@ -416,7 +417,7 @@ public class Controller {
     }
 
     private void batteryViewer(){
-        batteryTimeline = new Timeline(new KeyFrame(
+        Timeline batteryTimeline = new Timeline(new KeyFrame(
                 Duration.millis(3000),
                 ae -> setbatteryView()));
         batteryTimeline.setCycleCount(Animation.INDEFINITE);
