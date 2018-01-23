@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 public class NAO {
     //Variabeln Deklarationen
     private static Application app; // = new Application(new String[] {});
+    private static Session session;
     private static ALMotion motion;
     private static ALTextToSpeech tts;
     private static ALRobotPosture pose;
@@ -323,7 +324,6 @@ public class NAO {
     public double batteryPercent() throws InterruptedException{       //Get the battery charge in percents
 
         try {
-            bat = new ALBattery(app.session());
             double charge = (double) bat.getBatteryCharge() / 100;
             return charge;
         } catch (Exception e) {

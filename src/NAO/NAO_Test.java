@@ -1,20 +1,21 @@
 package NAO;
 
-import java.util.ArrayList;
-
 public class NAO_Test {
     public static void main(String[] args) throws Exception {
         NAO nao = new NAO();
 
-        //nao.establishConnection("tcp://127.0.0.1:40261;");
-        nao.establishConnection("tcp://192.168.1.136:9559;");
+        nao.establishConnection("tcp://192.168.1.133:9559;");
+
+        nao.sayText("test1");
+
+        nao.establishConnection("tcp://192.168.1.133:9559;");
+
+        nao.sayText("test2");
 
 
-        //nao.execPosture("Stand");
+    nao.batteryPercent();
 
-//        nao.test();
 
-        nao.changeEyeColor("Both",0f, 1f, 0f);
 
 
 
