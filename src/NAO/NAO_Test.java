@@ -12,7 +12,7 @@ public class NAO_Test {
 
         //nao.execPosture("Stand");
 
-        nao.test();
+//        nao.test();
 
         nao.changeEyeColor("Both",0f, 1f, 0f);
 

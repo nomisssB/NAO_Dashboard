@@ -2,6 +2,7 @@ package naoDash_main;
 
 import GUI.Configurator;
 import GUI.InputParse;
+import GUI.Timers;
 import NAO.ConnectionException;
 import NAO.NAO;
 import javafx.collections.FXCollections;
@@ -20,11 +21,6 @@ import java.awt.event.ItemListener;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 
 public class Controller {
@@ -254,16 +250,9 @@ public class Controller {
             fillVoiceList(nao1.getVoices());
             nao1.setMoveV(motionspeed);
 
+            Timers.battery_timer(nao1);
+
         }
-
-
-        final ScheduledExecutorService ses = Executors.newSingleThreadScheduledExecutor();
-        ses.scheduleWithFixedDelay(new Runnable() {
-            @Override
-            public void run() {
-                batteryView();
-            }
-        }, 0, 20, TimeUnit.SECONDS);
 
 
     }
