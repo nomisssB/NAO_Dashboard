@@ -1,24 +1,25 @@
 package NAO;
 
 import com.aldebaran.qi.Application;
+import com.aldebaran.qi.Session;
 import com.aldebaran.qi.CallError;
 import com.aldebaran.qi.helper.proxies.*;
-import javafx.event.ActionEvent;
 
 import java.util.ArrayList;
-import java.util.EmptyStackException;
 import java.util.List;
 
 public class NAO {
     //Variabeln Deklarationen
     private static Application app; // = new Application(new String[] {});
+    private static Session session;
     private static ALMotion motion;
     private static ALTextToSpeech tts;
     private static ALRobotPosture pose;
     private static ALLeds led ;
     private static ALBattery bat;
+    private static ALBodyTemperature temp;
 
-    public void establishConnection(String url) {
+    /*public void establishConnection(String url) { // OLD CONNECT METHOD NO RECONNECT WORKING
         if ( app != null){ // falls Verbindung schon besteht, soll sie neu aufgebaut werden
             closeConnection(); // funktioniert allerdings noch nicht.
             try {
@@ -36,21 +37,54 @@ public class NAO {
                 pose = new ALRobotPosture(app.session());
                 led = new ALLeds(app.session());
                 bat = new ALBattery(app.session());
+                temp = new ALBodyTemperature(app.session());
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-    }
+    }*/
 
-    public void closeConnection(){
+    public void establishConnection(String url){
+            session = new Session();
+            try {
+                session.connect(url).get();
+                motion = new ALMotion(session);
+                tts = new ALTextToSpeech(session);
+                pose = new ALRobotPosture(session);
+                led = new ALLeds(session);
+                bat = new ALBattery(session);
+                temp = new ALBodyTemperature(session);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+    }
+     public void closeConnection(){
+        if (session.isConnected()){
+            session.close();
+            session = null;
+        }
+     }
+
+
+
+   /* public void closeConnection(){ // OLD DISCONNECT
         if ( app != null) {
             app.session().close();
             app.stop();
         }
-    }
+    }*/
 
-    public void checkConnection() throws ConnectionException{
+
+    /*public void checkConnection() throws ConnectionException{ // OLD CHECK CONNECTION
         if (app.session() == null) {
+            throw new ConnectionException();
+        }
+    }*/
+
+    public void checkConnection()throws ConnectionException {
+        if (!session.isConnected()){
             throw new ConnectionException();
         }
     }
@@ -233,15 +267,27 @@ public class NAO {
     public int batteryPercent() throws InterruptedException{       //Get the battery charge in percents
 
         try {
-            bat = new ALBattery(app.session());
-            return bat.getBatteryCharge();
 
+            return bat.getBatteryCharge();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return -1;
     }
 
+    public float getTemp() throws InterruptedException { //get the tempreture from NAO
+
+        try {
+            System.out.println(temp.getTemperatureDiagnosis());
+            return 0; //(int) temp.getTemperatureDiagnosis();
+        } catch (CallError callError) {
+            callError.printStackTrace();
+        }
+
+        return -1;
+
+
+    }
 
 }
 
