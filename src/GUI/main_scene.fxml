@@ -142,7 +142,22 @@
                </styleClass>
             </AnchorPane>
              <ProgressBar fx:id="battery_Bar" layoutX="162.0" layoutY="393.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="48.0" progress="0.37" />
-             <ProgressBar fx:id="temp_Bar" layoutX="699.0" layoutY="259.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="48.0" progress="0.02" />
+             <ProgressBar fx:id="temp_Bar" layoutX="699.0" layoutY="265.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="24.0" prefWidth="40.0" progress="0.02" />
+            <AnchorPane layoutX="150.0" prefHeight="213.0" prefWidth="169.0">
+               <children>
+                  <Label layoutX="10.0" layoutY="2.0" prefHeight="14.0" prefWidth="150.0" styleClass="headlines" text="Predefined Sounds" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="2.0" />
+                  <ListView fx:id="sounds_list1" layoutX="10.0" layoutY="25.0" prefHeight="164.0" prefWidth="149.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </ListView>
+                  <Button fx:id="btn_play" layoutX="10.0" layoutY="134.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="play" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+               </children>
+               <styleClass>
+                  <String fx:value="module" />
+                  <String fx:value="once" />
+               </styleClass>
+            </AnchorPane>
 
          </children>
       </AnchorPane>
