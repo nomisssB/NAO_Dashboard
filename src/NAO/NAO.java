@@ -7,6 +7,8 @@ import com.aldebaran.qi.helper.proxies.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.CheckedInputStream;
+
 import javafx.scene.paint.Color;
 
 public class NAO {
@@ -23,6 +25,7 @@ public class NAO {
     private static float moveT; // movement spinning
     private static float moveV; // velocity of movement
     private static ALBodyTemperature temp;
+    private static ALAudioPlayer play;
 
     /*public void establishConnection(String url) { // OLD CONNECT METHOD NO RECONNECT WORKING
         if ( app != null){ // falls Verbindung schon besteht, soll sie neu aufgebaut werden
@@ -62,6 +65,7 @@ public class NAO {
                 led = new ALLeds(session);
                 bat = new ALBattery(session);
                 temp = new ALBodyTemperature(session);
+                play = new ALAudioPlayer(session);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -323,7 +327,7 @@ public class NAO {
 
     public double batteryPercent() throws InterruptedException{       //Get the battery charge in percents
 
-        try {
+        try { // TODO "richtig macchen"
             double charge = (double) bat.getBatteryCharge() / 100;
             return charge;
         } catch (Exception e) {
@@ -332,19 +336,50 @@ public class NAO {
         return -1;
     }
 
-    public float getTemp() throws InterruptedException { //get the tempreture from NAO
+    public float getTemp() throws ConnectionException { //get the tempreture from NAO   TODO testing and finishig
+        checkConnection();
 
         try {
             System.out.println(temp.getTemperatureDiagnosis());
             return 0; //(int) temp.getTemperatureDiagnosis();
-        } catch (CallError callError) {
-            callError.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return -1;
+    }
 
+    public void getSoundFiles()throws ConnectionException { //TODO testing and finishig
+        checkConnection();
+
+        try {
+            System.out.println(play.getSoundSetFileNames("Aldebaran"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
+    public void switchRest() throws ConnectionException{ //Switch between rest and wakeUp
+        checkConnection();                                  // wakes up if rest and otherwise
+
+        try {
+            if (!motion.robotIsWakeUp()){
+                motion.wakeUp();
+            }else {
+                motion.rest();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+
+
 }
+
+
 

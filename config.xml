@@ -2,7 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <comment>Configuration for NAO Dashboard</comment>
-<entry key="port"></entry>
-<entry key="ipAddress"></entry>
+<entry key="port">9559</entry>
+<entry key="ipAddress">192.168.1.133</entry>
 <entry key="pitch">0.0</entry>
 </properties>
