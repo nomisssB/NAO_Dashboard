@@ -72,5 +72,8 @@
 #menu1{
     -fx-text-fill: #000000;
 }
+#temp_Bar{
+    -fx-rotate: -90;
+}
 
 
