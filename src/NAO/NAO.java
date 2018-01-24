@@ -375,6 +375,17 @@ public class NAO {
         return false;
     }
 
+    public void playSound(String sound) throws ConnectionException{ // TODO test and finish
+        checkConnection();                                          // UNTESTED
+
+        try {
+            play.playSoundSetFile("Aldebaran", sound);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 
 
 
