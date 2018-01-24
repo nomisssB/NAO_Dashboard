@@ -33,7 +33,6 @@ public class LoginController{
     public TextField txt_ipaddress;
     public ListView connection_list;
 
-
     @FXML
     public void initialize() throws IOException {
     Configurator.loader();
