@@ -220,51 +220,8 @@ public class Controller {
 
 
     //#####################  CONNECTION ##################
-    //Button Connect
     public void connect(ActionEvent actionEvent) throws Exception {
-//        //neue Instanz von InputParse
-//        InputParse parser = new InputParse();
-//        //Variable warning für Ausgabe der Fehlermeldung
-//        String warning="";
-//
-//        //Erzeugen der Warnmeldung, falls Eingaben nicht in RegEx passen
-//        if(!parser.validateIP(txt_ipadress.getText()) || !parser.validatePort(txt_port.getText())){
-//            Alert alert = new Alert(Alert.AlertType.WARNING);
-//            alert.setTitle("Wrong Input");
-//            alert.setHeaderText("Please check your Input");
-//            //Feld IP-Adresse leer:
-//            if(txt_ipadress.getText().isEmpty()){
-//                warning = "Please type in an IP address!";
-//            } //Feld IP-Adresse falsche Eingabe:
-//            else if (!parser.validateIP(txt_ipadress.getText())) {
-//                warning = txt_ipadress.getText() + " is not a valid IP address!";
-//            } //Feld Port leer:
-//            if(txt_port.getText().isEmpty()){
-//                warning = warning + "\n" + "Please type in a port number!";
-//            } //Feld Port falsche Eingabe:
-//            else if (!parser.validatePort(txt_port.getText())){
-//                warning = warning + "\n" + txt_port.getText() + " is not a valid port number!";
-//            } //Setzen der Warnmeldung und Anzeigen des Fehler-Dialogs
-//            alert.setContentText(warning);
-//            alert.showAndWait();
-//        } else { //Falls Eingaben korrekt, Connection öffnen:
-//            lbl_toolbar.setText("connect");
-//            robotURL = "tcp://" + txt_ipadress.getText() + ":" + txt_port.getText();
-//            nao1 = new NAO();
-//            nao1.establishConnection(robotURL);
-//            //Sperren/Entsperren der entsprechenden GUI-Kontroll-Objekte
-//            pane_control.setDisable(false);
-//            btn_connect.setDisable(true);
-//            btn_disconnect.setDisable(false);
-//            //Füllen der ListView mit den Postures des Naos
-//            fillPostureList(nao1.getPostures());
-//            fillVoiceList(nao1.getVoices());
-//            nao1.setMoveV(motionspeed);
-//
-//            //initalisiert Battery-ProgressBar und startet "Timeline" für die Batterie-Anzeige
-//            battery_Bar.setProgress(nao1.batteryPercent());
-//            batteryViewer();
-//        }
+
     }
 
     public void disconnect(ActionEvent actionEvent) {
