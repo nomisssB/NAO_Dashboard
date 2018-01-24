@@ -70,7 +70,7 @@ public class Controller {
     public Slider sldr_volume;
     public ChoiceBox cb_voice;
     public CheckBox chb_pitch;
-
+    public Button btn_play;
 
     //KONSTRUKTOR
     public Controller(){
@@ -366,8 +366,23 @@ public class Controller {
 
     }
 
+    //  Sounds list
+    /*
+     public void p_sound(ActionEvent actionEvent) {
+        String sound = sound_list.getSelectionModel().getSelectedItem();
+        try {
+            nao1.getSoundFiles(sound);
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+        }
+        lbl_toolbar.setText("play " + sound);
+    }
+
+    */
+
+
     public void p_motion(ActionEvent actionEvent) {
-       String motion = motion_list.getSelectionModel().getSelectedItem();
+        String motion = motion_list.getSelectionModel().getSelectedItem();
         try {
             nao1.execPosture(motion);
         } catch (ConnectionException e) {
