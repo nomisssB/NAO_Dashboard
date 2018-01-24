@@ -1,20 +1,20 @@
 package GUI;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class Configurator {
 
     public static Properties props = new Properties();
-    public static String configFile = "config.xml";
+    public static File configFile = new File("config.xml");
 
-
-    public static void saver (String filename, String key, String value){
+    public static void saver (String key, String value){
         try {
         props.setProperty(key, value);
-        File file = new File(filename);
-        FileOutputStream fileOut = new FileOutputStream(file);
-        props.storeToXML(fileOut, "Configuration for NAO Dashboard");
+        FileOutputStream fileOut = new FileOutputStream(configFile);
+        props.store(fileOut, "Configuration for NAO Dashboard");
         fileOut.close();
 
     } catch (IOException e) {
@@ -22,11 +22,10 @@ public class Configurator {
     }
     }
 
-    public static void loader (String filename){
+    public static void loader (){
         try {
-            File file = new File(filename);
-            FileInputStream fileInput = new FileInputStream(file);
-            props.loadFromXML(fileInput);
+            FileInputStream fileInput = new FileInputStream(configFile);
+            props.load(fileInput);
             fileInput.close();
 
         } catch (IOException e) {

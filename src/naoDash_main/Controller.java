@@ -184,7 +184,7 @@ public class Controller {
 
 
         //Laden der Einstellungen aus XML-Config-Datei
-        Configurator.loader(configFile);
+//        Configurator.loader(configFile);
 //            //Übernehmen der geladenen Werte in Text-Felder
 //            txt_ipadress.setText(Configurator.props.getProperty("ipAddress"));
 //            txt_port.setText(Configurator.props.getProperty("port"));
@@ -377,8 +377,8 @@ public class Controller {
     }
 
     private void saveConfig(){
-        Configurator.saver(configFile,"volume",Double.toString(volume));
-        Configurator.saver(configFile,"pitch",Float.toString(pitch));
+//        Configurator.saver(configFile,"volume",Double.toString(volume));
+//        Configurator.saver(configFile,"pitch",Float.toString(pitch));
     }
 
     public void setbatteryView () {

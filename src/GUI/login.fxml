@@ -46,7 +46,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </GridPane>
-      <ListView fx:id="connection_list" layoutX="45.0" layoutY="21.0" prefHeight="282.0" prefWidth="374.0" />
+      <ListView fx:id="connection_list" layoutX="45.0" layoutY="21.0" onMouseClicked="#fill_txt" prefHeight="282.0" prefWidth="374.0" />
       <Button fx:id="btn_load" layoutX="453.0" layoutY="52.0" mnemonicParsing="false" text="load" />
       <Button fx:id="btn_delete" layoutX="453.0" layoutY="92.0" mnemonicParsing="false" text="delete" />
    </children>
