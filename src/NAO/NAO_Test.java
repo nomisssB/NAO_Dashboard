@@ -7,9 +7,7 @@ public class NAO_Test {
         nao.establishConnection("tcp://192.168.1.136:9559;");
 
 
-
-
-
+        nao.sayText("test");
 
 
 
