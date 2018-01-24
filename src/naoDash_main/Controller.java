@@ -119,7 +119,6 @@ public class Controller {
         });
 
 
-
         //Abfangen von KeyEvents und Auslösen der Buttons je nach Key
         pane_main.setOnKeyPressed(e ->{
             switch (e.getCode()){
