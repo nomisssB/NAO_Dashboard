@@ -4,7 +4,6 @@ import com.aldebaran.qi.Application;
 import com.aldebaran.qi.Session;
 import com.aldebaran.qi.CallError;
 import com.aldebaran.qi.helper.proxies.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.CheckedInputStream;
@@ -18,7 +17,7 @@ public class NAO {
     private static ALMotion motion;
     private static ALTextToSpeech tts;
     private static ALRobotPosture pose;
-    private static ALLeds led ;
+    private static ALLeds led;
     private static ALBattery bat;
     private static float moveX; // movement forwards / backwards
     private static float moveY; // movement sideways
@@ -55,28 +54,29 @@ public class NAO {
         }
     }*/
 
-    public void establishConnection(String url){
-            session = new Session();
-            try {
-                session.connect(url).get();
-                motion = new ALMotion(session);
-                tts = new ALTextToSpeech(session);
-                pose = new ALRobotPosture(session);
-                led = new ALLeds(session);
-                bat = new ALBattery(session);
-                temp = new ALBodyTemperature(session);
-                play = new ALAudioPlayer(session);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+    public void establishConnection(String url) {
+        session = new Session();
+        try {
+            session.connect(url).get();
+            motion = new ALMotion(session);
+            tts = new ALTextToSpeech(session);
+            pose = new ALRobotPosture(session);
+            led = new ALLeds(session);
+            bat = new ALBattery(session);
+            temp = new ALBodyTemperature(session);
+            play = new ALAudioPlayer(session);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
-     public void closeConnection(){
-        if (session.isConnected()){
+
+    public void closeConnection() {
+        if (session.isConnected()) {
             session.close();
             session = null;
         }
-     }
+    }
 
 
 
@@ -94,33 +94,33 @@ public class NAO {
         }
     }*/
 
-    public void checkConnection()throws ConnectionException {
-        if (!session.isConnected()){
+    public void checkConnection() throws ConnectionException {
+        if (!session.isConnected()) {
             throw new ConnectionException();
         }
     }
 
 
-    public void moveHead(float left, float right, float down, float up) throws ConnectionException{ // unfertig #testing
+    public void moveHead(float left, float right, float down, float up) throws ConnectionException { // unfertig #testing
         checkConnection();
         try {
-            motion.angleInterpolation("HeadYaw", left-right, 0.1f, false); // move Head left or right
-            motion.angleInterpolation("HeadPitch", down-up, 0.1f, false); // move Head up or down
-        } catch(Exception e) {
+            motion.angleInterpolation("HeadYaw", left - right, 0.1f, false); // move Head left or right
+            motion.angleInterpolation("HeadPitch", down - up, 0.1f, false); // move Head up or down
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
 
     }
 
-    public void moveHead(String direction) throws ConnectionException{
+    public void moveHead(String direction) throws ConnectionException {
         checkConnection();
         float strongness = 0.05f; // how much does the head move per call
         String joint; // Moving horizontal ("HeadPitch") or vertical ("HeadYaw")
         float move; // moving up/right (negative value) or down/left (positive value)
-        switch (direction){ // set variables for the correct movement
+        switch (direction) { // set variables for the correct movement
             case "up":
-                move = -1*strongness;
+                move = -1 * strongness;
                 joint = "HeadPitch";
                 break;
             case "down":
@@ -128,7 +128,7 @@ public class NAO {
                 joint = "HeadPitch";
                 break;
             case "right":
-                move = -1*strongness;
+                move = -1 * strongness;
                 joint = "HeadYaw";
                 break;
             case "left":
@@ -142,7 +142,7 @@ public class NAO {
         }
         try {
             motion.angleInterpolation(joint, move, 0.01f, false); // move the head with the values from above
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -192,7 +192,7 @@ public class NAO {
         checkConnection();
         try {
             pose.goToPosture(posture, 1.0f);
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -208,12 +208,12 @@ public class NAO {
         return null;
     }
 
-    public void moveToward( float x, float y, float thata, float v) throws ConnectionException {
+    public void moveToward(float x, float y, float thata, float v) throws ConnectionException {
         checkConnection();
 
-        x = x*v;
-        y = y*v;
-        thata = thata*v;
+        x = x * v;
+        y = y * v;
+        thata = thata * v;
 
         try {
             motion.moveToward(x, y, thata);
@@ -222,7 +222,7 @@ public class NAO {
         }
     }
 
-    public void setMoveX (float x) throws ConnectionException { // set the x direction of motion and
+    public void setMoveX(float x) throws ConnectionException { // set the x direction of motion and
         checkConnection();                        //  recall the moveToward method to let the NAO move
 
         if (moveY == 0) { // Nao can only move in x or y. If both are set to move at once, nothing happens
@@ -236,7 +236,7 @@ public class NAO {
         }
     }
 
-    public void setMoveY (float y) throws ConnectionException {// set the y direction of motion and
+    public void setMoveY(float y) throws ConnectionException {// set the y direction of motion and
         checkConnection();                      //  recall the moveToward method to let the NAO move
 
         if (moveX == 0) { // Nao can only move in x or y. If both are set to move at once, nothing happens
@@ -250,7 +250,7 @@ public class NAO {
         }
     }
 
-    public void setMoveT (float t) throws ConnectionException {
+    public void setMoveT(float t) throws ConnectionException {
         checkConnection();
 
         moveT = t; // NAO can spin and walk in one direction at once, so just let him spin.
@@ -263,7 +263,7 @@ public class NAO {
         }
     }
 
-    public void setMoveV (float v) throws ConnectionException { // sets the speed of the movement
+    public void setMoveV(float v) throws ConnectionException { // sets the speed of the movement
         checkConnection();
         moveV = v;
 
@@ -276,10 +276,10 @@ public class NAO {
     }
 
 
-    public void moveArm( String joint, float direction) throws ConnectionException{
+    public void moveArm(String joint, float direction) throws ConnectionException {
         checkConnection();
         try {
-            motion.angleInterpolation(joint, 0.1f*direction, 0.1f, false);
+            motion.angleInterpolation(joint, 0.1f * direction, 0.1f, false);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -287,16 +287,15 @@ public class NAO {
     }
 
 
-
-    public void changeEyeColor(String eye, float red, float green, float blue) throws ConnectionException{
+    public void changeEyeColor(String eye, float red, float green, float blue) throws ConnectionException {
         checkConnection();
 
         try {
-            if(eye == "Right" ) {
+            if (eye == "Right") {
                 led.fadeRGB("RightFaceLeds", red, green, blue, 0f);
-            }else if(eye == "Left") {
+            } else if (eye == "Left") {
                 led.fadeRGB("LeftFaceLeds", red, green, blue, 0f);
-            }else if ( eye == "Both") {
+            } else if (eye == "Both") {
                 led.fadeRGB("RightFaceLeds", red, green, blue, 0f);
                 led.fadeRGB("LeftFaceLeds", red, green, blue, 0f);
             }
@@ -305,18 +304,18 @@ public class NAO {
         }
     }
 
-    public void changeEyeColor(String eye, Color color) throws ConnectionException{
+    public void changeEyeColor(String eye, Color color) throws ConnectionException {
         checkConnection();
         float red = (float) color.getRed();
         float green = (float) color.getGreen();
         float blue = (float) color.getBlue();
 
         try {
-            if(eye == "Right" ) {
+            if (eye == "Right") {
                 led.fadeRGB("RightFaceLeds", red, green, blue, 0f);
-            }else if(eye == "Left") {
+            } else if (eye == "Left") {
                 led.fadeRGB("LeftFaceLeds", red, green, blue, 0f);
-            }else if ( eye == "Both") {
+            } else if (eye == "Both") {
                 led.fadeRGB("RightFaceLeds", red, green, blue, 0f);
                 led.fadeRGB("LeftFaceLeds", red, green, blue, 0f);
             }
@@ -325,7 +324,7 @@ public class NAO {
         }
     }
 
-    public double batteryPercent() throws InterruptedException{       //Get the battery charge in percents
+    public double batteryPercent() throws InterruptedException {       //Get the battery charge in percents
 
         try { // TODO "richtig macchen"
             double charge = (double) bat.getBatteryCharge() / 100;
@@ -349,7 +348,7 @@ public class NAO {
         return -1;
     }
 
-    public void getSoundFiles()throws ConnectionException { //TODO testing and finishig
+    public void getSoundFiles() throws ConnectionException { //TODO testing and finishig
         checkConnection();
 
         try {
@@ -360,20 +359,34 @@ public class NAO {
 
     }
 
-    public void switchRest() throws ConnectionException{ //Switch between rest and wakeUp
+    public boolean switchRest() throws ConnectionException { //Switch between rest and wakeUp
         checkConnection();                                  // wakes up if rest and otherwise
 
         try {
-            if (!motion.robotIsWakeUp()){
+            if (!motion.robotIsWakeUp()) {
                 motion.wakeUp();
-            }else {
+            } else {
                 motion.rest();
             }
+            return motion.robotIsWakeUp();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        return false;
     }
+
+    public void playSound(String sound) throws ConnectionException{ // TODO test and finish
+        checkConnection();                                          // UNTESTED
+
+        try {
+            play.playSoundSetFile("Aldebaran", sound);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
 
 
 
