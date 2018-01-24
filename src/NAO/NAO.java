@@ -7,6 +7,8 @@ import com.aldebaran.qi.helper.proxies.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.CheckedInputStream;
+
 import javafx.scene.paint.Color;
 
 public class NAO {
@@ -357,6 +359,25 @@ public class NAO {
         }
 
     }
+
+    public void switchRest() throws ConnectionException{ //Switch between rest and wakeUp
+        checkConnection();                                  // wakes up if rest and otherwise
+
+        try {
+            if (!motion.robotIsWakeUp()){
+                motion.wakeUp();
+            }else {
+                motion.rest();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+
+
 
 }
 
