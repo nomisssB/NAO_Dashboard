@@ -99,7 +99,8 @@ public class Controller {
             } catch (ConnectionException e) {
                 e.printStackTrace();
             }
-        });
+        });                         //++
+
 
         sldr_pitch.valueProperty().addListener((observable, oldValue, newValue) -> {
             lbl_toolbar.setText("value: " + newValue.floatValue());
