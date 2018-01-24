@@ -24,6 +24,9 @@ import javafx.util.Duration;
 import java.io.IOException;
 import java.util.List;
 
+import static GUI.Configurator.configFile;
+import static GUI.LoginController.nao1;
+
 
 public class Controller {
 
@@ -32,9 +35,7 @@ public class Controller {
     private float volume = 0.5f;
     private float pitch = 0f;
     private Color color;
-    private String robotURL;
-    private NAO nao1;
-    private String configFile = "config.xml";
+    private Timeline batteryTimeline;
     public static Stage prefs;
 
     @FXML
@@ -71,9 +72,6 @@ public class Controller {
     public CheckBox chb_pitch;
 
 
-
-
-
     //KONSTRUKTOR
     public Controller(){
 
@@ -90,7 +88,7 @@ public class Controller {
     public void initialize() throws IOException {
 
 
-//        Abfangen von Werten der Slider
+//        Listener for sliders
         sldr_speed.valueProperty().addListener((observable, oldValue, newValue) -> {
             lbl_toolbar.setText("value: " + newValue.floatValue());
             motionspeed = newValue.floatValue();
@@ -99,8 +97,7 @@ public class Controller {
             } catch (ConnectionException e) {
                 e.printStackTrace();
             }
-        });                         //++
-
+        });
 
         sldr_pitch.valueProperty().addListener((observable, oldValue, newValue) -> {
             lbl_toolbar.setText("value: " + newValue.floatValue());
@@ -112,7 +109,8 @@ public class Controller {
             lbl_toolbar.setText("value: " + newValue.floatValue());
             volume = newValue.floatValue();
         });
-        // Abfangen der Checkbox
+
+        // Listener for Checkbox to enable/disable "Pitch"-Slider
         chb_pitch.selectedProperty().addListener((observable, oldValue, newValue) -> {
            if(chb_pitch.isSelected()){
                sldr_pitch.setDisable(false);
@@ -187,11 +185,23 @@ public class Controller {
 
         //Laden der Einstellungen aus XML-Config-Datei
         Configurator.loader(configFile);
-            //Übernehmen der geladenen Werte in Text-Felder
-            txt_ipadress.setText(Configurator.props.getProperty("ipAddress"));
-            txt_port.setText(Configurator.props.getProperty("port"));
+//            //Übernehmen der geladenen Werte in Text-Felder
+//            txt_ipadress.setText(Configurator.props.getProperty("ipAddress"));
+//            txt_port.setText(Configurator.props.getProperty("port"));
 //            sldr_volume.setValue(Float.parseFloat(Configurator.props.getProperty("volume")));
 
+
+        try {
+            fillPostureList(nao1.getPostures());
+            fillVoiceList(nao1.getVoices());
+            nao1.setMoveV(motionspeed);
+
+            //initalisiert Battery-ProgressBar und startet "Timeline" für die Batterie-Anzeige
+            battery_Bar.setProgress(nao1.batteryPercent());
+            batteryViewer();
+        } catch (ConnectionException | InterruptedException e) {
+            e.printStackTrace();
+        }
 
 
         // zweites Fenster für Einstellungen: (noch nicht in Benutzung)
@@ -207,63 +217,7 @@ public class Controller {
 
 
     //#####################  CONNECTION ##################
-    //Button Connect
     public void connect(ActionEvent actionEvent) throws Exception {
-        //neue Instanz von InputParse
-        InputParse parser = new InputParse();
-        //Variable warning für Ausgabe der Fehlermeldung
-        String warning="";
-
-        //Erzeugen der Warnmeldung, falls Eingaben nicht in RegEx passen
-        if(!parser.validateIP(txt_ipadress.getText()) || !parser.validatePort(txt_port.getText())){
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Wrong Input");
-            alert.setHeaderText("Please check your Input");
-            //Feld IP-Adresse leer:
-            if(txt_ipadress.getText().isEmpty()){
-                warning = "Please type in an IP address!";
-            } //Feld IP-Adresse falsche Eingabe:
-            else if (!parser.validateIP(txt_ipadress.getText())) {
-                warning = txt_ipadress.getText() + " is not a valid IP address!";
-            } //Feld Port leer:
-            if(txt_port.getText().isEmpty()){
-                warning = warning + "\n" + "Please type in a port number!";
-            } //Feld Port falsche Eingabe:
-            else if (!parser.validatePort(txt_port.getText())){
-                warning = warning + "\n" + txt_port.getText() + " is not a valid port number!";
-            } //Setzen der Warnmeldung und Anzeigen des Fehler-Dialogs
-            alert.setContentText(warning);
-            alert.showAndWait();
-        } else { //Falls Eingaben korrekt, Connection öffnen:
-            lbl_toolbar.setText("connect");
-            robotURL = "tcp://" + txt_ipadress.getText() + ":" + txt_port.getText();
-            nao1 = new NAO();
-            nao1.establishConnection(robotURL);
-            //Sperren/Entsperren der entsprechenden GUI-Kontroll-Objekte
-            pane_control.setDisable(false);
-            btn_connect.setDisable(true);
-            btn_disconnect.setDisable(false);
-            //Füllen der ListView mit den Postures des Naos
-            fillPostureList(nao1.getPostures());
-            fillVoiceList(nao1.getVoices());
-            nao1.setMoveV(motionspeed);
-
-            //initalisiert Battery-ProgressBar und startet "Timeline" für die Batterie-Anzeige
-            battery_Bar.setProgress(nao1.batteryPercent());
-            batteryViewer();
-
-
-
-
-            //initalisiert Temperatur-ProgressBar und startet "Timeline" für die Batterie-Anzeige
-            // temp_Bar.setProgress(nao1.#######);
-
-
-
-        }
-
-
-
 
     }
 
@@ -273,14 +227,16 @@ public class Controller {
         pane_control.setDisable(true);
         btn_connect.setDisable(false);
         btn_disconnect.setDisable(true);
+        batteryTimeline.stop();
+
     }
 
-    private void fillPostureList(List<String> inputList){
+    protected void fillPostureList(List<String> inputList){
         ObservableList<String> insert = FXCollections.observableArrayList(inputList);
         motion_list.setItems(insert);
     }
 
-    private void fillVoiceList(List<String> inputList){
+    protected void fillVoiceList(List<String> inputList){
         ObservableList<String> insert = FXCollections.observableArrayList(inputList);
         cb_voice.setItems(insert);
     }
@@ -421,8 +377,7 @@ public class Controller {
     }
 
     private void saveConfig(){
-        Configurator.saver(configFile,"ipAddress",txt_ipadress.getText());
-        Configurator.saver(configFile,"port",txt_port.getText());
+        Configurator.saver(configFile,"volume",Double.toString(volume));
         Configurator.saver(configFile,"pitch",Float.toString(pitch));
     }
 
@@ -435,8 +390,8 @@ public class Controller {
         }
     }
 
-    private void batteryViewer(){
-        Timeline batteryTimeline = new Timeline(new KeyFrame(
+    protected void batteryViewer(){
+        batteryTimeline = new Timeline(new KeyFrame(
                 Duration.millis(3000),
                 ae -> setbatteryView()));
         batteryTimeline.setCycleCount(Animation.INDEFINITE);

@@ -6,6 +6,7 @@ import java.util.Properties;
 public class Configurator {
 
     public static Properties props = new Properties();
+    public static String configFile = "config.xml";
 
 
     public static void saver (String filename, String key, String value){
