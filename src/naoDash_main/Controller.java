@@ -39,6 +39,7 @@ public class Controller {
 
     @FXML
     public ProgressBar battery_Bar;
+    public ProgressBar temp_Bar;
     public AnchorPane pane_main;
     public AnchorPane pane_control;
     public Slider sldr_speed;
@@ -68,6 +69,9 @@ public class Controller {
     public Slider sldr_volume;
     public ChoiceBox cb_voice;
     public CheckBox chb_pitch;
+
+
+
 
 
     //KONSTRUKTOR
@@ -246,8 +250,22 @@ public class Controller {
             //initalisiert Battery-ProgressBar und startet "Timeline" für die Batterie-Anzeige
             battery_Bar.setProgress(nao1.batteryPercent());
             batteryViewer();
+
+
+
+
+            //initalisiert Temperatur-ProgressBar und startet "Timeline" für die Batterie-Anzeige
+            // temp_Bar.setProgress(nao1.#######);
+
+
+
         }
+
+
+
+
     }
+
 
     public void disconnect(ActionEvent actionEvent) {
         nao1.closeConnection();
