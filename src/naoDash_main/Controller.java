@@ -99,6 +99,7 @@ public class Controller {
             }
         });
 
+
         sldr_pitch.valueProperty().addListener((observable, oldValue, newValue) -> {
             lbl_toolbar.setText("value: " + newValue.floatValue());
             pitch = newValue.floatValue();
