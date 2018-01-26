@@ -18,8 +18,17 @@
     -fx-background-color: #1d4360;
 }
 
+.button.movingbutton.arrow{
+
+}
+
 .button.movingbutton:hover{
     -fx-background-color: #357aaf;
+}
+
+.toggle-switch{
+    -fx-text-fill: white;
+    -fx-font-size: 14;
 }
 
 /*Label-Style*/
@@ -83,7 +92,7 @@
 #temp_Bar{
     -fx-rotate: -90;
 }
-#temp_Ampel{
+#temp_pane{
     -fx-border-color:black;
     fx-background-color: none;
     -fx-fill: none;

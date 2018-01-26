@@ -24,6 +24,7 @@ public class LoginController{
     public static NAO nao1;
 
     private String robotURL;
+    public static Stage loginWindow;
 
     @FXML
     public Button btn_connect;
@@ -67,8 +68,8 @@ public class LoginController{
             Stage rootWindow = new Stage();
             rootWindow.setScene(new Scene(root));
             rootWindow.show();
-            Stage thisWindow = (Stage) btn_connect.getScene().getWindow();
-            thisWindow.hide();
+            loginWindow = (Stage) btn_connect.getScene().getWindow();
+            loginWindow.hide();
         } catch (IOException e) {
             e.printStackTrace();
         }
