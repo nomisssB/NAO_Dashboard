@@ -241,6 +241,10 @@ public class Controller {
         ObservableList<String> insert = FXCollections.observableArrayList(inputList);
         cb_voice.setItems(insert);
     }
+    protected void fillSoundsList (List<String> inputList){
+        ObservableList<String> insert = FXCollections.observableArrayList(inputList);
+        sound_list.setItems(insert);
+    }
 
 
 
