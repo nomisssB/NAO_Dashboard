@@ -2,10 +2,6 @@
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
 
-#logs
-main_log.log
-main_log.log.1
-main_log.log.lck
 
 # User-specific stuff:
 .idea/**/workspace.xml
@@ -13,7 +9,7 @@ main_log.log.lck
 .idea/dictionaries
 lib/java-naoqi-sdk-2.1.4.13-linux64.jar
 lib/java-naoqi-sdk-2.1.4.13-mac64.jar
-config.xml
+src/config.xml
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/
