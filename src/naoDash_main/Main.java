@@ -5,19 +5,21 @@ import javafx.fxml.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 
 public class Main extends Application {
-
-    public static Stage mainFrame;
 
 
     @Override
     public void start(Stage primaryStage) throws Exception{
 
         Parent login = FXMLLoader.load(getClass().getResource("../GUI/login.fxml"));
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setTitle("NaoDashboard MSKM - LOGIN");
-        primaryStage.setScene(new Scene(login));
+        final Scene scene = new Scene(login);
+        scene.setFill(null);
+        primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
 
@@ -30,7 +32,7 @@ public class Main extends Application {
 //        primaryStage.setResizable(false);
 //        primaryStage.show();
 
-        mainFrame = primaryStage;
+
     }
 
 

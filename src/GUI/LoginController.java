@@ -21,22 +21,34 @@ import java.util.List;
 
 public class LoginController{
 
-    public Stage rootWindow;
     public static NAO nao1;
-    private Stage thisWindow;
+
     private String robotURL;
-    private List<String> connections1;
 
     @FXML
     public Button btn_connect;
+    public Button btn_close;
+    public Button btn_delete;
     public TextField txt_port;
     public TextField txt_ipaddress;
-    public ListView connection_list;
+    public ListView<String> connection_list;
+
+    //Constructor
+    public LoginController(){
+
+        //Führt Methode "saveConfig" bei Schließen des Programms (des Threads) aus
+        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
+            public void run() {
+                store();
+            }
+        }));
+
+    }
 
     @FXML
-    public void initialize() throws IOException {
+    public void initialize(){
     Configurator.loader();
-    connections1 = new ArrayList<String>(Arrays.asList(Configurator.props.get("urls").toString().split("\\,")));
+        List<String> connections1 = new ArrayList<String>(Arrays.asList(Configurator.props.get("urls").toString().split("\\,")));
     fillConnectionList(connections1);
     }
 
@@ -46,51 +58,16 @@ public class LoginController{
     }
 
     public void connect(ActionEvent actionEvent) {
-        //neue Instanz von InputParse
-        InputParse parser = new InputParse();
-        //Variable warning für Ausgabe der Fehlermeldung
-        String warning="";
-
-        //Erzeugen der Warnmeldung, falls Eingaben nicht in RegEx passen
-        if(!parser.validateIP(txt_ipaddress.getText()) || !parser.validatePort(txt_port.getText())){
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Wrong Input");
-            alert.setHeaderText("Please check your Input");
-            //Feld IP-Adresse leer:
-            if(txt_ipaddress.getText().isEmpty()){
-                warning = "Please type in an IP address!";
-            } //Feld IP-Adresse falsche Eingabe:
-            else if (!parser.validateIP(txt_ipaddress.getText())) {
-                warning = txt_ipaddress.getText() + " is not a valid IP address!";
-            } //Feld Port leer:
-            if(txt_port.getText().isEmpty()){
-                warning = warning + "\n" + "Please type in a port number!";
-            } //Feld Port falsche Eingabe:
-            else if (!parser.validatePort(txt_port.getText())){
-                warning = warning + "\n" + txt_port.getText() + " is not a valid port number!";
-            } //Setzen der Warnmeldung und Anzeigen des Fehler-Dialogs
-            alert.setContentText(warning);
-            alert.showAndWait();
-        } else { //Falls Eingaben korrekt, Connection öffnen:
-            robotURL = "tcp://" + txt_ipaddress.getText() + ":" + txt_port.getText();
-
-            store();
-
-
-
-
+            createRobotUrl();
             nao1 = new NAO();
             nao1.establishConnection(robotURL);
-        }
-
-
 
         try {
             Parent root = FXMLLoader.load(getClass().getResource("../GUI/main_scene.fxml"));
-            rootWindow = new Stage();
+            Stage rootWindow = new Stage();
             rootWindow.setScene(new Scene(root));
             rootWindow.show();
-            thisWindow = (Stage) btn_connect.getScene().getWindow();
+            Stage thisWindow = (Stage) btn_connect.getScene().getWindow();
             thisWindow.hide();
         } catch (IOException e) {
             e.printStackTrace();
@@ -99,17 +76,60 @@ public class LoginController{
     }
 
     private void store(){
-        connections1.add(robotURL);
-        String connectionsList = String.join(",",connections1);
-        Configurator.saver("urls",connectionsList);
+        if(!txt_port.getText().isEmpty() && !txt_ipaddress.getText().isEmpty()){
+            createRobotUrl();
+            connection_list.getItems().add(robotURL);
+        }
+        String connectionListString = String.join(",",connection_list.getItems());
+        Configurator.saver("urls",connectionListString);
     }
 
-    public void fill_txt(MouseEvent mouseEvent) {
-       String URL = connection_list.getSelectionModel().getSelectedItem().toString();
+    public void fill_txt(MouseEvent mouseEvent) throws NullPointerException{
+        String URL = connection_list.getSelectionModel().getSelectedItem();
         String[] parts = URL.split(":");
         String HOST = parts[1].replaceAll("//","");
         int PORT = Integer.parseInt(parts[2]);
         txt_ipaddress.setText(HOST);
         txt_port.setText(String.valueOf(PORT));
+    }
+
+    public void deleteEntry(ActionEvent actionEvent) {
+        int selectedIdx = connection_list.getSelectionModel().getSelectedIndex();
+        connection_list.getItems().remove(selectedIdx);
+    }
+
+    private void createRobotUrl() {
+        //neue Instanz von InputParse
+        InputParse parser = new InputParse();
+        //Variable warning für Ausgabe der Fehlermeldung
+        String warning = "";
+
+        //Erzeugen der Warnmeldung, falls Eingaben nicht in RegEx passen
+        if (!parser.validateIP(txt_ipaddress.getText()) || !parser.validatePort(txt_port.getText())) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Wrong Input");
+            alert.setHeaderText("Please check your Input");
+            //Feld IP-Adresse leer:
+            if (txt_ipaddress.getText().isEmpty()) {
+                warning = "Please type in an IP address!";
+            } //Feld IP-Adresse falsche Eingabe:
+            else if (!parser.validateIP(txt_ipaddress.getText())) {
+                warning = txt_ipaddress.getText() + " is not a valid IP address!";
+            } //Feld Port leer:
+            if (txt_port.getText().isEmpty()) {
+                warning = warning + "\n" + "Please type in a port number!";
+            } //Feld Port falsche Eingabe:
+            else if (!parser.validatePort(txt_port.getText())) {
+                warning = warning + "\n" + txt_port.getText() + " is not a valid port number!";
+            } //Setzen der Warnmeldung und Anzeigen des Fehler-Dialogs
+            alert.setContentText(warning);
+            alert.showAndWait();
+        } else { //Falls Eingaben korrekt, Connection öffnen:
+            robotURL = "tcp://" + txt_ipaddress.getText() + ":" + txt_port.getText();
+        }
+    }
+
+    public void close(ActionEvent actionEvent) {
+        System.exit(0);
     }
 }

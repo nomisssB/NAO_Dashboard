@@ -101,6 +101,7 @@ public class NAO {
     }
 
 
+
     public void moveHead(float left, float right, float down, float up) throws ConnectionException { // unfertig #testing
         checkConnection();
         try {
