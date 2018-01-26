@@ -94,6 +94,7 @@ public class NAO {
         }
     }*/
 
+
     public void checkConnection() throws ConnectionException {
         if (!session.isConnected()) {
             throw new ConnectionException();
@@ -348,19 +349,19 @@ public class NAO {
         return -1;
     }
 
-    public void getSoundFiles() throws ConnectionException { //TODO testing and finishig
+    public List<String> getSoundFiles() throws ConnectionException { //TODO testing and finishig
         checkConnection();
 
         try {
-            System.out.println(play.getSoundSetFileNames("Aldebaran"));
+            return play.getSoundSetFileNames("Aldebaran");
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        return null;
     }
 
     public boolean switchRest() throws ConnectionException { //Switch between rest and wakeUp
-        checkConnection();                                  // wakes up if rest and otherwise
+        checkConnection();                                   // wakes up if rest and otherwise
 
         try {
             if (!motion.robotIsWakeUp()) {
@@ -375,8 +376,8 @@ public class NAO {
         return false;
     }
 
-    public void playSound(String sound) throws ConnectionException{ // TODO test and finish
-        checkConnection();                                          // UNTESTED
+    public void playSound(String sound) throws ConnectionException{ //plays given Soundfile
+        checkConnection();
 
         try {
             play.playSoundSetFile("Aldebaran", sound);
