@@ -54,6 +54,7 @@ public class Controller {
     public Button btn_disconnect;
     public Button btn_execute;
     public Button btn_sayText;
+    public Button btn_playSound;
     public ColorPicker col_picker_left;
     public ColorPicker col_picker_right;
     public ListView<String> motion_list;
@@ -71,7 +72,7 @@ public class Controller {
     public Slider sldr_volume;
     public ChoiceBox cb_voice;
     public CheckBox chb_pitch;
-    public Button btn_play;
+
 
     //KONSTRUKTOR
     public Controller(){
@@ -194,6 +195,7 @@ public class Controller {
     try {
             fillPostureList(nao1.getPostures());
             fillVoiceList(nao1.getVoices());
+            fillSoundList(nao1.getSoundFiles());
             nao1.setMoveV(motionspeed);
 
             //initalisiert Battery-ProgressBar und startet "Timeline" für die Batterie-Anzeige
@@ -240,7 +242,7 @@ public class Controller {
         ObservableList<String> insert = FXCollections.observableArrayList(inputList);
         cb_voice.setItems(insert);
     }
-    protected void fillSoundsList (List<String> inputList){
+    protected void fillSoundList (List<String> inputList){
         ObservableList<String> insert = FXCollections.observableArrayList(inputList);
         sound_list.setItems(insert);
     }

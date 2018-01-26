@@ -4,7 +4,6 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -18,7 +17,6 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -30,7 +28,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="pane_main" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="naoDash_main.Controller">
+<AnchorPane fx:id="pane_main" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="naoDash_main.Controller">
      <stylesheets>
       <URL value="@style_main_scene.css" />
      </stylesheets>
@@ -149,12 +147,12 @@
             <AnchorPane layoutX="150.0" prefHeight="213.0" prefWidth="169.0">
                <children>
                   <Label layoutX="10.0" layoutY="2.0" prefHeight="14.0" prefWidth="150.0" styleClass="headlines" text="Predefined Sounds" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="2.0" />
-                  <ListView fx:id="sounds_list1" layoutX="10.0" layoutY="25.0" prefHeight="164.0" prefWidth="149.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                  <ListView fx:id="sound_list" layoutX="10.0" layoutY="25.0" prefHeight="164.0" prefWidth="149.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </ListView>
-                  <Button fx:id="btn_play" layoutX="10.0" layoutY="134.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="play" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                  <Button fx:id="btn_playSound" layoutX="10.0" layoutY="134.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="play" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                </children>
                <styleClass>
                   <String fx:value="module" />
@@ -167,7 +165,6 @@
                   <Circle fx:id="midTemp" fill="DODGERBLUE" layoutX="12.0" layoutY="40.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="25.0" />
                   <Circle fx:id="lowTemp" fill="DODGERBLUE" layoutX="13.0" layoutY="64.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="42.0" />
                </children></AnchorPane>
-          <TitledPane animated="false" layoutX="342.0" layoutY="-68.0" text="untitled 1" />
 
          </children>
       </AnchorPane>
@@ -204,7 +201,6 @@
          </padding>
             </GridPane>
       <Line endX="800.0" layoutY="573.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="-0.0" AnchorPane.rightAnchor="0.0" />
-      <Accordion />
 
   </children>
 </AnchorPane>
