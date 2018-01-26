@@ -4,11 +4,15 @@ public class NAO_Test {
     public static void main(String[] args) throws Exception {
         NAO nao = new NAO();
 
-        nao.establishConnection("tcp://192.168.1.127:9559;");
+        System.out.println(nao.establishConnection("tcp://192.168.1.128:9559;"));
+        nao.sayText("1");
+        System.out.println(nao.establishConnection("tcp://192.168.1.127:9559;"));
+        nao.sayText("2");
 
 
 
-        nao.playSound("amb_angry_crowd");
+
+
 
 
 

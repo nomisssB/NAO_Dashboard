@@ -6,9 +6,13 @@ import com.aldebaran.qi.CallError;
 import com.aldebaran.qi.helper.proxies.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.*;
 import java.util.zip.CheckedInputStream;
 
+import javafx.concurrent.Task;
 import javafx.scene.paint.Color;
+
+import javax.imageio.plugins.tiff.ExifParentTIFFTagSet;
 
 public class NAO {
     //Variabeln Deklarationen
@@ -19,12 +23,14 @@ public class NAO {
     private static ALRobotPosture pose;
     private static ALLeds led;
     private static ALBattery bat;
+    private static ALMemory memory;
     private static float moveX; // movement forwards / backwards
     private static float moveY; // movement sideways
     private static float moveT; // movement spinning
     private static float moveV; // velocity of movement
     private static ALBodyTemperature temp;
     private static ALAudioPlayer play;
+    public static String url;
 
     /*public void establishConnection(String url) { // OLD CONNECT METHOD NO RECONNECT WORKING
         if ( app != null){ // falls Verbindung schon besteht, soll sie neu aufgebaut werden
@@ -54,25 +60,54 @@ public class NAO {
         }
     }*/
 
-    public void establishConnection(String url) {
-        session = new Session();
-        try {
-            session.connect(url).get();
-            motion = new ALMotion(session);
-            tts = new ALTextToSpeech(session);
-            pose = new ALRobotPosture(session);
-            led = new ALLeds(session);
-            bat = new ALBattery(session);
-            temp = new ALBodyTemperature(session);
-            play = new ALAudioPlayer(session);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public boolean establishConnection(String url){
+        this.url = url; // set ClassVar url to url, so NAO_Connection can access it.
+        ExecutorService executor = Executors.newSingleThreadExecutor(); // Create executor for the timeout
+        Future<Session> future = executor.submit(new NAO_Connection()); // Create Thread for Connectionestablishment
 
+    try {                                               // try to establish the connection
+            session = future.get(10, TimeUnit.SECONDS); // set session to hold the connection
+        } catch (Exception e) {
+            future.cancel(true);                        // kill the second Thread
+            executor.shutdownNow();                     // shut down the executor
+            return false;
+        }
+        if (session != null && session.isConnected()) {
+            try {
+                motion = new ALMotion(session);         // Create the NAO Control Objects, if the
+                tts = new ALTextToSpeech(session);      // connection succeeds.
+                pose = new ALRobotPosture(session);
+                led = new ALLeds(session);
+                bat = new ALBattery(session);
+                temp = new ALBodyTemperature(session);
+                memory = new ALMemory(session);
+                play = new ALAudioPlayer(session);
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+
+        /* OLD without timeout
+            session = new Session();
+            try {
+                session.connect(url).get();
+                motion = new ALMotion(session);
+                tts = new ALTextToSpeech(session);
+                pose = new ALRobotPosture(session);
+                led = new ALLeds(session);
+                bat = new ALBattery(session);
+                temp = new ALBodyTemperature(session);
+                memory = new ALMemory(session);
+                play = new ALAudioPlayer(session);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }*/
     }
 
     public void closeConnection() {
-        if (session.isConnected()) {
+        if (session != null && !session.isConnected()) {
             session.close();
             session = null;
         }
@@ -96,7 +131,7 @@ public class NAO {
 
 
     public void checkConnection() throws ConnectionException {
-        if (!session.isConnected()) {
+        if (session != null && !session.isConnected()) {
             throw new ConnectionException();
         }
     }
@@ -340,6 +375,7 @@ public class NAO {
         checkConnection();
 
         try {
+
             System.out.println(temp.getTemperatureDiagnosis());
             return 0; //(int) temp.getTemperatureDiagnosis();
         } catch (Exception e) {
@@ -386,14 +422,5 @@ public class NAO {
         }
     }
 
-
-
-
-
-
-
-
 }
-
-
 
