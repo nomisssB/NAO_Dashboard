@@ -2,7 +2,6 @@
 
 <?import java.lang.String?>
 <?import java.net.URL?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
@@ -17,16 +16,13 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
+<?import org.controlsfx.control.ToggleSwitch?>
 
 <AnchorPane fx:id="pane_main" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="naoDash_main.Controller">
      <stylesheets>
@@ -65,8 +61,8 @@
                         <Button fx:id="btn_d" layoutX="95.0" layoutY="68.0" mnemonicParsing="false" onAction="#right" styleClass="movingbutton" text="D" AnchorPane.bottomAnchor="83.0" AnchorPane.rightAnchor="10.0" />
                         <Button fx:id="btn_a" layoutX="10.0" layoutY="68.0" mnemonicParsing="false" onAction="#left" styleClass="movingbutton" text="A" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="10.0" />
                         <Slider fx:id="sldr_speed" blockIncrement="0.01" layoutX="17.0" layoutY="117.0" max="1.0" prefHeight="17.0" prefWidth="112.0" value="0.5" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-                        <Label layoutX="12.0" styleClass="headlines" text="Body Control" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <Label layoutX="-3.0" layoutY="98.0" prefHeight="24.0" prefWidth="149.0" styleClass="headlines" text="Speed:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                        <Label layoutX="12.0" styleClass="headlines" text="body control" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Label layoutX="-3.0" layoutY="98.0" prefHeight="24.0" prefWidth="149.0" styleClass="headlines" text="speed" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                         <Button fx:id="btn_e" layoutX="100.0" layoutY="34.0" mnemonicParsing="false" onAction="#turnRight" prefHeight="30.0" prefWidth="41.0" styleClass="movingbutton" text="E" />
                         <Button fx:id="btn_q" layoutX="10.0" layoutY="34.0" mnemonicParsing="false" onAction="#turnLeft" prefHeight="30.0" prefWidth="41.0" styleClass="movingbutton" text="Q" />
                </children>
@@ -75,13 +71,14 @@
                   <String fx:value="once" />
                </styleClass>
             </AnchorPane>
-            <AnchorPane layoutX="611.0" layoutY="242.0" prefHeight="125.0" prefWidth="169.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <AnchorPane layoutX="320.0" prefHeight="152.0" prefWidth="169.0" AnchorPane.bottomAnchor="366.0" AnchorPane.rightAnchor="291.0">
                <children>
                         <ColorPicker fx:id="col_picker_right" layoutX="18.0" layoutY="34.0" onAction="#colorchoice_right" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                         <Label styleClass="headlines" text="pick LED Color" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   <ColorPicker fx:id="col_picker_left" layoutX="10.0" layoutY="37.000000000000014" onAction="#colorchoice_left" AnchorPane.bottomAnchor="58.999999999999986" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-                  <Label layoutX="10.0" layoutY="17.0" styleClass="headlines" text="left eye" />
-                  <Label layoutX="10.0" layoutY="65.0" styleClass="headlines" text="right eye" />
+                  <Label layoutX="10.0" layoutY="17.0" styleClass="headlines" text="left eye" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <Label layoutX="10.0" layoutY="65.0" prefHeight="24.0" prefWidth="140.0" styleClass="headlines" text="right eye" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                  <CheckBox layoutX="10.0" layoutY="24.0" mnemonicParsing="false" styleClass="headlines" text="mirror" />
                </children>
                <styleClass>
                   <String fx:value="module" />
@@ -91,12 +88,12 @@
             <AnchorPane layoutX="611.0" prefHeight="232.0" prefWidth="169.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                         <Label layoutX="1.0" prefHeight="14.0" prefWidth="150.0" styleClass="headlines" text="Predefined Motions" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <ListView fx:id="motion_list" layoutX="10.0" layoutY="25.0" prefHeight="164.0" prefWidth="149.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                        <ListView fx:id="motion_list" layoutX="10.0" layoutY="25.0" prefHeight="164.0" prefWidth="149.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="25.0">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
                         </ListView>
-                        <Button fx:id="btn_execute" layoutX="10.0" layoutY="134.0" mnemonicParsing="false" onAction="#p_motion" prefHeight="25.0" prefWidth="149.0" text="execute" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                        <Button fx:id="btn_execute" layoutX="10.0" layoutY="134.0" mnemonicParsing="false" onAction="#p_motion" prefHeight="25.0" prefWidth="149.0" text="execute" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="196.8" />
                </children>
                <styleClass>
                   <String fx:value="module" />
@@ -131,23 +128,22 @@
             </AnchorPane>
             <AnchorPane layoutY="223.0" prefHeight="105.0" prefWidth="150.0">
                <children>
-                        <Label layoutX="-7.0" layoutY="2.0" styleClass="headlines" text="Head Direction:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <Button fx:id="btn_up" layoutX="56.0" layoutY="22.0" mnemonicParsing="false" onAction="#head_up" prefHeight="25.0" prefWidth="46.0" styleClass="movingbutton" text="I" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0" />
-                        <Button fx:id="btn_down" layoutX="56.0" layoutY="71.0" mnemonicParsing="false" onAction="#head_down" prefHeight="25.0" prefWidth="46.0" styleClass="movingbutton" text="K" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0" />
-                        <Button fx:id="btn_right" layoutX="95.0" layoutY="71.0" mnemonicParsing="false" onAction="#head_right" prefHeight="65.0" prefWidth="42.0" styleClass="movingbutton" text="L" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-                        <Button fx:id="btn_left" layoutX="9.0" layoutY="71.0" mnemonicParsing="false" onAction="#head_left" prefHeight="65.0" prefWidth="46.0" styleClass="movingbutton" text="J" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
+                        <Label layoutX="-7.0" layoutY="2.0" styleClass="headlines" text="head control" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Button fx:id="btn_i" layoutX="56.0" layoutY="22.0" mnemonicParsing="false" onAction="#head_up" prefHeight="25.0" prefWidth="46.0" styleClass="movingbutton" text="I" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0" />
+                        <Button fx:id="btn_k" layoutX="56.0" layoutY="71.0" mnemonicParsing="false" onAction="#head_down" prefHeight="25.0" prefWidth="46.0" styleClass="movingbutton" text="K" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0" />
+                        <Button fx:id="btn_l" layoutX="95.0" layoutY="71.0" mnemonicParsing="false" onAction="#head_right" prefHeight="65.0" prefWidth="42.0" styleClass="movingbutton" text="L" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                        <Button fx:id="btn_j" layoutX="9.0" layoutY="71.0" mnemonicParsing="false" onAction="#head_left" prefHeight="65.0" prefWidth="46.0" styleClass="movingbutton" text="J" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
                </children>
                <styleClass>
                   <String fx:value="module" />
                   <String fx:value="once" />
                </styleClass>
             </AnchorPane>
-             <ProgressBar fx:id="battery_Bar" layoutX="706.0" layoutY="363.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="48.0" progress="0.37" />
-             <ProgressBar fx:id="temp_Ampel" layoutX="710.0" layoutY="278.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="24.0" prefWidth="40.0" progress="0.02" />
-            <AnchorPane layoutX="150.0" prefHeight="213.0" prefWidth="169.0">
+             <ProgressBar fx:id="battery_Bar" layoutX="329.0" layoutY="183.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="48.0" progress="0.37" />
+            <AnchorPane layoutX="159.0" prefHeight="213.0" prefWidth="169.0">
                <children>
-                  <Label layoutX="10.0" layoutY="2.0" prefHeight="14.0" prefWidth="150.0" styleClass="headlines" text="Predefined Sounds" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="2.0" />
-                  <ListView fx:id="sound_list" layoutX="10.0" layoutY="25.0" prefHeight="164.0" prefWidth="149.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                  <Label layoutX="10.0" layoutY="2.0" prefHeight="24.0" prefWidth="150.0" styleClass="headlines" text="Predefined Sounds" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <ListView fx:id="sound_list" layoutX="10.0" layoutY="25.0" prefHeight="144.0" prefWidth="130.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="25.0">
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor>
@@ -159,48 +155,63 @@
                   <String fx:value="once" />
                </styleClass>
             </AnchorPane>
-            <AnchorPane fx:id="temp_Ampel2" layoutX="674.0" layoutY="247.0" prefHeight="1.0" prefWidth="11.0" AnchorPane.bottomAnchor="210.0" AnchorPane.leftAnchor="674.0">
+            <AnchorPane fx:id="temp_pane" layoutX="381.0" layoutY="165.0" prefHeight="1.0" prefWidth="11.0" AnchorPane.bottomAnchor="288.00000000000006" AnchorPane.leftAnchor="381.0">
                <children>
                   <Circle fx:id="highTemp" fill="DODGERBLUE" layoutX="12.0" layoutY="19.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                   <Circle fx:id="midTemp" fill="DODGERBLUE" layoutX="12.0" layoutY="40.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="25.0" />
                   <Circle fx:id="lowTemp" fill="DODGERBLUE" layoutX="13.0" layoutY="64.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="42.0" />
                </children></AnchorPane>
+            <AnchorPane layoutX="611.0" layoutY="412.0" prefHeight="232.0" prefWidth="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+               <children>
+                  <Label layoutX="-7.0" layoutY="2.0" prefWidth="150.0" styleClass="headlines" text="arm control" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <Button fx:id="btn_up" layoutX="56.0" layoutY="22.0" mnemonicParsing="false" onAction="#head_up" prefHeight="25.0" prefWidth="46.0" text="↑" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0">
+                     <styleClass>
+                        <String fx:value="movingbutton" />
+                        <String fx:value="arrow" />
+                     </styleClass>
+                  </Button>
+                  <Button fx:id="btn_down" layoutX="56.0" layoutY="71.0" mnemonicParsing="false" onAction="#head_down" prefHeight="25.0" prefWidth="46.0" text="↓" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0">
+                     <styleClass>
+                        <String fx:value="movingbutton" />
+                        <String fx:value="arrow" />
+                     </styleClass>
+                  </Button>
+                  <Button fx:id="btn_right" layoutX="95.0" layoutY="71.0" mnemonicParsing="false" onAction="#head_right" prefHeight="65.0" prefWidth="42.0" text="→" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                     <styleClass>
+                        <String fx:value="movingbutton" />
+                        <String fx:value="arrow" />
+                     </styleClass>
+                  </Button>
+                  <Button fx:id="btn_left" layoutX="9.0" layoutY="71.0" mnemonicParsing="false" onAction="#head_left" prefHeight="65.0" prefWidth="46.0" text="←" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0">
+                     <styleClass>
+                        <String fx:value="movingbutton" />
+                        <String fx:value="arrow" />
+                     </styleClass>
+                  </Button>
+                  <ToggleSwitch fx:id="ts_left" layoutX="73.0" layoutY="24.0" prefHeight="21.0" prefWidth="36.0" styleClass="toggle-switch" />
+                  <ToggleSwitch fx:id="ts_right" layoutX="73.0" layoutY="48.0" prefHeight="21.0" prefWidth="36.0" styleClass="toggle-switch" textFill="WHITE">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </ToggleSwitch>
+                  <ToggleSwitch fx:id="ts_mirror" layoutX="73.0" layoutY="71.0" prefHeight="21.0" prefWidth="36.0" styleClass="toggle-switch" />
+                  <Label layoutX="22.0" layoutY="24.0" styleClass="headlines" text="shoulder" />
+                  <Label layoutX="22.0" layoutY="45.0" styleClass="headlines" text="elbow" />
+                  <Label layoutX="22.0" layoutY="68.0" styleClass="headlines" text="hand" />
+                  <CheckBox layoutX="19.0" layoutY="101.0" mnemonicParsing="false" styleClass="headlines" text="left" />
+                  <CheckBox layoutX="65.0" layoutY="101.0" mnemonicParsing="false" styleClass="headlines" text="right" />
+                  <CheckBox layoutX="38.0" layoutY="122.0" mnemonicParsing="false" styleClass="headlines" text="mirror" />
+               </children>
+               <styleClass>
+                  <String fx:value="module" />
+                  <String fx:value="once" />
+               </styleClass>
+            </AnchorPane>
 
          </children>
       </AnchorPane>
-            <GridPane hgap="8.0" prefHeight="36.0" prefWidth="510.0" styleClass="module" vgap="8.0" AnchorPane.leftAnchor="21.0" AnchorPane.topAnchor="30.0">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <TextField fx:id="txt_ipadress" promptText="Type in IP adress">
-                     <tooltip>
-                        <Tooltip text="e.g. 192.168.1.123" />
-                     </tooltip>
-                  </TextField>
-                   <TextField fx:id="txt_port" promptText="Port" GridPane.columnIndex="1">
-                       <tooltip>
-                           <Tooltip text="e.g. 34486" />
-                       </tooltip>
-                   </TextField>
-                  <Button fx:id="btn_connect" mnemonicParsing="false" onAction="#connect" prefHeight="24.0" prefWidth="95.0" text="Connect" GridPane.columnIndex="2">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </Button>
-                  <Button fx:id="btn_disconnect" disable="true" mnemonicParsing="false" onAction="#disconnect" prefHeight="25.0" prefWidth="310.0" text="Disconnect" GridPane.columnIndex="3" />
-               </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-            </GridPane>
       <Line endX="800.0" layoutY="573.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="-0.0" AnchorPane.rightAnchor="0.0" />
+      <Button fx:id="btn_disconnect" defaultButton="true" layoutX="20.0" layoutY="38.0" mnemonicParsing="false" onAction="#disconnect" prefHeight="25.0" prefWidth="310.0" text="Disconnect" />
 
   </children>
 </AnchorPane>

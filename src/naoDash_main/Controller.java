@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.util.List;
 
 import static GUI.Configurator.configFile;
+import static GUI.LoginController.loginWindow;
 import static GUI.LoginController.nao1;
 
 
@@ -50,7 +51,10 @@ public class Controller {
     public Button btn_w;
     public Button btn_q;
     public Button btn_e;
-    public Button btn_connect;
+    public Button btn_i;
+    public Button btn_j;
+    public Button btn_k;
+    public Button btn_l;
     public Button btn_disconnect;
     public Button btn_execute;
     public Button btn_sayText;
@@ -60,8 +64,6 @@ public class Controller {
     public ListView<String> motion_list;
     public ListView<String> sound_list;
     public Pane pane_cam;
-    public TextField txt_ipadress;
-    public TextField txt_port;
     public TextField txt_sayText;
     public Button btn_right;
     public Button btn_left;
@@ -130,10 +132,10 @@ public class Controller {
                 case D: btn_d.fire(); break;
                 case Q: btn_q.fire(); break;
                 case E: btn_e.fire(); break;
-                case I: btn_up.fire(); break;
-                case K: btn_down.fire(); break;
-                case J: btn_left.fire(); break;
-                case L: btn_right.fire(); break;
+                case I: btn_i.fire(); break;
+                case K: btn_k.fire(); break;
+                case J: btn_j.fire(); break;
+                case L: btn_l.fire(); break;
             }
         });
 
@@ -226,11 +228,8 @@ public class Controller {
 
     public void disconnect(ActionEvent actionEvent) {
         nao1.closeConnection();
-        pane_control.setDisable(true);
-        btn_connect.setDisable(false);
-        btn_disconnect.setDisable(true);
         batteryTimeline.stop();
-
+        loginWindow.show();
     }
 
     protected void fillPostureList(List<String> inputList){
