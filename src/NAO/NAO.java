@@ -349,7 +349,7 @@ public class NAO {
         return -1;
     }
 
-    public List<String> getSoundFiles() throws ConnectionException { //TODO testing and finishig
+    public List<String> getSoundFiles() throws ConnectionException {
         checkConnection();
 
         try {
