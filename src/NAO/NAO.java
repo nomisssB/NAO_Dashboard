@@ -12,6 +12,7 @@ import java.util.zip.CheckedInputStream;
 import javafx.concurrent.Task;
 import javafx.scene.paint.Color;
 
+
 import javax.imageio.plugins.tiff.ExifParentTIFFTagSet;
 
 public class NAO {
@@ -65,13 +66,14 @@ public class NAO {
         ExecutorService executor = Executors.newSingleThreadExecutor(); // Create executor for the timeout
         Future<Session> future = executor.submit(new NAO_Connection()); // Create Thread for Connectionestablishment
 
-    try {                                               // try to establish the connection
+        try {                                               // try to establish the connection
             session = future.get(10, TimeUnit.SECONDS); // set session to hold the connection
         } catch (Exception e) {
             future.cancel(true);                        // kill the second Thread
             executor.shutdownNow();                     // shut down the executor
             return false;
         }
+
         if (session != null && session.isConnected()) {
             try {
                 motion = new ALMotion(session);         // Create the NAO Control Objects, if the
@@ -386,11 +388,13 @@ public class NAO {
         return -1;
     }
 
-    public List<String> getSoundFiles() throws ConnectionException {
+    public List<String> getSoundFiles() throws ConnectionException { // return list of installed soundfiles.
         checkConnection();
 
         try {
-            return play.getSoundSetFileNames("Aldebaran");
+            return play.getSoundSetFileNames("Aldebaran"); // try to get soundfiles
+        }catch (CallError e){ // return null, if there aren't soundfiles.
+            return null;
         } catch (Exception e) {
             e.printStackTrace();
         }
