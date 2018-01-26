@@ -191,8 +191,7 @@ public class Controller {
 //            txt_port.setText(Configurator.props.getProperty("port"));
 //            sldr_volume.setValue(Float.parseFloat(Configurator.props.getProperty("volume")));
 
-//delete comment symbols
- /*      try {
+    try {
             fillPostureList(nao1.getPostures());
             fillVoiceList(nao1.getVoices());
             nao1.setMoveV(motionspeed);
@@ -202,7 +201,7 @@ public class Controller {
             batteryViewer();
         } catch (ConnectionException | InterruptedException e) {
             e.printStackTrace();
-        }*/
+        }
 
 
         // zweites Fenster für Einstellungen: (noch nicht in Benutzung)
