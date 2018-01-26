@@ -31,9 +31,6 @@
     -fx-padding: 5px;
 }
 
-.progress-bar{
-
-}
 
 .list-view{
     -fx-background-color: rgba(0,0,0,0.5);
@@ -84,6 +81,37 @@
 #temp_Bar{
     -fx-rotate: -90;
 }
+#temp_Ampel{
+    -fx-border-color:black;
+    fx-background-color: none;
+    -fx-fill: none;
+    -fx-padding: 1px;
+}
+#temp_Ampel2{
+    -fx-border-color: #1d4360;
+    -fx-fill: none;
+    -fx-padding: 1px;
+}
+#highTemp{
+
+    -fx-border-color:none;
+    -fx-fill: #ff844d;
+
+     }
+#midTemp{
+
+    -fx-border-color:none;
+    -fx-fill: #ffe37f;
+
+}
+#lowTemp{
+    -fx-border-color:none;
+    -fx-fill: lawngreen;
+
+}
+
+
+
 
 
 
