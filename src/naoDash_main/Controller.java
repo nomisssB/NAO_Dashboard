@@ -57,6 +57,7 @@ public class Controller {
     public ColorPicker col_picker_left;
     public ColorPicker col_picker_right;
     public ListView<String> motion_list;
+    public ListView<String> sound_list;
     public Pane pane_cam;
     public TextField txt_ipadress;
     public TextField txt_port;
@@ -190,8 +191,8 @@ public class Controller {
 //            txt_port.setText(Configurator.props.getProperty("port"));
 //            sldr_volume.setValue(Float.parseFloat(Configurator.props.getProperty("volume")));
 
-
-        try {
+//delete comment symbols
+ /*      try {
             fillPostureList(nao1.getPostures());
             fillVoiceList(nao1.getVoices());
             nao1.setMoveV(motionspeed);
@@ -201,7 +202,7 @@ public class Controller {
             batteryViewer();
         } catch (ConnectionException | InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
 
 
         // zweites Fenster für Einstellungen: (noch nicht in Benutzung)
@@ -367,18 +368,18 @@ public class Controller {
     }
 
     //  Sounds list
-    /*
+
      public void p_sound(ActionEvent actionEvent) {
         String sound = sound_list.getSelectionModel().getSelectedItem();
         try {
-            nao1.getSoundFiles(sound);
+            nao1.playSound(sound);
         } catch (ConnectionException e) {
             e.printStackTrace();
         }
         lbl_toolbar.setText("play " + sound);
     }
 
-    */
+
 
 
     public void p_motion(ActionEvent actionEvent) {
