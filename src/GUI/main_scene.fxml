@@ -4,6 +4,7 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
@@ -17,6 +18,8 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -24,6 +27,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
@@ -141,8 +145,8 @@
                   <String fx:value="once" />
                </styleClass>
             </AnchorPane>
-             <ProgressBar fx:id="battery_Bar" layoutX="162.0" layoutY="393.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="48.0" progress="0.37" />
-             <ProgressBar fx:id="temp_Bar" layoutX="699.0" layoutY="265.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="24.0" prefWidth="40.0" progress="0.02" />
+             <ProgressBar fx:id="battery_Bar" layoutX="706.0" layoutY="363.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="48.0" progress="0.37" />
+             <ProgressBar fx:id="temp_Ampel" layoutX="710.0" layoutY="278.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="24.0" prefWidth="40.0" progress="0.02" />
             <AnchorPane layoutX="150.0" prefHeight="213.0" prefWidth="169.0">
                <children>
                   <Label layoutX="10.0" layoutY="2.0" prefHeight="14.0" prefWidth="150.0" styleClass="headlines" text="Predefined Sounds" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="-10.0" AnchorPane.topAnchor="2.0" />
@@ -158,6 +162,13 @@
                   <String fx:value="once" />
                </styleClass>
             </AnchorPane>
+            <AnchorPane fx:id="temp_Ampel2" layoutX="674.0" layoutY="247.0" prefHeight="1.0" prefWidth="11.0" AnchorPane.bottomAnchor="210.0" AnchorPane.leftAnchor="674.0">
+               <children>
+                  <Circle fx:id="highTemp" fill="DODGERBLUE" layoutX="12.0" layoutY="19.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                  <Circle fx:id="midTemp" fill="DODGERBLUE" layoutX="12.0" layoutY="40.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="25.0" />
+                  <Circle fx:id="lowTemp" fill="DODGERBLUE" layoutX="13.0" layoutY="64.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="42.0" />
+               </children></AnchorPane>
+            <ToggleButton layoutX="422.0" layoutY="159.0" mnemonicParsing="false" text="ToggleButton" />
 
          </children>
       </AnchorPane>
@@ -194,6 +205,25 @@
          </padding>
             </GridPane>
       <Line endX="800.0" layoutY="573.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="-0.0" AnchorPane.rightAnchor="0.0" />
+      <Accordion>
+        <panes>
+          <TitledPane animated="false" text="untitled 1">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </TitledPane>
+          <TitledPane animated="false" text="untitled 2">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </TitledPane>
+          <TitledPane animated="false" text="untitled 3">
+            <content>
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+            </content>
+          </TitledPane>
+        </panes>
+      </Accordion>
 
   </children>
 </AnchorPane>

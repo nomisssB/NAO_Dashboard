@@ -137,6 +137,7 @@ public class NAO {
     }
 
 
+
     public void moveHead(float left, float right, float down, float up) throws ConnectionException { // unfertig #testing
         checkConnection();
         try {
@@ -420,6 +421,7 @@ public class NAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
 }

@@ -31,9 +31,13 @@
     -fx-padding: 5px;
 }
 
-.progress-bar{
+
+.list-view{
+    -fx-background-color: rgba(0,0,0,0.5);
 
 }
+
+
 
 /*Styleclasses*/
 
@@ -60,6 +64,11 @@
     -fx-background-color: rgba(255,255,255,0.7);
     -fx-background-size: cover;
 }
+#pane_login {
+    -fx-background-color: rgba(255,255,255,0);
+    -fx-background-image: url("/pic/nao-robot.png");
+    -fx-background-size: cover;
+}
 
 #lbl_toolbar{
     -fx-font-size: 10pt;
@@ -75,5 +84,37 @@
 #temp_Bar{
     -fx-rotate: -90;
 }
+#temp_Ampel{
+    -fx-border-color:black;
+    fx-background-color: none;
+    -fx-fill: none;
+    -fx-padding: 1px;
+}
+#temp_Ampel2{
+    -fx-border-color: #1d4360;
+    -fx-fill: none;
+    -fx-padding: 1px;
+}
+#highTemp{
+
+    -fx-border-color:none;
+    -fx-fill: #ff844d;
+
+     }
+#midTemp{
+
+    -fx-border-color:none;
+    -fx-fill: #ffe37f;
+
+}
+#lowTemp{
+    -fx-border-color:none;
+    -fx-fill: lawngreen;
+
+}
+
+
+
+
 
 
