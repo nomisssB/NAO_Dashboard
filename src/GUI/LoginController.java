@@ -60,7 +60,7 @@ public class LoginController{
     public void connect(ActionEvent actionEvent) {
             createRobotUrl();
             nao1 = new NAO();
-            nao1.establishConnection(robotURL);
+            if(!nao1.establishConnection(robotURL)) return;
 
         try {
             Parent root = FXMLLoader.load(getClass().getResource("../GUI/main_scene.fxml"));
