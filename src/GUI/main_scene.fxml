@@ -188,13 +188,13 @@
                         <String fx:value="arrow" />
                      </styleClass>
                   </Button>
-                  <ToggleSwitch fx:id="ts_left" layoutX="73.0" layoutY="24.0" prefHeight="21.0" prefWidth="36.0" styleClass="toggle-switch" />
-                  <ToggleSwitch fx:id="ts_right" layoutX="73.0" layoutY="48.0" prefHeight="21.0" prefWidth="36.0" styleClass="toggle-switch" textFill="WHITE">
+                  <ToggleSwitch fx:id="ts_shoulder" layoutX="73.0" layoutY="24.0" onMouseClicked="#shoulderSelect" prefHeight="21.0" prefWidth="36.0" selected="true" styleClass="toggle-switch" />
+                  <ToggleSwitch fx:id="ts_elbow" layoutX="73.0" layoutY="48.0" onMouseClicked="#elbowSelect" prefHeight="21.0" prefWidth="36.0" styleClass="toggle-switch" textFill="WHITE">
                      <font>
                         <Font size="24.0" />
                      </font>
                   </ToggleSwitch>
-                  <ToggleSwitch fx:id="ts_mirror" layoutX="73.0" layoutY="71.0" prefHeight="21.0" prefWidth="36.0" styleClass="toggle-switch" />
+                  <ToggleSwitch fx:id="ts_hand" layoutX="73.0" layoutY="71.0" onMouseClicked="#handSelect" prefHeight="21.0" prefWidth="36.0" styleClass="toggle-switch" />
                   <Label layoutX="22.0" layoutY="24.0" styleClass="headlines" text="shoulder" />
                   <Label layoutX="22.0" layoutY="45.0" styleClass="headlines" text="elbow" />
                   <Label layoutX="22.0" layoutY="68.0" styleClass="headlines" text="hand" />

@@ -1,5 +1,12 @@
 package GUI;
 
+/*
+FILE: LoginController.java
+USAGE: Controls "Login-Window" (Connection establishment)
+
+TODO may be "robot-names"
+ */
+
 import NAO.NAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,58 +25,67 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import static naoDash_main.Main.loginWindow;
 
 public class LoginController{
 
-    public static NAO nao1;
+    public static NAO nao1;  //Instance of NAO-class, which will be created due to the connection establishment
+    private String robotURL; //String for calling "establishConnection" method
+    public static Stage rootWindow; //Static string for the main dashboard
 
-    private String robotURL;
-    public static Stage loginWindow;
-
-    @FXML
+    @FXML   // FXML-Annotations
     public Button btn_connect;
     public Button btn_close;
     public Button btn_delete;
+    public Button btn_test;
     public TextField txt_port;
     public TextField txt_ipaddress;
     public ListView<String> connection_list;
 
-    //Constructor
-    public LoginController(){
 
-        //Führt Methode "saveConfig" bei Schließen des Programms (des Threads) aus
-        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-            public void run() {
-                store();
-            }
-        }));
-
+    public LoginController(){      //Constructor
+//  NOT IN USE:  Runtime.getRuntime().addShutdownHook(new Thread(this::store));
+// stores current settings to config-file when closing the program
     }
 
     @FXML
-    public void initialize(){
-    Configurator.loader();
-        List<String> connections1 = new ArrayList<String>(Arrays.asList(Configurator.props.get("urls").toString().split("\\,")));
-    fillConnectionList(connections1);
+    public void initialize(){     // is called after Construktor and FXML annotations
+    Configurator.loader();                                                  // loads settings from config-file
+        List<String> connections1 = new ArrayList<String>                    //temporary list with last connections
+                (Arrays.asList(Configurator.props.get("urls").toString().split("\\,")));
+                //all URLs of the last connections are stored as one comma seperated string in config-file
+                //first they had to be split in single items
+    fillConnectionList(connections1);                                       //fills ListView with items
     }
 
     private void fillConnectionList(List<String> inputList) {
-        ObservableList<String> insert = FXCollections.observableArrayList(inputList);
-        connection_list.setItems(insert);
+        ObservableList<String> insert = FXCollections.observableArrayList(inputList); //Observable list is needed for javafx ListView
+        connection_list.setItems(insert); //fills ListView with items
     }
 
     public void connect(ActionEvent actionEvent) {
-            createRobotUrl();
+        if(!createRobotUrl()) return;
+        if(!checkDuplicate(robotURL,connection_list.getItems())) {
+            store();
+        }
             nao1 = new NAO();
-            if(!nao1.establishConnection(robotURL)) return;
+            if(!nao1.establishConnection(robotURL)) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Connection failed!");
+                alert.setHeaderText("Something went wrong...");
+                alert.setContentText("Connection is not established. \nThis could be caused due to different reasons..." +
+                        "\ne.g. wrong WiFi-Network or ip-address/port");
+                alert.showAndWait();
+                return;
+            }
 
         try {
             Parent root = FXMLLoader.load(getClass().getResource("../GUI/main_scene.fxml"));
-            Stage rootWindow = new Stage();
+            rootWindow = new Stage();
             rootWindow.setScene(new Scene(root));
             rootWindow.show();
-            loginWindow = (Stage) btn_connect.getScene().getWindow();
             loginWindow.hide();
+            store();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -77,12 +93,12 @@ public class LoginController{
     }
 
     private void store(){
-        if(!txt_port.getText().isEmpty() && !txt_ipaddress.getText().isEmpty()){
-            createRobotUrl();
-            connection_list.getItems().add(robotURL);
+        connection_list.getItems().add(robotURL);
+        if(!connection_list.getItems().isEmpty()){
+            String connectionListString = String.join(",",connection_list.getItems());
+            Configurator.saver("urls",connectionListString);
         }
-        String connectionListString = String.join(",",connection_list.getItems());
-        Configurator.saver("urls",connectionListString);
+
     }
 
     public void fill_txt(MouseEvent mouseEvent) throws NullPointerException{
@@ -99,7 +115,7 @@ public class LoginController{
         connection_list.getItems().remove(selectedIdx);
     }
 
-    private void createRobotUrl() {
+    private boolean createRobotUrl() {
         //neue Instanz von InputParse
         InputParse parser = new InputParse();
         //Variable warning für Ausgabe der Fehlermeldung
@@ -125,12 +141,24 @@ public class LoginController{
             } //Setzen der Warnmeldung und Anzeigen des Fehler-Dialogs
             alert.setContentText(warning);
             alert.showAndWait();
+            return false;
         } else { //Falls Eingaben korrekt, Connection öffnen:
             robotURL = "tcp://" + txt_ipaddress.getText() + ":" + txt_port.getText();
+            return true;
         }
     }
 
     public void close(ActionEvent actionEvent) {
         System.exit(0);
     }
+
+    private boolean checkDuplicate(String value, List<String> list) { //Searches for a String in a List<String>
+        for (String string : list) {
+            if (string.matches(value)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

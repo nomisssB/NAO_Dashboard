@@ -10,6 +10,7 @@ import javafx.stage.StageStyle;
 
 public class Main extends Application {
 
+    public static Stage loginWindow;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -22,6 +23,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
+        loginWindow = primaryStage;
 
 
         //Erzeugung der Main-Scene "root" aus main_scene.fxml

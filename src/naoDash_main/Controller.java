@@ -1,10 +1,6 @@
 package naoDash_main;
 
-import GUI.Configurator;
-import GUI.InputParse;
-import GUI.Timers;
 import NAO.ConnectionException;
-import NAO.NAO;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -15,18 +11,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.controlsfx.control.ToggleSwitch;
 
 import java.io.IOException;
 import java.util.List;
 
-import static GUI.Configurator.configFile;
-import static GUI.LoginController.loginWindow;
+import static naoDash_main.Main.loginWindow;
 import static GUI.LoginController.nao1;
+import static GUI.LoginController.rootWindow;
 
 
 public class Controller {
@@ -38,10 +35,10 @@ public class Controller {
     private Color color;
     private Timeline batteryTimeline;
     public static Stage prefs;
+    private String armMode = "shoulder";
 
     @FXML
     public ProgressBar battery_Bar;
-    public ProgressBar temp_Bar;
     public AnchorPane pane_main;
     public AnchorPane pane_control;
     public Slider sldr_speed;
@@ -63,7 +60,6 @@ public class Controller {
     public ColorPicker col_picker_right;
     public ListView<String> motion_list;
     public ListView<String> sound_list;
-    public Pane pane_cam;
     public TextField txt_sayText;
     public Button btn_right;
     public Button btn_left;
@@ -74,17 +70,20 @@ public class Controller {
     public Slider sldr_volume;
     public ChoiceBox cb_voice;
     public CheckBox chb_pitch;
+    public ToggleSwitch ts_shoulder;
+    public ToggleSwitch ts_elbow;
+    public ToggleSwitch ts_hand;
 
 
     //KONSTRUKTOR
-    public Controller(){
+    public Controller() {
 
-        //Führt Methode "saveConfig" bei Schließen des Programms (des Threads) aus
+/*        //Führt Methode "saveConfig" bei Schließen des Programms (des Threads) aus TODO derzeit nicht in Benutzung
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             public void run() {
-               saveConfig();
+                saveConfig();
             }
-        }));
+        }));*/
 
     }
 
@@ -107,7 +106,6 @@ public class Controller {
         sldr_pitch.valueProperty().addListener((observable, oldValue, newValue) -> {
             lbl_toolbar.setText("value: " + newValue.floatValue());
             pitch = newValue.floatValue();
-
         });
 
         sldr_volume.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -117,30 +115,53 @@ public class Controller {
 
         // Listener for Checkbox to enable/disable "Pitch"-Slider
         chb_pitch.selectedProperty().addListener((observable, oldValue, newValue) -> {
-           if(chb_pitch.isSelected()){
-               sldr_pitch.setDisable(false);
-           } else { sldr_pitch.setDisable(true); pitch = 0.0f;}
+            if (chb_pitch.isSelected()) {
+                sldr_pitch.setDisable(false);
+            } else {
+                sldr_pitch.setDisable(true);
+                pitch = 0.0f;
+            }
         });
 
 
         //Abfangen von KeyEvents und Auslösen der Buttons je nach Key
-        pane_main.setOnKeyPressed(e ->{
-            switch (e.getCode()){
-                case W: btn_w.fire(); break;
-                case A: btn_a.fire(); break;
-                case S: btn_s.fire(); break;
-                case D: btn_d.fire(); break;
-                case Q: btn_q.fire(); break;
-                case E: btn_e.fire(); break;
-                case I: btn_i.fire(); break;
-                case K: btn_k.fire(); break;
-                case J: btn_j.fire(); break;
-                case L: btn_l.fire(); break;
+        pane_main.setOnKeyPressed(e -> {
+            switch (e.getCode()) {
+                case W:
+                    btn_w.fire();
+                    break;
+                case A:
+                    btn_a.fire();
+                    break;
+                case S:
+                    btn_s.fire();
+                    break;
+                case D:
+                    btn_d.fire();
+                    break;
+                case Q:
+                    btn_q.fire();
+                    break;
+                case E:
+                    btn_e.fire();
+                    break;
+                case I:
+                    btn_i.fire();
+                    break;
+                case K:
+                    btn_k.fire();
+                    break;
+                case J:
+                    btn_j.fire();
+                    break;
+                case L:
+                    btn_l.fire();
+                    break;
             }
         });
 
-        pane_main.setOnKeyReleased(e ->{
-            switch(e.getCode()){
+        pane_main.setOnKeyReleased(e -> {
+            switch (e.getCode()) {
                 case W:
                     try {
                         nao1.setMoveX(0f);
@@ -186,14 +207,6 @@ public class Controller {
             }
         });
 
-
-        //Laden der Einstellungen aus XML-Config-Datei
-//        Configurator.loader(configFile);
-//            //Übernehmen der geladenen Werte in Text-Felder
-//            txt_ipadress.setText(Configurator.props.getProperty("ipAddress"));
-//            txt_port.setText(Configurator.props.getProperty("port"));
-//            sldr_volume.setValue(Float.parseFloat(Configurator.props.getProperty("volume")));
-
     try {
             fillPostureList(nao1.getPostures());
             fillVoiceList(nao1.getVoices());
@@ -221,56 +234,52 @@ public class Controller {
 
 
     //#####################  CONNECTION ##################
-    public void connect(ActionEvent actionEvent) throws Exception {
-
-    }
-
-
     public void disconnect(ActionEvent actionEvent) {
         nao1.closeConnection();
         batteryTimeline.stop();
+        rootWindow.hide();
         loginWindow.show();
     }
 
-    protected void fillPostureList(List<String> inputList){
+    private void fillPostureList(List<String> inputList) {
         ObservableList<String> insert = FXCollections.observableArrayList(inputList);
         motion_list.setItems(insert);
     }
 
-    protected void fillVoiceList(List<String> inputList){
+    private void fillVoiceList(List<String> inputList) {
         ObservableList<String> insert = FXCollections.observableArrayList(inputList);
         cb_voice.setItems(insert);
     }
-    protected void fillSoundList (List<String> inputList){
+
+    private void fillSoundList(List<String> inputList) {
         ObservableList<String> insert = FXCollections.observableArrayList(inputList);
         sound_list.setItems(insert);
     }
 
 
-
     //#####################  HEAD-CONTROL ##################
     //Buttons IJKL for Head-Control
 
-    public void head_up(ActionEvent actionEvent) throws Exception{
+    public void head_up(ActionEvent actionEvent) throws Exception {
         nao1.moveHead("up");
     }
 
-    public void head_down(ActionEvent actionEvent) throws Exception{
+    public void head_down(ActionEvent actionEvent) throws Exception {
         nao1.moveHead("down");
     }
 
-    public void head_left(ActionEvent actionEvent) throws Exception{
+    public void head_left(ActionEvent actionEvent) throws Exception {
         nao1.moveHead("left");
     }
 
-    public void head_right(ActionEvent actionEvent) throws Exception{
+    public void head_right(ActionEvent actionEvent) throws Exception {
         nao1.moveHead("right");
     }
 
     //#####################  BODY-CONTROL ##################
     // Buttons WASD for Body-Control
 
-    public void forward(ActionEvent actionEvent){
+    public void forward(ActionEvent actionEvent) {
         lbl_toolbar.setText("forward");
         try {
             nao1.setMoveX(1f);
@@ -323,12 +332,10 @@ public class Controller {
         }
     }
 
-    //#####################  SAY-TEXT ##################
-    // Buttons WASD for Body-Control
-
-    public void sayText(ActionEvent actionEvent) throws Exception{
+    //#####################  SAY-TEXT #####################
+    public void sayText(ActionEvent actionEvent) throws Exception {
         String TextToSay = txt_sayText.getText();
-        nao1.sayText(TextToSay,cb_voice.getSelectionModel().getSelectedItem().toString(),volume,pitch);
+        nao1.sayText(TextToSay, cb_voice.getSelectionModel().getSelectedItem().toString(), volume, pitch);
     }
 
     //#####################  LED-CONTROL ##################
@@ -342,6 +349,7 @@ public class Controller {
             e.printStackTrace();
         }
     }
+
     //After picking a color in ColorPicker
     public void colorchoice_right(ActionEvent actionEvent) {
         color = col_picker_right.getValue();
@@ -367,12 +375,11 @@ public class Controller {
         alert.setContentText("By Simon Bienroth, Mustafa Mado, Khaled Jebrini\n and Michael Bachmann");
 
         alert.showAndWait();
-
     }
 
     //  Sounds list
 
-     public void p_sound(ActionEvent actionEvent) {
+    public void p_sound(ActionEvent actionEvent) {
         String sound = sound_list.getSelectionModel().getSelectedItem();
         try {
             nao1.playSound(sound);
@@ -381,8 +388,6 @@ public class Controller {
         }
         lbl_toolbar.setText("play " + sound);
     }
-
-
 
 
     public void p_motion(ActionEvent actionEvent) {
@@ -395,12 +400,8 @@ public class Controller {
         lbl_toolbar.setText("execute " + motion);
     }
 
-    private void saveConfig(){
-//        Configurator.saver(configFile,"volume",Double.toString(volume));
-//        Configurator.saver(configFile,"pitch",Float.toString(pitch));
-    }
 
-    public void setbatteryView () {
+    public void setbatteryView() {
         try {
             battery_Bar.setProgress(nao1.batteryPercent());
             System.out.println(nao1.batteryPercent());
@@ -409,7 +410,7 @@ public class Controller {
         }
     }
 
-    protected void batteryViewer(){
+    protected void batteryViewer() {
         batteryTimeline = new Timeline(new KeyFrame(
                 Duration.millis(3000),
                 ae -> setbatteryView()));
@@ -421,6 +422,30 @@ public class Controller {
         prefs.show();
     }
 
+
+    public void handSelect(MouseEvent mouseEvent) {
+        if (ts_hand.isSelected()) {
+            ts_shoulder.setSelected(false);
+            ts_elbow.setSelected(false);
+            armMode = "hand";
+        }
+    }
+
+    public void shoulderSelect(MouseEvent mouseEvent) {
+        if (ts_shoulder.isSelected()) {
+            ts_hand.setSelected(false);
+            ts_elbow.setSelected(false);
+            armMode = "shoulder";
+        }
+    }
+
+    public void elbowSelect(MouseEvent mouseEvent) {
+        if (ts_elbow.isSelected()) {
+            ts_hand.setSelected(false);
+            ts_shoulder.setSelected(false);
+            armMode = "shoulder";
+        }
+    }
 
 }
 
