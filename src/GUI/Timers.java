@@ -6,7 +6,7 @@ import naoDash_main.Controller;
 import NAO.NAO;
 
 
-/*KLASSE NICHT IN BENUTZUNG Momentan...*/
+/*This class isn't in use currently...*/
 
 public class Timers {
 

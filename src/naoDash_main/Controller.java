@@ -1,6 +1,7 @@
 package naoDash_main;
 
 import NAO.ConnectionException;
+import NAO.NAO;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -43,6 +44,7 @@ public class Controller {
     public ProgressBar battery_Bar;
     public AnchorPane pane_main;
     public AnchorPane pane_control;
+    public AnchorPane pane_sounds;
     public Slider sldr_speed;
     public Button btn_s;
     public Button btn_a;
@@ -227,6 +229,8 @@ public class Controller {
             }
         });
 
+
+
     try {
             fillPostureList(nao1.getPostures());
             fillVoiceList(nao1.getVoices());
@@ -239,6 +243,7 @@ public class Controller {
         } catch (ConnectionException | InterruptedException e) {
             e.printStackTrace();
         }
+
 
 
         // zweites Fenster für Einstellungen: (noch nicht in Benutzung)
@@ -398,15 +403,23 @@ public class Controller {
     }
 
     //  Sounds list
+    public void p_sound(ActionEvent actionEvent) throws ConnectionException {
 
-    public void p_sound(ActionEvent actionEvent) {
         String sound = sound_list.getSelectionModel().getSelectedItem();
-        try {
-            nao1.playSound(sound);
-        } catch (ConnectionException e) {
-            e.printStackTrace();
-        }
+       if (nao1.getSoundFiles()!=null){
+           pane_sounds.setDisable(false);
+           try {
+               nao1.playSound(sound);
+           } catch (ConnectionException e) {
+               e.printStackTrace();
+           }
+
         lbl_toolbar.setText("play " + sound);
+       }
+       else {
+           pane_sounds.setDisable(true);
+
+       }
     }
 
 
