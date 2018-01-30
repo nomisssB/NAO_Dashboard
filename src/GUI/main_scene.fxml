@@ -78,7 +78,7 @@
                   <ColorPicker fx:id="col_picker_left" layoutX="10.0" layoutY="37.000000000000014" onAction="#colorchoice_left" AnchorPane.bottomAnchor="58.999999999999986" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                   <Label layoutX="10.0" layoutY="17.0" styleClass="headlines" text="left eye" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                   <Label layoutX="10.0" layoutY="65.0" prefHeight="24.0" prefWidth="140.0" styleClass="headlines" text="right eye" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                  <CheckBox layoutX="10.0" layoutY="24.0" mnemonicParsing="false" styleClass="headlines" text="mirror" />
+                  <CheckBox fx:id="chb_mirror_led" layoutX="10.0" layoutY="24.0" mnemonicParsing="false" styleClass="headlines" text="mirror" />
                </children>
                <styleClass>
                   <String fx:value="module" />
@@ -198,9 +198,9 @@
                   <Label layoutX="22.0" layoutY="24.0" styleClass="headlines" text="shoulder" />
                   <Label layoutX="22.0" layoutY="45.0" styleClass="headlines" text="elbow" />
                   <Label layoutX="22.0" layoutY="68.0" styleClass="headlines" text="hand" />
-                  <CheckBox layoutX="19.0" layoutY="101.0" mnemonicParsing="false" styleClass="headlines" text="left" />
-                  <CheckBox layoutX="65.0" layoutY="101.0" mnemonicParsing="false" styleClass="headlines" text="right" />
-                  <CheckBox layoutX="38.0" layoutY="122.0" mnemonicParsing="false" styleClass="headlines" text="mirror" />
+                  <CheckBox fx:id="chb_left" layoutX="19.0" layoutY="101.0" mnemonicParsing="false" onMouseClicked="#armLeftChecked" styleClass="headlines" text="left" />
+                  <CheckBox fx:id="chb_right" layoutX="65.0" layoutY="101.0" mnemonicParsing="false" onMouseClicked="#armRightChecked" styleClass="headlines" text="right" />
+                  <CheckBox fx:id="chb_mirror_arm" layoutX="38.0" layoutY="122.0" mnemonicParsing="false" onMouseClicked="#armMirrorChecked" styleClass="headlines" text="mirror" />
                </children>
                <styleClass>
                   <String fx:value="module" />
