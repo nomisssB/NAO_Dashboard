@@ -4,103 +4,88 @@ import com.aldebaran.qi.Application;
 import com.aldebaran.qi.Session;
 import com.aldebaran.qi.CallError;
 import com.aldebaran.qi.helper.proxies.*;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.CheckedInputStream;
-
+import java.util.concurrent.*;
 import javafx.scene.paint.Color;
 
 public class NAO {
     //Variabeln Deklarationen
-    private static Application app; // = new Application(new String[] {});
+    private static Application app;
     private static Session session;
     private static ALMotion motion;
     private static ALTextToSpeech tts;
     private static ALRobotPosture pose;
     private static ALLeds led;
     private static ALBattery bat;
-    private static float moveX; // movement forwards / backwards
-    private static float moveY; // movement sideways
-    private static float moveT; // movement spinning
-    private static float moveV; // velocity of movement
+    private static ALMemory memory;
     private static ALBodyTemperature temp;
     private static ALAudioPlayer play;
+    private static float moveX; // movement forwards / backwards
+    private static float moveY; // movement sideways
+    private static float moveT; // movement spinning (T = Theta)
+    private static float moveV; // velocity of movement
+    public static String url;
 
-    /*public void establishConnection(String url) { // OLD CONNECT METHOD NO RECONNECT WORKING
-        if ( app != null){ // falls Verbindung schon besteht, soll sie neu aufgebaut werden
-            closeConnection(); // funktioniert allerdings noch nicht.
-            try {
-                app.session().connect(url);
-                app.start();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else { // Establish a new connection, if there wasn't one yet.
-            try {
-                // Initialisation of the Connection to the NAO
-                app = new Application(new String[]{}, url);
-                app.start();
-                // Initialisation of the NAO Control Objekts.
-                motion = new ALMotion(app.session());
-                tts = new ALTextToSpeech(app.session());
-                pose = new ALRobotPosture(app.session());
-                led = new ALLeds(app.session());
-                bat = new ALBattery(app.session());
-                temp = new ALBodyTemperature(app.session());
 
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }*/
+    public boolean establishConnection(String url){
+        this.url = url; // set ClassVar url to url, so NAO_Connection can access it.
+        ExecutorService executor = Executors.newSingleThreadExecutor(); // Create executor for the timeout
+        Future<Session> future = executor.submit(new NAO_Connection()); // Create Thread for Connectionestablishment
 
-    public void establishConnection(String url) {
-        session = new Session();
-        try {
-            session.connect(url).get();
-            motion = new ALMotion(session);
-            tts = new ALTextToSpeech(session);
-            pose = new ALRobotPosture(session);
-            led = new ALLeds(session);
-            bat = new ALBattery(session);
-            temp = new ALBodyTemperature(session);
-            play = new ALAudioPlayer(session);
+        try {                                               // try to establish the connection
+            session = future.get(10, TimeUnit.SECONDS); // set session to hold the connection
         } catch (Exception e) {
-            e.printStackTrace();
+            future.cancel(true);                        // kill the second Thread
+            executor.shutdownNow();                     // shut down the executor
+            return false;
         }
 
+        if (session != null && session.isConnected()) {
+            try {
+                motion = new ALMotion(session);         // Create the NAO Control Objects, if the
+                tts = new ALTextToSpeech(session);      // connection succeeds.
+                pose = new ALRobotPosture(session);
+                led = new ALLeds(session);
+                bat = new ALBattery(session);
+                temp = new ALBodyTemperature(session);
+                memory = new ALMemory(session);
+                play = new ALAudioPlayer(session);
+                return true;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+
+        /* OLD without timeout
+            session = new Session();
+            try {
+                session.connect(url).get();
+                motion = new ALMotion(session);
+                tts = new ALTextToSpeech(session);
+                pose = new ALRobotPosture(session);
+                led = new ALLeds(session);
+                bat = new ALBattery(session);
+                temp = new ALBodyTemperature(session);
+                memory = new ALMemory(session);
+                play = new ALAudioPlayer(session);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }*/
     }
 
     public void closeConnection() {
-        if (session.isConnected()) {
+        if (session != null && !session.isConnected()) {
             session.close();
             session = null;
         }
     }
 
-
-
-   /* public void closeConnection(){ // OLD DISCONNECT
-        if ( app != null) {
-            app.session().close();
-            app.stop();
-        }
-    }*/
-
-
-    /*public void checkConnection() throws ConnectionException{ // OLD CHECK CONNECTION
-        if (app.session() == null) {
-            throw new ConnectionException();
-        }
-    }*/
-
-
     public void checkConnection() throws ConnectionException {
-        if (!session.isConnected()) {
+        if (session != null && !session.isConnected()) {
             throw new ConnectionException();
         }
     }
-
 
     public void moveHead(float left, float right, float down, float up) throws ConnectionException { // unfertig #testing
         checkConnection();
@@ -110,8 +95,6 @@ public class NAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     public void moveHead(String direction) throws ConnectionException {
@@ -119,6 +102,7 @@ public class NAO {
         float strongness = 0.05f; // how much does the head move per call
         String joint; // Moving horizontal ("HeadPitch") or vertical ("HeadYaw")
         float move; // moving up/right (negative value) or down/left (positive value)
+
         switch (direction) { // set variables for the correct movement
             case "up":
                 move = -1 * strongness;
@@ -141,6 +125,7 @@ public class NAO {
                 joint = "HeadPitch";
                 break;
         }
+
         try {
             motion.angleInterpolation(joint, move, 0.01f, false); // move the head with the values from above
         } catch (Exception e) {
@@ -170,8 +155,8 @@ public class NAO {
     }
 
     public List<String> getLanguages() throws ConnectionException { // Returns all installed languages
-        checkConnection();
-        try {
+        checkConnection();                                          // not used, apparently it doesn't change
+    try {                                                           // anything, if the language is changed.
             return tts.getAvailableLanguages();
         } catch (Exception e) {
             e.printStackTrace();
@@ -205,12 +190,11 @@ public class NAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return null;
     }
 
     public void moveToward(float x, float y, float thata, float v) throws ConnectionException {
-        checkConnection();
+        checkConnection(); //OLD Method not used anymore
 
         x = x * v;
         y = y * v;
@@ -284,7 +268,6 @@ public class NAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
 
@@ -325,7 +308,6 @@ public class NAO {
         }
     }
 
-
     public double batteryPercent() throws InterruptedException {       //Get the battery charge in percents
 
         try { // TODO "richtig macchen"
@@ -358,11 +340,13 @@ public class NAO {
     }
 
 
-    public List<String> getSoundFiles() throws ConnectionException {
+    public List<String> getSoundFiles() throws ConnectionException { // return list of installed soundfiles.
         checkConnection();
 
         try {
-            return play.getSoundSetFileNames("Aldebaran");
+            return play.getSoundSetFileNames("Aldebaran"); // try to get soundfiles
+        }catch (CallError e){ // return null, if there aren't soundfiles.
+            return null;
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -385,7 +369,7 @@ public class NAO {
         return false;
     }
 
-    public void playSound(String sound) throws ConnectionException{ //plays given Soundfile
+    public void playSound(String sound) throws ConnectionException { //plays given Soundfile
         checkConnection();
 
         try {
@@ -393,14 +377,9 @@ public class NAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
 
-
-
-
-
 }
-
-
 

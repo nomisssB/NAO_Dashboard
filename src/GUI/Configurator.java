@@ -8,7 +8,7 @@ import java.util.Properties;
 public class Configurator {
 
     public static Properties props = new Properties();
-    public static File configFile = new File("config.xml");
+    public static File configFile = new File("config.dashboard");
 
     public static void saver (String key, String value){
         try {
