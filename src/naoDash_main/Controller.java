@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.ToggleSwitch;
@@ -75,7 +76,9 @@ public class Controller {
     public ToggleSwitch ts_shoulder;
     public ToggleSwitch ts_elbow;
     public ToggleSwitch ts_hand;
-
+    public Circle highTemp;
+    public Circle midTemp;
+    public Circle lowTemp;
 
     //KONSTRUKTOR
     public Controller() {
@@ -223,7 +226,7 @@ public class Controller {
         } catch (ConnectionException | InterruptedException e) {
             e.printStackTrace();
         }
-
+        //initalisiert Temp-Ampel Anzeige
 
 
         // zweites Fenster für Einstellungen: (noch nicht in Benutzung)
@@ -256,9 +259,13 @@ public class Controller {
         cb_voice.setItems(insert);
     }
 
-    private void fillSoundList(List<String> inputList) {
-        ObservableList<String> insert = FXCollections.observableArrayList(inputList);
-        sound_list.setItems(insert);
+    private void fillSoundList(List<String> inputList) throws ConnectionException {
+        if (nao1.getSoundFiles()==null){
+            pane_sounds.setVisible(false);
+            return;
+        }
+            ObservableList<String> insert = FXCollections.observableArrayList(inputList);
+            sound_list.setItems(insert);
     }
 
 
@@ -386,8 +393,8 @@ public class Controller {
     public void p_sound(ActionEvent actionEvent) throws ConnectionException {
 
         String sound = sound_list.getSelectionModel().getSelectedItem();
-       if (nao1.getSoundFiles()!=null){
-           pane_sounds.setDisable(false);
+
+
            try {
                nao1.playSound(sound);
            } catch (ConnectionException e) {
@@ -396,11 +403,8 @@ public class Controller {
 
         lbl_toolbar.setText("play " + sound);
        }
-       else {
-           pane_sounds.setDisable(true);
 
-       }
-    }
+
 
 
     public void p_motion(ActionEvent actionEvent) {
