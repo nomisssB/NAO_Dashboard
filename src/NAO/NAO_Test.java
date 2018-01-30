@@ -13,12 +13,12 @@ public class NAO_Test {
 
 
 
-        nao.establishConnection("tcp://192.168.1.148:9559;");
 
 
 
 
-        System.out.println(nao.getTemp());
+
+        System.out.println(nao.batteryPercent());
 
 
 

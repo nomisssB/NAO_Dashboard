@@ -5,13 +5,14 @@ import com.aldebaran.qi.Session;
 import com.aldebaran.qi.CallError;
 import com.aldebaran.qi.helper.EventCallback;
 import com.aldebaran.qi.helper.proxies.*;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.*;
 import javafx.scene.paint.Color;
 
 public class NAO {
     //Variabeln Deklarationen
-    private static Application app;
     private static Session session;
     private static ALMotion motion;
     private static ALTextToSpeech tts;
@@ -61,22 +62,6 @@ public class NAO {
             }
         }
         return false;
-
-        /* OLD without timeout
-            session = new Session();
-            try {
-                session.connect(url).get();
-                motion = new ALMotion(session);
-                tts = new ALTextToSpeech(session);
-                pose = new ALRobotPosture(session);
-                led = new ALLeds(session);
-                bat = new ALBattery(session);
-                temp = new ALBodyTemperature(session);
-                memory = new ALMemory(session);
-                play = new ALAudioPlayer(session);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }*/
     }
 
     public void closeConnection() {
@@ -91,6 +76,7 @@ public class NAO {
             throw new ConnectionException();
         }
     }
+
 
     public void moveHead(float left, float right, float down, float up) throws ConnectionException { // unfertig #testing
         checkConnection();
@@ -299,25 +285,13 @@ public class NAO {
         float green = (float) color.getGreen();
         float blue = (float) color.getBlue();
 
-        try {
-            if (eye == "Right") {
-                led.fadeRGB("RightFaceLeds", red, green, blue, 0f);
-            } else if (eye == "Left") {
-                led.fadeRGB("LeftFaceLeds", red, green, blue, 0f);
-            } else if (eye == "Both") {
-                led.fadeRGB("RightFaceLeds", red, green, blue, 0f);
-                led.fadeRGB("LeftFaceLeds", red, green, blue, 0f);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        this.changeEyeColor(eye, red, green, blue);
     }
 
     public double batteryPercent() throws InterruptedException {       //Get the battery charge in percents
 
-        try { // TODO "richtig macchen"
-            double charge = (double) bat.getBatteryCharge() / 100;
-            return charge;
+        try {
+            return bat.getBatteryCharge();
         } catch (Exception e) {
             e.printStackTrace();
         }
