@@ -36,6 +36,7 @@ public class Controller {
     private float pitch = 0f;
     private Color color;
     private Timeline batteryTimeline;
+    private Timeline tempTimeline;
     public static Stage prefs;
     private int armModeJoint;
     private int armModeSide = 1;
@@ -452,7 +453,7 @@ public class Controller {
     }
 
 
-    public void setbatteryView() {
+    private void setbatteryView() {
         try {
             battery_Bar.setProgress(nao1.batteryPercent());
             System.out.println(nao1.batteryPercent());
@@ -461,13 +462,53 @@ public class Controller {
         }
     }
 
-    protected void batteryViewer() {
+
+    private void settempView()  {
+
+        try {
+            switch ((int) nao1.getTemp()) {
+                case -1:
+                    lowTemp.setDisable(false);
+                    midTemp.setDisable(true);
+                    highTemp.setDisable(true);
+                    break;
+                case 0:
+                    lowTemp.setDisable(true);
+                    midTemp.setDisable(false);
+                    highTemp.setDisable(true);
+                    break;
+                case 1:
+                    lowTemp.setDisable(true);
+                    midTemp.setDisable(true);
+                    highTemp.setDisable(false);
+                case -2:
+                    lowTemp.setDisable(true);
+                    midTemp.setDisable(true);
+                    highTemp.setDisable(true);
+                }
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void batteryViewer() {
         batteryTimeline = new Timeline(new KeyFrame(
                 Duration.millis(3000),
                 ae -> setbatteryView()));
         batteryTimeline.setCycleCount(Animation.INDEFINITE);
         batteryTimeline.play();
     }
+
+    private void tempViewer(){
+        tempTimeline = new Timeline(new KeyFrame(
+                Duration.millis(3000),
+                    ae -> settempView()));
+        tempTimeline.setCycleCount(Animation.INDEFINITE);
+        tempTimeline.play();
+    }
+
+
 
     public void menu_prefs(ActionEvent actionEvent) {
         prefs.show();

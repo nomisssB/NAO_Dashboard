@@ -125,17 +125,22 @@
     -fx-fill: none;
     -fx-padding: 1px;
 }
-#highTemp{
+.circle{
+
     -fx-border-color:none;
-    -fx-fill: #ff844d;
+    -fx-border-radius: 70%;
+    }
+#highTemp{
+
+    -fx-fill: #ff4538;
      }
 
 #midTemp{
-    -fx-border-color:none;
-    -fx-fill: #ffe37f;
+
+    -fx-fill: #fdff45;
 }
 #lowTemp{
-    -fx-border-color:none;
+
     -fx-fill: lawngreen;
 }
 
@@ -152,6 +157,7 @@
     -fx-font-size: 12pt;
     -fx-font-weight: bold;
 }
+
 
 
 
