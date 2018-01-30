@@ -325,6 +325,7 @@ public class NAO {
         }
     }
 
+
     public double batteryPercent() throws InterruptedException {       //Get the battery charge in percents
 
         try { // TODO "richtig macchen"
@@ -336,18 +337,26 @@ public class NAO {
         return -1;
     }
 
-    public float getTemp() throws ConnectionException { //get the tempreture from NAO   TODO testing and finishig
-        checkConnection();
+
+    public float getTemp() throws ConnectionException { //get the tempreture from NAO
+        checkConnection();                              // returns -1/0/1 for tempdiagnosis, -2 for no temperature available
 
         try {
-            System.out.println(temp.getTemperatureDiagnosis());
-            return 0; //(int) temp.getTemperatureDiagnosis();
+            Object temp1 = temp.getTemperatureDiagnosis();
+
+            if (temp1 instanceof ArrayList) {
+                ArrayList tempList = (ArrayList) temp1;
+                Object temp2 = tempList.get(0);
+                return Float.parseFloat(temp2.toString());
+            } else {
+                return -2f;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return -1;
+        return -3f;
     }
+
 
     public List<String> getSoundFiles() throws ConnectionException {
         checkConnection();
@@ -385,8 +394,6 @@ public class NAO {
             e.printStackTrace();
         }
     }
-
-
 
 
 
