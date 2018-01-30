@@ -3,11 +3,11 @@ package NAO;
 import com.aldebaran.qi.Application;
 import com.aldebaran.qi.Session;
 import com.aldebaran.qi.CallError;
+import com.aldebaran.qi.helper.EventCallback;
 import com.aldebaran.qi.helper.proxies.*;
 import java.util.List;
 import java.util.concurrent.*;
 import javafx.scene.paint.Color;
-
 
 public class NAO {
     //Variabeln Deklarationen
@@ -26,6 +26,9 @@ public class NAO {
     private static float moveT; // movement spinning (T = Theta)
     private static float moveV; // velocity of movement
     public static String url;
+    private String tactileHeadTextFront;
+    private String tactileHeadTextMiddle;
+    private String tactileHeadTextRear;
 
 
     public boolean establishConnection(String url){
@@ -51,6 +54,7 @@ public class NAO {
                 temp = new ALBodyTemperature(session);
                 memory = new ALMemory(session);
                 play = new ALAudioPlayer(session);
+                subscribeToTactileHead();
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -320,19 +324,26 @@ public class NAO {
         return -1;
     }
 
-    public float getTemp() throws ConnectionException { //get the tempreture from NAO   TODO testing and finishig
-        checkConnection();
+
+    public float getTemp() throws ConnectionException { //get the tempreture from NAO
+        checkConnection();                              // returns -1/0/1 for tempdiagnosis, -2 for no temperature available
 
         try {
+            Object temp1 = temp.getTemperatureDiagnosis();
 
-            System.out.println(temp.getTemperatureDiagnosis());
-            return 0; //(int) temp.getTemperatureDiagnosis();
+            if (temp1 instanceof ArrayList) {
+                ArrayList tempList = (ArrayList) temp1;
+                Object temp2 = tempList.get(0);
+                return Float.parseFloat(temp2.toString());
+            } else {
+                return -2f;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return -1;
+        return -3f;
     }
+
 
     public List<String> getSoundFiles() throws ConnectionException { // return list of installed soundfiles.
         checkConnection();
@@ -373,5 +384,54 @@ public class NAO {
         }
 
     }
+
+    public void setTactileHeadTexts(String front, String middle, String back){
+        tactileHeadTextRear = back;
+        tactileHeadTextFront = front;
+        tactileHeadTextMiddle = middle;
+    }
+
+    public void subscribeToTactileHead() throws ConnectionException {   // set NAO to say a given text if his head is touched
+        checkConnection();                                              // This method is called after the connection succeeded.
+        try {
+            memory.subscribeToEvent(
+                    "FrontTactilTouched", new EventCallback<Float>() {  // set the front sensor to speak the variable "tactileHeadFront"
+                        @Override                                       // "tactileHeadFront" is rewritten from the GUI, if the textfield has been changed.
+                        public void onEvent(Float arg0)
+                                throws InterruptedException, CallError {
+                            // 1 means the sensor has been pressed
+                            if (arg0 > 0) {
+                                tts.say(tactileHeadTextFront);
+                            }
+                        }
+                    });
+            memory.subscribeToEvent(
+                    "MiddleTactilTouched", new EventCallback<Float>() { // see explanation above
+                        @Override
+                        public void onEvent(Float arg0)
+                                throws InterruptedException, CallError {
+                            // 1 means the sensor has been pressed
+                            if (arg0 > 0) {
+                                tts.say(tactileHeadTextMiddle);
+                            }
+                        }
+                    });
+            memory.subscribeToEvent(
+                    "RearTactilTouched", new EventCallback<Float>() {   // see explanation above
+                        @Override
+                        public void onEvent(Float arg0)
+                                throws InterruptedException, CallError {
+                            // 1 means the sensor has been pressed
+                            if (arg0 > 0) {
+                                tts.say(tactileHeadTextRear);
+                            }
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
 
