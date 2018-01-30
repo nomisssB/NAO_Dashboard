@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.concurrent.*;
 import javafx.scene.paint.Color;
 
-
 public class NAO {
     //Variabeln Deklarationen
     private static Application app;
@@ -325,19 +324,26 @@ public class NAO {
         return -1;
     }
 
-    public float getTemp() throws ConnectionException { //get the tempreture from NAO   TODO testing and finishig
-        checkConnection();
+
+    public float getTemp() throws ConnectionException { //get the tempreture from NAO
+        checkConnection();                              // returns -1/0/1 for tempdiagnosis, -2 for no temperature available
 
         try {
+            Object temp1 = temp.getTemperatureDiagnosis();
 
-            System.out.println(temp.getTemperatureDiagnosis());
-            return 0; //(int) temp.getTemperatureDiagnosis();
+            if (temp1 instanceof ArrayList) {
+                ArrayList tempList = (ArrayList) temp1;
+                Object temp2 = tempList.get(0);
+                return Float.parseFloat(temp2.toString());
+            } else {
+                return -2f;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return -1;
+        return -3f;
     }
+
 
     public List<String> getSoundFiles() throws ConnectionException { // return list of installed soundfiles.
         checkConnection();
@@ -425,6 +431,7 @@ public class NAO {
             e.printStackTrace();
         }
     }
+
 
 }
 
