@@ -315,7 +315,7 @@ public class NAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return -3f;
+        return -2f;
     }
 
 
