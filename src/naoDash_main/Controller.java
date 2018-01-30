@@ -38,7 +38,7 @@ public class Controller {
     private Timeline batteryTimeline;
     public static Stage prefs;
     private int armModeJoint;
-    private int armModeSide;
+    private int armModeSide = 1;
     private String[][] armControl1, armControl2;
 
     @FXML
@@ -74,7 +74,7 @@ public class Controller {
     public Slider sldr_pitch;
     public Slider sldr_volume;
     public ChoiceBox cb_voice;
-    public CheckBox chb_pitch;
+    public CheckBox chb_pitch, chb_left, chb_right, chb_mirror_arm, chb_mirror_led;
     public ToggleSwitch ts_shoulder;
     public ToggleSwitch ts_elbow;
     public ToggleSwitch ts_hand;
@@ -473,19 +473,19 @@ public class Controller {
     //Arrow-Buttons for Arm-Control
 
     public void arm_up(ActionEvent actionEvent) throws Exception {
-        nao1.moveArm(armControl1[armModeJoint][armModeSide],-1);
+        nao1.moveArm(armControl1[armModeSide][armModeJoint],-1);
     }
 
     public void arm_down(ActionEvent actionEvent) throws Exception {
-        nao1.moveArm(armControl1[armModeJoint][armModeSide],1);
+        nao1.moveArm(armControl1[armModeSide][armModeJoint],1);
     }
 
     public void arm_left(ActionEvent actionEvent) throws Exception {
-        nao1.moveArm(armControl2[armModeJoint][armModeSide],-1);
+        nao1.moveArm(armControl2[armModeSide][armModeJoint],-1);
     }
 
     public void arm_right(ActionEvent actionEvent) throws Exception {
-        nao1.moveArm(armControl2[armModeJoint][armModeSide],1);
+        nao1.moveArm(armControl2[armModeSide][armModeJoint],1);
     }
 
     public void handSelect(MouseEvent mouseEvent) {
@@ -522,6 +522,30 @@ public class Controller {
     }
 
 
+    public void armLeftChecked(MouseEvent mouseEvent) {
+        armModeSide = 1;
+        chb_left.setDisable(true);
+        chb_right.setSelected(false);
+        chb_right.setDisable(false);
+        chb_mirror_arm.setSelected(false);
+        chb_mirror_arm.setDisable(false);
+    }
+    public void armRightChecked(MouseEvent mouseEvent) {
+        armModeSide = 2;
+        chb_right.setDisable(true);
+        chb_left.setSelected(false);
+        chb_left.setDisable(false);
+        chb_mirror_arm.setSelected(false);
+        chb_mirror_arm.setDisable(false);
+    }
+    public void armMirrorChecked(MouseEvent mouseEvent) {
+        armModeSide = 0;
+        chb_mirror_arm.setDisable(true);
+        chb_left.setSelected(false);
+        chb_left.setDisable(false);
+        chb_right.setSelected(false);
+        chb_right.setDisable(false);
+    }
 }
 
 
