@@ -375,9 +375,13 @@ public class Controller {
     }
 
     //#####################  SAY-TEXT #####################
-    public void sayText(ActionEvent actionEvent) throws Exception {
+    public void sayText(ActionEvent actionEvent)  {
         String TextToSay = txt_sayText.getText();
-        nao1.sayText(TextToSay, cb_voice.getSelectionModel().getSelectedItem().toString(), volume, pitch);
+        try {
+            nao1.sayText(TextToSay, cb_voice.getSelectionModel().getSelectedItem().toString(), volume, pitch);
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+        }
     }
 
     //#####################  LED-CONTROL ##################
@@ -473,19 +477,31 @@ public class Controller {
     //Arrow-Buttons for Arm-Control
 
     public void arm_up(ActionEvent actionEvent) throws Exception {
-        nao1.moveArm(armControl1[armModeSide][armModeJoint],-1);
+        if(armModeSide == 2){
+            nao1.moveArm(armControl1[0][armModeJoint],-1);
+            nao1.moveArm(armControl1[1][armModeJoint],-1);
+        } else nao1.moveArm(armControl1[armModeSide][armModeJoint],-1);
     }
 
     public void arm_down(ActionEvent actionEvent) throws Exception {
-        nao1.moveArm(armControl1[armModeSide][armModeJoint],1);
+        if(armModeSide == 2){
+            nao1.moveArm(armControl1[0][armModeJoint],-1);
+            nao1.moveArm(armControl1[1][armModeJoint],-1);
+        } else nao1.moveArm(armControl1[armModeSide][armModeJoint],1);
     }
 
     public void arm_left(ActionEvent actionEvent) throws Exception {
-        nao1.moveArm(armControl2[armModeSide][armModeJoint],-1);
+        if(armModeSide == 2){
+            nao1.moveArm(armControl1[0][armModeJoint],-1);
+            nao1.moveArm(armControl1[1][armModeJoint],-1);
+        } else nao1.moveArm(armControl2[armModeSide][armModeJoint],-1);
     }
 
     public void arm_right(ActionEvent actionEvent) throws Exception {
-        nao1.moveArm(armControl2[armModeSide][armModeJoint],1);
+        if(armModeSide == 2){
+            nao1.moveArm(armControl1[0][armModeJoint],-1);
+            nao1.moveArm(armControl1[1][armModeJoint],-1);
+        } else nao1.moveArm(armControl2[armModeSide][armModeJoint],1);
     }
 
     public void handSelect(MouseEvent mouseEvent) {
@@ -531,7 +547,7 @@ public class Controller {
         chb_mirror_arm.setDisable(false);
     }
     public void armRightChecked(MouseEvent mouseEvent) {
-        armModeSide = 2;
+        armModeSide = 0;
         chb_right.setDisable(true);
         chb_left.setSelected(false);
         chb_left.setDisable(false);
@@ -539,7 +555,7 @@ public class Controller {
         chb_mirror_arm.setDisable(false);
     }
     public void armMirrorChecked(MouseEvent mouseEvent) {
-        armModeSide = 0;
+        armModeSide = 2;
         chb_mirror_arm.setDisable(true);
         chb_left.setSelected(false);
         chb_left.setDisable(false);
