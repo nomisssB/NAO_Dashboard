@@ -182,6 +182,18 @@ public class Controller {
                 case L:
                     btn_l.fire();
                     break;
+                case UP:
+                    btn_up.fire();
+                    break;
+                case LEFT:
+                    btn_left.fire();
+                    break;
+                case RIGHT:
+                    btn_right.fire();
+                    break;
+                case DOWN:
+                    btn_down.fire();
+                    break;
             }
         });
 
@@ -234,7 +246,7 @@ public class Controller {
 
 
 
-    try {
+/*    try {
             fillPostureList(nao1.getPostures());
             fillVoiceList(nao1.getVoices());
             fillSoundList(nao1.getSoundFiles());
@@ -245,9 +257,7 @@ public class Controller {
             batteryViewer();
         } catch (ConnectionException | InterruptedException e) {
             e.printStackTrace();
-        }
-        //initalisiert Temp-Ampel Anzeige
-
+        }*/
 
         // zweites Fenster für Einstellungen: (noch nicht in Benutzung)
         try {
@@ -480,7 +490,10 @@ public class Controller {
 
     public void handSelect(MouseEvent mouseEvent) {
         if (ts_hand.isSelected()) {
+            ts_hand.setDisable(true);
+            ts_shoulder.setDisable(false);
             ts_shoulder.setSelected(false);
+            ts_elbow.setDisable(false);
             ts_elbow.setSelected(false);
             armModeJoint = 2;
         }
@@ -488,16 +501,22 @@ public class Controller {
 
     public void shoulderSelect(MouseEvent mouseEvent) {
         if (ts_shoulder.isSelected()) {
+            ts_shoulder.setDisable(true);
             ts_hand.setSelected(false);
+            ts_hand.setDisable(false);
             ts_elbow.setSelected(false);
+            ts_elbow.setDisable(false);
             armModeJoint = 0;
         }
     }
 
     public void elbowSelect(MouseEvent mouseEvent) {
         if (ts_elbow.isSelected()) {
+            ts_elbow.setDisable(true);
             ts_hand.setSelected(false);
+            ts_hand.setDisable(false);
             ts_shoulder.setSelected(false);
+            ts_shoulder.setDisable(false);
             armModeJoint = 1;
         }
     }

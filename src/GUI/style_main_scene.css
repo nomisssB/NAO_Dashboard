@@ -37,34 +37,32 @@
 }
 
 
-.list-view{
-    -fx-background-color: rgba(135, 135, 135, 0.7);
+/*Styleclasses*/
 
+/*List-View on Login-Window*/
+#connection_list{
+    -fx-background-color: rgba(135, 135, 135, 0.7);
 }
-.list-view .list-cell:empty{
+#connection_list .list-cell:empty{
     -fx-opacity: 0;
 }
-
-.list-view .list-cell{
+#connection_list .list-cell{
     -fx-pref-height: 40px;
-    -fx-font-size: 14pt;
+    -fx-font-size: 12pt;
 }
-.list-view .list-cell:odd{
+#connection_list .list-cell:odd{
     -fx-background-color: rgba(53,122,175,0.7);
 }
-.list-view .list-cell:odd:selected{
+#connection_list .list-cell:odd:selected{
     -fx-background-color: rgba(53,122,175,1);
     -fx-font-weight: bold;
     -fx-border-width: 2px;
     -fx-border-color: #1d4360;
-
 }
-
-.list-view .list-cell:even{
+#connection_list .list-cell:even{
     -fx-background-color: rgba(255,255,255,0.7);
 }
-
-.list-view .list-cell:even:selected{
+#connection_list .list-cell:even:selected{
     -fx-background-color: rgba(255,255,255,1);
     -fx-font-weight: bold;
     -fx-text-fill: black;
@@ -72,9 +70,7 @@
     -fx-border-color: #1d4360;
 }
 
-
-/*Styleclasses*/
-
+/*GUI-Modules*/
 .module {
     -fx-background-color: rgba(0, 0, 0, 0.5);
     -fx-background-radius: 2;
