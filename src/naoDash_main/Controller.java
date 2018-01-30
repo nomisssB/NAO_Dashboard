@@ -37,7 +37,9 @@ public class Controller {
     private Color color;
     private Timeline batteryTimeline;
     public static Stage prefs;
-    private String armMode = "shoulder";
+    private int armModeJoint;
+    private int armModeSide;
+    private String[][] armControl1, armControl2;
 
     @FXML
     public ProgressBar battery_Bar;
@@ -82,6 +84,24 @@ public class Controller {
 
     //KONSTRUKTOR
     public Controller() {
+
+        // Arrays to determine the right joint for the arm control.
+        // first digit is for left/right // second digit for wrist/elbow/shoulder
+        armControl1 = new String[2][3];
+        armControl2 = new String[2][3];
+        armControl1[0][0] = "LShoulderPitch";
+        armControl2[0][0] = "LShoulderRoll";
+        armControl1[0][1] = "LElbowYaw";
+        armControl2[0][1] = "LElbowRoll";
+        armControl1[0][2] = "LWristYaw";
+        armControl2[0][2] = "LHand";
+        armControl1[1][0] = "RShoulderPitch";
+        armControl2[1][0] = "RShoulderRoll";
+        armControl1[1][1] = "RElbowYaw";
+        armControl2[1][1] = "RElbowRoll";
+        armControl1[1][2] = "RWristYaw";
+        armControl2[1][2] = "RHand";
+
 
 /*        //Führt Methode "saveConfig" bei Schließen des Programms (des Threads) aus TODO derzeit nicht in Benutzung
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
@@ -439,12 +459,30 @@ public class Controller {
         prefs.show();
     }
 
+    //#####################  ARM-CONTROL ##################
+    //Arrow-Buttons for Arm-Control
+
+    public void arm_up(ActionEvent actionEvent) throws Exception {
+        nao1.moveArm(armControl1[armModeJoint][armModeSide],-1);
+    }
+
+    public void arm_down(ActionEvent actionEvent) throws Exception {
+        nao1.moveArm(armControl1[armModeJoint][armModeSide],1);
+    }
+
+    public void arm_left(ActionEvent actionEvent) throws Exception {
+        nao1.moveArm(armControl2[armModeJoint][armModeSide],-1);
+    }
+
+    public void arm_right(ActionEvent actionEvent) throws Exception {
+        nao1.moveArm(armControl2[armModeJoint][armModeSide],1);
+    }
 
     public void handSelect(MouseEvent mouseEvent) {
         if (ts_hand.isSelected()) {
             ts_shoulder.setSelected(false);
             ts_elbow.setSelected(false);
-            armMode = "hand";
+            armModeJoint = 2;
         }
     }
 
@@ -452,7 +490,7 @@ public class Controller {
         if (ts_shoulder.isSelected()) {
             ts_hand.setSelected(false);
             ts_elbow.setSelected(false);
-            armMode = "shoulder";
+            armModeJoint = 0;
         }
     }
 
@@ -460,9 +498,10 @@ public class Controller {
         if (ts_elbow.isSelected()) {
             ts_hand.setSelected(false);
             ts_shoulder.setSelected(false);
-            armMode = "shoulder";
+            armModeJoint = 1;
         }
     }
+
 
 }
 
