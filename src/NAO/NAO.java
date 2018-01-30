@@ -27,9 +27,9 @@ public class NAO {
     private static float moveT; // movement spinning (T = Theta)
     private static float moveV; // velocity of movement
     public static String url;
-    private String tactileHeadTextFront;
-    private String tactileHeadTextMiddle;
-    private String tactileHeadTextRear;
+    private String tactileHeadTextFront = "";
+    private String tactileHeadTextMiddle = "";
+    private String tactileHeadTextRear = "";
 
 
     public boolean establishConnection(String url){
@@ -261,6 +261,16 @@ public class NAO {
         }
     }
 
+    public void moveArm(String jointr, String jointl, float direction) throws ConnectionException {
+        checkConnection();
+        try {
+            motion.angleInterpolation(jointr, 0.1f * direction, 0.1f, false);
+            motion.angleInterpolation(jointl, 0.1f * direction, 0.1f, false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void changeEyeColor(String eye, float red, float green, float blue) throws ConnectionException {
         checkConnection();
@@ -359,10 +369,16 @@ public class NAO {
 
     }
 
-    public void setTactileHeadTexts(String front, String middle, String back){
-        tactileHeadTextRear = back;
+    public void setTactileHeadTextFront(String front){
         tactileHeadTextFront = front;
+    }
+
+    public void setTactileHeadTextMiddle(String middle){
         tactileHeadTextMiddle = middle;
+    }
+
+    public void setTactileHeadTextRear(String rear){
+        tactileHeadTextRear = rear;
     }
 
     public void subscribeToTactileHead() throws ConnectionException {   // set NAO to say a given text if his head is touched

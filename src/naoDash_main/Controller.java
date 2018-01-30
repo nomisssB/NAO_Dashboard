@@ -1,7 +1,6 @@
 package naoDash_main;
 
 import NAO.ConnectionException;
-import NAO.NAO;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -66,10 +65,10 @@ public class Controller {
     public ListView<String> motion_list;
     public ListView<String> sound_list;
     public TextField txt_sayText;
-    public Button btn_right;
-    public Button btn_left;
-    public Button btn_up;
-    public Button btn_down;
+    public Button btn_h;
+    public Button btn_f;
+    public Button btn_t;
+    public Button btn_g;
     public Label lbl_toolbar;
     public Slider sldr_pitch;
     public Slider sldr_volume;
@@ -87,20 +86,21 @@ public class Controller {
 
         // Arrays to determine the right joint for the arm control.
         // first digit is for left/right // second digit for wrist/elbow/shoulder
+        // 1 -> left, 0-> right || 0 -> shoulder, 1 -> Elbow, 2 -> Hand/Wrist
         armControl1 = new String[2][3];
         armControl2 = new String[2][3];
-        armControl1[0][0] = "LShoulderPitch";
-        armControl2[0][0] = "LShoulderRoll";
-        armControl1[0][1] = "LElbowYaw";
-        armControl2[0][1] = "LElbowRoll";
-        armControl1[0][2] = "LWristYaw";
-        armControl2[0][2] = "LHand";
-        armControl1[1][0] = "RShoulderPitch";
-        armControl2[1][0] = "RShoulderRoll";
-        armControl1[1][1] = "RElbowYaw";
-        armControl2[1][1] = "RElbowRoll";
-        armControl1[1][2] = "RWristYaw";
-        armControl2[1][2] = "RHand";
+        armControl1[1][0] = "LShoulderPitch";
+        armControl2[1][0] = "LShoulderRoll";
+        armControl1[1][1] = "LElbowRoll";
+        armControl2[1][1] = "LElbowYaw";
+        armControl1[1][2] = "LHand";
+        armControl2[1][2] = "LWristYaw";
+        armControl1[0][0] = "RShoulderPitch";
+        armControl2[0][0] = "RShoulderRoll";
+        armControl1[0][1] = "RElbowRoll";
+        armControl2[0][1] = "RElbowYaw";
+        armControl1[0][2] = "RHand";
+        armControl2[0][2] = "RWristYaw";
 
 
 /*        //Führt Methode "saveConfig" bei Schließen des Programms (des Threads) aus TODO derzeit nicht in Benutzung
@@ -182,17 +182,17 @@ public class Controller {
                 case L:
                     btn_l.fire();
                     break;
-                case UP:
-                    btn_up.fire();
+                case T:
+                    btn_t.fire();
                     break;
-                case LEFT:
-                    btn_left.fire();
+                case F:
+                    btn_f.fire();
                     break;
-                case RIGHT:
-                    btn_right.fire();
+                case H:
+                    btn_h.fire();
                     break;
-                case DOWN:
-                    btn_down.fire();
+                case G:
+                    btn_g.fire();
                     break;
             }
         });
@@ -246,7 +246,7 @@ public class Controller {
 
 
 
-/*    try {
+    try {
             fillPostureList(nao1.getPostures());
             fillVoiceList(nao1.getVoices());
             fillSoundList(nao1.getSoundFiles());
@@ -257,7 +257,7 @@ public class Controller {
             batteryViewer();
         } catch (ConnectionException | InterruptedException e) {
             e.printStackTrace();
-        }*/
+        }
 
         // zweites Fenster für Einstellungen: (noch nicht in Benutzung)
         try {
@@ -477,30 +477,28 @@ public class Controller {
     //Arrow-Buttons for Arm-Control
 
     public void arm_up(ActionEvent actionEvent) throws Exception {
-        if(armModeSide == 2){
-            nao1.moveArm(armControl1[0][armModeJoint],-1);
-            nao1.moveArm(armControl1[1][armModeJoint],-1);
-        } else nao1.moveArm(armControl1[armModeSide][armModeJoint],-1);
+
+        nao1.moveArm(armControl1[armModeSide][armModeJoint],-1);
     }
 
     public void arm_down(ActionEvent actionEvent) throws Exception {
         if(armModeSide == 2){
-            nao1.moveArm(armControl1[0][armModeJoint],-1);
-            nao1.moveArm(armControl1[1][armModeJoint],-1);
+            nao1.moveArm(armControl1[0][armModeJoint],1);
+            nao1.moveArm(armControl1[1][armModeJoint],1);
         } else nao1.moveArm(armControl1[armModeSide][armModeJoint],1);
     }
 
     public void arm_left(ActionEvent actionEvent) throws Exception {
         if(armModeSide == 2){
-            nao1.moveArm(armControl1[0][armModeJoint],-1);
-            nao1.moveArm(armControl1[1][armModeJoint],-1);
+            nao1.moveArm(armControl2[0][armModeJoint],-1);
+            nao1.moveArm(armControl2[1][armModeJoint],-1);
         } else nao1.moveArm(armControl2[armModeSide][armModeJoint],-1);
     }
 
     public void arm_right(ActionEvent actionEvent) throws Exception {
         if(armModeSide == 2){
-            nao1.moveArm(armControl1[0][armModeJoint],-1);
-            nao1.moveArm(armControl1[1][armModeJoint],-1);
+            nao1.moveArm(armControl2[0][armModeJoint],1);
+            nao1.moveArm(armControl2[1][armModeJoint],1);
         } else nao1.moveArm(armControl2[armModeSide][armModeJoint],1);
     }
 
