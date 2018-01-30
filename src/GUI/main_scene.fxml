@@ -52,7 +52,7 @@
             <Font size="36.0" />
           </font>
         </Label>
-      <AnchorPane fx:id="pane_control" layoutX="26.0" layoutY="32.0" prefWidth="752.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
+      <AnchorPane fx:id="pane_control" layoutX="20.0" layoutY="80.0" prefWidth="752.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
          <children>
             <AnchorPane layoutY="337.0" prefHeight="181.0" prefWidth="150.0">
                <children>
@@ -140,7 +140,7 @@
                </styleClass>
             </AnchorPane>
              <ProgressBar fx:id="battery_Bar" layoutX="329.0" layoutY="183.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="48.0" progress="0.37" />
-            <AnchorPane layoutX="159.0" prefHeight="213.0" prefWidth="169.0">
+            <AnchorPane fx:id="pane_sounds" layoutX="159.0" prefHeight="213.0" prefWidth="169.0">
                <children>
                   <Label layoutX="10.0" layoutY="2.0" prefHeight="24.0" prefWidth="150.0" styleClass="headlines" text="Predefined Sounds" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   <ListView fx:id="sound_list" layoutX="10.0" layoutY="25.0" prefHeight="144.0" prefWidth="130.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="25.0">
