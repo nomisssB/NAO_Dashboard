@@ -139,7 +139,19 @@
                   <String fx:value="once" />
                </styleClass>
             </AnchorPane>
-             <ProgressBar fx:id="battery_Bar" layoutX="329.0" layoutY="183.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="48.0" progress="0.37" />
+            <AnchorPane layoutX="479.0" prefHeight="82.0" prefWidth="120.0" styleClass="module">
+               <children>
+                   <ProgressBar fx:id="battery_Bar" layoutX="14.0" layoutY="26.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="48.0" progress="0.37" />
+                  <AnchorPane fx:id="temp_pane" layoutX="78.0" layoutY="8.0" prefHeight="1.0" prefWidth="11.0">
+                     <children>
+                        <Circle fx:id="highTemp" fill="DODGERBLUE" layoutX="12.0" layoutY="19.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                        <Circle fx:id="midTemp" fill="DODGERBLUE" layoutX="12.0" layoutY="40.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="25.0" />
+                        <Circle fx:id="lowTemp" fill="DODGERBLUE" layoutX="13.0" layoutY="64.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="42.0" />
+                     </children>
+                  </AnchorPane>
+                  <Label fx:id="lbl_battery" layoutX="31.0" layoutY="32.0" prefHeight="17.0" prefWidth="14.0" />
+               </children>
+            </AnchorPane>
             <AnchorPane fx:id="pane_sounds" layoutX="159.0" prefHeight="213.0" prefWidth="169.0">
                <children>
                   <Label layoutX="10.0" layoutY="2.0" prefHeight="24.0" prefWidth="150.0" styleClass="headlines" text="Predefined Sounds" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -155,12 +167,6 @@
                   <String fx:value="once" />
                </styleClass>
             </AnchorPane>
-            <AnchorPane fx:id="temp_pane" layoutX="381.0" layoutY="165.0" prefHeight="1.0" prefWidth="11.0" AnchorPane.bottomAnchor="288.00000000000006" AnchorPane.leftAnchor="381.0">
-               <children>
-                  <Circle fx:id="highTemp" fill="DODGERBLUE" layoutX="12.0" layoutY="19.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
-                  <Circle fx:id="midTemp" fill="DODGERBLUE" layoutX="12.0" layoutY="40.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="25.0" />
-                  <Circle fx:id="lowTemp" fill="DODGERBLUE" layoutX="13.0" layoutY="64.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="42.0" />
-               </children></AnchorPane>
             <AnchorPane layoutX="611.0" layoutY="412.0" prefHeight="232.0" prefWidth="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
                   <Label layoutX="-7.0" layoutY="2.0" prefWidth="150.0" styleClass="headlines" text="arm control" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -188,7 +194,7 @@
                         <String fx:value="arrow" />
                      </styleClass>
                   </Button>
-                  <ToggleSwitch fx:id="ts_shoulder" layoutX="73.0" layoutY="24.0" onMouseClicked="#shoulderSelect" prefHeight="21.0" prefWidth="36.0" selected="true" styleClass="toggle-switch" />
+                  <ToggleSwitch fx:id="ts_shoulder" disable="true" layoutX="73.0" layoutY="24.0" onMouseClicked="#shoulderSelect" prefHeight="21.0" prefWidth="36.0" selected="true" styleClass="toggle-switch" />
                   <ToggleSwitch fx:id="ts_elbow" layoutX="73.0" layoutY="48.0" onMouseClicked="#elbowSelect" prefHeight="21.0" prefWidth="36.0" styleClass="toggle-switch" textFill="WHITE">
                      <font>
                         <Font size="24.0" />
@@ -199,7 +205,7 @@
                   <Label layoutX="22.0" layoutY="45.0" styleClass="headlines" text="elbow" />
                   <Label layoutX="22.0" layoutY="68.0" styleClass="headlines" text="hand" />
                   <CheckBox fx:id="chb_left" layoutX="19.0" layoutY="101.0" mnemonicParsing="false" onMouseClicked="#armLeftChecked" styleClass="headlines" text="left" />
-                  <CheckBox fx:id="chb_right" layoutX="65.0" layoutY="101.0" mnemonicParsing="false" onMouseClicked="#armRightChecked" styleClass="headlines" text="right" />
+                  <CheckBox fx:id="chb_right" disable="true" layoutX="65.0" layoutY="101.0" mnemonicParsing="false" onMouseClicked="#armRightChecked" selected="true" styleClass="headlines" text="right" />
                   <CheckBox fx:id="chb_mirror_arm" layoutX="38.0" layoutY="122.0" mnemonicParsing="false" onMouseClicked="#armMirrorChecked" styleClass="headlines" text="mirror" />
                </children>
                <styleClass>

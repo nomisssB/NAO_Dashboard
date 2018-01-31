@@ -34,53 +34,27 @@ public class Controller {
     private float volume = 0.5f;
     private float pitch = 0f;
     private Color color;
-    private Timeline batteryTimeline;
-    private Timeline tempTimeline;
+    private static Timeline batteryTimeline;
+    private static Timeline tempTimeline;
     public static Stage prefs;
-    private int armModeJoint;
+    private int armModeJoint = 0;
     private int armModeSide = 1;
     private String[][] armControl1, armControl2;
 
     @FXML
     public ProgressBar battery_Bar;
-    public AnchorPane pane_main;
-    public AnchorPane pane_control;
-    public AnchorPane pane_sounds;
-    public Slider sldr_speed;
-    public Button btn_s;
-    public Button btn_a;
-    public Button btn_d;
-    public Button btn_w;
-    public Button btn_q;
-    public Button btn_e;
-    public Button btn_i;
-    public Button btn_j;
-    public Button btn_k;
-    public Button btn_l;
-    public Button btn_disconnect;
-    public Button btn_execute;
-    public Button btn_sayText;
-    public Button btn_playSound;
-    public ColorPicker col_picker_left;
-    public ColorPicker col_picker_right;
-    public ListView<String> motion_list;
-    public ListView<String> sound_list;
+    public AnchorPane pane_main, pane_control, pane_sounds;
+    public Slider sldr_speed, sldr_pitch, sldr_volume;
+    public Button btn_s, btn_a, btn_d, btn_w, btn_q, btn_e, btn_i, btn_j, btn_k, btn_l, btn_disconnect,
+            btn_execute, btn_sayText, btn_playSound, btn_h, btn_f, btn_t, btn_g;
+    public ColorPicker col_picker_left, col_picker_right;
+    public ListView<String> motion_list, sound_list;
     public TextField txt_sayText;
-    public Button btn_h;
-    public Button btn_f;
-    public Button btn_t;
-    public Button btn_g;
-    public Label lbl_toolbar;
-    public Slider sldr_pitch;
-    public Slider sldr_volume;
+    public Label lbl_toolbar, lbl_battery;
     public ChoiceBox cb_voice;
     public CheckBox chb_pitch, chb_left, chb_right, chb_mirror_arm, chb_mirror_led;
-    public ToggleSwitch ts_shoulder;
-    public ToggleSwitch ts_elbow;
-    public ToggleSwitch ts_hand;
-    public Circle highTemp;
-    public Circle midTemp;
-    public Circle lowTemp;
+    public ToggleSwitch ts_shoulder, ts_elbow, ts_hand;
+    public Circle highTemp, midTemp, lowTemp;
 
     //KONSTRUKTOR
     public Controller() {
@@ -256,6 +230,7 @@ public class Controller {
             //initalisiert Battery-ProgressBar und startet "Timeline" für die Batterie-Anzeige
             battery_Bar.setProgress(nao1.batteryPercent());
             batteryViewer();
+            tempViewer();
         } catch (ConnectionException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -271,31 +246,38 @@ public class Controller {
         }
     }
 
-
     //#####################  CONNECTION ##################
-    public void disconnect(ActionEvent actionEvent) {
+    private void disconnect(ActionEvent actionEvent) {
         nao1.closeConnection();
+        connectionLost();
+    }
+    public static void connectionLost (){
+        nao1 = null;
         batteryTimeline.stop();
+        tempTimeline.stop();
         rootWindow.hide();
         loginWindow.show();
     }
 
+    // FILLERS
     private void fillPostureList(List<String> inputList) {
         ObservableList<String> insert = FXCollections.observableArrayList(inputList);
         motion_list.setItems(insert);
     }
-
     private void fillVoiceList(List<String> inputList) {
         ObservableList<String> insert = FXCollections.observableArrayList(inputList);
         cb_voice.setItems(insert);
     }
-
-    private void fillSoundList(List<String> inputList) throws ConnectionException {
-        if (nao1.getSoundFiles()==null){
-            pane_sounds.setVisible(false);
-            return;
+    private void fillSoundList(List<String> inputList) {
+        try {
+            if (nao1.getSoundFiles()==null){
+                pane_sounds.setVisible(false);
+                return;
+            }
+        } catch (ConnectionException e) {
+            e.printStackTrace();
         }
-            ObservableList<String> insert = FXCollections.observableArrayList(inputList);
+        ObservableList<String> insert = FXCollections.observableArrayList(inputList);
             sound_list.setItems(insert);
     }
 
@@ -306,15 +288,12 @@ public class Controller {
     public void head_up(ActionEvent actionEvent) throws Exception {
         nao1.moveHead("up");
     }
-
     public void head_down(ActionEvent actionEvent) throws Exception {
         nao1.moveHead("down");
     }
-
     public void head_left(ActionEvent actionEvent) throws Exception {
         nao1.moveHead("left");
     }
-
     public void head_right(ActionEvent actionEvent) throws Exception {
         nao1.moveHead("right");
     }
@@ -331,7 +310,6 @@ public class Controller {
         }
 
     }
-
     public void left(ActionEvent actionEvent) {
         lbl_toolbar.setText("left");
         try {
@@ -340,7 +318,6 @@ public class Controller {
             e.printStackTrace();
         }
     }
-
     public void backward(ActionEvent actionEvent) {
         lbl_toolbar.setText("backward");
         try {
@@ -349,7 +326,6 @@ public class Controller {
             e.printStackTrace();
         }
     }
-
     public void right(ActionEvent actionEvent) {
         lbl_toolbar.setText("right");
         try {
@@ -358,7 +334,6 @@ public class Controller {
             e.printStackTrace();
         }
     }
-
     public void turnRight(ActionEvent actionEvent) {
         try {
             nao1.setMoveT(-1f);
@@ -366,7 +341,6 @@ public class Controller {
             e.printStackTrace();
         }
     }
-
     public void turnLeft(ActionEvent actionEvent) {
         try {
             nao1.setMoveT(1f);
@@ -396,8 +370,6 @@ public class Controller {
             e.printStackTrace();
         }
     }
-
-    //After picking a color in ColorPicker
     public void colorchoice_right(ActionEvent actionEvent) {
         color = col_picker_right.getValue();
         lbl_toolbar.setText(color.toString());
@@ -408,12 +380,10 @@ public class Controller {
         }
     }
 
-
     //#####################  MENU-BAR ##################
     public void menu_quit(ActionEvent actionEvent) {
         System.exit(0);
     }
-
     public void menu_help(ActionEvent actionEvent) {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -424,24 +394,16 @@ public class Controller {
         alert.showAndWait();
     }
 
-    //  Sounds list
+    //  Executors
     public void p_sound(ActionEvent actionEvent) throws ConnectionException {
-
         String sound = sound_list.getSelectionModel().getSelectedItem();
-
-
            try {
                nao1.playSound(sound);
            } catch (ConnectionException e) {
                e.printStackTrace();
            }
-
         lbl_toolbar.setText("play " + sound);
        }
-
-
-
-
     public void p_motion(ActionEvent actionEvent) {
         String motion = motion_list.getSelectionModel().getSelectedItem();
         try {
@@ -452,17 +414,15 @@ public class Controller {
         lbl_toolbar.setText("execute " + motion);
     }
 
-
+    // Setter
     private void setbatteryView() {
         try {
             battery_Bar.setProgress(nao1.batteryPercent());
-            System.out.println(nao1.batteryPercent());
+            lbl_battery.setText(Double.toString(nao1.batteryPercent())+"%");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
-
-
     private void settempView()  {
 
         try {
@@ -499,7 +459,6 @@ public class Controller {
         batteryTimeline.setCycleCount(Animation.INDEFINITE);
         batteryTimeline.play();
     }
-
     private void tempViewer(){
         tempTimeline = new Timeline(new KeyFrame(
                 Duration.millis(3000),
@@ -508,41 +467,33 @@ public class Controller {
         tempTimeline.play();
     }
 
-
-
     public void menu_prefs(ActionEvent actionEvent) {
         prefs.show();
     }
-
     //#####################  ARM-CONTROL ##################
     //Arrow-Buttons for Arm-Control
-
     public void arm_up(ActionEvent actionEvent) throws Exception {
 
         nao1.moveArm(armControl1[armModeSide][armModeJoint],-1);
     }
-
     public void arm_down(ActionEvent actionEvent) throws Exception {
         if(armModeSide == 2){
             nao1.moveArm(armControl1[0][armModeJoint],1);
             nao1.moveArm(armControl1[1][armModeJoint],1);
         } else nao1.moveArm(armControl1[armModeSide][armModeJoint],1);
     }
-
     public void arm_left(ActionEvent actionEvent) throws Exception {
         if(armModeSide == 2){
             nao1.moveArm(armControl2[0][armModeJoint],-1);
             nao1.moveArm(armControl2[1][armModeJoint],-1);
         } else nao1.moveArm(armControl2[armModeSide][armModeJoint],-1);
     }
-
     public void arm_right(ActionEvent actionEvent) throws Exception {
         if(armModeSide == 2){
             nao1.moveArm(armControl2[0][armModeJoint],1);
             nao1.moveArm(armControl2[1][armModeJoint],1);
         } else nao1.moveArm(armControl2[armModeSide][armModeJoint],1);
     }
-
     public void handSelect(MouseEvent mouseEvent) {
         if (ts_hand.isSelected()) {
             ts_hand.setDisable(true);
@@ -553,7 +504,6 @@ public class Controller {
             armModeJoint = 2;
         }
     }
-
     public void shoulderSelect(MouseEvent mouseEvent) {
         if (ts_shoulder.isSelected()) {
             ts_shoulder.setDisable(true);
@@ -564,7 +514,6 @@ public class Controller {
             armModeJoint = 0;
         }
     }
-
     public void elbowSelect(MouseEvent mouseEvent) {
         if (ts_elbow.isSelected()) {
             ts_elbow.setDisable(true);
@@ -575,8 +524,6 @@ public class Controller {
             armModeJoint = 1;
         }
     }
-
-
     public void armLeftChecked(MouseEvent mouseEvent) {
         armModeSide = 1;
         chb_left.setDisable(true);

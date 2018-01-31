@@ -8,8 +8,8 @@
 .idea/**/tasks.xml
 .idea/dictionaries
 lib/java-naoqi-sdk-2.1.4.13-linux64.jar
-lib/java-naoqi-sdk-2.1.4.13-mac64.jar
-src/config.xml
+lib/java-naoqi-sdk-2.1.4.13-mac64(1).jar
+src/config.dashboard
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/
