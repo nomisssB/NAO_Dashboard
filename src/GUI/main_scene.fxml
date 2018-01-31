@@ -100,7 +100,7 @@
                   <String fx:value="once" />
                </styleClass>
             </AnchorPane>
-            <AnchorPane layoutX="252.0" layoutY="276.0" prefHeight="242.0" prefWidth="244.0">
+            <AnchorPane layoutX="252.0" layoutY="286.0" prefHeight="232.0" prefWidth="244.0">
                <children>
                         <Pane fx:id="pane_cam" layoutX="22.0" layoutY="24.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                         <Label prefHeight="14.0" prefWidth="200.0" styleClass="headlines" text="LiveView" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
@@ -212,6 +212,13 @@
                   <String fx:value="module" />
                   <String fx:value="once" />
                </styleClass>
+            </AnchorPane>
+            <AnchorPane layoutX="321.0" layoutY="159.0" prefHeight="116.0" prefWidth="149.0" styleClass="module">
+               <children>
+                  <TextField AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                  <TextField layoutY="28.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="45.0" />
+                  <TextField layoutY="59.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="80.0" />
+               </children>
             </AnchorPane>
 
          </children>

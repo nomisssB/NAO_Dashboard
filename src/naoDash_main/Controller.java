@@ -247,16 +247,10 @@ public class Controller {
     }
 
     //#####################  CONNECTION ##################
+    @FXML
     private void disconnect(ActionEvent actionEvent) {
         nao1.closeConnection();
         connectionLost();
-    }
-    public static void connectionLost (){
-        nao1 = null;
-        batteryTimeline.stop();
-        tempTimeline.stop();
-        rootWindow.hide();
-        loginWindow.show();
     }
 
     // FILLERS
@@ -547,6 +541,14 @@ public class Controller {
         chb_left.setDisable(false);
         chb_right.setSelected(false);
         chb_right.setDisable(false);
+    }
+
+    public static void connectionLost (){
+        nao1 = null;
+        batteryTimeline.stop();
+        tempTimeline.stop();
+        rootWindow.hide();
+        loginWindow.show();
     }
 }
 

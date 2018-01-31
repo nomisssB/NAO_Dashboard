@@ -27,6 +27,11 @@
     -fx-font-size: 14;
 }
 
+.text-field{
+    -fx-pref-width: 142;
+    -fx-pref-height: 25;
+}
+
 /*Label-Style*/
 .headlines {
     -fx-font-family: "Calibri";
