@@ -50,7 +50,7 @@ public class Controller {
     public ColorPicker col_picker_left, col_picker_right;
     public ListView<String> motion_list, sound_list;
     public TextField txt_sayText;
-    public Label lbl_toolbar;
+    public Label lbl_toolbar, lbl_battery;
     public ChoiceBox cb_voice;
     public CheckBox chb_pitch, chb_left, chb_right, chb_mirror_arm, chb_mirror_led;
     public ToggleSwitch ts_shoulder, ts_elbow, ts_hand;
@@ -230,6 +230,7 @@ public class Controller {
             //initalisiert Battery-ProgressBar und startet "Timeline" für die Batterie-Anzeige
             battery_Bar.setProgress(nao1.batteryPercent());
             batteryViewer();
+            tempViewer();
         } catch (ConnectionException | InterruptedException e) {
             e.printStackTrace();
         }
@@ -245,16 +246,15 @@ public class Controller {
         }
     }
 
-
     //#####################  CONNECTION ##################
     private void disconnect(ActionEvent actionEvent) {
         nao1.closeConnection();
         connectionLost();
-
     }
     public static void connectionLost (){
         nao1 = null;
         batteryTimeline.stop();
+        tempTimeline.stop();
         rootWindow.hide();
         loginWindow.show();
     }
@@ -380,7 +380,6 @@ public class Controller {
         }
     }
 
-
     //#####################  MENU-BAR ##################
     public void menu_quit(ActionEvent actionEvent) {
         System.exit(0);
@@ -419,7 +418,7 @@ public class Controller {
     private void setbatteryView() {
         try {
             battery_Bar.setProgress(nao1.batteryPercent());
-            System.out.println(nao1.batteryPercent());
+            lbl_battery.setText(Double.toString(nao1.batteryPercent())+"%");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

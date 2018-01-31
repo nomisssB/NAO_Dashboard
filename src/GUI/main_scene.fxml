@@ -149,6 +149,7 @@
                         <Circle fx:id="lowTemp" fill="DODGERBLUE" layoutX="13.0" layoutY="64.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="42.0" />
                      </children>
                   </AnchorPane>
+                  <Label fx:id="lbl_battery" layoutX="31.0" layoutY="32.0" prefHeight="17.0" prefWidth="14.0" />
                </children>
             </AnchorPane>
             <AnchorPane fx:id="pane_sounds" layoutX="159.0" prefHeight="213.0" prefWidth="169.0">
