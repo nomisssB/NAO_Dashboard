@@ -22,6 +22,7 @@ public class NAO {
     private static ALMemory memory;
     private static ALBodyTemperature temp;
     private static ALAudioPlayer play;
+    private static ALAudioDevice audioDevice;
     private static float moveX; // movement forwards / backwards
     private static float moveY; // movement sideways
     private static float moveT; // movement spinning (T = Theta)
@@ -55,6 +56,7 @@ public class NAO {
                 temp = new ALBodyTemperature(session);
                 memory = new ALMemory(session);
                 play = new ALAudioPlayer(session);
+                audioDevice = new ALAudioDevice(session);
                 subscribeToTactileHead();
                 return true;
             } catch (Exception e) {
@@ -417,6 +419,16 @@ public class NAO {
                             }
                         }
                     });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setVolume(int vol) throws ConnectionException{
+        checkConnection();
+
+        try {
+            audioDevice.setOutputVolume(vol);
         } catch (Exception e) {
             e.printStackTrace();
         }
