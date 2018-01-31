@@ -51,7 +51,7 @@ public class Controller {
     public Label lbl_toolbar, lbl_battery;
     public ChoiceBox cb_voice;
     public CheckBox chb_pitch, chb_left, chb_right, chb_mirror_arm, chb_mirror_led;
-    public ToggleSwitch ts_shoulder, ts_elbow, ts_hand;
+    public ToggleSwitch ts_shoulder, ts_elbow, ts_hand, ts_mirror_led;
     public Circle highTemp, midTemp, lowTemp;
 
     //KONSTRUKTOR
@@ -367,6 +367,10 @@ public class Controller {
         lbl_toolbar.setText(color.toString());
         try {
             nao1.changeEyeColor("Left", color);
+            if(ts_mirror_led.isSelected()){
+                nao1.changeEyeColor("Left",color);
+                col_picker_right.setValue(color);
+            }
         } catch (ConnectionException e) {
             e.printStackTrace();
         }
@@ -376,6 +380,10 @@ public class Controller {
         lbl_toolbar.setText(color.toString());
         try {
             nao1.changeEyeColor("Right", color);
+            if(ts_mirror_led.isSelected()){
+                nao1.changeEyeColor("Right",color);
+                col_picker_left.setValue(color);
+            }
         } catch (ConnectionException e) {
             e.printStackTrace();
         }
@@ -561,6 +569,10 @@ public class Controller {
         tempTimeline.stop();
         rootWindow.hide();
         loginWindow.show();
+    }
+
+    public void setFocus(MouseEvent mouseEvent) {
+        pane_main.requestFocus();
     }
 }
 

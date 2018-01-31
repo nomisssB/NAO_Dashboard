@@ -24,7 +24,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.ToggleSwitch?>
 
-<AnchorPane fx:id="pane_main" prefHeight="628.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="naoDash_main.Controller">
+<AnchorPane fx:id="pane_main" onMouseClicked="#setFocus" prefHeight="628.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="naoDash_main.Controller">
      <stylesheets>
       <URL value="@style_main_scene.css" />
      </stylesheets>
@@ -78,7 +78,8 @@
                   <ColorPicker fx:id="col_picker_left" layoutX="10.0" layoutY="37.000000000000014" onAction="#colorchoice_left" AnchorPane.bottomAnchor="58.999999999999986" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                   <Label layoutX="10.0" layoutY="17.0" styleClass="headlines" text="left eye" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                   <Label layoutX="10.0" layoutY="65.0" prefHeight="24.0" prefWidth="140.0" styleClass="headlines" text="right eye" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                  <CheckBox fx:id="chb_mirror_led" layoutX="10.0" layoutY="24.0" mnemonicParsing="false" styleClass="headlines" text="mirror" />
+                  <ToggleSwitch fx:id="ts_mirror_led" layoutX="92.0" layoutY="24.0" prefHeight="21.0" prefWidth="28.0" />
+                  <Label layoutX="33.0" layoutY="23.0" styleClass="headlines" text="mirror" />
                </children>
                <styleClass>
                   <String fx:value="module" />
@@ -100,7 +101,7 @@
                   <String fx:value="once" />
                </styleClass>
             </AnchorPane>
-            <AnchorPane layoutX="380.0" layoutY="374.0" prefHeight="143.0" prefWidth="288.0">
+            <AnchorPane layoutX="320.0" layoutY="374.0" prefHeight="143.0" prefWidth="310.0">
                <children>
                         <Pane fx:id="pane_cam" layoutX="22.0" layoutY="24.0" prefHeight="105.0" prefWidth="230.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                         <Label layoutY="2.0" prefHeight="14.0" prefWidth="200.0" styleClass="headlines" text="LiveView" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0" />
@@ -110,14 +111,14 @@
                   <String fx:value="twice" />
                </styleClass>
             </AnchorPane>
-            <AnchorPane layoutY="29.0" prefHeight="213.0" prefWidth="150.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <AnchorPane layoutX="159.0" prefHeight="170.0" prefWidth="150.0" AnchorPane.leftAnchor="159.0" AnchorPane.topAnchor="0.0">
                <children>
                         <TextField fx:id="txt_sayText" layoutX="10.0" layoutY="15.0" prefHeight="25.0" prefWidth="142.0" promptText="Let me say something..." AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="15.0" />
                         <Button fx:id="btn_sayText" layoutX="10.0" layoutY="46.0" mnemonicParsing="false" onAction="#sayText" prefHeight="25.0" prefWidth="149.0" text="say" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-                  <Slider fx:id="sldr_pitch" blockIncrement="0.1" disable="true" layoutX="5.0" layoutY="111.0" majorTickUnit="0.1" max="4.0" min="1.0" minorTickCount="0" snapToTicks="true" value="1.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
-                  <ChoiceBox fx:id="cb_voice" layoutX="10.0" layoutY="143.0" prefHeight="25.0" prefWidth="130.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-                  <Label layoutX="10.0" layoutY="120.0" styleClass="headlines" text="voice" />
-                  <CheckBox fx:id="chb_pitch" layoutX="13.0" layoutY="86.0" mnemonicParsing="false" styleClass="headlines" text="pitch" AnchorPane.leftAnchor="5.0" />
+                  <Slider fx:id="sldr_pitch" blockIncrement="0.1" disable="true" layoutX="5.0" layoutY="111.0" majorTickUnit="0.1" max="4.0" min="1.0" minorTickCount="0" snapToTicks="true" value="1.0" AnchorPane.bottomAnchor="88.19999999999999" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+                  <ChoiceBox fx:id="cb_voice" layoutX="10.0" layoutY="143.0" prefHeight="25.0" prefWidth="130.0" AnchorPane.bottomAnchor="44.999999999999986" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                  <Label layoutX="10.0" layoutY="120.0" styleClass="headlines" text="voice" AnchorPane.bottomAnchor="69.19999999999999" />
+                  <CheckBox fx:id="chb_pitch" layoutX="13.0" layoutY="86.0" mnemonicParsing="false" styleClass="headlines" text="pitch" AnchorPane.bottomAnchor="100.79999999999998" AnchorPane.leftAnchor="5.0" />
                </children>
                <styleClass>
                   <String fx:value="module" />
@@ -137,7 +138,7 @@
                   <String fx:value="once" />
                </styleClass>
             </AnchorPane>
-            <AnchorPane fx:id="pane_sounds" layoutX="159.0" prefHeight="213.0" prefWidth="169.0">
+            <AnchorPane fx:id="pane_sounds" prefHeight="213.0" prefWidth="169.0">
                <children>
                   <Label layoutX="10.0" layoutY="2.0" prefHeight="24.0" prefWidth="150.0" styleClass="headlines" text="Predefined Sounds" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                   <ListView fx:id="sound_list" layoutX="10.0" layoutY="25.0" prefHeight="144.0" prefWidth="130.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="25.0">
@@ -198,7 +199,7 @@
                   <String fx:value="once" />
                </styleClass>
             </AnchorPane>
-            <AnchorPane layoutX="159.0" layoutY="223.0" prefHeight="181.0" prefWidth="150.0" styleClass="module">
+            <AnchorPane layoutX="159.0" layoutY="337.0" prefHeight="181.0" prefWidth="150.0" styleClass="module">
                <children>
                   <TextField fx:id="txt_tactileFront" layoutX="10.0" layoutY="45.0" promptText="front" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="45.0" />
                   <TextField fx:id="txt_tactileMiddle" layoutX="10.0" layoutY="91.0" promptText="middle" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="91.0" />
@@ -229,7 +230,10 @@
                         <Circle fx:id="lowTemp" fill="DODGERBLUE" layoutX="13.0" layoutY="64.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="42.0" />
                      </children>
                   </AnchorPane>
-                  <Label fx:id="lbl_battery" layoutX="19.0" layoutY="32.0" prefHeight="17.0" prefWidth="40.0" />
+                  <Label fx:id="lbl_battery" layoutX="19.0" layoutY="32.0" prefHeight="17.0" prefWidth="40.0" textAlignment="CENTER">
+                     <font>
+                        <Font size="8.0" />
+                     </font></Label>
                </children>
                <styleClass>
                   <String fx:value="module" />

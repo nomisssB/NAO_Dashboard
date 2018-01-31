@@ -77,18 +77,18 @@ public class LoginController{
                         "\ne.g. wrong WiFi-Network or ip-address/port");
                 alert.showAndWait();
                 return;
+            }else {
+                try {
+                    Parent root = FXMLLoader.load(getClass().getResource("../GUI/main_scene.fxml"));
+                    rootWindow = new Stage();
+                    rootWindow.setScene(new Scene(root));
+                    rootWindow.show();
+                    loginWindow.hide();
+                    store();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("../GUI/main_scene.fxml"));
-            rootWindow = new Stage();
-            rootWindow.setScene(new Scene(root));
-            rootWindow.show();
-            loginWindow.hide();
-            store();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
     }
 

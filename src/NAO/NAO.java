@@ -115,7 +115,7 @@ public class NAO {
 
     public void moveHead(String direction) throws ConnectionException {
         checkConnection();
-        float strongness = 0.05f; // how much does the head move per call
+        float strongness = 0.01f; // how much does the head move per call
         String joint; // Moving horizontal ("HeadPitch") or vertical ("HeadYaw")
         float move; // moving up/right (negative value) or down/left (positive value)
 
@@ -269,6 +269,7 @@ public class NAO {
 
         try {
             // set the new speed combined with the movement directions
+            motion.setMoveArmsEnabled(true,true);
             motion.moveToward(moveX * moveV, moveY * moveV, moveT * moveV);
         } catch (Exception e) {
             e.printStackTrace();
@@ -279,7 +280,7 @@ public class NAO {
     public void moveArm(String joint, float direction) throws ConnectionException {
         checkConnection();
         try {
-            motion.angleInterpolation(joint, 0.1f * direction, 0.1f, false);
+            motion.angleInterpolation(joint, 0.1f * direction, 0.01f, false);
         } catch (Exception e) {
             e.printStackTrace();
         }
