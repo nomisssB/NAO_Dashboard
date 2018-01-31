@@ -420,6 +420,7 @@ public class Controller {
     private void settempView()  {
 
         try {
+
             switch ((int) nao1.getTemp()) {
                 case -1:
                     lowTemp.setDisable(false);
@@ -436,13 +437,15 @@ public class Controller {
                     midTemp.setDisable(true);
                     highTemp.setDisable(false);
                 case -2:
-                    lowTemp.setDisable(true);
                     midTemp.setDisable(true);
-                    highTemp.setDisable(true);
+                    midTemp.setDisable(true);
+                    midTemp.setDisable(true);
                 }
+
         } catch (ConnectionException e) {
             e.printStackTrace();
         }
+
     }
 
 

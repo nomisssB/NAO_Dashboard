@@ -130,23 +130,28 @@
     -fx-fill: none;
     -fx-padding: 1px;
 }
-.circle{
-
+.circle:default{
+    -fx-opacity: 1;
     -fx-border-color:none;
     -fx-border-radius: 70%;
     }
+.circle:disabled{
+
+    -fx-opacity: 0.4;
+
+}
 #highTemp{
 
-    -fx-fill: #ff4538;
+    -fx-fill: #ff0000;
      }
 
 #midTemp{
 
-    -fx-fill: #fdff45;
+    -fx-fill: #ffff00;
 }
 #lowTemp{
 
-    -fx-fill: lawngreen;
+    -fx-fill: #00ff00;
 }
 
 #btn_delete{
