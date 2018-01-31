@@ -31,11 +31,9 @@ public class Controller {
 
 
     private float motionspeed = 0.5f;
-    private float volume = 0.5f;
     private float pitch = 0f;
     private Color color;
-    private static Timeline batteryTimeline;
-    private static Timeline tempTimeline;
+    private static Timeline batteryTimeline, tempTimeline;
     public static Stage prefs;
     private int armModeJoint = 0;
     private int armModeSide = 1;
@@ -49,7 +47,7 @@ public class Controller {
             btn_execute, btn_sayText, btn_playSound, btn_h, btn_f, btn_t, btn_g;
     public ColorPicker col_picker_left, col_picker_right;
     public ListView<String> motion_list, sound_list;
-    public TextField txt_sayText;
+    public TextField txt_sayText, txt_tactileFront, txt_tactileMiddle, txt_tactileRear;
     public Label lbl_toolbar, lbl_battery;
     public ChoiceBox cb_voice;
     public CheckBox chb_pitch, chb_left, chb_right, chb_mirror_arm, chb_mirror_led;
@@ -101,16 +99,17 @@ public class Controller {
                 e.printStackTrace();
             }
         });
-
-
         sldr_pitch.valueProperty().addListener((observable, oldValue, newValue) -> {
             lbl_toolbar.setText("value: " + newValue.floatValue());
             pitch = newValue.floatValue();
         });
-
         sldr_volume.valueProperty().addListener((observable, oldValue, newValue) -> {
             lbl_toolbar.setText("value: " + newValue.floatValue());
-            volume = newValue.floatValue();
+            try {
+                nao1.setVolume(newValue.intValue());
+            } catch (ConnectionException e) {
+                e.printStackTrace();
+            }
         });
 
         // Listener for Checkbox to enable/disable "Pitch"-Slider
@@ -121,6 +120,16 @@ public class Controller {
                 sldr_pitch.setDisable(true);
                 pitch = 0.0f;
             }
+        });
+        // Listener for TextFields
+        txt_tactileFront.textProperty().addListener((observable, oldValue, newValue) -> {
+            nao1.setTactileHeadTextFront(newValue);
+        });
+        txt_tactileMiddle.textProperty().addListener((observable, oldValue, newValue) -> {
+            nao1.setTactileHeadTextMiddle(newValue);
+        });
+        txt_tactileRear.textProperty().addListener((observable, oldValue, newValue) -> {
+            nao1.setTactileHeadTextRear(newValue);
         });
 
 
@@ -171,7 +180,6 @@ public class Controller {
                     break;
             }
         });
-
         pane_main.setOnKeyReleased(e -> {
             switch (e.getCode()) {
                 case W:
@@ -219,8 +227,6 @@ public class Controller {
             }
         });
 
-
-
     try {
             fillPostureList(nao1.getPostures());
             fillVoiceList(nao1.getVoices());
@@ -247,16 +253,10 @@ public class Controller {
     }
 
     //#####################  CONNECTION ##################
+    @FXML
     private void disconnect(ActionEvent actionEvent) {
         nao1.closeConnection();
         connectionLost();
-    }
-    public static void connectionLost (){
-        nao1 = null;
-        batteryTimeline.stop();
-        tempTimeline.stop();
-        rootWindow.hide();
-        loginWindow.show();
     }
 
     // FILLERS
@@ -267,6 +267,7 @@ public class Controller {
     private void fillVoiceList(List<String> inputList) {
         ObservableList<String> insert = FXCollections.observableArrayList(inputList);
         cb_voice.setItems(insert);
+        cb_voice.getSelectionModel().selectFirst();
     }
     private void fillSoundList(List<String> inputList) {
         try {
@@ -353,7 +354,7 @@ public class Controller {
     public void sayText(ActionEvent actionEvent)  {
         String TextToSay = txt_sayText.getText();
         try {
-            nao1.sayText(TextToSay, cb_voice.getSelectionModel().getSelectedItem().toString(), volume, pitch);
+            nao1.sayText(TextToSay, cb_voice.getSelectionModel().getSelectedItem().toString(), pitch);
         } catch (ConnectionException e) {
             e.printStackTrace();
         }
@@ -426,29 +427,31 @@ public class Controller {
     private void settempView()  {
 
         try {
+
             switch ((int) nao1.getTemp()) {
                 case -1:
-                    lowTemp.setDisable(false);
-                    midTemp.setDisable(true);
-                    highTemp.setDisable(true);
+                    lowTemp.setOpacity(1.0);
+                    midTemp.setOpacity(0.2);
+                    highTemp.setOpacity(0.2);
                     break;
                 case 0:
-                    lowTemp.setDisable(true);
-                    midTemp.setDisable(false);
-                    highTemp.setDisable(true);
+                    lowTemp.setOpacity(0.4);
+                    midTemp.setOpacity(1.0);
+                    highTemp.setOpacity(0.2);
                     break;
                 case 1:
-                    lowTemp.setDisable(true);
-                    midTemp.setDisable(true);
-                    highTemp.setDisable(false);
+                    lowTemp.setOpacity(0.2);
+                    midTemp.setOpacity(0.2);
+                    highTemp.setOpacity(1.0);
                 case -2:
-                    lowTemp.setDisable(true);
-                    midTemp.setDisable(true);
-                    highTemp.setDisable(true);
-                }
+                    midTemp.setOpacity(0.2);
+                    midTemp.setOpacity(0.2);
+                    midTemp.setOpacity(0.2);;
+            }
         } catch (ConnectionException e) {
             e.printStackTrace();
         }
+
     }
 
 
@@ -547,6 +550,15 @@ public class Controller {
         chb_left.setDisable(false);
         chb_right.setSelected(false);
         chb_right.setDisable(false);
+    }
+
+    public static void connectionLost (){
+        System.out.println("WUHUU (._.)/");
+        nao1 = null;
+        batteryTimeline.stop();
+        tempTimeline.stop();
+        rootWindow.hide();
+        loginWindow.show();
     }
 }
 

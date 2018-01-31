@@ -8,11 +8,14 @@ import com.aldebaran.qi.helper.proxies.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.*;
 import javafx.scene.paint.Color;
+import naoDash_main.Controller;
 
 public class NAO {
-    //Variabeln Deklarationen
+    //Nao Control stuff declarations
     private static Session session;
     private static ALMotion motion;
     private static ALTextToSpeech tts;
@@ -23,6 +26,8 @@ public class NAO {
     private static ALBodyTemperature temp;
     private static ALAudioPlayer play;
     private static ALAudioDevice audioDevice;
+
+    //Variable Declarations
     private static float moveX; // movement forwards / backwards
     private static float moveY; // movement sideways
     private static float moveT; // movement spinning (T = Theta)
@@ -31,6 +36,8 @@ public class NAO {
     private String tactileHeadTextFront = "";
     private String tactileHeadTextMiddle = "";
     private String tactileHeadTextRear = "";
+    //private Timer timer = new Timer();
+
 
 
     public boolean establishConnection(String url){
@@ -58,6 +65,7 @@ public class NAO {
                 play = new ALAudioPlayer(session);
                 audioDevice = new ALAudioDevice(session);
                 subscribeToTactileHead();
+                //activateBackgroundConnectionCheck();
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -78,7 +86,22 @@ public class NAO {
             throw new ConnectionException();
         }
     }
-
+    /* private void activateBackgroundConnectionCheck() {
+         TimerTask task = new TimerTask() {
+             @Override
+             public void run() {
+                 try{
+                     System.out.println("tested");
+                     checkConnection();
+                 }catch (ConnectionException e){
+                     System.out.println("lost");
+                     Controller.connectionLost();
+                     cancel();
+                 }
+             }
+         };
+         timer.schedule(task, 0,500);
+     }*/
 
     public void moveHead(float left, float right, float down, float up) throws ConnectionException { // unfertig #testing
         checkConnection();
@@ -135,11 +158,10 @@ public class NAO {
         }
     }
 
-    public void sayText(String text, String voice, float volume, float pitch) throws ConnectionException {
+    public void sayText(String text, String voice, float pitch) throws ConnectionException {
         checkConnection();
         try {
             tts.setVoice(voice);
-            tts.setVolume(volume);
             tts.setParameter("pitchShift", pitch);
             tts.say(text);
         } catch (Exception e) {

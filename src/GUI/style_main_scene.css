@@ -27,6 +27,11 @@
     -fx-font-size: 14;
 }
 
+.text-field{
+    -fx-pref-width: 142;
+    -fx-pref-height: 25;
+}
+
 /*Label-Style*/
 .headlines {
     -fx-font-family: "Calibri";
@@ -125,23 +130,28 @@
     -fx-fill: none;
     -fx-padding: 1px;
 }
-.circle{
-
+.circle:default{
+    -fx-opacity: 1.0;
     -fx-border-color:none;
     -fx-border-radius: 70%;
     }
+.circle:disabled{
+
+    -fx-opacity: 0.4;
+
+}
 #highTemp{
 
-    -fx-fill: #ff4538;
+    -fx-fill: #ff0000;
      }
 
 #midTemp{
 
-    -fx-fill: #fdff45;
+    -fx-fill: #ffff00;
 }
 #lowTemp{
 
-    -fx-fill: lawngreen;
+    -fx-fill: #00ff00;
 }
 
 #btn_delete{
