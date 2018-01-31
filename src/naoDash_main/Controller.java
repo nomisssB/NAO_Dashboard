@@ -544,6 +544,7 @@ public class Controller {
     }
 
     public static void connectionLost (){
+        System.out.println("WUHUU (._.)/");
         nao1 = null;
         batteryTimeline.stop();
         tempTimeline.stop();
