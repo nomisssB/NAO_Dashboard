@@ -47,7 +47,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </GridPane>
-      <Button fx:id="btn_delete" layoutX="289.0" layoutY="261.0" mnemonicParsing="false" onAction="#deleteEntry" prefHeight="36.0" prefWidth="36.0" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="275.0">
+      <Button fx:id="btn_delete" layoutX="253.0" layoutY="264.0" mnemonicParsing="false" onAction="#deleteEntry" prefHeight="36.0" prefWidth="36.0" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="311.0">
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding></Button>
@@ -55,7 +55,7 @@
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding></Button>
-      <ListView fx:id="connection_list" layoutX="336.0" layoutY="48.0" onMouseClicked="#fill_txt" prefHeight="252.0" prefWidth="219.0" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="48.0">
+      <ListView fx:id="connection_list" layoutX="336.0" layoutY="48.0" onMouseClicked="#fill_txt" prefHeight="252.0" prefWidth="258.0" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="48.0">
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding></ListView>
