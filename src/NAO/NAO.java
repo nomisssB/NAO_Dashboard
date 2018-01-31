@@ -345,12 +345,12 @@ public class NAO {
                 Object temp2 = tempList.get(0);
                 return Float.parseFloat(temp2.toString());
             } else {
-                return -2f;
+                return -1f;
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return -2f;
+        return -1f;
     }
 
 

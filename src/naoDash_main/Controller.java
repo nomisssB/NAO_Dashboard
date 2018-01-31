@@ -438,26 +438,24 @@ public class Controller {
 
             switch ((int) nao1.getTemp()) {
                 case -1:
-                    lowTemp.setStyle("");
-                    lowTemp.setDisable(false);
-                    midTemp.setDisable(true);
-                    highTemp.setDisable(true);
+                    lowTemp.setOpacity(1.0);
+                    midTemp.setOpacity(0.2);
+                    highTemp.setOpacity(0.2);
                     break;
                 case 0:
-                    lowTemp.setDisable(true);
-                    midTemp.setDisable(false);
-                    highTemp.setDisable(true);
+                    lowTemp.setOpacity(0.4);
+                    midTemp.setOpacity(1.0);
+                    highTemp.setOpacity(0.2);
                     break;
                 case 1:
-                    lowTemp.setDisable(true);
-                    midTemp.setDisable(true);
-                    highTemp.setDisable(false);
+                    lowTemp.setOpacity(0.2);
+                    midTemp.setOpacity(0.2);
+                    highTemp.setOpacity(1.0);
                 case -2:
-                    midTemp.setDisable(true);
-                    midTemp.setDisable(true);
-                    midTemp.setDisable(true);
-                }
-
+                    midTemp.setOpacity(0.2);
+                    midTemp.setOpacity(0.2);
+                    midTemp.setOpacity(0.2);;
+            }
         } catch (ConnectionException e) {
             e.printStackTrace();
         }

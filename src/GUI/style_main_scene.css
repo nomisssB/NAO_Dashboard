@@ -131,7 +131,7 @@
     -fx-padding: 1px;
 }
 .circle:default{
-    -fx-opacity: 1;
+    -fx-opacity: 1.0;
     -fx-border-color:none;
     -fx-border-radius: 70%;
     }
