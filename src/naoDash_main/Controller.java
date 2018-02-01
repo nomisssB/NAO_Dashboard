@@ -1,5 +1,8 @@
 package naoDash_main;
-
+/*
+FILE: Controller.java
+USAGE: Controller for Main-Dashboard-Window. Contains all Methods which are needed for GUI-control
+ */
 import NAO.ConnectionException;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -29,7 +32,7 @@ import static GUI.LoginController.rootWindow;
 
 public class Controller {
 
-
+    //Variable declaration
     private float motionspeed = 0.5f;
     private float pitch = 0f;
     private Color color;
@@ -39,6 +42,7 @@ public class Controller {
     private int armModeSide = 1;
     private String[][] armControl1, armControl2;
 
+    //FXML Annotations
     @FXML
     public ProgressBar battery_Bar;
     public AnchorPane pane_main, pane_control, pane_sounds;
@@ -50,13 +54,12 @@ public class Controller {
     public TextField txt_sayText, txt_tactileFront, txt_tactileMiddle, txt_tactileRear;
     public Label lbl_toolbar, lbl_battery;
     public ChoiceBox cb_voice;
-    public CheckBox chb_pitch, chb_left, chb_right, chb_mirror_arm, chb_mirror_led;
+    public CheckBox chb_pitch, chb_left, chb_right, chb_mirror_arm;
     public ToggleSwitch ts_shoulder, ts_elbow, ts_hand, ts_mirror_led;
     public Circle highTemp, midTemp, lowTemp;
 
-    //KONSTRUKTOR
+    //Constructor (Called first, then FXML Annotations, then initalize
     public Controller() {
-
         // Arrays to determine the right joint for the arm control.
         // first digit is for left/right // second digit for wrist/elbow/shoulder
         // 1 -> left, 0-> right || 0 -> shoulder, 1 -> Elbow, 2 -> Hand/Wrist
@@ -75,14 +78,12 @@ public class Controller {
         armControl1[0][2] = "RHand";
         armControl2[0][2] = "RWristYaw";
 
-
-/*        //Führt Methode "saveConfig" bei Schließen des Programms (des Threads) aus TODO derzeit nicht in Benutzung
+        /*        //things to do when closing the program/thread
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             public void run() {
                 saveConfig();
             }
         }));*/
-
     }
 
     @FXML
@@ -133,7 +134,7 @@ public class Controller {
         });
 
 
-        //Abfangen von KeyEvents und Auslösen der Buttons je nach Key
+        //Listener for Key-Events (Press/Release)
         pane_main.setOnKeyPressed(e -> {
             switch (e.getCode()) {
                 case W:
@@ -227,27 +228,19 @@ public class Controller {
             }
         });
 
+
     try {
+        //fill ListView, Choicebox
             fillPostureList(nao1.getPostures());
             fillVoiceList(nao1.getVoices());
             fillSoundList(nao1.getSoundFiles());
             nao1.setMoveV(motionspeed);
 
-            //initalisiert Battery-ProgressBar und startet "Timeline" für die Batterie-Anzeige
+            //initializes value for battery-ProgressBar and starts timeline for battery and temperature refresh
             battery_Bar.setProgress(nao1.batteryPercent());
             batteryViewer();
             tempViewer();
         } catch (ConnectionException | InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        // zweites Fenster für Einstellungen: (noch nicht in Benutzung)
-        try {
-            Parent prefsParent = FXMLLoader.load(getClass().getResource("../GUI/preferences.fxml"));
-            prefs = new Stage();
-            prefs.setScene(new Scene(prefsParent));
-
-        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -301,7 +294,6 @@ public class Controller {
 
     //#####################  BODY-CONTROL ##################
     // Buttons WASD for Body-Control
-
     public void forward(ActionEvent actionEvent) {
         lbl_toolbar.setText("forward");
         try {
@@ -402,8 +394,19 @@ public class Controller {
 
         alert.showAndWait();
     }
+    public void menu_prefs(ActionEvent actionEvent) {
+        try {
+            Parent prefsParent = FXMLLoader.load(getClass().getResource("../GUI/preferences.fxml"));
+            prefs = new Stage();
+            prefs.setScene(new Scene(prefsParent));
 
-    //  Executors
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        prefs.show();
+    }
+
+    //  Executors for sound and postures
     public void p_sound(ActionEvent actionEvent) throws ConnectionException {
         String sound = sound_list.getSelectionModel().getSelectedItem();
            try {
@@ -462,7 +465,7 @@ public class Controller {
 
     }
 
-
+    //timelines for battery and temperature refresh
     private void batteryViewer() {
         batteryTimeline = new Timeline(new KeyFrame(
                 Duration.millis(3000),
@@ -478,11 +481,9 @@ public class Controller {
         tempTimeline.play();
     }
 
-    public void menu_prefs(ActionEvent actionEvent) {
-        prefs.show();
-    }
+
     //#####################  ARM-CONTROL ##################
-    //Arrow-Buttons for Arm-Control
+    //Buttons TFGH for arm-control
     public void arm_up(ActionEvent actionEvent) throws Exception {
 
         nao1.moveArm(armControl1[armModeSide][armModeJoint],-1);
@@ -560,6 +561,7 @@ public class Controller {
         chb_right.setDisable(false);
     }
 
+    //What happens when NAO-connection is lost
     public static void connectionLost (){
         System.out.println("WUHUU (._.)/");
         nao1 = null;
@@ -569,6 +571,7 @@ public class Controller {
         loginWindow.show();
     }
 
+    //When clicking on main-pane then deselect textfields etc...
     public void setFocus(MouseEvent mouseEvent) {
         pane_main.requestFocus();
     }

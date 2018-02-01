@@ -1,9 +1,7 @@
-
 /*Button-Style*/
 .button{
     -fx-background-radius: 1;
     -fx-background-color: #cdcdcd;
-
 }
 .button:hover{
     -fx-background-color: #f5f5f5;
@@ -22,11 +20,6 @@
     -fx-background-color: #357aaf;
 }
 
-.toggle-switch{
-    -fx-text-fill: white;
-    -fx-font-size: 14;
-}
-
 .text-field{
     -fx-pref-width: 142;
     -fx-pref-height: 25;
@@ -42,9 +35,7 @@
 }
 
 
-/*Styleclasses*/
-
-
+/*Style-classes*/
 
 /*GUI-Modules*/
 .module {
@@ -61,7 +52,7 @@
 /*Single Elements*/
 
 #pane_main {
-    -fx-background-image: url("/pic/nao.jpg");
+    -fx-background-image: url("/pic/nao_main.jpg");
     -fx-background-size: stretch;
 }
 
@@ -72,7 +63,7 @@
 }
 #pane_login {
     -fx-background-color: rgba(255,255,255,0);
-    -fx-background-image: url("/pic/nao-robot.png");
+    -fx-background-image: url("/pic/nao_login.png");
     -fx-background-size: cover;
 }
 
@@ -112,16 +103,13 @@
 
 }
 #highTemp{
-
     -fx-fill: #ff0000;
      }
 
 #midTemp{
-
     -fx-fill: #ffff00;
 }
 #lowTemp{
-
     -fx-fill: #00ff00;
 }
 

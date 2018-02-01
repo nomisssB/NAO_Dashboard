@@ -1,10 +1,8 @@
 package GUI;
-
 /*
 FILE: LoginController.java
 USAGE: Controls "Login-Window" (Connection establishment)
  */
-
 import NAO.NAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -40,11 +38,6 @@ public class LoginController{
     public TextField txt_ipaddress;
     public ListView<String> connection_list;
 
-
-    public LoginController(){      //Constructor
-//  NOT IN USE:  Runtime.getRuntime().addShutdownHook(new Thread(this::store));
-// stores current settings to config-file when closing the program
-    }
 
     @FXML
     public void initialize(){     // is called after Construktor and FXML annotations
@@ -92,7 +85,6 @@ public class LoginController{
 
     private void store(){ //store connection list to .dashboard - file
         connection_list.getItems().add(robotURL);
-
         if(!connection_list.getItems().isEmpty()){ //store only when list isn't empty
             String connectionListString = String.join(",",connection_list.getItems());
             Configurator.saver("urls",connectionListString);
