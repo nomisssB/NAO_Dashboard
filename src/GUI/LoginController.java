@@ -3,8 +3,6 @@ package GUI;
 /*
 FILE: LoginController.java
 USAGE: Controls "Login-Window" (Connection establishment)
-
-TODO may be "robot-names"
  */
 
 import NAO.NAO;
@@ -103,62 +101,59 @@ public class LoginController{
     }
 
     public void fill_txt(MouseEvent mouseEvent) throws NullPointerException{
-        List<String> temp = connection_list.getItems();
-        if(!connection_list.getItems().isEmpty()) {
+        if(!connection_list.getItems().isEmpty()) { //only when ListView isn't empty
             String URL = connection_list.getSelectionModel().getSelectedItem();
-            String[] parts = URL.split(":");
-            String HOST = parts[1].replaceAll("//", "");
-            int PORT = Integer.parseInt(parts[2]);
+            String[] parts = URL.split(":"); //split String to its parts
+            String HOST = parts[1].replaceAll("//", ""); //kill slashes
+            int PORT = Integer.parseInt(parts[2]); //store second split-part to PORT as int
             txt_ipaddress.setText(HOST);
             txt_port.setText(String.valueOf(PORT));
         }
     }
 
-    public void deleteEntry(ActionEvent actionEvent) {
+    public void deleteEntry(ActionEvent actionEvent) { //remove selected ListView - item
         int selectedIdx = connection_list.getSelectionModel().getSelectedIndex();
         connection_list.getItems().remove(selectedIdx);
     }
 
     private boolean createRobotUrl() {
-        //neue Instanz von InputParse
-        InputParse parser = new InputParse();
-        //Variable warning für Ausgabe der Fehlermeldung
-        String warning = "";
+        InputParse parser = new InputParse();       //new instance of InputParser
+        String warning = ""; //Variable warning for alert-message
 
-        //Erzeugen der Warnmeldung, falls Eingaben nicht in RegEx passen
+        //Create alert-message, if user-inputs aren't valid ip-address/port
         if (!parser.validateIP(txt_ipaddress.getText()) || !parser.validatePort(txt_port.getText())) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Wrong Input");
             alert.setHeaderText("Please check your Input");
-            //Feld IP-Adresse leer:
+            //textfield ip-address empty:
             if (txt_ipaddress.getText().isEmpty()) {
                 warning = "Please type in an IP address!";
-            } //Feld IP-Adresse falsche Eingabe:
+            } //textfield ip-address wrong input:
             else if (!parser.validateIP(txt_ipaddress.getText())) {
                 warning = txt_ipaddress.getText() + " is not a valid IP address!";
-            } //Feld Port leer:
+            } //textfield port empty:
             if (txt_port.getText().isEmpty()) {
                 warning = warning + "\n" + "Please type in a port number!";
-            } //Feld Port falsche Eingabe:
+            } //textfield port wrong input:
             else if (!parser.validatePort(txt_port.getText())) {
                 warning = warning + "\n" + txt_port.getText() + " is not a valid port number!";
-            } //Setzen der Warnmeldung und Anzeigen des Fehler-Dialogs
+            } //bind alert-message to alert-dialogue and show it
             alert.setContentText(warning);
             alert.showAndWait();
             return false;
-        } else { //Falls Eingaben korrekt, Connection öffnen:
+        } else { //if all inputs are correct, create URL for connection:
             robotURL = "tcp://" + txt_ipaddress.getText() + ":" + txt_port.getText();
             return true;
         }
     }
 
-    public void close(ActionEvent actionEvent) {
+    public void close(ActionEvent actionEvent) { //shut the program
         System.exit(0);
     }
 
     private boolean checkDuplicate(String value, List<String> list) { //Searches for a String in a List<String>
-        for (String string : list) {
-            if (string.matches(value)) {
+        for (String string : list) { //every item in the list...
+            if (string.matches(value)) { //compare
                 return true;
             }
         }
