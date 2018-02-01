@@ -50,12 +50,14 @@ public class LoginController{
 
     @FXML
     public void initialize(){     // is called after Construktor and FXML annotations
-    Configurator.loader();                                                  // loads settings from config-file
-        List<String> connections1 = new ArrayList<String>                    //temporary list with last connections
-                (Arrays.asList(Configurator.props.get("urls").toString().split("\\,")));
-                //all URLs of the last connections are stored as one comma seperated string in config-file
-                //first they had to be split in single items
-    fillConnectionList(connections1);                                       //fills ListView with items
+    Configurator.loader();// loads settings from config-file
+        if(!Configurator.props.get("urls").toString().equals("")){
+            List<String> connections1 = new ArrayList<String>                    //temporary list with last connections
+                    (Arrays.asList(Configurator.props.get("urls").toString().split("\\,")));
+            //all URLs of the last connections are stored as one comma seperated string in config-file
+            //first they had to be split in single items
+            fillConnectionList(connections1);//fills ListView with items
+        }
     }
 
     private void fillConnectionList(List<String> inputList) {
@@ -64,27 +66,25 @@ public class LoginController{
     }
 
     public void connect(ActionEvent actionEvent) {
-        if(!createRobotUrl()) return;
+        if(!createRobotUrl()) return; // parses correct IP and Port
         if(!checkDuplicate(robotURL,connection_list.getItems())) {
-            store();
+            store(); //Check for an already existing entry in connection list
         }
-            nao1 = new NAO();
+            nao1 = new NAO(); // new Instance of NAO-class
             if(!nao1.establishConnection(robotURL)) {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
+                Alert alert = new Alert(Alert.AlertType.WARNING); //When the connection couldn't be established
                 alert.setTitle("Connection failed!");
                 alert.setHeaderText("Something went wrong...");
                 alert.setContentText("Connection is not established. \nThis could be caused due to different reasons..." +
                         "\ne.g. wrong WiFi-Network or ip-address/port");
                 alert.showAndWait();
-                return;
-            }else {
+                }else { //when connection was successful
                 try {
                     Parent root = FXMLLoader.load(getClass().getResource("../GUI/main_scene.fxml"));
-                    rootWindow = new Stage();
+                    rootWindow = new Stage(); //create Main-Stage
                     rootWindow.setScene(new Scene(root));
                     rootWindow.show();
-                    loginWindow.hide();
-                    store();
+                    loginWindow.hide(); //hide login-Window
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -92,9 +92,10 @@ public class LoginController{
 
     }
 
-    private void store(){
+    private void store(){ //store connection list to .dashboard - file
         connection_list.getItems().add(robotURL);
-        if(!connection_list.getItems().isEmpty()){
+
+        if(!connection_list.getItems().isEmpty()){ //store only when list isn't empty
             String connectionListString = String.join(",",connection_list.getItems());
             Configurator.saver("urls",connectionListString);
         }
@@ -102,12 +103,15 @@ public class LoginController{
     }
 
     public void fill_txt(MouseEvent mouseEvent) throws NullPointerException{
-        String URL = connection_list.getSelectionModel().getSelectedItem();
-        String[] parts = URL.split(":");
-        String HOST = parts[1].replaceAll("//","");
-        int PORT = Integer.parseInt(parts[2]);
-        txt_ipaddress.setText(HOST);
-        txt_port.setText(String.valueOf(PORT));
+        List<String> temp = connection_list.getItems();
+        if(!connection_list.getItems().isEmpty()) {
+            String URL = connection_list.getSelectionModel().getSelectedItem();
+            String[] parts = URL.split(":");
+            String HOST = parts[1].replaceAll("//", "");
+            int PORT = Integer.parseInt(parts[2]);
+            txt_ipaddress.setText(HOST);
+            txt_port.setText(String.valueOf(PORT));
+        }
     }
 
     public void deleteEntry(ActionEvent actionEvent) {

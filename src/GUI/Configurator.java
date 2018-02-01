@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class Configurator {
+class Configurator {
 
-    public static Properties props = new Properties();
-    public static File configFile = new File("config.dashboard");
+    static Properties props = new Properties();
+    private static File configFile = new File("config.dashboard");
 
-    public static void saver (String key, String value){
+    static void saver(String key, String value){
         try {
         props.setProperty(key, value);
         FileOutputStream fileOut = new FileOutputStream(configFile);
@@ -22,7 +22,7 @@ public class Configurator {
     }
     }
 
-    public static void loader (){
+    static void loader(){
         try {
             FileInputStream fileInput = new FileInputStream(configFile);
             props.load(fileInput);

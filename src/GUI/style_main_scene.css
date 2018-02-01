@@ -44,36 +44,7 @@
 
 /*Styleclasses*/
 
-/*List-View on Login-Window*/
-#connection_list{
-    -fx-background-color: rgba(135, 135, 135, 0.7);
-}
-#connection_list .list-cell:empty{
-    -fx-opacity: 0;
-}
-#connection_list .list-cell{
-    -fx-pref-height: 40px;
-    -fx-font-size: 12pt;
-}
-#connection_list .list-cell:odd{
-    -fx-background-color: rgba(53,122,175,0.7);
-}
-#connection_list .list-cell:odd:selected{
-    -fx-background-color: rgba(53,122,175,1);
-    -fx-font-weight: bold;
-    -fx-border-width: 2px;
-    -fx-border-color: #1d4360;
-}
-#connection_list .list-cell:even{
-    -fx-background-color: rgba(255,255,255,0.7);
-}
-#connection_list .list-cell:even:selected{
-    -fx-background-color: rgba(255,255,255,1);
-    -fx-font-weight: bold;
-    -fx-text-fill: black;
-    -fx-border-width: 2px;
-    -fx-border-color: #1d4360;
-}
+
 
 /*GUI-Modules*/
 .module {
@@ -168,6 +139,36 @@
     -fx-font-weight: bold;
 }
 
+/*List-View on Login-Window*/
+#connection_list{
+    -fx-background-color: rgba(135, 135, 135, 0.7);
+}
+#connection_list .list-cell:empty{
+    -fx-opacity: 0;
+}
+#connection_list .list-cell{
+    -fx-pref-height: 40px;
+    -fx-font-size: 12pt;
+}
+#connection_list .list-cell:odd{
+    -fx-background-color: rgba(53,122,175,0.7);
+}
+#connection_list .list-cell:odd:selected{
+    -fx-background-color: rgba(53,122,175,1);
+    -fx-font-weight: bold;
+    -fx-border-width: 2px;
+    -fx-border-color: #1d4360;
+}
+#connection_list .list-cell:even{
+    -fx-background-color: rgba(255,255,255,0.7);
+}
+#connection_list .list-cell:even:selected{
+    -fx-background-color: rgba(255,255,255,1);
+    -fx-font-weight: bold;
+    -fx-text-fill: black;
+    -fx-border-width: 2px;
+    -fx-border-color: #1d4360;
+}
 
 
 
