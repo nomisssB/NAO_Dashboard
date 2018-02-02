@@ -48,6 +48,10 @@
 .module.twice {
     -fx-pref-width: 310;
 }
+.toggle-switch
+{
+    -fx-font-size: 11pt;
+}
 
 /*Single Elements*/
 

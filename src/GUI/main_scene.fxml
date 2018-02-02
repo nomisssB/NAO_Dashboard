@@ -16,6 +16,7 @@
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
@@ -101,9 +102,12 @@
                   <String fx:value="once" />
                </styleClass>
             </AnchorPane>
-            <AnchorPane layoutX="320.0" layoutY="374.0" prefHeight="143.0" prefWidth="310.0">
+            <AnchorPane layoutX="320.0" layoutY="222.0" prefHeight="295.0" prefWidth="292.0">
                <children>
-                        <Pane fx:id="pane_cam" layoutX="22.0" layoutY="24.0" prefHeight="105.0" prefWidth="230.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                        <Pane fx:id="pane_cam" layoutX="22.0" layoutY="24.0" prefHeight="256.0" prefWidth="290.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                     <children>
+                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="53.0" pickOnBounds="true" preserveRatio="true" />
+                     </children></Pane>
                         <Label layoutY="2.0" prefHeight="14.0" prefWidth="200.0" styleClass="headlines" text="LiveView" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0" />
                </children>
                <styleClass>
@@ -156,43 +160,43 @@
             <AnchorPane layoutX="611.0" layoutY="412.0" prefHeight="232.0" prefWidth="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
                <children>
                   <Label layoutX="-7.0" layoutY="2.0" prefWidth="150.0" styleClass="headlines" text="arm control" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <Button fx:id="btn_t" layoutX="56.0" layoutY="22.0" mnemonicParsing="false" onAction="#arm_up" prefHeight="25.0" prefWidth="46.0" text="↑" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0">
+                  <Button fx:id="btn_t" layoutX="56.0" layoutY="22.0" mnemonicParsing="false" onAction="#arm_up" prefHeight="25.0" prefWidth="46.0" text="T" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0">
                      <styleClass>
                         <String fx:value="movingbutton" />
                         <String fx:value="arrow" />
                      </styleClass>
                   </Button>
-                  <Button fx:id="btn_g" layoutX="56.0" layoutY="71.0" mnemonicParsing="false" onAction="#arm_down" prefHeight="25.0" prefWidth="46.0" text="↓" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0">
+                  <Button fx:id="btn_g" layoutX="56.0" layoutY="71.0" mnemonicParsing="false" onAction="#arm_down" prefHeight="25.0" prefWidth="46.0" text="G" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0">
                      <styleClass>
                         <String fx:value="movingbutton" />
                         <String fx:value="arrow" />
                      </styleClass>
                   </Button>
-                  <Button fx:id="btn_h" layoutX="95.0" layoutY="71.0" mnemonicParsing="false" onAction="#arm_right" prefHeight="65.0" prefWidth="42.0" text="→" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                  <Button fx:id="btn_h" layoutX="95.0" layoutY="71.0" mnemonicParsing="false" onAction="#arm_right" prefHeight="65.0" prefWidth="42.0" text="H" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
                      <styleClass>
                         <String fx:value="movingbutton" />
                         <String fx:value="arrow" />
                      </styleClass>
                   </Button>
-                  <Button fx:id="btn_f" layoutX="9.0" layoutY="71.0" mnemonicParsing="false" onAction="#arm_left" prefHeight="65.0" prefWidth="46.0" text="←" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0">
+                  <Button fx:id="btn_f" layoutX="9.0" layoutY="71.0" mnemonicParsing="false" onAction="#arm_left" prefHeight="65.0" prefWidth="46.0" text="F" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0">
                      <styleClass>
                         <String fx:value="movingbutton" />
                         <String fx:value="arrow" />
                      </styleClass>
                   </Button>
-                  <ToggleSwitch fx:id="ts_shoulder" disable="true" layoutX="101.0" layoutY="23.0" onMouseClicked="#shoulderSelect" prefHeight="21.0" prefWidth="36.0" selected="true" styleClass="toggle-switch" />
-                  <ToggleSwitch fx:id="ts_elbow" layoutX="101.0" layoutY="47.0" onMouseClicked="#elbowSelect" prefHeight="21.0" prefWidth="36.0" styleClass="toggle-switch" textFill="WHITE">
+                  <ToggleSwitch fx:id="ts_shoulder" disable="true" layoutX="101.0" layoutY="23.0" onMouseClicked="#shoulderSelect" prefHeight="21.0" prefWidth="36.0" selected="true" styleClass="toggle-switch" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="25.0" />
+                  <ToggleSwitch fx:id="ts_elbow" layoutX="101.0" layoutY="47.0" onMouseClicked="#elbowSelect" prefHeight="14.0" prefWidth="28.0" styleClass="toggle-switch" textFill="WHITE" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="50.0">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="6.0" />
                      </font>
                   </ToggleSwitch>
-                  <ToggleSwitch fx:id="ts_hand" layoutX="101.0" layoutY="70.0" onMouseClicked="#handSelect" prefHeight="21.0" prefWidth="36.0" styleClass="toggle-switch" />
-                  <Label layoutX="22.0" layoutY="24.0" styleClass="headlines" text="shoulder" />
-                  <Label layoutX="22.0" layoutY="45.0" styleClass="headlines" text="elbow" />
-                  <Label layoutX="22.0" layoutY="68.0" styleClass="headlines" text="hand" />
-                  <CheckBox fx:id="chb_left" layoutX="19.0" layoutY="101.0" mnemonicParsing="false" onMouseClicked="#armLeftChecked" styleClass="headlines" text="left" />
-                  <CheckBox fx:id="chb_right" disable="true" layoutX="65.0" layoutY="101.0" mnemonicParsing="false" onMouseClicked="#armRightChecked" selected="true" styleClass="headlines" text="right" />
-                  <CheckBox fx:id="chb_mirror_arm" layoutX="38.0" layoutY="122.0" mnemonicParsing="false" onMouseClicked="#armMirrorChecked" styleClass="headlines" text="mirror" />
+                  <ToggleSwitch fx:id="ts_hand" layoutX="101.0" layoutY="70.0" onMouseClicked="#handSelect" prefHeight="21.0" prefWidth="36.0" styleClass="toggle-switch" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="75.0" />
+                  <Label layoutX="22.0" layoutY="24.0" styleClass="headlines" text="shoulder" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="57.0" AnchorPane.topAnchor="25.0" />
+                  <Label layoutX="22.0" layoutY="45.0" styleClass="headlines" text="elbow" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="57.0" AnchorPane.topAnchor="50.0" />
+                  <Label layoutX="22.0" layoutY="68.0" styleClass="headlines" text="hand" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="57.0" AnchorPane.topAnchor="75.0" />
+                  <CheckBox fx:id="chb_left" layoutX="19.0" layoutY="107.0" mnemonicParsing="false" onMouseClicked="#armLeftChecked" styleClass="headlines" text="left" />
+                  <CheckBox fx:id="chb_right" disable="true" layoutX="65.0" layoutY="107.0" mnemonicParsing="false" onMouseClicked="#armRightChecked" selected="true" styleClass="headlines" text="right" />
+                  <CheckBox fx:id="chb_mirror_arm" layoutX="38.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#armMirrorChecked" styleClass="headlines" text="mirror" />
                </children>
                <styleClass>
                   <String fx:value="module" />

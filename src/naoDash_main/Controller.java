@@ -14,8 +14,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -57,6 +59,8 @@ public class Controller {
     public CheckBox chb_pitch, chb_left, chb_right, chb_mirror_arm;
     public ToggleSwitch ts_shoulder, ts_elbow, ts_hand, ts_mirror_led;
     public Circle highTemp, midTemp, lowTemp;
+    public Pane pane_cam;
+    public ImageView imageView;
 
     //Constructor (Called first, then FXML Annotations, then initalize
     public Controller() {

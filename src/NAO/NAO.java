@@ -6,6 +6,7 @@ import com.aldebaran.qi.CallError;
 import com.aldebaran.qi.helper.EventCallback;
 import com.aldebaran.qi.helper.proxies.*;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -26,6 +27,7 @@ public class NAO {
     private static ALBodyTemperature temp;
     private static ALAudioPlayer play;
     private static ALAudioDevice audioDevice;
+    private static ALVideoDevice videoDevice;
 
     //Variable Declarations
     private static float moveX; // movement forwards / backwards
@@ -64,6 +66,7 @@ public class NAO {
                 memory = new ALMemory(session);
                 play = new ALAudioPlayer(session);
                 audioDevice = new ALAudioDevice(session);
+                videoDevice = new ALVideoDevice(session);
                 subscribeToTactileHead();
                 //activateBackgroundConnectionCheck();
                 return true;
@@ -463,6 +466,20 @@ public class NAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void getImage(){
+        try {
+            System.out.println(videoDevice.getSubscribers().toString());
+        } catch (CallError callError) {
+            callError.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+//        List<Object> imageContainer = (List<Object>) videoDevice.getImageRemote(subscriber);
+//        ByteBuffer buffer = (ByteBuffer)imageContainer.get(6);
+//        byte[] imageRawData = buffer.array(); // your image is contained here
+//        videoDevice.unsubscribe(subscriber); // don't forget to unsubscribe
     }
 
 
