@@ -9,6 +9,7 @@ public class NAO_Test {
         NAO nao = new NAO();
 
         System.out.println(nao.establishConnection("tcp://192.168.1.127:9559;"));
+        nao.getImage();
 
 
 
