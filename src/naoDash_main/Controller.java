@@ -36,7 +36,7 @@ public class Controller {
     private float motionspeed = 0.5f;
     private float pitch = 0f;
     private Color color;
-    private static Timeline batteryTimeline, tempTimeline;
+    private static Timeline batteryTimeline, tempTimeline, connectionCheckTimeline;
     public static Stage prefs;
     private int armModeJoint = 0;
     private int armModeSide = 1;
@@ -238,9 +238,10 @@ public class Controller {
 
             //initializes value for battery-ProgressBar and starts timeline for battery and temperature refresh
             battery_Bar.setProgress(nao1.batteryPercent());
+            startConnectionCheck();
             batteryViewer();
             tempViewer();
-        } catch (ConnectionException | InterruptedException e) {
+        } catch (ConnectionException e) {
             e.printStackTrace();
         }
     }
@@ -249,7 +250,12 @@ public class Controller {
     @FXML
     private void disconnect(ActionEvent actionEvent) {
         nao1.closeConnection();
-        connectionLost();
+        nao1 = null;
+        batteryTimeline.stop();
+        tempTimeline.stop();
+        connectionCheckTimeline.stop();
+        rootWindow.hide();
+        loginWindow.show();
     }
 
     // FILLERS
@@ -431,7 +437,7 @@ public class Controller {
         try {
             battery_Bar.setProgress(nao1.batteryPercent());
             lbl_battery.setText(Double.toString(nao1.batteryPercent())+"%");
-        } catch (InterruptedException e) {
+        } catch (ConnectionException e) {
             e.printStackTrace();
         }
     }
@@ -465,7 +471,20 @@ public class Controller {
 
     }
 
-    //timelines for battery and temperature refresh
+    public void checkConnection(){
+        if (!nao1.checkConnection(true)) {
+            connectionLost();
+        }
+    }
+
+    //timelines for battery and temperature refresh and Connection check
+    private void startConnectionCheck(){
+        connectionCheckTimeline = new Timeline(new KeyFrame(
+                Duration.millis(3000),
+                ae -> checkConnection()));
+        connectionCheckTimeline.setCycleCount(Animation.INDEFINITE);
+        connectionCheckTimeline.play();
+    }
     private void batteryViewer() {
         batteryTimeline = new Timeline(new KeyFrame(
                 Duration.millis(3000),
@@ -480,6 +499,7 @@ public class Controller {
         tempTimeline.setCycleCount(Animation.INDEFINITE);
         tempTimeline.play();
     }
+
 
 
     //#####################  ARM-CONTROL ##################
@@ -563,12 +583,19 @@ public class Controller {
 
     //What happens when NAO-connection is lost
     public static void connectionLost (){
-        System.out.println("WUHUU (._.)/");
+        nao1.closeConnection();
         nao1 = null;
         batteryTimeline.stop();
         tempTimeline.stop();
+        connectionCheckTimeline.stop();
         rootWindow.hide();
         loginWindow.show();
+        Alert connectionAlert = new Alert(Alert.AlertType.WARNING);//When the connection couldn't be established
+        connectionAlert.setTitle("Connection lost!");
+        connectionAlert.setHeaderText("Something went wrong...");
+        connectionAlert.setContentText("Connection has been lost. \nThis could be caused due to different reasons..." +
+                "\ne.g. Network failed");
+        connectionAlert.show();
     }
 
     //When clicking on main-pane then deselect textfields etc...

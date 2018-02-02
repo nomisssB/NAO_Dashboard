@@ -86,6 +86,13 @@ public class NAO {
             throw new ConnectionException();
         }
     }
+
+    public boolean checkConnection(boolean b) {
+        if (session != null && !session.isConnected()) {
+            return false;
+        }
+        return true;
+    }
     /* private void activateBackgroundConnectionCheck() {
          TimerTask task = new TimerTask() {
              @Override
@@ -323,7 +330,8 @@ public class NAO {
         this.changeEyeColor(eye, red, green, blue);
     }
 
-    public double batteryPercent() throws InterruptedException {       //Get the battery charge in percents
+    public double batteryPercent() throws ConnectionException {       //Get the battery charge in percents
+        checkConnection();
 
         try {
             return bat.getBatteryCharge();
