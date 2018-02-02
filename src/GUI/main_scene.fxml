@@ -106,7 +106,7 @@
                <children>
                         <Pane fx:id="pane_cam" layoutX="22.0" layoutY="24.0" prefHeight="256.0" prefWidth="290.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
                      <children>
-                        <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="53.0" pickOnBounds="true" preserveRatio="true" />
+                        <ImageView fx:id="imageView11" fitHeight="150.0" fitWidth="200.0" layoutX="53.0" pickOnBounds="true" preserveRatio="true" />
                      </children></Pane>
                         <Label layoutY="2.0" prefHeight="14.0" prefWidth="200.0" styleClass="headlines" text="LiveView" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0" />
                </children>

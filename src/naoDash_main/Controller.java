@@ -9,11 +9,13 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -33,6 +35,7 @@ import static GUI.LoginController.rootWindow;
 
 
 public class Controller {
+
 
     //Variable declaration
     private float motionspeed = 0.5f;
@@ -60,7 +63,7 @@ public class Controller {
     public ToggleSwitch ts_shoulder, ts_elbow, ts_hand, ts_mirror_led;
     public Circle highTemp, midTemp, lowTemp;
     public Pane pane_cam;
-    public ImageView imageView;
+    public ImageView imageView11;
 
     //Constructor (Called first, then FXML Annotations, then initalize
     public Controller() {
@@ -239,12 +242,14 @@ public class Controller {
             fillVoiceList(nao1.getVoices());
             fillSoundList(nao1.getSoundFiles());
             nao1.setMoveV(motionspeed);
+            Image image = SwingFXUtils.toFXImage(nao1.getCameraStream(0), null);
+            imageView11.setImage(image);
 
             //initializes value for battery-ProgressBar and starts timeline for battery and temperature refresh
             battery_Bar.setProgress(nao1.batteryPercent());
             batteryViewer();
             tempViewer();
-        } catch (ConnectionException | InterruptedException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

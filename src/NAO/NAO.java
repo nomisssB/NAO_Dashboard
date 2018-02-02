@@ -6,12 +6,15 @@ import com.aldebaran.qi.CallError;
 import com.aldebaran.qi.helper.EventCallback;
 import com.aldebaran.qi.helper.proxies.*;
 
+import java.awt.image.BufferedImage;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.*;
+
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import naoDash_main.Controller;
 
@@ -462,16 +465,62 @@ public class NAO {
 
     public void getImage(){
         try {
-            System.out.println(videoDevice.getSubscribers().toString());
+            String camera = "kamera";
+           System.out.println("subscribers "+videoDevice.getSubscribers());
+            System.out.println("active camera " +videoDevice.getActiveCamera());
+            System.out.println("camera indexes " +videoDevice.getCameraIndexes());
+            System.out.println("cameramodel 0 "+ videoDevice.getCameraModel(0));
+            System.out.println("cameramodel 1 "+ videoDevice.getCameraModel(1));
+            System.out.println("name 0" + videoDevice.getCameraName(0));
+            System.out.println("name 1"+ videoDevice.getCameraName(1));
+            System.out.println("brokername "+videoDevice.getBrokerName());
+            System.out.println("open 1 "+videoDevice.isCameraOpen(1));
+            System.out.println("open 0 "+videoDevice.isCameraOpen(0));
+            System.out.println("resolution " + videoDevice.getResolution(0));
+            System.out.println("fps " + videoDevice.getFrameRate(0));
+
+
+                    videoDevice.unsubscribeAllInstances(camera);
+            videoDevice.subscribeCamera(camera,0,videoDevice.getResolution(0),videoDevice.getColorSpace(0),videoDevice.getFrameRate(0));
+            System.out.println(videoDevice.getImageRemote(camera));
+            List<Object> imageContainer = (List<Object>) videoDevice.getImageRemote(camera);
+            //ByteBuffer buffer = (ByteBuffer)imageContainer.get(6);
+            //byte[] imageRawData = buffer.array(); // your image is contained here
+            videoDevice.unsubscribe(camera); // don't forget to unsubscribe
+            System.out.println();
         } catch (CallError callError) {
             callError.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-//        List<Object> imageContainer = (List<Object>) videoDevice.getImageRemote(subscriber);
-//        ByteBuffer buffer = (ByteBuffer)imageContainer.get(6);
-//        byte[] imageRawData = buffer.array(); // your image is contained here
-//        videoDevice.unsubscribe(subscriber); // don't forget to unsubscribe
+
+    }
+
+    public BufferedImage getCameraStream(int camera) throws Exception {
+
+        String pic_nr = "" + System.nanoTime();
+        String moduleName = videoDevice.subscribeCamera(pic_nr, camera, 1, 11,
+                10);
+        List<Object> video_container = (List<Object>) videoDevice
+                .getImageRemote(moduleName);
+        ByteBuffer buffer = (ByteBuffer) video_container.get(6);
+        byte[] binaryImage = buffer.array();
+        videoDevice.releaseImage(pic_nr);
+        videoDevice.unsubscribe(pic_nr);
+        int[] intArray;
+        intArray = new int[320 * 240];
+        for (int i = 0; i < 320 * 240; i++) {
+            intArray[i] = ((255 & 0xFF) << 24) | // alpha
+                    ((binaryImage[i * 3 + 0] & 0xFF) << 16) | // red
+                    ((binaryImage[i * 3 + 1] & 0xFF) << 8) | // green
+                    ((binaryImage[i * 3 + 2] & 0xFF) << 0); // blue
+        }
+        BufferedImage img = new BufferedImage(320, 240,
+                BufferedImage.TYPE_INT_RGB);
+        img.setRGB(0, 0, 320, 240, intArray, 0, 320);
+
+
+        return img;
     }
 
 
