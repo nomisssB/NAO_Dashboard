@@ -244,7 +244,6 @@ public class Controller {
             nao1.setMoveV(motionspeed);
             Image image = SwingFXUtils.toFXImage(nao1.getCameraStream(0), null);
             imageView11.setImage(image);
-
             //initializes value for battery-ProgressBar and starts timeline for battery and temperature refresh
             battery_Bar.setProgress(nao1.batteryPercent());
             batteryViewer();
