@@ -236,6 +236,7 @@ public class Controller {
         });
 
 
+
     try {
         //fill ListView, Choicebox
             fillPostureList(nao1.getPostures());
