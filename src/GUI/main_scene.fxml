@@ -18,6 +18,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
@@ -103,8 +104,12 @@
             </AnchorPane>
             <AnchorPane layoutX="320.0" layoutY="222.0" prefHeight="295.0" prefWidth="292.0">
                <children>
+                        <Pane fx:id="pane_cam" layoutX="22.0" layoutY="24.0" prefHeight="256.0" prefWidth="290.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                     <children>
+                        <ImageView fx:id="imageView11" fitHeight="150.0" fitWidth="200.0" layoutX="53.0" pickOnBounds="true" preserveRatio="true" />
+                     </children></Pane>
                         <Label layoutY="2.0" prefHeight="14.0" prefWidth="200.0" styleClass="headlines" text="LiveView" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0" />
-                  <ImageView fx:id="imageView11" fitHeight="270.0" fitWidth="310.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" />
+                  <ToggleSwitch fx:id="ts_camera" layoutX="185.0" layoutY="5.0" onMouseClicked="#activate_imageTimeline" />
                </children>
                <styleClass>
                   <String fx:value="module" />
@@ -230,7 +235,7 @@
                         <Circle fx:id="lowTemp" fill="DODGERBLUE" layoutX="13.0" layoutY="64.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="42.0" />
                      </children>
                   </AnchorPane>
-                  <Label fx:id="lbl_battery" layoutX="19.0" layoutY="32.0" prefHeight="17.0" prefWidth="40.0" textAlignment="CENTER">
+                  <Label fx:id="lbl_battery" layoutX="18.0" layoutY="32.0" prefHeight="17.0" prefWidth="40.0" textAlignment="CENTER">
                      <font>
                         <Font size="8.0" />
                      </font></Label>
@@ -240,7 +245,6 @@
                   <String fx:value="once" />
                </styleClass>
             </AnchorPane>
-            <Button fx:id="btn_test" layoutX="208.0" layoutY="232.0" mnemonicParsing="false" onAction="#test" text="Button" />
 
          </children>
       </AnchorPane>
