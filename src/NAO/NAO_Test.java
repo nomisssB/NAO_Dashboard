@@ -9,9 +9,7 @@ public class NAO_Test {
         NAO nao = new NAO();
 
         System.out.println(nao.establishConnection("tcp://192.168.1.146:9559;"));
-        nao.sayText("test");
-        nao.getCameraStream(0);
-        nao.getImage();
+
 
 
 

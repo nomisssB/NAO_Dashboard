@@ -44,20 +44,21 @@ public class NAO {
     private String tactileHeadTextFront = "";
     private String tactileHeadTextMiddle = "";
     private String tactileHeadTextRear = "";
-    //private Timer timer = new Timer();
 
 
 
-    public boolean establishConnection(String url){
+    public boolean establishConnection(String url){ // returns true if a connection has been established.
+        // To implement a connectiontimeout, the main connection establishment process runs in an own time limited thread.
+        // Therefore a class NAO_Connection has been implemented, which just establishes the connection and returns the session object.
         this.url = url; // set ClassVar url to url, so NAO_Connection can access it.
         ExecutorService executor = Executors.newSingleThreadExecutor(); // Create executor for the timeout
-        Future<Session> future = executor.submit(new NAO_Connection()); // Create Thread for Connectionestablishment
+        Future<Session> future = executor.submit(new NAO_Connection()); // Create Thread for the connectionestablishment
 
-        try {                                               // try to establish the connection
-            session = future.get(10, TimeUnit.SECONDS); // set session to hold the connection
+        try {                                                           // try to establish the connection
+            session = future.get(10, TimeUnit.SECONDS);                 // set session to hold the generated session object.
         } catch (Exception e) {
-            future.cancel(true);                        // kill the second Thread
-            executor.shutdownNow();                     // shut down the executor
+            future.cancel(true);                                        // kill the second Thread, if something went wrong
+            executor.shutdownNow();                                     // and shut down the executor.
             return false;
         }
 
@@ -73,8 +74,7 @@ public class NAO {
                 play = new ALAudioPlayer(session);
                 audioDevice = new ALAudioDevice(session);
                 videoDevice = new ALVideoDevice(session);
-                subscribeToTactileHead();
-                //activateBackgroundConnectionCheck();
+                subscribeToTactileHead();               // activate the subscriptions of the head sensors.
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -83,7 +83,7 @@ public class NAO {
         return false;
     }
 
-    public void closeConnection() {
+    public void closeConnection() { // Closes the connection to the Nao
         if (session != null && !session.isConnected()) {
             session.close();
             session = null;
@@ -102,38 +102,12 @@ public class NAO {
         }
         return true;
     }
-    /* private void activateBackgroundConnectionCheck() {
-         TimerTask task = new TimerTask() {
-             @Override
-             public void run() {
-                 try{
-                     System.out.println("tested");
-                     checkConnection();
-                 }catch (ConnectionException e){
-                     System.out.println("lost");
-                     Controller.connectionLost();
-                     cancel();
-                 }
-             }
-         };
-         timer.schedule(task, 0,500);
-     }*/
 
-    public void moveHead(float left, float right, float down, float up) throws ConnectionException { // unfertig #testing
+    public void moveHead(String direction) throws ConnectionException { // Moves Nao's head a little bit into a given direction.
         checkConnection();
-        try {
-            motion.angleInterpolation("HeadYaw", left - right, 0.1f, false); // move Head left or right
-            motion.angleInterpolation("HeadPitch", down - up, 0.1f, false); // move Head up or down
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void moveHead(String direction) throws ConnectionException {
-        checkConnection();
-        float strongness = 0.01f; // how much does the head move per call
-        String joint; // Moving horizontal ("HeadPitch") or vertical ("HeadYaw")
-        float move; // moving up/right (negative value) or down/left (positive value)
+        float strongness = 0.01f;   // how much does the head move per call
+        String joint;               // Moving horizontal ("HeadPitch") or vertical ("HeadYaw")
+        float move;                 // moving up/right (negative value) or down/left (positive value)
 
         switch (direction) { // set variables for the correct movement
             case "up":
@@ -165,7 +139,7 @@ public class NAO {
         }
     }
 
-    public void sayText(String text) throws ConnectionException {
+    public void sayText(String text) throws ConnectionException { // old sayText with only text.
         checkConnection();
         try {
             tts.say(text);
@@ -174,7 +148,7 @@ public class NAO {
         }
     }
 
-    public void sayText(String text, String voice, float pitch) throws ConnectionException {
+    public void sayText(String text, String voice, float pitch) throws ConnectionException { // say a given text, with a given voice and pitch.
         checkConnection();
         try {
             tts.setVoice(voice);
@@ -224,7 +198,7 @@ public class NAO {
         return null;
     }
 
-    public void moveToward(float x, float y, float thata, float v) throws ConnectionException {
+    public void moveToward(float x, float y, float thata, float v) throws ConnectionException { // old move toward.
         checkConnection(); //OLD Method not used anymore
 
         x = x * v;
@@ -238,6 +212,14 @@ public class NAO {
         }
     }
 
+
+    // --------- Walking Section ---------
+    // There are 4 methods to let the Nao walk. (one for each movement direction (x / y / t) and one to set the speed)
+    // The value for each direction is also stored in a variable, because we can't just set one value.
+    // If one method is called, the corresponding value is changed
+    // and the "moveToward" method of the aldebaran library is recalled with the new value(s).
+    // The nao will walk, until the values are changed again. So each time a button is pressed or released, one of the methods will be called.
+    // Because nao can't move in x and y direction at once, this case is intercepted.
     public void setMoveX(float x) throws ConnectionException { // set the x direction of motion and
         checkConnection();                        //  recall the moveToward method to let the NAO move
 
@@ -291,10 +273,10 @@ public class NAO {
             e.printStackTrace();
         }
     }
+    // -------------------------------------
 
-
-    public void moveArm(String joint, float direction) throws ConnectionException {
-        checkConnection();
+    public void moveArm(String joint, float direction) throws ConnectionException { // Moves the joint "joint" a little bit in the direction "direction" (direction = 1 / -1)
+        checkConnection();                                                          // Which joint and direction needs to be called is determined in the Controller Class.
         try {
             motion.angleInterpolation(joint, 0.1f * direction, 0.01f, false);
         } catch (Exception e) {
@@ -302,19 +284,8 @@ public class NAO {
         }
     }
 
-    public void moveArm(String jointr, String jointl, float direction) throws ConnectionException {
-        checkConnection();
-        try {
-            motion.angleInterpolation(jointr, 0.1f * direction, 0.1f, false);
-            motion.angleInterpolation(jointl, 0.1f * direction, 0.1f, false);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public void changeEyeColor(String eye, float red, float green, float blue) throws ConnectionException {
-        checkConnection();
+    public void changeEyeColor(String eye, float red, float green, float blue) throws ConnectionException { // Changes the Color of "eye" to the values "red", "blue", "green"
+        checkConnection();                                                                                  // eye = "Right" / "Left" / "Both"
 
         try {
             if (eye == "Right") {
@@ -330,8 +301,8 @@ public class NAO {
         }
     }
 
-    public void changeEyeColor(String eye, Color color) throws ConnectionException {
-        checkConnection();
+    public void changeEyeColor(String eye, Color color) throws ConnectionException {// Changes the Color of "eye" to the Color "color".
+        checkConnection();                                                          // eye = "Right" / "Left" / "Both"
         float red = (float) color.getRed();
         float green = (float) color.getGreen();
         float blue = (float) color.getBlue();
@@ -352,7 +323,7 @@ public class NAO {
 
 
     public float getTemp() throws ConnectionException { //get the tempreture from NAO
-        checkConnection();                              // returns -1/0/1 for tempdiagnosis, -2 for no temperature available
+        checkConnection();                              // returns 0/1/2 for tempdiagnosis, -1 for no temperature available
 
         try {
             Object temp1 = temp.getTemperatureDiagnosis();
@@ -371,7 +342,7 @@ public class NAO {
     }
 
 
-    public List<String> getSoundFiles() throws ConnectionException { // return list of installed soundfiles.
+    public List<String> getSoundFiles() throws ConnectionException { // return list of installed soundfiles or null if there aren't any soundfiles installed.
         checkConnection();
 
         try {
@@ -398,7 +369,7 @@ public class NAO {
         }
     }
 
-    public void playSound(String sound) throws ConnectionException { //plays given Soundfile
+    public void playSound(String sound) throws ConnectionException { //plays a given soundfile of the soundset "Aldebaran"
         checkConnection();
 
         try {
@@ -409,15 +380,15 @@ public class NAO {
 
     }
 
-    public void setTactileHeadTextFront(String front){
+    public void setTactileHeadTextFront(String front){      // sets the text, which will be said, if one of the head sensors is touched.
         tactileHeadTextFront = front;
     }
 
-    public void setTactileHeadTextMiddle(String middle){
+    public void setTactileHeadTextMiddle(String middle){    // sets the text, which will be said, if one of the head sensors is touched.
         tactileHeadTextMiddle = middle;
     }
 
-    public void setTactileHeadTextRear(String rear){
+    public void setTactileHeadTextRear(String rear){        // sets the text, which will be said, if one of the head sensors is touched.
         tactileHeadTextRear = rear;
     }
 
@@ -458,11 +429,11 @@ public class NAO {
                         }
                     });
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace("RearTactilTouched", );
         }
     }
 
-    public void setVolume(int vol) throws ConnectionException{
+    public void setVolume(int vol) throws ConnectionException{      // sets the Volume with which the Nao speaks.
         checkConnection();
 
         try {

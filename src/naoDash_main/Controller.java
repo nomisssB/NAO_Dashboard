@@ -61,7 +61,7 @@ public class Controller {
     public Label lbl_toolbar, lbl_battery;
     public ChoiceBox cb_voice;
     public CheckBox chb_pitch, chb_left, chb_right, chb_mirror_arm;
-    public ToggleSwitch ts_shoulder, ts_elbow, ts_hand, ts_mirror_led;
+    public ToggleSwitch ts_shoulder, ts_elbow, ts_hand, ts_mirror_led, ts_camera;
     public Circle highTemp, midTemp, lowTemp;
     public ImageView imageView11;
     public Button btn_test;
@@ -522,8 +522,13 @@ public class Controller {
         imageTimeline.setCycleCount(Animation.INDEFINITE);
     }
 
-
-
+    public void activate_imageTimeline(MouseEvent mouseEvent) {
+        if (imageTimeline.getStatus() == Animation.Status.RUNNING) {
+            imageTimeline.stop();
+        } else {
+            imageTimeline.play();
+        }
+    }
 
     //#####################  ARM-CONTROL ##################
     //Buttons TFGH for arm-control
