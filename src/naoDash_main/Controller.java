@@ -520,7 +520,6 @@ public class Controller {
                     }
                 }));
         imageTimeline.setCycleCount(Animation.INDEFINITE);
-        imageTimeline.play();
     }
 
 

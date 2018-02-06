@@ -384,7 +384,7 @@ public class NAO {
         return null;
     }
 
-    public boolean switchRest() throws ConnectionException { //Switch between rest and wakeUp
+    public void switchRest() throws ConnectionException { //Switch between rest and wakeUp
         checkConnection();                                   // wakes up if rest and otherwise
 
         try {
@@ -393,11 +393,9 @@ public class NAO {
             } else {
                 motion.rest();
             }
-            return motion.robotIsWakeUp();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
     }
 
     public void playSound(String sound) throws ConnectionException { //plays given Soundfile
@@ -490,6 +488,7 @@ public class NAO {
          [4] : time stamp (highest 32 bits); [5] : time stamp (lowest 32 bits);
          [6] : array of size height * width * nblayers containing image data; [7] : cameraID;
          [8] : left angle; [9] : top angle; [10] : right angle; [11] : bottom angle;
+         https://github.com/huberpa/NAO-humanoid-robot/blob/master/Nao/src/BilderThread.java
          */
 
 
@@ -497,17 +496,17 @@ public class NAO {
         videoDevice.releaseImage(pic_nr);
         videoDevice.unsubscribe(pic_nr);
         int[] intArray;
-        intArray = new int[310 * 270]; //int array for every pixel
-        for (int i = 0; i < 310 * 270; i++) { //write pixel-values in intarray
+        intArray = new int[320 * 240]; //int array for every pixel
+        for (int i = 0; i < 320 * 240; i++) { //write pixel-values in intarray
             intArray[i] = ((255 & 0xFF) << 24) | // alpha
                     ((binaryImage[i * 3 + 0] & 0xFF) << 16) | // red
                     ((binaryImage[i * 3 + 1] & 0xFF) << 8) | // green
                     ((binaryImage[i * 3 + 2] & 0xFF) << 0); // blue
         }
 
-        BufferedImage img = new BufferedImage(310, 270,
+        BufferedImage img = new BufferedImage(320, 240,
                 BufferedImage.TYPE_INT_RGB);
-        img.setRGB(0, 0, 310, 270, intArray, 0, 310);
+        img.setRGB(0, 0, 320, 240, intArray, 0, 320);
 
         return SwingFXUtils.toFXImage(img, null); //convert to an "image"-object for displaying in imageView
     }

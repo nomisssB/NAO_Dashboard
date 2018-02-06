@@ -33,7 +33,6 @@ public class LoginController{
     public Button btn_connect;
     public Button btn_close;
     public Button btn_delete;
-    public Button btn_test;
     public TextField txt_port;
     public TextField txt_ipaddress;
     public ListView<String> connection_list;
@@ -58,8 +57,9 @@ public class LoginController{
 
     public void connect(ActionEvent actionEvent) {
         if(!createRobotUrl()) return; // parses correct IP and Port
-        if(!checkDuplicate(robotURL,connection_list.getItems())) {
-            store(); //Check for an already existing entry in connection list
+        if(!checkDuplicate(robotURL,connection_list.getItems())) { //Check for an already existing entry in connection list
+            connection_list.getItems().add(robotURL);
+            store();
         }
             nao1 = new NAO(); // new Instance of NAO-class
             if(!nao1.establishConnection(robotURL)) {
@@ -84,7 +84,7 @@ public class LoginController{
     }
 
     private void store(){ //store connection list to .dashboard - file
-        connection_list.getItems().add(robotURL);
+
         if(!connection_list.getItems().isEmpty()){ //store only when list isn't empty
             String connectionListString = String.join(",",connection_list.getItems());
             Configurator.saver("urls",connectionListString);
@@ -139,7 +139,8 @@ public class LoginController{
         }
     }
 
-    public void close(ActionEvent actionEvent) { //shut the program
+    public void close(ActionEvent actionEvent) { //close the program
+        store();
         System.exit(0);
     }
 
