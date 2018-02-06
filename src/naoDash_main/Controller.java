@@ -41,7 +41,7 @@ public class Controller {
     private float motionspeed = 0.5f;
     private float pitch = 0f;
     private Color color;
-    private static Timeline batteryTimeline, tempTimeline, connectionCheckTimeline;
+    private static Timeline batteryTimeline, tempTimeline, connectionCheckTimeline, imageTimeline;
     public static Stage prefs;
     private int armModeJoint = 0;
     private int armModeSide = 1;
@@ -243,14 +243,13 @@ public class Controller {
             fillVoiceList(nao1.getVoices());
             fillSoundList(nao1.getSoundFiles());
             nao1.setMoveV(motionspeed);
-            Image image = SwingFXUtils.toFXImage(nao1.getCameraStream(0), null);
-            imageView11.setImage(image);
+
             //initializes value for battery-ProgressBar and starts timeline for battery and temperature refresh
             battery_Bar.setProgress(nao1.batteryPercent());
             startConnectionCheck();
             batteryViewer();
             tempViewer();
-        } catch (ConnectionException e) {
+            imageViewer();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -481,7 +480,7 @@ public class Controller {
 
     }
 
-    public void checkConnection(){
+    private void checkConnection(){
         if (!nao1.checkConnection(true)) {
             connectionLost();
         }
@@ -497,18 +496,32 @@ public class Controller {
     }
     private void batteryViewer() {
         batteryTimeline = new Timeline(new KeyFrame(
-                Duration.millis(3000),
+                Duration.millis(5000),
                 ae -> setbatteryView()));
         batteryTimeline.setCycleCount(Animation.INDEFINITE);
         batteryTimeline.play();
     }
     private void tempViewer(){
         tempTimeline = new Timeline(new KeyFrame(
-                Duration.millis(3000),
+                Duration.millis(5000),
                     ae -> settempView()));
         tempTimeline.setCycleCount(Animation.INDEFINITE);
         tempTimeline.play();
     }
+    private void imageViewer(){
+        imageTimeline = new Timeline(new KeyFrame(
+                Duration.millis(500),
+                ae -> {
+                    try {
+                        imageView11.setImage(nao1.getCameraStream(0));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }));
+        imageTimeline.setCycleCount(Animation.INDEFINITE);
+        imageTimeline.play();
+    }
+
 
 
 
@@ -598,6 +611,7 @@ public class Controller {
         batteryTimeline.stop();
         tempTimeline.stop();
         connectionCheckTimeline.stop();
+        imageTimeline.stop();
         rootWindow.hide();
         loginWindow.show();
         Alert connectionAlert = new Alert(Alert.AlertType.WARNING);//When the connection couldn't be established
