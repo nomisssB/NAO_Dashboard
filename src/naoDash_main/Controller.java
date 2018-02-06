@@ -37,6 +37,7 @@ import static GUI.LoginController.rootWindow;
 public class Controller {
 
 
+
     //Variable declaration
     private float motionspeed = 0.5f;
     private float pitch = 0f;
@@ -62,8 +63,8 @@ public class Controller {
     public CheckBox chb_pitch, chb_left, chb_right, chb_mirror_arm;
     public ToggleSwitch ts_shoulder, ts_elbow, ts_hand, ts_mirror_led;
     public Circle highTemp, midTemp, lowTemp;
-    public Pane pane_cam;
     public ImageView imageView11;
+    public Button btn_test;
 
     //Constructor (Called first, then FXML Annotations, then initalize
     public Controller() {
@@ -625,6 +626,14 @@ public class Controller {
     //When clicking on main-pane then deselect textfields etc...
     public void setFocus(MouseEvent mouseEvent) {
         pane_main.requestFocus();
+    }
+
+    public void test(ActionEvent actionEvent) {
+        try {
+            imageView11.setImage(nao1.getCameraStream(0));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 

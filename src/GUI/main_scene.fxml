@@ -18,7 +18,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
@@ -104,11 +103,8 @@
             </AnchorPane>
             <AnchorPane layoutX="320.0" layoutY="222.0" prefHeight="295.0" prefWidth="292.0">
                <children>
-                        <Pane fx:id="pane_cam" layoutX="22.0" layoutY="24.0" prefHeight="256.0" prefWidth="290.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
-                     <children>
-                        <ImageView fx:id="imageView11" fitHeight="150.0" fitWidth="200.0" layoutX="53.0" pickOnBounds="true" preserveRatio="true" />
-                     </children></Pane>
                         <Label layoutY="2.0" prefHeight="14.0" prefWidth="200.0" styleClass="headlines" text="LiveView" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0" />
+                  <ImageView fx:id="imageView11" fitHeight="270.0" fitWidth="310.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" />
                </children>
                <styleClass>
                   <String fx:value="module" />
@@ -244,6 +240,7 @@
                   <String fx:value="once" />
                </styleClass>
             </AnchorPane>
+            <Button fx:id="btn_test" layoutX="208.0" layoutY="232.0" mnemonicParsing="false" onAction="#test" text="Button" />
 
          </children>
       </AnchorPane>
