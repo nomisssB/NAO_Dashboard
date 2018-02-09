@@ -63,7 +63,7 @@ public class Controller {
     public CheckBox chb_pitch, chb_left, chb_right, chb_mirror_arm;
     public ToggleSwitch ts_shoulder, ts_elbow, ts_hand, ts_mirror_led, ts_camera;
     public Circle highTemp, midTemp, lowTemp;
-    public ImageView imageView11;
+    public static ImageView imageView11 = new ImageView();
     public Button btn_test;
 
     //Constructor (Called first, then FXML Annotations, then initalize
@@ -250,7 +250,7 @@ public class Controller {
             startConnectionCheck();
             batteryViewer();
             tempViewer();
-            imageViewer();
+            //imageViewer();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -630,6 +630,11 @@ public class Controller {
     //When clicking on main-pane then deselect textfields etc...
     public void setFocus(MouseEvent mouseEvent) {
         pane_main.requestFocus();
+    }
+
+    public static void updateImage(Image image){
+        System.out.println("update image #2");
+        imageView11.setImage(image);
     }
 
     public void test(ActionEvent actionEvent) {

@@ -1,6 +1,5 @@
 package NAO;
 
-import com.aldebaran.qi.Application;
 import com.aldebaran.qi.Session;
 import com.aldebaran.qi.CallError;
 import com.aldebaran.qi.helper.EventCallback;
@@ -10,16 +9,11 @@ import java.awt.image.BufferedImage;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.*;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import naoDash_main.Controller;
-
-import static GUI.LoginController.nao1;
 
 public class NAO {
     //Nao Control stuff declarations
@@ -45,6 +39,7 @@ public class NAO {
     private String tactileHeadTextMiddle = "";
     private String tactileHeadTextRear = "";
 
+    NAO_Cam naoCam;
 
 
     public boolean establishConnection(String url){ // returns true if a connection has been established.
@@ -75,6 +70,8 @@ public class NAO {
                 audioDevice = new ALAudioDevice(session);
                 videoDevice = new ALVideoDevice(session);
                 subscribeToTactileHead();               // activate the subscriptions of the head sensors.
+                naoCam = new NAO_Cam(videoDevice);
+                naoCam.start();
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -85,6 +82,7 @@ public class NAO {
 
     public void closeConnection() { // Closes the connection to the Nao
         if (session != null && !session.isConnected()) {
+            naoCam.interrupt();
             session.close();
             session = null;
         }
@@ -429,7 +427,7 @@ public class NAO {
                         }
                     });
         } catch (Exception e) {
-            e.printStackTrace("RearTactilTouched", );
+            e.printStackTrace();
         }
     }
 
