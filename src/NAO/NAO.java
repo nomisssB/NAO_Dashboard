@@ -13,6 +13,7 @@ import java.util.concurrent.*;
 
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 
 public class NAO {
@@ -27,7 +28,7 @@ public class NAO {
     private static ALBodyTemperature temp;
     private static ALAudioPlayer play;
     private static ALAudioDevice audioDevice;
-    private static ALVideoDevice videoDevice;
+    private static  ALVideoDevice videoDevice;
 
     //Variable Declarations
     private static float moveX; // movement forwards / backwards
@@ -69,15 +70,22 @@ public class NAO {
                 play = new ALAudioPlayer(session);
                 audioDevice = new ALAudioDevice(session);
                 videoDevice = new ALVideoDevice(session);
-                subscribeToTactileHead();               // activate the subscriptions of the head sensors.
-                naoCam = new NAO_Cam(videoDevice);
-                naoCam.start();
                 return true;
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
         return false;
+    }
+
+    public void initialize(ImageView imageView) {
+        try {
+            subscribeToTactileHead();               // activate the subscriptions of the head sensors.
+        } catch (ConnectionException e) {
+            e.printStackTrace();
+        }
+        naoCam = new NAO_Cam(videoDevice, imageView);
+        naoCam.start();
     }
 
     public void closeConnection() { // Closes the connection to the Nao

@@ -5,6 +5,7 @@ import com.aldebaran.qi.helper.proxies.ALVideoDevice;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import naoDash_main.Controller;
 
 import java.awt.image.BufferedImage;
@@ -13,13 +14,15 @@ import java.util.List;
 
 public class NAO_Cam extends Thread{
     ALVideoDevice videoDevice;
+    ImageView imageView;
     int camera = 0;
 
 
-    public NAO_Cam(ALVideoDevice videoDevice){
+    public NAO_Cam(ALVideoDevice videoDevice, ImageView imageView){
         setDaemon(true);
         setName("CamThread");
         this.videoDevice = videoDevice;
+        this.imageView = imageView;
     }
 
     public void run() {
@@ -64,9 +67,9 @@ public class NAO_Cam extends Thread{
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        // entsprechende UI Komponente updaten TODO
-                        System.out.println("update image...");
-                        Controller.updateImage(image);
+                        // entsprechende UI Komponente updaten
+                        //Controller.updateImage(image); OLD
+                        imageView.setImage(image);
                     }
                 });
             } catch (Exception e) {

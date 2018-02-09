@@ -63,7 +63,8 @@ public class Controller {
     public CheckBox chb_pitch, chb_left, chb_right, chb_mirror_arm;
     public ToggleSwitch ts_shoulder, ts_elbow, ts_hand, ts_mirror_led, ts_camera;
     public Circle highTemp, midTemp, lowTemp;
-    public static ImageView imageView11 = new ImageView();
+    public ImageView imageView11 = new ImageView();
+    public static ImageView test;
     public Button btn_test;
 
     //Constructor (Called first, then FXML Annotations, then initalize
@@ -86,6 +87,7 @@ public class Controller {
         armControl1[0][2] = "RHand";
         armControl2[0][2] = "RWristYaw";
 
+        test = imageView11;
         /*        //things to do when closing the program/thread
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             public void run() {
@@ -237,7 +239,7 @@ public class Controller {
         });
 
 
-
+    nao1.initialize(imageView11);
     try {
         //fill ListView, Choicebox
             fillPostureList(nao1.getPostures());
@@ -632,9 +634,10 @@ public class Controller {
         pane_main.requestFocus();
     }
 
-    public static void updateImage(Image image){
+    public void updateImage(Image image){
         System.out.println("update image #2");
         imageView11.setImage(image);
+        System.out.println("donw");
     }
 
     public void test(ActionEvent actionEvent) {
