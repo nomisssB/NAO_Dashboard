@@ -26,37 +26,37 @@
 <?import org.controlsfx.control.ToggleSwitch?>
 
 <AnchorPane fx:id="pane_main" onMouseClicked="#setFocus" prefHeight="628.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="naoDash_main.Controller">
-     <stylesheets>
-      <URL value="@style_main_scene.css" />
-     </stylesheets>
+    <stylesheets>
+        <URL value="@style_main_scene.css" />
+    </stylesheets>
 
     <children>
-    <MenuBar fx:id="menubar" prefHeight="25.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="NEVER">
-      <menus>
-        <Menu fx:id="menu1" mnemonicParsing="false" text="File">
-          <items>
-            <MenuItem fx:id="menu_prefs" mnemonicParsing="false" onAction="#menu_prefs" text="Preferences…" />
-            <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" onAction="#menu_quit" text="Quit" />
-          </items>
-        </Menu>
-        <Menu mnemonicParsing="false" text="Help">
-          <items>
-                  <MenuItem mnemonicParsing="false" onAction="#menu_help" text="About..." />
-          </items>
-        </Menu>
-      </menus>
-    </MenuBar>
+        <MenuBar fx:id="menubar" prefHeight="25.0" prefWidth="800.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="NEVER">
+            <menus>
+                <Menu fx:id="menu1" mnemonicParsing="false" text="File">
+                    <items>
+                        <MenuItem fx:id="menu_prefs" mnemonicParsing="false" onAction="#menu_prefs" text="Preferences…" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem mnemonicParsing="false" onAction="#menu_quit" text="Quit" />
+                    </items>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#menu_help" text="About..." />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
 
         <Label fx:id="lbl_toolbar" layoutY="578.0" prefHeight="10.0" prefWidth="800.0" style="&#10;" text="...output..." textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="2.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-          <font>
-            <Font size="36.0" />
-          </font>
+            <font>
+                <Font size="36.0" />
+            </font>
         </Label>
-      <AnchorPane fx:id="pane_control" layoutX="20.0" layoutY="80.0" prefWidth="752.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
-         <children>
-            <AnchorPane layoutY="337.0" prefHeight="181.0" prefWidth="150.0">
-               <children>
+        <AnchorPane fx:id="pane_control" layoutX="20.0" layoutY="80.0" prefWidth="752.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="80.0">
+            <children>
+                <AnchorPane layoutY="337.0" prefHeight="181.0" prefWidth="150.0">
+                    <children>
                         <Button fx:id="btn_w" layoutX="56.0" layoutY="34.0" mnemonicParsing="false" onAction="#forward" prefHeight="30.0" prefWidth="41.0" styleClass="movingbutton" text="W" AnchorPane.leftAnchor="56.0" AnchorPane.rightAnchor="54.0" />
                         <Button fx:id="btn_s" layoutX="56.0" layoutY="68.0" mnemonicParsing="false" onAction="#backward" styleClass="movingbutton" text="S" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="56.0" AnchorPane.rightAnchor="54.0" />
                         <Button fx:id="btn_d" layoutX="95.0" layoutY="68.0" mnemonicParsing="false" onAction="#right" styleClass="movingbutton" text="D" AnchorPane.bottomAnchor="83.0" AnchorPane.rightAnchor="10.0" />
@@ -66,190 +66,191 @@
                         <Label layoutX="-3.0" layoutY="98.0" prefHeight="24.0" prefWidth="149.0" styleClass="headlines" text="speed" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                         <Button fx:id="btn_e" layoutX="100.0" layoutY="34.0" mnemonicParsing="false" onAction="#turnRight" prefHeight="30.0" prefWidth="41.0" styleClass="movingbutton" text="E" />
                         <Button fx:id="btn_q" layoutX="10.0" layoutY="34.0" mnemonicParsing="false" onAction="#turnLeft" prefHeight="30.0" prefWidth="41.0" styleClass="movingbutton" text="Q" />
-               </children>
-               <styleClass>
-                  <String fx:value="module" />
-                  <String fx:value="once" />
-               </styleClass>
-            </AnchorPane>
-            <AnchorPane layoutX="320.0" prefHeight="156.0" prefWidth="169.0" AnchorPane.bottomAnchor="362.20000000000005" AnchorPane.rightAnchor="320.0">
-               <children>
+                    </children>
+                    <styleClass>
+                        <String fx:value="module" />
+                        <String fx:value="once" />
+                    </styleClass>
+                </AnchorPane>
+                <AnchorPane layoutX="320.0" prefHeight="156.0" prefWidth="169.0" AnchorPane.bottomAnchor="362.20000000000005" AnchorPane.rightAnchor="320.0">
+                    <children>
                         <ColorPicker fx:id="col_picker_right" layoutX="18.0" layoutY="34.0" onAction="#colorchoice_right" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                         <Label styleClass="headlines" text="pick LED Color" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <ColorPicker fx:id="col_picker_left" layoutX="10.0" layoutY="37.000000000000014" onAction="#colorchoice_left" AnchorPane.bottomAnchor="58.999999999999986" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-                  <Label layoutX="10.0" layoutY="17.0" styleClass="headlines" text="left eye" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                  <Label layoutX="10.0" layoutY="65.0" prefHeight="24.0" prefWidth="140.0" styleClass="headlines" text="right eye" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                  <ToggleSwitch fx:id="ts_mirror_led" layoutX="92.0" layoutY="24.0" prefHeight="21.0" prefWidth="28.0" />
-                  <Label layoutX="33.0" layoutY="23.0" styleClass="headlines" text="mirror" />
-               </children>
-               <styleClass>
-                  <String fx:value="module" />
-                  <String fx:value="once" />
-               </styleClass>
-            </AnchorPane>
-            <AnchorPane layoutX="611.0" prefHeight="232.0" prefWidth="169.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <children>
+                        <ColorPicker fx:id="col_picker_left" layoutX="10.0" layoutY="37.000000000000014" onAction="#colorchoice_left" AnchorPane.bottomAnchor="58.999999999999986" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                        <Label layoutX="10.0" layoutY="17.0" styleClass="headlines" text="left eye" AnchorPane.bottomAnchor="85.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                        <Label layoutX="10.0" layoutY="65.0" prefHeight="24.0" prefWidth="140.0" styleClass="headlines" text="right eye" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                        <ToggleSwitch fx:id="ts_mirror_led" layoutX="92.0" layoutY="24.0" prefHeight="21.0" prefWidth="28.0" />
+                        <Label layoutX="33.0" layoutY="23.0" styleClass="headlines" text="mirror" />
+                    </children>
+                    <styleClass>
+                        <String fx:value="module" />
+                        <String fx:value="once" />
+                    </styleClass>
+                </AnchorPane>
+                <AnchorPane layoutX="611.0" prefHeight="232.0" prefWidth="169.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
                         <Label layoutX="1.0" prefHeight="14.0" prefWidth="150.0" styleClass="headlines" text="Predefined Motions" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         <ListView fx:id="motion_list" layoutX="10.0" layoutY="25.0" prefHeight="164.0" prefWidth="149.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="25.0">
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
                         </ListView>
                         <Button fx:id="btn_execute" layoutX="10.0" layoutY="134.0" mnemonicParsing="false" onAction="#p_motion" prefHeight="25.0" prefWidth="149.0" text="execute" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="196.8" />
-               </children>
-               <styleClass>
-                  <String fx:value="module" />
-                  <String fx:value="once" />
-               </styleClass>
-            </AnchorPane>
-            <AnchorPane layoutX="320.0" layoutY="222.0" prefHeight="295.0" prefWidth="292.0">
-               <children>
+                    </children>
+                    <styleClass>
+                        <String fx:value="module" />
+                        <String fx:value="once" />
+                    </styleClass>
+                </AnchorPane>
+                <AnchorPane layoutX="320.0" layoutY="222.0" prefHeight="295.0" prefWidth="292.0">
+                    <children>
                         <Pane fx:id="pane_cam" layoutX="22.0" layoutY="24.0" prefHeight="256.0" prefWidth="290.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
-                     <children>
-                        <ImageView fx:id="imageView11" fitHeight="150.0" fitWidth="200.0" layoutX="53.0" pickOnBounds="true" preserveRatio="true" />
-                     </children></Pane>
+                            <children>
+                                <ImageView fx:id="imageView11" fitHeight="150.0" fitWidth="200.0" layoutX="53.0" pickOnBounds="true" preserveRatio="true" />
+                            </children></Pane>
                         <Label layoutY="2.0" prefHeight="14.0" prefWidth="200.0" styleClass="headlines" text="LiveView" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0" />
-                  <ToggleSwitch fx:id="ts_camera" layoutX="185.0" layoutY="5.0" onMouseClicked="#activate_imageTimeline" />
-               </children>
-               <styleClass>
-                  <String fx:value="module" />
-                  <String fx:value="twice" />
-               </styleClass>
-            </AnchorPane>
-            <AnchorPane layoutX="159.0" prefHeight="170.0" prefWidth="150.0" AnchorPane.leftAnchor="159.0" AnchorPane.topAnchor="0.0">
-               <children>
+                        <ToggleSwitch fx:id="ts_camera" layoutX="185.0" layoutY="5.0" onMouseClicked="#activate_imageTimeline" />
+                    </children>
+                    <styleClass>
+                        <String fx:value="module" />
+                        <String fx:value="twice" />
+                    </styleClass>
+                </AnchorPane>
+                <AnchorPane layoutX="159.0" prefHeight="170.0" prefWidth="150.0" AnchorPane.leftAnchor="159.0" AnchorPane.topAnchor="0.0">
+                    <children>
                         <TextField fx:id="txt_sayText" layoutX="10.0" layoutY="15.0" prefHeight="25.0" prefWidth="142.0" promptText="Let me say something..." AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="15.0" />
                         <Button fx:id="btn_sayText" layoutX="10.0" layoutY="46.0" mnemonicParsing="false" onAction="#sayText" prefHeight="25.0" prefWidth="149.0" text="say" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-                  <Slider fx:id="sldr_pitch" blockIncrement="0.1" disable="true" layoutX="5.0" layoutY="111.0" majorTickUnit="0.1" max="4.0" min="1.0" minorTickCount="0" snapToTicks="true" value="1.0" AnchorPane.bottomAnchor="88.19999999999999" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
-                  <ChoiceBox fx:id="cb_voice" layoutX="10.0" layoutY="143.0" prefHeight="25.0" prefWidth="130.0" AnchorPane.bottomAnchor="44.999999999999986" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-                  <Label layoutX="10.0" layoutY="120.0" styleClass="headlines" text="voice" AnchorPane.bottomAnchor="69.19999999999999" />
-                  <CheckBox fx:id="chb_pitch" layoutX="13.0" layoutY="86.0" mnemonicParsing="false" styleClass="headlines" text="pitch" AnchorPane.bottomAnchor="100.79999999999998" AnchorPane.leftAnchor="5.0" />
-               </children>
-               <styleClass>
-                  <String fx:value="module" />
-                  <String fx:value="once" />
-               </styleClass>
-            </AnchorPane>
-            <AnchorPane layoutY="223.0" prefHeight="105.0" prefWidth="150.0">
-               <children>
+                        <Slider fx:id="sldr_pitch" blockIncrement="0.1" disable="true" layoutX="5.0" layoutY="111.0" majorTickUnit="0.1" max="4.0" min="1.0" minorTickCount="0" snapToTicks="true" value="1.0" AnchorPane.bottomAnchor="88.19999999999999" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+                        <ChoiceBox fx:id="cb_voice" layoutX="10.0" layoutY="143.0" prefHeight="25.0" prefWidth="130.0" AnchorPane.bottomAnchor="44.999999999999986" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                        <Label layoutX="10.0" layoutY="120.0" styleClass="headlines" text="voice" AnchorPane.bottomAnchor="69.19999999999999" />
+                        <CheckBox fx:id="chb_pitch" layoutX="13.0" layoutY="86.0" mnemonicParsing="false" styleClass="headlines" text="pitch" AnchorPane.bottomAnchor="100.79999999999998" AnchorPane.leftAnchor="5.0" />
+                    </children>
+                    <styleClass>
+                        <String fx:value="module" />
+                        <String fx:value="once" />
+                    </styleClass>
+                </AnchorPane>
+                <AnchorPane layoutY="223.0" prefHeight="105.0" prefWidth="150.0">
+                    <children>
                         <Label layoutX="-7.0" layoutY="2.0" styleClass="headlines" text="head control" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         <Button fx:id="btn_i" layoutX="56.0" layoutY="22.0" mnemonicParsing="false" onAction="#head_up" prefHeight="25.0" prefWidth="46.0" styleClass="movingbutton" text="I" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0" />
                         <Button fx:id="btn_k" layoutX="56.0" layoutY="71.0" mnemonicParsing="false" onAction="#head_down" prefHeight="25.0" prefWidth="46.0" styleClass="movingbutton" text="K" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0" />
                         <Button fx:id="btn_l" layoutX="95.0" layoutY="71.0" mnemonicParsing="false" onAction="#head_right" prefHeight="65.0" prefWidth="42.0" styleClass="movingbutton" text="L" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                         <Button fx:id="btn_j" layoutX="9.0" layoutY="71.0" mnemonicParsing="false" onAction="#head_left" prefHeight="65.0" prefWidth="46.0" styleClass="movingbutton" text="J" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
-               </children>
-               <styleClass>
-                  <String fx:value="module" />
-                  <String fx:value="once" />
-               </styleClass>
-            </AnchorPane>
-            <AnchorPane fx:id="pane_sounds" prefHeight="213.0" prefWidth="169.0">
-               <children>
-                  <Label layoutX="10.0" layoutY="2.0" prefHeight="24.0" prefWidth="150.0" styleClass="headlines" text="Predefined Sounds" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <ListView fx:id="sound_list" layoutX="10.0" layoutY="25.0" prefHeight="144.0" prefWidth="130.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="25.0">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ListView>
-                  <Button fx:id="btn_playSound" layoutX="10.0" layoutY="134.0" mnemonicParsing="false" onAction="#p_sound" prefHeight="25.0" prefWidth="149.0" text="play" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-               </children>
-               <styleClass>
-                  <String fx:value="module" />
-                  <String fx:value="once" />
-               </styleClass>
-            </AnchorPane>
-            <AnchorPane layoutX="611.0" layoutY="412.0" prefHeight="232.0" prefWidth="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
-               <children>
-                  <Label layoutX="-7.0" layoutY="2.0" prefWidth="150.0" styleClass="headlines" text="arm control" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                  <Button fx:id="btn_t" layoutX="56.0" layoutY="22.0" mnemonicParsing="false" onAction="#arm_up" prefHeight="25.0" prefWidth="46.0" text="T" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0">
-                     <styleClass>
-                        <String fx:value="movingbutton" />
-                        <String fx:value="arrow" />
-                     </styleClass>
-                  </Button>
-                  <Button fx:id="btn_g" layoutX="56.0" layoutY="71.0" mnemonicParsing="false" onAction="#arm_down" prefHeight="25.0" prefWidth="46.0" text="G" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0">
-                     <styleClass>
-                        <String fx:value="movingbutton" />
-                        <String fx:value="arrow" />
-                     </styleClass>
-                  </Button>
-                  <Button fx:id="btn_h" layoutX="95.0" layoutY="71.0" mnemonicParsing="false" onAction="#arm_right" prefHeight="65.0" prefWidth="42.0" text="H" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
-                     <styleClass>
-                        <String fx:value="movingbutton" />
-                        <String fx:value="arrow" />
-                     </styleClass>
-                  </Button>
-                  <Button fx:id="btn_f" layoutX="9.0" layoutY="71.0" mnemonicParsing="false" onAction="#arm_left" prefHeight="65.0" prefWidth="46.0" text="F" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0">
-                     <styleClass>
-                        <String fx:value="movingbutton" />
-                        <String fx:value="arrow" />
-                     </styleClass>
-                  </Button>
-                  <ToggleSwitch fx:id="ts_shoulder" disable="true" layoutX="101.0" layoutY="23.0" onMouseClicked="#shoulderSelect" prefHeight="21.0" prefWidth="36.0" selected="true" styleClass="toggle-switch" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="25.0" />
-                  <ToggleSwitch fx:id="ts_elbow" layoutX="101.0" layoutY="47.0" onMouseClicked="#elbowSelect" prefHeight="14.0" prefWidth="28.0" styleClass="toggle-switch" textFill="WHITE" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="50.0">
-                     <font>
-                        <Font size="6.0" />
-                     </font>
-                  </ToggleSwitch>
-                  <ToggleSwitch fx:id="ts_hand" layoutX="101.0" layoutY="70.0" onMouseClicked="#handSelect" prefHeight="21.0" prefWidth="36.0" styleClass="toggle-switch" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="75.0" />
-                  <Label layoutX="22.0" layoutY="24.0" styleClass="headlines" text="shoulder" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="57.0" AnchorPane.topAnchor="25.0" />
-                  <Label layoutX="22.0" layoutY="45.0" styleClass="headlines" text="elbow" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="57.0" AnchorPane.topAnchor="50.0" />
-                  <Label layoutX="22.0" layoutY="68.0" styleClass="headlines" text="hand" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="57.0" AnchorPane.topAnchor="75.0" />
-                  <CheckBox fx:id="chb_left" layoutX="19.0" layoutY="107.0" mnemonicParsing="false" onMouseClicked="#armLeftChecked" styleClass="headlines" text="left" />
-                  <CheckBox fx:id="chb_right" disable="true" layoutX="65.0" layoutY="107.0" mnemonicParsing="false" onMouseClicked="#armRightChecked" selected="true" styleClass="headlines" text="right" />
-                  <CheckBox fx:id="chb_mirror_arm" layoutX="38.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#armMirrorChecked" styleClass="headlines" text="mirror" />
-               </children>
-               <styleClass>
-                  <String fx:value="module" />
-                  <String fx:value="once" />
-               </styleClass>
-            </AnchorPane>
-            <AnchorPane layoutX="159.0" layoutY="337.0" prefHeight="181.0" prefWidth="150.0" styleClass="module">
-               <children>
-                  <TextField fx:id="txt_tactileFront" layoutX="10.0" layoutY="45.0" promptText="front" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="45.0" />
-                  <TextField fx:id="txt_tactileMiddle" layoutX="10.0" layoutY="91.0" promptText="middle" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="91.0" />
-                  <TextField fx:id="txt_tactileRear" layoutX="10.0" layoutY="141.0" promptText="rear" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="141.0" />
-                  <Label layoutX="8.0" prefHeight="24.0" prefWidth="106.0" styleClass="headlines" text="tactile head sensors" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                  <Label layoutX="3.0" layoutY="21.0" prefHeight="20.0" prefWidth="75.0" styleClass="headlines" text="front" AnchorPane.leftAnchor="0.0" />
-                  <Label layoutX="3.0" layoutY="70.0" prefHeight="20.0" prefWidth="75.0" styleClass="headlines" text="middle" AnchorPane.leftAnchor="0.0" />
-                  <Label layoutX="3.0" layoutY="116.0" prefHeight="20.0" prefWidth="75.0" styleClass="headlines" text="rear" AnchorPane.leftAnchor="0.0" />
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="320.0" layoutY="165.0" prefHeight="48.0" prefWidth="150.0">
-               <children>
-                  <Slider fx:id="sldr_volume" blockIncrement="1.0" layoutY="24.0" majorTickUnit="100.0" minorTickCount="0" snapToTicks="true" value="50.0" />
-                  <Label layoutX="4.0" styleClass="headlines" text="volume" />
-               </children>
-               <styleClass>
-                  <String fx:value="module" />
-                  <String fx:value="once" />
-               </styleClass>
-            </AnchorPane>
-            <AnchorPane layoutX="480.0" prefHeight="82.0" prefWidth="120.0">
-               <children>
-                   <ProgressBar fx:id="battery_Bar" layoutX="14.0" layoutY="26.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="48.0" progress="0.37" />
-                  <AnchorPane fx:id="temp_pane" layoutX="96.0" layoutY="8.0" prefHeight="1.0" prefWidth="11.0">
-                     <children>
-                        <Circle fx:id="highTemp" fill="DODGERBLUE" layoutX="12.0" layoutY="19.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
-                        <Circle fx:id="midTemp" fill="DODGERBLUE" layoutX="12.0" layoutY="40.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="25.0" />
-                        <Circle fx:id="lowTemp" fill="DODGERBLUE" layoutX="13.0" layoutY="64.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="42.0" />
-                     </children>
-                  </AnchorPane>
-                  <Label fx:id="lbl_battery" layoutX="18.0" layoutY="32.0" prefHeight="17.0" prefWidth="40.0" textAlignment="CENTER">
-                     <font>
-                        <Font size="8.0" />
-                     </font></Label>
-               </children>
-               <styleClass>
-                  <String fx:value="module" />
-                  <String fx:value="once" />
-               </styleClass>
-            </AnchorPane>
+                    </children>
+                    <styleClass>
+                        <String fx:value="module" />
+                        <String fx:value="once" />
+                    </styleClass>
+                </AnchorPane>
+                <AnchorPane fx:id="pane_sounds" prefHeight="213.0" prefWidth="169.0">
+                    <children>
+                        <Label layoutX="10.0" layoutY="2.0" prefHeight="24.0" prefWidth="150.0" styleClass="headlines" text="Predefined Sounds" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <ListView fx:id="sound_list" layoutX="10.0" layoutY="25.0" prefHeight="144.0" prefWidth="130.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="25.0">
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </ListView>
+                        <Button fx:id="btn_playSound" layoutX="10.0" layoutY="134.0" mnemonicParsing="false" onAction="#p_sound" prefHeight="25.0" prefWidth="149.0" text="play" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                    </children>
+                    <styleClass>
+                        <String fx:value="module" />
+                        <String fx:value="once" />
+                    </styleClass>
+                </AnchorPane>
+                <AnchorPane layoutX="611.0" layoutY="412.0" prefHeight="232.0" prefWidth="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                    <children>
+                        <Label layoutX="-7.0" layoutY="2.0" prefWidth="150.0" styleClass="headlines" text="arm control" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Button fx:id="btn_t" layoutX="56.0" layoutY="22.0" mnemonicParsing="false" onAction="#arm_up" prefHeight="25.0" prefWidth="46.0" text="T" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0">
+                            <styleClass>
+                                <String fx:value="movingbutton" />
+                                <String fx:value="arrow" />
+                            </styleClass>
+                        </Button>
+                        <Button fx:id="btn_g" layoutX="56.0" layoutY="71.0" mnemonicParsing="false" onAction="#arm_down" prefHeight="25.0" prefWidth="46.0" text="G" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0">
+                            <styleClass>
+                                <String fx:value="movingbutton" />
+                                <String fx:value="arrow" />
+                            </styleClass>
+                        </Button>
+                        <Button fx:id="btn_h" layoutX="95.0" layoutY="71.0" mnemonicParsing="false" onAction="#arm_right" prefHeight="65.0" prefWidth="42.0" text="H" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                            <styleClass>
+                                <String fx:value="movingbutton" />
+                                <String fx:value="arrow" />
+                            </styleClass>
+                        </Button>
+                        <Button fx:id="btn_f" layoutX="9.0" layoutY="71.0" mnemonicParsing="false" onAction="#arm_left" prefHeight="65.0" prefWidth="46.0" text="F" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0">
+                            <styleClass>
+                                <String fx:value="movingbutton" />
+                                <String fx:value="arrow" />
+                            </styleClass>
+                        </Button>
+                        <ToggleSwitch fx:id="ts_shoulder" disable="true" layoutX="101.0" layoutY="23.0" onMouseClicked="#shoulderSelect" prefHeight="21.0" prefWidth="36.0" selected="true" styleClass="toggle-switch" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="25.0" />
+                        <ToggleSwitch fx:id="ts_elbow" layoutX="101.0" layoutY="47.0" onMouseClicked="#elbowSelect" prefHeight="14.0" prefWidth="28.0" styleClass="toggle-switch" textFill="WHITE" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="50.0">
+                            <font>
+                                <Font size="6.0" />
+                            </font>
+                        </ToggleSwitch>
+                        <ToggleSwitch fx:id="ts_hand" layoutX="101.0" layoutY="70.0" onMouseClicked="#handSelect" prefHeight="21.0" prefWidth="36.0" styleClass="toggle-switch" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="75.0" />
+                        <Label layoutX="22.0" layoutY="24.0" styleClass="headlines" text="shoulder" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="57.0" AnchorPane.topAnchor="25.0" />
+                        <Label layoutX="22.0" layoutY="45.0" styleClass="headlines" text="elbow" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="57.0" AnchorPane.topAnchor="50.0" />
+                        <Label layoutX="22.0" layoutY="68.0" styleClass="headlines" text="hand" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="57.0" AnchorPane.topAnchor="75.0" />
+                        <CheckBox fx:id="chb_left" layoutX="19.0" layoutY="107.0" mnemonicParsing="false" onMouseClicked="#armLeftChecked" styleClass="headlines" text="left" />
+                        <CheckBox fx:id="chb_right" disable="true" layoutX="65.0" layoutY="107.0" mnemonicParsing="false" onMouseClicked="#armRightChecked" selected="true" styleClass="headlines" text="right" />
+                        <CheckBox fx:id="chb_mirror_arm" layoutX="38.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#armMirrorChecked" styleClass="headlines" text="mirror" />
+                    </children>
+                    <styleClass>
+                        <String fx:value="module" />
+                        <String fx:value="once" />
+                    </styleClass>
+                </AnchorPane>
+                <AnchorPane layoutX="159.0" layoutY="337.0" prefHeight="181.0" prefWidth="150.0" styleClass="module">
+                    <children>
+                        <TextField fx:id="txt_tactileFront" layoutX="10.0" layoutY="45.0" promptText="front" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="45.0" />
+                        <TextField fx:id="txt_tactileMiddle" layoutX="10.0" layoutY="91.0" promptText="middle" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="91.0" />
+                        <TextField fx:id="txt_tactileRear" layoutX="10.0" layoutY="141.0" promptText="rear" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="141.0" />
+                        <Label layoutX="8.0" prefHeight="24.0" prefWidth="106.0" styleClass="headlines" text="tactile head sensors" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                        <Label layoutX="3.0" layoutY="21.0" prefHeight="20.0" prefWidth="75.0" styleClass="headlines" text="front" AnchorPane.leftAnchor="0.0" />
+                        <Label layoutX="3.0" layoutY="70.0" prefHeight="20.0" prefWidth="75.0" styleClass="headlines" text="middle" AnchorPane.leftAnchor="0.0" />
+                        <Label layoutX="3.0" layoutY="116.0" prefHeight="20.0" prefWidth="75.0" styleClass="headlines" text="rear" AnchorPane.leftAnchor="0.0" />
+                    </children>
+                </AnchorPane>
+                <AnchorPane layoutX="320.0" layoutY="165.0" prefHeight="48.0" prefWidth="150.0">
+                    <children>
+                        <Slider fx:id="sldr_volume" blockIncrement="1.0" layoutY="24.0" majorTickUnit="100.0" minorTickCount="0" snapToTicks="true" value="50.0" />
+                        <Label layoutX="4.0" styleClass="headlines" text="volume" />
+                    </children>
+                    <styleClass>
+                        <String fx:value="module" />
+                        <String fx:value="once" />
+                    </styleClass>
+                </AnchorPane>
+                <AnchorPane layoutX="480.0" prefHeight="82.0" prefWidth="120.0">
+                    <children>
+                        <ProgressBar fx:id="battery_Bar" layoutX="14.0" layoutY="26.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="48.0" progress="0.37" />
+                        <AnchorPane fx:id="temp_pane" layoutX="96.0" layoutY="8.0" prefHeight="1.0" prefWidth="11.0">
+                            <children>
+                                <Circle fx:id="highTemp" fill="DODGERBLUE" layoutX="12.0" layoutY="19.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                <Circle fx:id="midTemp" fill="DODGERBLUE" layoutX="12.0" layoutY="40.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="25.0" />
+                                <Circle fx:id="lowTemp" fill="DODGERBLUE" layoutX="13.0" layoutY="64.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="42.0" />
+                            </children>
+                        </AnchorPane>
+                        <Label fx:id="lbl_battery" layoutX="18.0" layoutY="32.0" prefHeight="17.0" prefWidth="40.0" textAlignment="CENTER">
+                            <font>
+                                <Font size="8.0" />
+                            </font></Label>
+                    </children>
+                    <styleClass>
+                        <String fx:value="module" />
+                        <String fx:value="once" />
+                    </styleClass>
+                </AnchorPane>
+                <ToggleSwitch fx:id="ts_rest" layoutX="529.0" layoutY="156.0" onMouseClicked="#set_switchRest" />
 
-         </children>
-      </AnchorPane>
-      <Line endX="800.0" layoutY="573.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="-0.0" AnchorPane.rightAnchor="0.0" />
-      <Button fx:id="btn_disconnect" defaultButton="true" layoutX="20.0" layoutY="38.0" mnemonicParsing="false" onAction="#disconnect" prefHeight="25.0" prefWidth="310.0" text="Disconnect" />
+            </children>
+        </AnchorPane>
+        <Line endX="800.0" layoutY="573.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="-0.0" AnchorPane.rightAnchor="0.0" />
+        <Button fx:id="btn_disconnect" defaultButton="true" layoutX="20.0" layoutY="38.0" mnemonicParsing="false" onAction="#disconnect" prefHeight="25.0" prefWidth="310.0" text="Disconnect" />
 
-  </children>
+    </children>
 </AnchorPane>

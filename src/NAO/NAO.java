@@ -375,6 +375,21 @@ public class NAO {
         }
     }
 
+    public boolean isInRestMode() throws ConnectionException{
+        checkConnection();
+
+        try {
+            if (motion.robotIsWakeUp()){
+                return false;
+            }else {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
     public void playSound(String sound) throws ConnectionException { //plays a given soundfile of the soundset "Aldebaran"
         checkConnection();
 

@@ -61,7 +61,7 @@ public class Controller {
     public Label lbl_toolbar, lbl_battery;
     public ChoiceBox cb_voice;
     public CheckBox chb_pitch, chb_left, chb_right, chb_mirror_arm;
-    public ToggleSwitch ts_shoulder, ts_elbow, ts_hand, ts_mirror_led, ts_camera;
+    public ToggleSwitch ts_shoulder, ts_elbow, ts_hand, ts_mirror_led, ts_camera, ts_rest;
     public Circle highTemp, midTemp, lowTemp;
     public ImageView imageView11 = new ImageView();
     public static ImageView test;
@@ -246,6 +246,12 @@ public class Controller {
             fillVoiceList(nao1.getVoices());
             fillSoundList(nao1.getSoundFiles());
             nao1.setMoveV(motionspeed);
+
+            if(nao1.isInRestMode()){
+                ts_rest.setSelected(true);
+            } else {
+                ts_rest.setSelected(false);
+            }
 
             //initializes value for battery-ProgressBar and starts timeline for battery and temperature refresh
             battery_Bar.setProgress(nao1.batteryPercent());
@@ -529,6 +535,20 @@ public class Controller {
             imageTimeline.stop();
         } else {
             imageTimeline.play();
+        }
+    }
+
+    public void set_switchRest (MouseEvent mouseEvent) {
+
+        try {
+            nao1.switchRest();
+            if(nao1.isInRestMode()){
+                ts_rest.setSelected(true);
+            } else {
+                ts_rest.setSelected(false);
+            }
+        } catch (ConnectionException e) {
+            e.printStackTrace();
         }
     }
 
