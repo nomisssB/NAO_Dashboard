@@ -36,7 +36,7 @@ class BatteryTask extends TimerTask
     @Override public void run()
     {
         try {
-            Controller.batteryV = nao.batteryPercent();
+            Controller.batteryV = nao.getBatteryPercent();
             System.out.println(Controller.batteryV);
         } catch (InterruptedException e) {
             e.printStackTrace();

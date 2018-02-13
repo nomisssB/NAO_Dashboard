@@ -45,7 +45,9 @@ public class NAO {
     NAO_Cam naoCam;
 
 
-    public boolean establishConnection(String url){ // returns true if a connection has been established.
+    // ############# Connection and Initialisation #############
+    public boolean establishConnection(String url){
+        // returns true if a connection has been established.
         // To implement a connection timeout, the main connection establishment process runs in an own time limited thread.
         // Therefore a class NAO_Connection has been implemented, which just establishes the connection and returns the session object.
         this.url = url; // set ClassVar url to url, so NAO_Connection can access it.
@@ -100,7 +102,6 @@ public class NAO {
         }
     }
 
-
     public void checkConnection() throws ConnectionException {
         if (session != null && !session.isConnected()) {
             throw new ConnectionException();
@@ -115,7 +116,7 @@ public class NAO {
     }
 
 
-
+    // ############# Movement #############
     public void moveHead(String direction) throws ConnectionException { // Moves Nao's head a little bit into a given direction.
         checkConnection();
         float strongness = 0.01f;   // how much does the head move per call
@@ -152,46 +153,6 @@ public class NAO {
         }
     }
 
-    public void sayText(String text) throws ConnectionException { // old sayText with only text.
-        checkConnection();
-        try {
-            tts.say(text);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void sayText(String text, String voice, float pitch) throws ConnectionException { // say a given text, with a given voice and pitch.
-        checkConnection();
-        try {
-            tts.setVoice(voice);
-            tts.setParameter("pitchShift", pitch);
-            tts.say(text);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public List<String> getLanguages() throws ConnectionException { // Returns all installed languages
-        checkConnection();                                          // not used, apparently it doesn't change
-    try {                                                           // anything, if the language is changed.
-            return tts.getAvailableLanguages();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public List<String> getVoices() throws ConnectionException { // Returns all installed voices
-        checkConnection();
-        try {
-            return tts.getAvailableVoices();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     public void execPosture(String posture) throws ConnectionException { // Goto a given Posture
         checkConnection();
         try {
@@ -211,24 +172,9 @@ public class NAO {
         return null;
     }
 
-    public void moveToward(float x, float y, float thata, float v) throws ConnectionException { // old move toward.
-        checkConnection(); //OLD Method not used anymore
-
-        x = x * v;
-        y = y * v;
-        thata = thata * v;
-
-        try {
-            motion.moveToward(x, y, thata);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    // --------- Walking Section ---------
+    // --------- Walking  ------------------
     // There are 4 methods to let the Nao walk. (one for each movement direction (x / y / t) and one to set the speed)
-    // The value for each direction is also stored in a variable, because we can't just set one value.
+    // The value for each direction is also stored in a local variable, because it's only possible to set all values at once.
     // If one method is called, the corresponding value is changed
     // and the "moveToward" method of the aldebaran library is recalled with the new value(s).
     // The nao will walk, until the values are changed again. So each time a button is pressed or released, one of the methods will be called.
@@ -236,7 +182,7 @@ public class NAO {
     public void setMoveX(float x) throws ConnectionException { // set the x direction of motion and
         checkConnection();                        //  recall the moveToward method to let the NAO move
 
-        if (moveY == 0) { // Nao can only move in x or y. If both are set to move at once, nothing happens
+        if (moveY == 0) { // Nao can only move in x or y. If both are set to move at once, nothing happens, so only one is allowed to be not null.
             moveX = x;
         }
         try {
@@ -297,77 +243,6 @@ public class NAO {
         }
     }
 
-    public void changeEyeColor(String eye, float red, float green, float blue) throws ConnectionException { // Changes the Color of "eye" to the values "red", "blue", "green"
-        checkConnection();                                                                                  // eye = "Right" / "Left" / "Both"
-
-        try {
-            if (eye == "Right") {
-                led.fadeRGB("RightFaceLeds", red, green, blue, 0f);
-            } else if (eye == "Left") {
-                led.fadeRGB("LeftFaceLeds", red, green, blue, 0f);
-            } else if (eye == "Both") {
-                led.fadeRGB("RightFaceLeds", red, green, blue, 0f);
-                led.fadeRGB("LeftFaceLeds", red, green, blue, 0f);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void changeEyeColor(String eye, Color color) throws ConnectionException {// Changes the Color of "eye" to the Color "color".
-        checkConnection();                                                          // eye = "Right" / "Left" / "Both"
-        float red = (float) color.getRed();
-        float green = (float) color.getGreen();
-        float blue = (float) color.getBlue();
-
-        this.changeEyeColor(eye, red, green, blue);
-    }
-
-    public double batteryPercent() throws ConnectionException {       //Get the battery charge in percents
-        checkConnection();
-
-        try {
-            return bat.getBatteryCharge();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return -1;
-    }
-
-
-    public float getTemp() throws ConnectionException { //get the tempreture from NAO
-        checkConnection();                              // returns 0/1/2 for tempdiagnosis, -1 for no temperature available
-
-        try {
-            Object temp1 = temp.getTemperatureDiagnosis();
-
-            if (temp1 instanceof ArrayList) {
-                ArrayList tempList = (ArrayList) temp1;
-                Object temp2 = tempList.get(0);
-                return Float.parseFloat(temp2.toString());
-            } else {
-                return -1f;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return -1f;
-    }
-
-
-    public List<String> getSoundFiles() throws ConnectionException { // return list of installed soundfiles or null if there aren't any soundfiles installed.
-        checkConnection();
-
-        try {
-            return play.getSoundSetFileNames("Aldebaran"); // try to get soundfiles
-        }catch (CallError e){ // return null, if there aren't soundfiles.
-            return null;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
     public void switchRest() throws ConnectionException { //Switch between rest and wakeUp
         checkConnection();                                   // wakes up if rest and otherwise
 
@@ -397,26 +272,41 @@ public class NAO {
         return true;
     }
 
-    public void toggleCamera(){
-        if (naoCam != null && naoCam.isAlive()) {
-            naoCam.interrupt();
-            naoCam = null;
-        } else {
-            naoCam = new NAO_Cam(videoDevice, imageView);
-            naoCam.start();
+
+
+    // ############# Speak and Audio #############
+    public void sayText(String text, String voice, float pitch) throws ConnectionException { // say a given text, with a given voice and pitch.
+        checkConnection();
+        try {
+            tts.setVoice(voice);
+            tts.setParameter("pitchShift", pitch);
+            tts.say(text);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    public boolean isCameraActivated() {
-        if (naoCam != null && naoCam.isAlive()){
-            return true;
+    public List<String> getLanguages() throws ConnectionException { // Returns all installed languages
+        checkConnection();                                          // not used, apparently it doesn't change
+    try {                                                           // anything, if the language is changed.
+            return tts.getAvailableLanguages();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
+    public List<String> getVoices() throws ConnectionException { // Returns all installed voices
+        checkConnection();
+        try {
+            return tts.getAvailableVoices();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-
-    public void playSound(String sound) throws ConnectionException { //plays a given soundfile of the soundset "Aldebaran"
+    public void playSoundFile(String sound) throws ConnectionException { //plays a given soundfile of the soundset "Aldebaran"
         checkConnection();
 
         try {
@@ -427,6 +317,32 @@ public class NAO {
 
     }
 
+    public List<String> getSoundFiles() throws ConnectionException { // return list of installed soundfiles or null if there aren't any soundfiles installed.
+        checkConnection();
+
+        try {
+            return play.getSoundSetFileNames("Aldebaran"); // try to get soundfiles
+        }catch (CallError e){ // return null, if there aren't soundfiles.
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void setVolume(int vol) throws ConnectionException{      // sets the Volume with which the Nao speaks.
+        checkConnection();
+
+        try {
+            audioDevice.setOutputVolume(vol);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
+    // ############# Tactile head sensors #############
     public void setTactileHeadTextFront(String front){      // sets the text, which will be said, if one of the head sensors is touched.
         tactileHeadTextFront = front;
     }
@@ -480,15 +396,87 @@ public class NAO {
         }
     }
 
-    public void setVolume(int vol) throws ConnectionException{      // sets the Volume with which the Nao speaks.
-        checkConnection();
+
+    // ############# Eye Color #############
+    public void changeEyeColor(String eye, float red, float green, float blue) throws ConnectionException { // Changes the Color of "eye" to the values "red", "blue", "green"
+        checkConnection();                                                                                  // eye = "Right" / "Left" / "Both"
 
         try {
-            audioDevice.setOutputVolume(vol);
+            if (eye == "Right") {
+                led.fadeRGB("RightFaceLeds", red, green, blue, 0f);
+            } else if (eye == "Left") {
+                led.fadeRGB("LeftFaceLeds", red, green, blue, 0f);
+            } else if (eye == "Both") {
+                led.fadeRGB("RightFaceLeds", red, green, blue, 0f);
+                led.fadeRGB("LeftFaceLeds", red, green, blue, 0f);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    public void changeEyeColor(String eye, Color color) throws ConnectionException {// Changes the Color of "eye" to the Color "color".
+        checkConnection();                                                          // eye = "Right" / "Left" / "Both"
+        float red = (float) color.getRed();
+        float green = (float) color.getGreen();
+        float blue = (float) color.getBlue();
+
+        this.changeEyeColor(eye, red, green, blue);
+    }
+
+
+    // ############# Get Temperature and Battery status #############
+    public double getBatteryPercent() throws ConnectionException {       //Get the battery charge in percents
+        checkConnection();
+
+        try {
+            return bat.getBatteryCharge();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    public float getTemp() throws ConnectionException { //get the temperature from NAO
+        checkConnection();                              // returns 0/1/2 for tempdiagnosis, -1 for no temperature available
+
+        try {
+            Object temp1 = temp.getTemperatureDiagnosis();
+
+            if (temp1 instanceof ArrayList) {
+                ArrayList tempList = (ArrayList) temp1;
+                Object temp2 = tempList.get(0);
+                return Float.parseFloat(temp2.toString());
+            } else {
+                return -1f;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1f;
+    }
+
+
+    // ############# Camera #############
+    public void toggleCamera(){
+        if (naoCam != null && naoCam.isAlive()) {
+            naoCam.interrupt();
+            naoCam = null;
+        } else {
+            naoCam = new NAO_Cam(videoDevice, imageView);
+            naoCam.start();
+        }
+    }
+
+    public boolean isCameraActivated() {
+        if (naoCam != null && naoCam.isAlive()){
+            return true;
+        }
+        return false;
+    }
+
+
+
 
 
 

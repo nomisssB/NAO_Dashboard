@@ -9,17 +9,14 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -258,7 +255,7 @@ public class Controller {
             }
 
             //initializes value for battery-ProgressBar and starts timeline for battery and temperature refresh
-            battery_Bar.setProgress(nao1.batteryPercent());
+            battery_Bar.setProgress(nao1.getBatteryPercent());
             startConnectionCheck();
             batteryViewer();
             tempViewer();
@@ -453,7 +450,7 @@ public class Controller {
     public void p_sound(ActionEvent actionEvent) throws ConnectionException {
         String sound = sound_list.getSelectionModel().getSelectedItem();
            try {
-               nao1.playSound(sound);
+               nao1.playSoundFile(sound);
            } catch (ConnectionException e) {
                connectionLost();
            }
@@ -472,8 +469,8 @@ public class Controller {
     // Setter
     private void setbatteryView() {
         try {
-            battery_Bar.setProgress(nao1.batteryPercent());
-            lbl_battery.setText(Double.toString(nao1.batteryPercent())+"%");
+            battery_Bar.setProgress(nao1.getBatteryPercent());
+            lbl_battery.setText(Double.toString(nao1.getBatteryPercent())+"%");
         } catch (ConnectionException e) {
             connectionLost();
         }
@@ -569,7 +566,10 @@ public class Controller {
     public void arm_up(ActionEvent actionEvent) {
 
         try {
-            nao1.moveArm(armControl1[armModeSide][armModeJoint],-1);
+            if (armModeSide == 2) {
+                nao1.moveArm(armControl1[0][armModeJoint], -1);
+                nao1.moveArm(armControl1[1][armModeJoint], -1);
+            } else nao1.moveArm(armControl1[armModeSide][armModeJoint], -1);
         } catch (ConnectionException e) {
             connectionLost();
         }
@@ -585,6 +585,7 @@ public class Controller {
                 connectionLost();
         }
     }
+
     public void arm_left(ActionEvent actionEvent) {
         try {
             if (armModeSide == 2) {

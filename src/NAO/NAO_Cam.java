@@ -72,7 +72,7 @@ public class NAO_Cam extends Thread{
                     }
                 });
             } catch (Exception e) {
-                e.printStackTrace();
+
             }
 
 
