@@ -15,6 +15,7 @@ import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import naoDash_main.Controller;
 
 public class NAO {
     //Nao Control stuff declarations
@@ -90,11 +91,15 @@ public class NAO {
 
     public void closeConnection() { // Closes the connection to the Nao
         if (session != null && !session.isConnected()) {
-            naoCam.interrupt();
+            if (naoCam != null && naoCam.isAlive()) {
+                naoCam.interrupt();
+                naoCam = null;
+            }
             session.close();
             session = null;
         }
     }
+
 
     public void checkConnection() throws ConnectionException {
         if (session != null && !session.isConnected()) {
@@ -486,43 +491,6 @@ public class NAO {
     }
 
 
-
-    public Image getCameraStream(int camera) throws Exception {
-
-        String pic_nr = "" + System.nanoTime();
-        String subscriber = videoDevice.subscribeCamera(pic_nr, camera, 1, 11,
-                10); //Subscriber for every single picture
-        List<Object> video_container = (List<Object>) videoDevice
-                .getImageRemote(subscriber); //Container for image data
-        ByteBuffer buffer = (ByteBuffer) video_container.get(6); //image data is on index 6 in container
-
-        /*NAO-Java-Doc:
-         Array containing image informations : [0] : width; [1] : height; [2] : number of layers; [3] : ColorSpace;
-         [4] : time stamp (highest 32 bits); [5] : time stamp (lowest 32 bits);
-         [6] : array of size height * width * nblayers containing image data; [7] : cameraID;
-         [8] : left angle; [9] : top angle; [10] : right angle; [11] : bottom angle;
-         https://github.com/huberpa/NAO-humanoid-robot/blob/master/Nao/src/BilderThread.java
-         */
-
-
-        byte[] binaryImage = buffer.array(); //create byte-array out of image data
-        videoDevice.releaseImage(pic_nr);
-        videoDevice.unsubscribe(pic_nr);
-        int[] intArray;
-        intArray = new int[320 * 240]; //int array for every pixel
-        for (int i = 0; i < 320 * 240; i++) { //write pixel-values in intarray
-            intArray[i] = ((255 & 0xFF) << 24) | // alpha
-                    ((binaryImage[i * 3 + 0] & 0xFF) << 16) | // red
-                    ((binaryImage[i * 3 + 1] & 0xFF) << 8) | // green
-                    ((binaryImage[i * 3 + 2] & 0xFF) << 0); // blue
-        }
-
-        BufferedImage img = new BufferedImage(320, 240,
-                BufferedImage.TYPE_INT_RGB);
-        img.setRGB(0, 0, 320, 240, intArray, 0, 320);
-
-        return SwingFXUtils.toFXImage(img, null); //convert to an "image"-object for displaying in imageView
-    }
 
 
 }

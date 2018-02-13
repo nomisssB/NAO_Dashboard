@@ -105,7 +105,7 @@ public class Controller {
             try {
                 nao1.setMoveV(motionspeed);
             } catch (ConnectionException e) {
-                e.printStackTrace();
+                connectionLost();
             }
         });
         sldr_pitch.valueProperty().addListener((observable, oldValue, newValue) -> {
@@ -117,7 +117,7 @@ public class Controller {
             try {
                 nao1.setVolume(newValue.intValue());
             } catch (ConnectionException e) {
-                e.printStackTrace();
+                connectionLost();
             }
         });
 
@@ -195,42 +195,42 @@ public class Controller {
                     try {
                         nao1.setMoveX(0f);
                     } catch (ConnectionException e1) {
-                        e1.printStackTrace();
+                        connectionLost();
                     }
                     break;
                 case A:
                     try {
                         nao1.setMoveY(0f);
                     } catch (ConnectionException e1) {
-                        e1.printStackTrace();
+                        connectionLost();
                     }
                     break;
                 case S:
                     try {
                         nao1.setMoveX(0f);
                     } catch (ConnectionException e1) {
-                        e1.printStackTrace();
+                        connectionLost();
                     }
                     break;
                 case D:
                     try {
                         nao1.setMoveY(0f);
                     } catch (ConnectionException e1) {
-                        e1.printStackTrace();
+                        connectionLost();
                     }
                     break;
                 case Q:
                     try {
                         nao1.setMoveT(0f);
                     } catch (ConnectionException e1) {
-                        e1.printStackTrace();
+                        connectionLost();
                     }
                     break;
                 case E:
                     try {
                         nao1.setMoveT(0f);
                     } catch (ConnectionException e1) {
-                        e1.printStackTrace();
+                        connectionLost();
                     }
                     break;
             }
@@ -238,8 +238,8 @@ public class Controller {
 
     nao1.initialize(imageView11);
 
-    try {
-        //fill ListView, Choicebox
+        try {
+            //fill ListView, Choicebox
             fillPostureList(nao1.getPostures());
             fillVoiceList(nao1.getVoices());
             fillSoundList(nao1.getSoundFiles());
@@ -262,8 +262,8 @@ public class Controller {
             startConnectionCheck();
             batteryViewer();
             tempViewer();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (ConnectionException e) {
+            connectionLost();
         }
     }
 
@@ -296,7 +296,7 @@ public class Controller {
                 return;
             }
         } catch (ConnectionException e) {
-            e.printStackTrace();
+            connectionLost();
         }
         ObservableList<String> insert = FXCollections.observableArrayList(inputList);
             sound_list.setItems(insert);
@@ -306,17 +306,33 @@ public class Controller {
     //#####################  HEAD-CONTROL ##################
     //Buttons IJKL for Head-Control
 
-    public void head_up(ActionEvent actionEvent) throws Exception {
-        nao1.moveHead("up");
+    public void head_up(ActionEvent actionEvent) {
+        try {
+            nao1.moveHead("up");
+        } catch (ConnectionException e) {
+            connectionLost();
+        }
     }
-    public void head_down(ActionEvent actionEvent) throws Exception {
-        nao1.moveHead("down");
+    public void head_down(ActionEvent actionEvent) {
+        try {
+            nao1.moveHead("down");
+        } catch (ConnectionException e) {
+            connectionLost();
+        }
     }
-    public void head_left(ActionEvent actionEvent) throws Exception {
-        nao1.moveHead("left");
+    public void head_left(ActionEvent actionEvent) {
+        try {
+            nao1.moveHead("left");
+        } catch (ConnectionException e) {
+            connectionLost();
+        }
     }
-    public void head_right(ActionEvent actionEvent) throws Exception {
-        nao1.moveHead("right");
+    public void head_right(ActionEvent actionEvent) {
+        try {
+            nao1.moveHead("right");
+        } catch (ConnectionException e) {
+            connectionLost();
+        }
     }
 
     //#####################  BODY-CONTROL ##################
@@ -326,7 +342,7 @@ public class Controller {
         try {
             nao1.setMoveX(1f);
         } catch (ConnectionException e) {
-            e.printStackTrace();
+            connectionLost();
         }
 
     }
@@ -335,7 +351,7 @@ public class Controller {
         try {
             nao1.setMoveY(1f);
         } catch (ConnectionException e) {
-            e.printStackTrace();
+            connectionLost();
         }
     }
     public void backward(ActionEvent actionEvent) {
@@ -343,7 +359,7 @@ public class Controller {
         try {
             nao1.setMoveX(-1f);
         } catch (ConnectionException e) {
-            e.printStackTrace();
+            connectionLost();
         }
     }
     public void right(ActionEvent actionEvent) {
@@ -351,21 +367,21 @@ public class Controller {
         try {
             nao1.setMoveY(-1f);
         } catch (ConnectionException e) {
-            e.printStackTrace();
+            connectionLost();
         }
     }
     public void turnRight(ActionEvent actionEvent) {
         try {
             nao1.setMoveT(-1f);
         } catch (ConnectionException e) {
-            e.printStackTrace();
+            connectionLost();
         }
     }
     public void turnLeft(ActionEvent actionEvent) {
         try {
             nao1.setMoveT(1f);
         } catch (ConnectionException e) {
-            e.printStackTrace();
+            connectionLost();
         }
     }
 
@@ -375,7 +391,7 @@ public class Controller {
         try {
             nao1.sayText(TextToSay, cb_voice.getSelectionModel().getSelectedItem().toString(), pitch);
         } catch (ConnectionException e) {
-            e.printStackTrace();
+            connectionLost();
         }
     }
 
@@ -391,7 +407,7 @@ public class Controller {
                 col_picker_right.setValue(color);
             }
         } catch (ConnectionException e) {
-            e.printStackTrace();
+            connectionLost();
         }
     }
     public void colorchoice_right(ActionEvent actionEvent) {
@@ -404,7 +420,7 @@ public class Controller {
                 col_picker_left.setValue(color);
             }
         } catch (ConnectionException e) {
-            e.printStackTrace();
+            connectionLost();
         }
     }
 
@@ -439,7 +455,7 @@ public class Controller {
            try {
                nao1.playSound(sound);
            } catch (ConnectionException e) {
-               e.printStackTrace();
+               connectionLost();
            }
         lbl_toolbar.setText("play " + sound);
        }
@@ -448,7 +464,7 @@ public class Controller {
         try {
             nao1.execPosture(motion);
         } catch (ConnectionException e) {
-            e.printStackTrace();
+            connectionLost();
         }
         lbl_toolbar.setText("execute " + motion);
     }
@@ -459,7 +475,7 @@ public class Controller {
             battery_Bar.setProgress(nao1.batteryPercent());
             lbl_battery.setText(Double.toString(nao1.batteryPercent())+"%");
         } catch (ConnectionException e) {
-            e.printStackTrace();
+            connectionLost();
         }
     }
     private void settempView()  {
@@ -487,7 +503,7 @@ public class Controller {
                     midTemp.setOpacity(0.2);;
             }
         } catch (ConnectionException e) {
-            e.printStackTrace();
+            connectionLost();
         }
 
     }
@@ -532,7 +548,7 @@ public class Controller {
                 ts_rest.setSelected(false);
             }
         } catch (ConnectionException e) {
-            e.printStackTrace();
+            connectionLost();
         }
     }
 
@@ -550,27 +566,44 @@ public class Controller {
 
     //#####################  ARM-CONTROL ##################
     //Buttons TFGH for arm-control
-    public void arm_up(ActionEvent actionEvent) throws Exception {
+    public void arm_up(ActionEvent actionEvent) {
 
-        nao1.moveArm(armControl1[armModeSide][armModeJoint],-1);
+        try {
+            nao1.moveArm(armControl1[armModeSide][armModeJoint],-1);
+        } catch (ConnectionException e) {
+            connectionLost();
+        }
+
     }
-    public void arm_down(ActionEvent actionEvent) throws Exception {
-        if(armModeSide == 2){
-            nao1.moveArm(armControl1[0][armModeJoint],1);
-            nao1.moveArm(armControl1[1][armModeJoint],1);
-        } else nao1.moveArm(armControl1[armModeSide][armModeJoint],1);
+    public void arm_down(ActionEvent actionEvent) {
+        try {
+            if (armModeSide == 2) {
+                nao1.moveArm(armControl1[0][armModeJoint], 1);
+                nao1.moveArm(armControl1[1][armModeJoint], 1);
+            } else nao1.moveArm(armControl1[armModeSide][armModeJoint], 1);
+        } catch (ConnectionException e) {
+                connectionLost();
+        }
     }
-    public void arm_left(ActionEvent actionEvent) throws Exception {
-        if(armModeSide == 2){
-            nao1.moveArm(armControl2[0][armModeJoint],-1);
-            nao1.moveArm(armControl2[1][armModeJoint],-1);
-        } else nao1.moveArm(armControl2[armModeSide][armModeJoint],-1);
+    public void arm_left(ActionEvent actionEvent) {
+        try {
+            if (armModeSide == 2) {
+                nao1.moveArm(armControl2[0][armModeJoint], -1);
+                nao1.moveArm(armControl2[1][armModeJoint], -1);
+            } else nao1.moveArm(armControl2[armModeSide][armModeJoint], -1);
+        } catch (ConnectionException e){
+            connectionLost();
+        }
     }
-    public void arm_right(ActionEvent actionEvent) throws Exception {
-        if(armModeSide == 2){
-            nao1.moveArm(armControl2[0][armModeJoint],1);
-            nao1.moveArm(armControl2[1][armModeJoint],1);
-        } else nao1.moveArm(armControl2[armModeSide][armModeJoint],1);
+    public void arm_right(ActionEvent actionEvent) {
+        try {
+            if(armModeSide == 2){
+                nao1.moveArm(armControl2[0][armModeJoint],1);
+                nao1.moveArm(armControl2[1][armModeJoint],1);
+            } else nao1.moveArm(armControl2[armModeSide][armModeJoint],1);
+        } catch (ConnectionException e){
+            connectionLost();
+        }
     }
     public void handSelect(MouseEvent mouseEvent) {
         if (ts_hand.isSelected()) {
