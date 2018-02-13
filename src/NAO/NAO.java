@@ -39,12 +39,13 @@ public class NAO {
     private String tactileHeadTextFront = "";
     private String tactileHeadTextMiddle = "";
     private String tactileHeadTextRear = "";
+    public static ImageView imageView;
 
     NAO_Cam naoCam;
 
 
     public boolean establishConnection(String url){ // returns true if a connection has been established.
-        // To implement a connectiontimeout, the main connection establishment process runs in an own time limited thread.
+        // To implement a connection timeout, the main connection establishment process runs in an own time limited thread.
         // Therefore a class NAO_Connection has been implemented, which just establishes the connection and returns the session object.
         this.url = url; // set ClassVar url to url, so NAO_Connection can access it.
         ExecutorService executor = Executors.newSingleThreadExecutor(); // Create executor for the timeout
@@ -84,8 +85,7 @@ public class NAO {
         } catch (ConnectionException e) {
             e.printStackTrace();
         }
-        naoCam = new NAO_Cam(videoDevice, imageView);
-        naoCam.start();
+        this.imageView = imageView;
     }
 
     public void closeConnection() { // Closes the connection to the Nao
@@ -108,6 +108,8 @@ public class NAO {
         }
         return true;
     }
+
+
 
     public void moveHead(String direction) throws ConnectionException { // Moves Nao's head a little bit into a given direction.
         checkConnection();
@@ -389,6 +391,25 @@ public class NAO {
         }
         return true;
     }
+
+    public void toggleCamera(){
+        if (naoCam != null && naoCam.isAlive()) {
+            naoCam.interrupt();
+            naoCam = null;
+        } else {
+            naoCam = new NAO_Cam(videoDevice, imageView);
+            naoCam.start();
+        }
+    }
+
+    public boolean isCameraActivated() {
+        if (naoCam != null && naoCam.isAlive()){
+            return true;
+        }
+        return false;
+    }
+
+
 
     public void playSound(String sound) throws ConnectionException { //plays a given soundfile of the soundset "Aldebaran"
         checkConnection();

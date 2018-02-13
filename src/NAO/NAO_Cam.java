@@ -68,7 +68,6 @@ public class NAO_Cam extends Thread{
                     @Override
                     public void run() {
                         // entsprechende UI Komponente updaten
-                        //Controller.updateImage(image); OLD
                         imageView.setImage(image);
                     }
                 });
@@ -84,7 +83,7 @@ public class NAO_Cam extends Thread{
 
                 sleep(500);
             } catch (InterruptedException ex) {
-                ex.printStackTrace();
+                this.interrupt();
             }
         }
 

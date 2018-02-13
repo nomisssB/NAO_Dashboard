@@ -25,7 +25,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.ToggleSwitch?>
 
-<AnchorPane fx:id="pane_main" onMouseClicked="#setFocus" prefHeight="628.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="naoDash_main.Controller">
+<AnchorPane fx:id="pane_main" onMouseClicked="#setFocus" prefHeight="628.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="naoDash_main.Controller">
     <stylesheets>
         <URL value="@style_main_scene.css" />
     </stylesheets>
@@ -109,7 +109,7 @@
                                 <ImageView fx:id="imageView11" fitHeight="150.0" fitWidth="200.0" layoutX="53.0" pickOnBounds="true" preserveRatio="true" />
                             </children></Pane>
                         <Label layoutY="2.0" prefHeight="14.0" prefWidth="200.0" styleClass="headlines" text="LiveView" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0" />
-                        <ToggleSwitch fx:id="ts_camera" layoutX="185.0" layoutY="5.0" onMouseClicked="#activate_imageTimeline" />
+                        <ToggleSwitch fx:id="ts_camera" layoutX="185.0" layoutY="5.0" onMouseClicked="#toggle_Camera" />
                     </children>
                     <styleClass>
                         <String fx:value="module" />
@@ -217,7 +217,7 @@
                 </AnchorPane>
                 <AnchorPane layoutX="320.0" layoutY="165.0" prefHeight="48.0" prefWidth="150.0">
                     <children>
-                        <Slider fx:id="sldr_volume" blockIncrement="1.0" layoutY="24.0" majorTickUnit="100.0" minorTickCount="0" snapToTicks="true" value="50.0" />
+                        <Slider fx:id="sldr_volume" blockIncrement="1" layoutY="24.0" majorTickUnit="50.0" minorTickCount="1" snapToTicks="true" value="50.0" />
                         <Label layoutX="4.0" styleClass="headlines" text="volume" />
                     </children>
                     <styleClass>

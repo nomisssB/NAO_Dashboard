@@ -42,7 +42,7 @@ public class Controller {
     private float motionspeed = 0.5f;
     private float pitch = 0f;
     private Color color;
-    private static Timeline batteryTimeline, tempTimeline, connectionCheckTimeline, imageTimeline;
+    private static Timeline batteryTimeline, tempTimeline, connectionCheckTimeline;
     public static Stage prefs;
     private int armModeJoint = 0;
     private int armModeSide = 1;
@@ -64,8 +64,6 @@ public class Controller {
     public ToggleSwitch ts_shoulder, ts_elbow, ts_hand, ts_mirror_led, ts_camera, ts_rest;
     public Circle highTemp, midTemp, lowTemp;
     public ImageView imageView11 = new ImageView();
-    public static ImageView test;
-    public Button btn_test;
 
     //Constructor (Called first, then FXML Annotations, then initalize
     public Controller() {
@@ -87,7 +85,7 @@ public class Controller {
         armControl1[0][2] = "RHand";
         armControl2[0][2] = "RWristYaw";
 
-        test = imageView11;
+
         /*        //things to do when closing the program/thread
         Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
             public void run() {
@@ -238,8 +236,8 @@ public class Controller {
             }
         });
 
-
     nao1.initialize(imageView11);
+
     try {
         //fill ListView, Choicebox
             fillPostureList(nao1.getPostures());
@@ -253,12 +251,17 @@ public class Controller {
                 ts_rest.setSelected(false);
             }
 
+            if(nao1.isCameraActivated()){
+                ts_camera.setSelected(true);
+            } else {
+                ts_camera.setSelected(false);
+            }
+
             //initializes value for battery-ProgressBar and starts timeline for battery and temperature refresh
             battery_Bar.setProgress(nao1.batteryPercent());
             startConnectionCheck();
             batteryViewer();
             tempViewer();
-            //imageViewer();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -384,7 +387,7 @@ public class Controller {
         try {
             nao1.changeEyeColor("Left", color);
             if(ts_mirror_led.isSelected()){
-                nao1.changeEyeColor("Left",color);
+                nao1.changeEyeColor("Right",color);
                 col_picker_right.setValue(color);
             }
         } catch (ConnectionException e) {
@@ -397,7 +400,7 @@ public class Controller {
         try {
             nao1.changeEyeColor("Right", color);
             if(ts_mirror_led.isSelected()){
-                nao1.changeEyeColor("Right",color);
+                nao1.changeEyeColor("Left",color);
                 col_picker_left.setValue(color);
             }
         } catch (ConnectionException e) {
@@ -517,26 +520,7 @@ public class Controller {
         tempTimeline.setCycleCount(Animation.INDEFINITE);
         tempTimeline.play();
     }
-    private void imageViewer(){
-        imageTimeline = new Timeline(new KeyFrame(
-                Duration.millis(500),
-                ae -> {
-                    try {
-                        imageView11.setImage(nao1.getCameraStream(0));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }));
-        imageTimeline.setCycleCount(Animation.INDEFINITE);
-    }
 
-    public void activate_imageTimeline(MouseEvent mouseEvent) {
-        if (imageTimeline.getStatus() == Animation.Status.RUNNING) {
-            imageTimeline.stop();
-        } else {
-            imageTimeline.play();
-        }
-    }
 
     public void set_switchRest (MouseEvent mouseEvent) {
 
@@ -550,6 +534,18 @@ public class Controller {
         } catch (ConnectionException e) {
             e.printStackTrace();
         }
+    }
+
+    public void toggle_Camera (){
+        nao1.toggleCamera();
+        if(nao1.isCameraActivated()){
+            imageView11.setVisible(true);
+            ts_camera.setSelected(true);
+        } else {
+            imageView11.setVisible(false);
+            ts_camera.setSelected(false);
+        }
+
     }
 
     //#####################  ARM-CONTROL ##################
@@ -638,7 +634,6 @@ public class Controller {
         batteryTimeline.stop();
         tempTimeline.stop();
         connectionCheckTimeline.stop();
-        imageTimeline.stop();
         rootWindow.hide();
         loginWindow.show();
         Alert connectionAlert = new Alert(Alert.AlertType.WARNING);//When the connection couldn't be established
@@ -654,19 +649,7 @@ public class Controller {
         pane_main.requestFocus();
     }
 
-    public void updateImage(Image image){
-        System.out.println("update image #2");
-        imageView11.setImage(image);
-        System.out.println("donw");
-    }
 
-    public void test(ActionEvent actionEvent) {
-        try {
-            imageView11.setImage(nao1.getCameraStream(0));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
 
 
