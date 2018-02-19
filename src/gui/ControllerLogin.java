@@ -62,6 +62,10 @@ public class ControllerLogin {
                         "\ne.g. wrong WiFi-Network or ip-address/port");
                 alert.showAndWait();
                 }else { // when connection was successfully established
+                if(!checkDuplicate(robotURL,connection_list.getItems())) { // Check for an already existing entry in connection list
+                    connection_list.getItems().add(robotURL);
+                    store();
+                }
                 try {
                     Parent root = FXMLLoader.load(getClass().getResource("/scene_main.fxml"));
                     rootWindow = new Stage(); // create stage for main-window
@@ -69,10 +73,6 @@ public class ControllerLogin {
                     rootWindow.setResizable(false); // static window size
                     rootWindow.show(); // shows main-window
                     loginWindow.hide(); // hides current-window (login-window)
-                    if(!checkDuplicate(robotURL,connection_list.getItems())) { // Check for an already existing entry in connection list
-                        connection_list.getItems().add(robotURL);
-                        store();
-                    }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

@@ -37,9 +37,6 @@ public class ControllerMain {
     private int armModeJoint = 0;
     private int armModeSide = 1;
     private String[][] armControl1, armControl2;
-    private boolean lowBat;
-    private boolean midBat;
-    private boolean highBat;
 
     //FXML Annotations
     @FXML
@@ -262,7 +259,7 @@ public class ControllerMain {
         }
     }
 
-    //#####################  CONNECTION ####################
+    // #####################  Connection Control ####################
     @FXML
     private void disconnect(ActionEvent actionEvent) {
         nao1.closeConnection();
@@ -274,7 +271,29 @@ public class ControllerMain {
         loginWindow.show();
     }
 
-    // FILLERS
+    private void checkConnection(){
+        if (!nao1.checkConnection(true)) {
+            connectionLost();
+        }
+    }
+    //What happens when NAO-connection is lost
+    private static void connectionLost (){
+        nao1.closeConnection();
+        nao1 = null;
+        batteryTimeline.stop();
+        tempTimeline.stop();
+        connectionCheckTimeline.stop();
+        rootWindow.hide();
+        loginWindow.show();
+        Alert connectionAlert = new Alert(Alert.AlertType.WARNING);//When the connection couldn't be established
+        connectionAlert.setTitle("Connection lost!");
+        connectionAlert.setHeaderText("Something went wrong...");
+        connectionAlert.setContentText("Connection has been lost. \nThis could be caused due to different reasons..." +
+                "\ne.g. Network failed");
+        connectionAlert.show();
+    }
+
+    // #####################  Fillers ####################
     private void fillPostureList(List<String> inputList) {
         ObservableList<String> insert = FXCollections.observableArrayList(inputList);
         motion_list.setItems(insert);
@@ -288,7 +307,7 @@ public class ControllerMain {
 
     private void fillSoundList(List<String> inputList) {
         try {
-            if (nao1.getSoundFiles()==null){
+            if (nao1.getSoundFiles()==null){ // if there are no sound files, hide gui-module for sounds
                 pane_sounds.setVisible(false);
                 return;
             }
@@ -301,7 +320,7 @@ public class ControllerMain {
 
 
     //#####################  HEAD-CONTROL ##################
-    //Buttons IJKL for Head-Control
+    //Buttons IJKL for head control, call "moveHead"-method in Nao-Class with corresponding parameters
 
     public void head_up(ActionEvent actionEvent) {
         try {
@@ -336,7 +355,8 @@ public class ControllerMain {
     }
 
     //#####################  BODY-CONTROL ##################
-    // Buttons WASD for Body-Control
+    // Buttons WASD (direction) TE (angle) for body control, call corresponding "setMove_" in Nao-Class with direction (1f/-1f)
+
     public void forward(ActionEvent actionEvent) {
         lbl_toolbar.setText("forward");
         try {
@@ -391,7 +411,8 @@ public class ControllerMain {
     }
 
 
-    //#####################  SAY-TEXT #####################
+    // #####################  SAY-TEXT #####################
+    // calls "sayText"-method in Nao-class with parameters "TextToSay" from textfield, "Voice" from choicebox and pitch effect value
     public void sayText(ActionEvent actionEvent)  {
         String TextToSay = txt_sayText.getText();
         try {
@@ -402,10 +423,11 @@ public class ControllerMain {
     }
 
 
-    //#####################  LED-CONTROL ##################
-    //After picking a color in ColorPicker
+    // #####################  LED-CONTROL ##################
+    // After picking a color in ColorPicker
+    // calls method "changeEyeColor" in Nao-class with corresponding parameters
     public void colorchoice_left(ActionEvent actionEvent) {
-        color = col_picker_left.getValue();
+        color = col_picker_left.getValue(); // get Value from color-picker
         lbl_toolbar.setText(color.toString());
         try {
             nao1.changeEyeColor("Left", color);
@@ -433,13 +455,13 @@ public class ControllerMain {
     }
 
 
-    //#####################  MENU-BAR ##################
+    // #####################  MENU-BAR ##################
     public void menu_quit(ActionEvent actionEvent) {
         System.exit(0);
     }
 
     public void menu_help(ActionEvent actionEvent) {
-
+        // opens information-dialogue
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About...");
         alert.setHeaderText("NAO Dashboard V1.0 Beta");
@@ -448,8 +470,8 @@ public class ControllerMain {
         alert.showAndWait();
     }
 
-
-    //  Executors for sound and postures
+    // #####################  Executors for sound and postures ##################
+    // calls methods in Nao-class with corresponding parameters
     public void p_sound(ActionEvent actionEvent) {
         String sound = sound_list.getSelectionModel().getSelectedItem();
            try {
@@ -474,9 +496,8 @@ public class ControllerMain {
     // Setter
     private void setbatteryView() {
         try {
-            lowBat=nao1.getBatteryPercent()<=20;
-            midBat=(nao1.getBatteryPercent()> 20) && (nao1.getBatteryPercent()<50);
-            highBat=nao1.getBatteryPercent()>=50;
+            boolean lowBat = nao1.getBatteryPercent() <= 20;
+            boolean midBat = (nao1.getBatteryPercent() > 20) && (nao1.getBatteryPercent() < 50);
             if(lowBat) {
                 battery_Bar.setStyle("-fx-progress-color: red");
             }else if (midBat){
@@ -522,11 +543,6 @@ public class ControllerMain {
 
     }
 
-    private void checkConnection(){
-        if (!nao1.checkConnection(true)) {
-            connectionLost();
-        }
-    }
 
 
     //timelines for battery and temperature refresh and Connection check
@@ -690,31 +706,9 @@ public class ControllerMain {
     }
 
 
-    //What happens when NAO-connection is lost
-    public static void connectionLost (){
-        nao1.closeConnection();
-        nao1 = null;
-        batteryTimeline.stop();
-        tempTimeline.stop();
-        connectionCheckTimeline.stop();
-        rootWindow.hide();
-        loginWindow.show();
-        Alert connectionAlert = new Alert(Alert.AlertType.WARNING);//When the connection couldn't be established
-        connectionAlert.setTitle("Connection lost!");
-        connectionAlert.setHeaderText("Something went wrong...");
-        connectionAlert.setContentText("Connection has been lost. \nThis could be caused due to different reasons..." +
-                "\ne.g. Network failed");
-        connectionAlert.show();
-    }
-
-
     //When clicking on main-pane then deselect textfields etc...
     @FXML
     private void setFocus(MouseEvent mouseEvent) {
         pane_main.requestFocus();
     }
-
-
 }
-
-
