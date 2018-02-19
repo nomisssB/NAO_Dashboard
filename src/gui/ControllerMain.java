@@ -3,8 +3,6 @@ package gui;
 FILE: Controller.java
 USAGE: Controller for Main-Dashboard-Window. Contains all Methods which are needed for GUI-control
  */
-
-
 import nao.ConnectionException;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -31,7 +29,7 @@ import static gui.ControllerLogin.rootWindow;
 
 public class ControllerMain {
 
-    //Variable declaration
+    // Variables declaration
     private float motionspeed = 0.5f;
     private float pitch = 0f;
     private Color color;
@@ -65,7 +63,7 @@ public class ControllerMain {
     private ToggleSwitch ts_shoulder, ts_elbow, ts_hand, ts_mirror_led, ts_camera, ts_rest;
     @FXML
     private Circle highTemp, midTemp, lowTemp;
-    // ImageView
+    // ImageView must be public due to the special camera-thread
     public ImageView imageView11;
 
     //Constructor (Called first, then FXML Annotations, then "initialize"
@@ -92,9 +90,7 @@ public class ControllerMain {
 
     @FXML
     public void initialize() throws IOException {
-
-
-//        Listener for sliders
+        // Listener for sliders
         sldr_speed.valueProperty().addListener((observable, oldValue, newValue) -> {
             lbl_toolbar.setText("value: " + newValue.floatValue());
             motionspeed = newValue.floatValue();

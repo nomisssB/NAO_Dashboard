@@ -26,39 +26,37 @@
          <rowConstraints>
             <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
          </rowConstraints>
-         <children>
-            <TextField fx:id="txt_ipaddress" promptText="IP ADDRESS">
-               <tooltip>
-                  <Tooltip text="e.g. 192.168.1.123" />
-               </tooltip>
-            </TextField>
-            <TextField fx:id="txt_port" promptText="PORT" GridPane.columnIndex="1">
-               <tooltip>
-                  <Tooltip text="e.g. 34486" />
-               </tooltip>
-            </TextField>
-            <Button fx:id="btn_connect" mnemonicParsing="false" onAction="#connect" prefHeight="25.0" prefWidth="129.0" text="Connect" GridPane.columnIndex="2">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </Button>
-         </children>
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
+         <TextField fx:id="txt_ipaddress" promptText="IP ADDRESS">
+            <tooltip>
+               <Tooltip text="e.g. 192.168.1.123" />
+            </tooltip>
+         </TextField>
+         <TextField fx:id="txt_port" promptText="PORT" GridPane.columnIndex="1">
+            <tooltip>
+               <Tooltip text="e.g. 34486" />
+            </tooltip>
+         </TextField>
+         <Button mnemonicParsing="false" onAction="#connect" prefHeight="25.0" prefWidth="129.0" text="Connect" GridPane.columnIndex="2">
+            <GridPane.margin>
+               <Insets />
+            </GridPane.margin>
+         </Button>
       </GridPane>
       <Button fx:id="btn_delete" layoutX="253.0" layoutY="264.0" mnemonicParsing="false" onAction="#deleteEntry" prefHeight="36.0" prefWidth="36.0" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="311.0">
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding></Button>
-      <Button fx:id="btn_close" layoutX="45.0" layoutY="266.0" mnemonicParsing="false" onAction="#close" prefHeight="25.0" prefWidth="128.0" text="close" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="427.0">
+      <Button layoutX="45.0" layoutY="266.0" mnemonicParsing="false" onAction="#close" prefHeight="25.0" prefWidth="128.0" text="close" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="427.0">
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding></Button>
-      <ListView fx:id="connection_list" layoutX="336.0" layoutY="48.0" onMouseClicked="#fill_txt" prefHeight="252.0" prefWidth="258.0" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="48.0">
+      <ListView fx:id="connection_list" layoutX="336.0" layoutY="48.0" onMouseClicked="#fillTxt" prefHeight="252.0" prefWidth="258.0" AnchorPane.bottomAnchor="60.0" AnchorPane.rightAnchor="45.0" AnchorPane.topAnchor="48.0">
          <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding></ListView>
-      <Label fx:id="h_connections" layoutX="336.0" layoutY="21.0" text="last (successful) connections:" />
+      <Label layoutX="336.0" layoutY="21.0" text="last (successful) connections:" />
    </children>
 </AnchorPane>
