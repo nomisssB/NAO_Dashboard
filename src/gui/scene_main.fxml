@@ -25,9 +25,9 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.ToggleSwitch?>
 
-<AnchorPane fx:id="pane_main" onMouseClicked="#setFocus" prefHeight="628.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller">
+<AnchorPane fx:id="pane_main" onMouseClicked="#setFocus" prefHeight="628.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ControllerMain">
     <stylesheets>
-        <URL value="@style_main_scene.css" />
+        <URL value="@style.css" />
     </stylesheets>
 
     <children>
@@ -35,7 +35,6 @@
             <menus>
                 <Menu fx:id="menu1" mnemonicParsing="false" text="File">
                     <items>
-                        <MenuItem fx:id="menu_prefs" mnemonicParsing="false" onAction="#menu_prefs" text="Preferences…" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                         <MenuItem mnemonicParsing="false" onAction="#menu_quit" text="Quit" />
                     </items>

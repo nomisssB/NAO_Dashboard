@@ -3,6 +3,8 @@ package gui;
 FILE: Controller.java
 USAGE: Controller for Main-Dashboard-Window. Contains all Methods which are needed for GUI-control
  */
+
+
 import nao.ConnectionException;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -10,8 +12,6 @@ import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.*;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.scene.image.ImageView;
@@ -19,25 +19,23 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.ToggleSwitch;
 import java.io.IOException;
 import java.util.List;
 
-import static naoDash_main.Main.loginWindow;
-import static gui.LoginController.nao1;
-import static gui.LoginController.rootWindow;
+import static main.Main.loginWindow;
+import static gui.ControllerLogin.nao1;
+import static gui.ControllerLogin.rootWindow;
 
 
-public class Controller {
+public class ControllerMain {
 
     //Variable declaration
     private float motionspeed = 0.5f;
     private float pitch = 0f;
     private Color color;
     private static Timeline batteryTimeline, tempTimeline, connectionCheckTimeline;
-    public static Stage prefs;
     private int armModeJoint = 0;
     private int armModeSide = 1;
     private String[][] armControl1, armControl2;
@@ -67,11 +65,12 @@ public class Controller {
     private ToggleSwitch ts_shoulder, ts_elbow, ts_hand, ts_mirror_led, ts_camera, ts_rest;
     @FXML
     private Circle highTemp, midTemp, lowTemp;
-    @FXML
-    private ImageView imageView11;
+    // ImageView
+    public ImageView imageView11;
 
-    //Constructor (Called first, then FXML Annotations, then initalize
-    public Controller() {
+    //Constructor (Called first, then FXML Annotations, then "initialize"
+
+    public ControllerMain() {
         // Arrays to determine the right joint for the arm control.
         // first digit is for left/right // second digit for wrist/elbow/shoulder
         // 1 -> left, 0-> right || 0 -> shoulder, 1 -> Elbow, 2 -> Hand/Wrist
@@ -233,7 +232,7 @@ public class Controller {
             }
         });
 
-    nao1.initialize(imageView11);
+        nao1.initialize(imageView11);
 
         try {
             //fill ListView, Choicebox
@@ -264,7 +263,7 @@ public class Controller {
         }
     }
 
-    //#####################  CONNECTION ##################
+    //#####################  CONNECTION ####################
     @FXML
     private void disconnect(ActionEvent actionEvent) {
         nao1.closeConnection();
@@ -450,18 +449,6 @@ public class Controller {
         alert.showAndWait();
     }
 
-    public void menu_prefs(ActionEvent actionEvent) {
-        try {
-            Parent prefsParent = FXMLLoader.load(getClass().getResource("../gui/preferences.fxml"));
-            prefs = new Stage();
-            prefs.setScene(new Scene(prefsParent));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        prefs.show();
-    }
-
 
     //  Executors for sound and postures
     public void p_sound(ActionEvent actionEvent) {
@@ -582,6 +569,7 @@ public class Controller {
         }
 
     }
+
 
     //#####################  ARM-CONTROL #########################
     //Buttons TFGH for arm-control

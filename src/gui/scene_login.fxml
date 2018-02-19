@@ -12,9 +12,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane fx:id="pane_login" prefHeight="360.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LoginController">
+<AnchorPane fx:id="pane_login" prefHeight="360.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ControllerLogin">
    <stylesheets>
-      <URL value="@style_main_scene.css" />
+      <URL value="@style.css" />
    </stylesheets>
    <children>
       <GridPane hgap="8.0" layoutX="45.0" layoutY="310.0" prefHeight="36.0" prefWidth="510.0" styleClass="module" vgap="8.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="45.0" AnchorPane.rightAnchor="45.0">
