@@ -61,9 +61,10 @@
                         <Button fx:id="btn_a" layoutX="10.0" layoutY="68.0" mnemonicParsing="false" onAction="#left" styleClass="movingbutton" text="A" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="10.0" />
                         <Slider fx:id="sldr_speed" blockIncrement="0.01" layoutX="17.0" layoutY="117.0" max="1.0" prefHeight="17.0" prefWidth="112.0" value="0.5" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                         <Label layoutX="12.0" styleClass="headlines" text="body control" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <Label layoutX="-3.0" layoutY="98.0" prefHeight="24.0" prefWidth="149.0" styleClass="headlines" text="speed" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                        <Label layoutX="1.0" layoutY="130.0" prefHeight="24.0" prefWidth="149.0" styleClass="headlines" text="speed" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" />
                         <Button fx:id="btn_e" layoutX="100.0" layoutY="34.0" mnemonicParsing="false" onAction="#turnRight" prefHeight="30.0" prefWidth="41.0" styleClass="movingbutton" text="E" />
                         <Button fx:id="btn_q" layoutX="10.0" layoutY="34.0" mnemonicParsing="false" onAction="#turnLeft" prefHeight="30.0" prefWidth="41.0" styleClass="movingbutton" text="Q" />
+                  <Button layoutX="35.0" layoutY="104.0" mnemonicParsing="false" onAction="#stopWalk" text="stop moving" />
                     </children>
                     <styleClass>
                         <String fx:value="module" />
@@ -85,10 +86,10 @@
                         <String fx:value="once" />
                     </styleClass>
                 </AnchorPane>
-                <AnchorPane layoutX="611.0" prefHeight="236.0" prefWidth="169.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <AnchorPane layoutX="611.0" prefHeight="239.0" prefWidth="169.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <Label layoutX="1.0" prefHeight="14.0" prefWidth="150.0" styleClass="headlines" text="Predefined Motions" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <ListView fx:id="motion_list" layoutX="10.0" layoutY="25.0" prefHeight="164.0" prefWidth="149.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="25.0">
+                        <ListView fx:id="motion_list" layoutX="10.0" layoutY="25.0" prefHeight="164.0" prefWidth="130.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="25.0">
                             <cursor>
                                 <Cursor fx:constant="HAND" />
                             </cursor>
@@ -100,7 +101,7 @@
                         <String fx:value="once" />
                     </styleClass>
                 </AnchorPane>
-                <AnchorPane layoutX="320.0" layoutY="228.0" prefHeight="221.0" prefWidth="292.0">
+                <AnchorPane layoutX="320.0" layoutY="229.0" prefHeight="221.0" prefWidth="292.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="320.0">
                     <children>
                           <ImageView fx:id="imageView11" fitHeight="156.0" fitWidth="270.0" layoutX="55.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
                         <Label layoutY="2.0" prefHeight="14.0" prefWidth="200.0" styleClass="headlines" text="LiveView" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="2.0" />
@@ -113,12 +114,12 @@
                 </AnchorPane>
                 <AnchorPane layoutY="-3.0" prefHeight="200.0" prefWidth="150.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
-                        <TextField fx:id="txt_sayText" layoutX="10.0" layoutY="15.0" prefHeight="25.0" prefWidth="142.0" promptText="Let me say something..." AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="15.0" />
+                        <TextField fx:id="txt_sayText" layoutX="10.0" layoutY="25.0" prefHeight="25.0" prefWidth="142.0" promptText="Let me say something..." AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="25.0" />
                         <Button fx:id="btn_sayText" layoutX="10.0" layoutY="46.0" mnemonicParsing="false" onAction="#sayText" prefHeight="25.0" prefWidth="149.0" text="say" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                         <Slider fx:id="sldr_pitch" blockIncrement="0.1" disable="true" layoutX="5.0" layoutY="111.0" majorTickUnit="0.1" max="4.0" min="1.0" minorTickCount="0" snapToTicks="true" value="1.0" AnchorPane.bottomAnchor="88.19999999999999" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
                         <ChoiceBox fx:id="cb_voice" layoutX="10.0" layoutY="143.0" prefHeight="25.0" prefWidth="130.0" AnchorPane.bottomAnchor="44.999999999999986" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                         <Label layoutX="10.0" layoutY="120.0" styleClass="headlines" text="voice" AnchorPane.bottomAnchor="69.19999999999999" />
-                        <CheckBox fx:id="chb_pitch" layoutX="13.0" layoutY="86.0" mnemonicParsing="false" styleClass="headlines" text="pitch" AnchorPane.bottomAnchor="100.79999999999998" AnchorPane.leftAnchor="5.0" />
+                        <CheckBox fx:id="chb_pitch" layoutX="5.0" layoutY="67.80000000000001" mnemonicParsing="false" styleClass="headlines" text="activate pitch" AnchorPane.bottomAnchor="105.79999999999998" AnchorPane.leftAnchor="5.0" />
                     </children>
                     <styleClass>
                         <String fx:value="module" />
@@ -138,10 +139,10 @@
                         <String fx:value="once" />
                     </styleClass>
                 </AnchorPane>
-                <AnchorPane fx:id="pane_sounds" layoutX="159.0" prefHeight="327.0" prefWidth="169.0" AnchorPane.bottomAnchor="191.0" AnchorPane.topAnchor="0.0">
+                <AnchorPane fx:id="pane_sounds" layoutX="159.0" prefHeight="327.0" prefWidth="169.0" AnchorPane.bottomAnchor="191.0" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="0.0">
                     <children>
                         <Label layoutX="10.0" layoutY="2.0" prefHeight="24.0" prefWidth="150.0" styleClass="headlines" text="Predefined Sounds" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <ListView fx:id="sound_list" layoutX="10.0" layoutY="25.0" prefHeight="144.0" prefWidth="130.0" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="25.0">
+                        <ListView fx:id="sound_list" layoutX="10.0" layoutY="25.0" prefHeight="261.0" prefWidth="130.0" AnchorPane.bottomAnchor="41.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="25.0">
                             <cursor>
                                 <Cursor fx:constant="HAND" />
                             </cursor>
@@ -193,13 +194,15 @@
                         <CheckBox fx:id="chb_left" layoutX="19.0" layoutY="107.0" mnemonicParsing="false" onMouseClicked="#armLeftChecked" styleClass="headlines" text="left" />
                         <CheckBox fx:id="chb_right" disable="true" layoutX="65.0" layoutY="107.0" mnemonicParsing="false" onMouseClicked="#armRightChecked" selected="true" styleClass="headlines" text="right" />
                         <CheckBox fx:id="chb_mirror_arm" layoutX="38.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#armMirrorChecked" styleClass="headlines" text="mirror" />
+                  <ToggleSwitch fx:id="ts_armMovement" layoutX="72.0" layoutY="163.0" onMouseClicked="#toggleMoveArms" AnchorPane.rightAnchor="15.0" />
+                  <Label layoutX="11.0" layoutY="162.0" styleClass="headlines" text="while walking" />
                     </children>
                     <styleClass>
                         <String fx:value="module" />
                         <String fx:value="once" />
                     </styleClass>
                 </AnchorPane>
-                <AnchorPane layoutX="159.0" layoutY="337.0" prefHeight="181.0" prefWidth="150.0" styleClass="module">
+                <AnchorPane layoutX="159.0" layoutY="337.0" prefHeight="181.0" prefWidth="150.0" styleClass="module" AnchorPane.bottomAnchor="-0.0" AnchorPane.leftAnchor="160.0">
                     <children>
                         <TextField fx:id="txt_tactileFront" layoutX="10.0" layoutY="45.0" promptText="front" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="45.0" />
                         <TextField fx:id="txt_tactileMiddle" layoutX="10.0" layoutY="91.0" promptText="middle" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="91.0" />
@@ -210,37 +213,33 @@
                         <Label layoutX="3.0" layoutY="116.0" prefHeight="20.0" prefWidth="75.0" styleClass="headlines" text="rear" AnchorPane.leftAnchor="0.0" />
                     </children>
                 </AnchorPane>
-                <AnchorPane layoutX="320.0" layoutY="165.0" prefHeight="48.0" prefWidth="150.0">
+                <AnchorPane layoutX="480.0" prefHeight="194.0" prefWidth="174.0">
                     <children>
-                        <Slider fx:id="sldr_volume" blockIncrement="1" layoutY="24.0" majorTickUnit="50.0" minorTickCount="1" snapToTicks="true" value="50.0" />
-                        <Label layoutX="4.0" styleClass="headlines" text="volume" />
-                    </children>
-                    <styleClass>
-                        <String fx:value="module" />
-                        <String fx:value="once" />
-                    </styleClass>
-                </AnchorPane>
-                <AnchorPane layoutX="480.0" prefHeight="82.0" prefWidth="120.0">
-                    <children>
-                        <ProgressBar fx:id="battery_Bar" layoutX="14.0" layoutY="26.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="48.0" progress="0.37" />
-                        <AnchorPane fx:id="temp_pane" layoutX="96.0" layoutY="8.0" prefHeight="1.0" prefWidth="11.0">
+                        <ProgressBar fx:id="battery_Bar" layoutX="20.0" layoutY="45.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="48.0" progress="0.37" AnchorPane.bottomAnchor="119.0" AnchorPane.leftAnchor="20.0" />
+                        <AnchorPane fx:id="temp_pane" layoutX="99.0" layoutY="85.0" prefHeight="68.0" prefWidth="28.0" AnchorPane.bottomAnchor="83.0" AnchorPane.rightAnchor="25.0">
                             <children>
-                                <Circle fx:id="highTemp" fill="DODGERBLUE" layoutX="12.0" layoutY="19.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
-                                <Circle fx:id="midTemp" fill="DODGERBLUE" layoutX="12.0" layoutY="40.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="22.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="25.0" />
-                                <Circle fx:id="lowTemp" fill="DODGERBLUE" layoutX="13.0" layoutY="64.0" radius="7.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="42.0" />
+                                <Circle fx:id="highTemp" fill="DODGERBLUE" layoutX="12.0" layoutY="19.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
+                                <Circle fx:id="midTemp" fill="DODGERBLUE" layoutX="19.0" layoutY="35.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" />
+                                <Circle fx:id="lowTemp" fill="DODGERBLUE" layoutX="13.0" layoutY="64.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="42.0" />
                             </children>
                         </AnchorPane>
-                        <Label fx:id="lbl_battery" layoutX="18.0" layoutY="32.0" prefHeight="17.0" prefWidth="40.0" textAlignment="CENTER">
+                        <Label fx:id="lbl_battery" layoutX="20.0" layoutY="50.8" prefHeight="17.0" prefWidth="47.0" AnchorPane.bottomAnchor="126.0" AnchorPane.leftAnchor="20.0">
                             <font>
                                 <Font size="8.0" />
                             </font></Label>
+                        <Slider fx:id="sldr_volume" blockIncrement="1" layoutX="14.0" layoutY="90.0" majorTickUnit="50.0" minorTickCount="1" prefWidth="140.0" snapToTicks="true" value="50.0" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
+                      <ToggleSwitch fx:id="ts_rest" layoutX="32.0" layoutY="114.0" onMouseClicked="#set_switchRest" AnchorPane.bottomAnchor="20.0" />
+                  <Label layoutX="3.0" layoutY="113.0" prefHeight="24.0" prefWidth="59.0" styleClass="headlines" text="rest" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" />
+                  <Label layoutX="84.0" layoutY="113.0" prefHeight="24.0" prefWidth="59.0" styleClass="headlines" text="wake up" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="0.0" />
+                  <Label layoutX="51.0" layoutY="145.0" styleClass="headlines" text="volume" AnchorPane.bottomAnchor="64.0" />
+                  <Label layoutX="21.0" layoutY="73.0" styleClass="headlines" text="battery" AnchorPane.bottomAnchor="150.0" />
+                  <Label layoutX="92.0" layoutY="61.0" styleClass="headlines" text="temp" AnchorPane.bottomAnchor="150.0" />
                     </children>
                     <styleClass>
                         <String fx:value="module" />
                         <String fx:value="once" />
                     </styleClass>
                 </AnchorPane>
-                <ToggleSwitch fx:id="ts_rest" layoutX="529.0" layoutY="156.0" onMouseClicked="#set_switchRest" />
 
             </children>
         </AnchorPane>
