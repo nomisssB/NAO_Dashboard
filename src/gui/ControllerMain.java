@@ -39,6 +39,9 @@ public class ControllerMain {
     private int armModeJoint = 0;
     private int armModeSide = 1;
     private String[][] armControl1, armControl2;
+    private boolean lowBat;
+    private boolean midBat;
+    private boolean highBat;
 
     //FXML Annotations
     @FXML
@@ -475,6 +478,17 @@ public class ControllerMain {
     // Setter
     private void setbatteryView() {
         try {
+            lowBat=nao1.getBatteryPercent()<=20;
+            midBat=(nao1.getBatteryPercent()> 20) && (nao1.getBatteryPercent()<50);
+            highBat=nao1.getBatteryPercent()>=50;
+            if(lowBat) {
+                battery_Bar.setStyle("-fx-progress-color: red");
+            }else if (midBat){
+                battery_Bar.setStyle("-fx-progress-color: yellow");
+            }
+            else{
+                battery_Bar.setStyle("-fx-progress-color: lime");
+            }
             battery_Bar.setProgress(nao1.getBatteryPercent());
             lbl_battery.setText(Double.toString(nao1.getBatteryPercent())+"%");
         } catch (ConnectionException e) {

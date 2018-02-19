@@ -10,5 +10,6 @@
     <orderEntry type="library" name="java-naoqi-sdk-2.1.4.13-linux64" level="project" />
     <orderEntry type="library" name="controlsfx-9.0.0" level="project" />
     <orderEntry type="library" name="java-naoqi-sdk-2.1.4.13-mac64(1)1" level="project" />
+    <orderEntry type="library" name="java-naoqi-sdk-2.1.4.13-mac64(1)" level="project" />
   </component>
 </module>
