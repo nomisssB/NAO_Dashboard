@@ -178,7 +178,7 @@ public class NAO {
         }
     }
 
-    public void switchRest() throws ConnectionException {   //Switch between rest and wakeUp
+    public void toggleRest() throws ConnectionException {   //Switch between rest and wakeUp
         checkConnection();                                  // wakes up if rest and otherwise
 
         try {
