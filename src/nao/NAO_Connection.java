@@ -1,6 +1,5 @@
-package NAO;
+package nao;
 
-import com.aldebaran.qi.Callback;
 import com.aldebaran.qi.Session;
 
 import java.util.concurrent.Callable;

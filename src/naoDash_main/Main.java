@@ -15,7 +15,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        Parent login = FXMLLoader.load(getClass().getResource("../GUI/login.fxml"));
+        Parent login = FXMLLoader.load(getClass().getResource("../gui/login.fxml"));
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.setTitle("NaoDashboard MSKM - LOGIN");
         final Scene scene = new Scene(login);

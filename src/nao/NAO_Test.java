@@ -1,8 +1,4 @@
-package NAO;
-
-import javafx.scene.paint.Color;
-
-import java.net.InetAddress;
+package nao;
 
 public class NAO_Test {
     public static void main(String[] args) throws Exception {

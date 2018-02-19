@@ -1,12 +1,10 @@
-package NAO;
+package nao;
 
-import com.aldebaran.qi.CallError;
 import com.aldebaran.qi.helper.proxies.ALVideoDevice;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import naoDash_main.Controller;
 
 import java.awt.image.BufferedImage;
 import java.nio.ByteBuffer;

@@ -1,9 +1,9 @@
-package GUI;
+package gui;
 /*
 FILE: LoginController.java
 USAGE: Controls "Login-Window" (Connection establishment)
  */
-import NAO.NAO;
+import nao.NAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -71,9 +71,10 @@ public class LoginController{
                 alert.showAndWait();
                 }else { //when connection was successful
                 try {
-                    Parent root = FXMLLoader.load(getClass().getResource("../GUI/main_scene.fxml"));
+                    Parent root = FXMLLoader.load(getClass().getResource("/main_scene.fxml"));
                     rootWindow = new Stage(); //create Main-Stage
                     rootWindow.setScene(new Scene(root));
+                    rootWindow.setResizable(false); //static window size
                     rootWindow.show();
                     loginWindow.hide(); //hide login-Window
                 } catch (IOException e) {

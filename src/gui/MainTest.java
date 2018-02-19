@@ -1,11 +1,10 @@
-package GUI;
+package gui;
 
 import javafx.application.Application;
 import javafx.fxml.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 
 public class MainTest extends Application {
@@ -28,7 +27,7 @@ public class MainTest extends Application {
 
         //Erzeugung der Main-Scene "root" aus main_scene.fxml
 
-        Parent root = FXMLLoader.load(getClass().getResource("../GUI/main_scene.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/main_scene.fxml"));
         primaryStage.setTitle("NaoDashboard MSKM");
         primaryStage.setScene(new Scene(root));
         primaryStage.setResizable(false);

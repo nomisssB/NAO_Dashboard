@@ -1,9 +1,9 @@
-package naoDash_main;
+package gui;
 /*
 FILE: Controller.java
 USAGE: Controller for Main-Dashboard-Window. Contains all Methods which are needed for GUI-control
  */
-import NAO.ConnectionException;
+import nao.ConnectionException;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -22,18 +22,15 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.ToggleSwitch;
-
 import java.io.IOException;
 import java.util.List;
 
 import static naoDash_main.Main.loginWindow;
-import static GUI.LoginController.nao1;
-import static GUI.LoginController.rootWindow;
+import static gui.LoginController.nao1;
+import static gui.LoginController.rootWindow;
 
 
 public class Controller {
-
-
 
     //Variable declaration
     private float motionspeed = 0.5f;
@@ -47,20 +44,31 @@ public class Controller {
 
     //FXML Annotations
     @FXML
-    public ProgressBar battery_Bar;
-    public AnchorPane pane_main, pane_control, pane_sounds;
-    public Slider sldr_speed, sldr_pitch, sldr_volume;
-    public Button btn_s, btn_a, btn_d, btn_w, btn_q, btn_e, btn_i, btn_j, btn_k, btn_l, btn_disconnect,
-            btn_execute, btn_sayText, btn_playSound, btn_h, btn_f, btn_t, btn_g;
-    public ColorPicker col_picker_left, col_picker_right;
-    public ListView<String> motion_list, sound_list;
-    public TextField txt_sayText, txt_tactileFront, txt_tactileMiddle, txt_tactileRear;
-    public Label lbl_toolbar, lbl_battery;
-    public ChoiceBox cb_voice;
-    public CheckBox chb_pitch, chb_left, chb_right, chb_mirror_arm;
-    public ToggleSwitch ts_shoulder, ts_elbow, ts_hand, ts_mirror_led, ts_camera, ts_rest;
-    public Circle highTemp, midTemp, lowTemp;
-    public ImageView imageView11 = new ImageView();
+    private ProgressBar battery_Bar;
+    @FXML
+    private AnchorPane pane_main, pane_sounds;
+    @FXML
+    private Slider sldr_speed, sldr_pitch, sldr_volume;
+    @FXML
+    private Button btn_s, btn_a, btn_d, btn_w, btn_q, btn_e, btn_i, btn_j, btn_k, btn_l, btn_h, btn_f, btn_t, btn_g;
+    @FXML
+    private ColorPicker col_picker_left, col_picker_right;
+    @FXML
+    private ListView<String> motion_list, sound_list;
+    @FXML
+    private TextField txt_sayText, txt_tactileFront, txt_tactileMiddle, txt_tactileRear;
+    @FXML
+    private Label lbl_toolbar, lbl_battery;
+    @FXML
+    private ChoiceBox cb_voice;
+    @FXML
+    private CheckBox chb_pitch, chb_left, chb_right, chb_mirror_arm;
+    @FXML
+    private ToggleSwitch ts_shoulder, ts_elbow, ts_hand, ts_mirror_led, ts_camera, ts_rest;
+    @FXML
+    private Circle highTemp, midTemp, lowTemp;
+    @FXML
+    private ImageView imageView11;
 
     //Constructor (Called first, then FXML Annotations, then initalize
     public Controller() {
@@ -81,14 +89,6 @@ public class Controller {
         armControl2[0][1] = "RElbowYaw";
         armControl1[0][2] = "RHand";
         armControl2[0][2] = "RWristYaw";
-
-
-        /*        //things to do when closing the program/thread
-        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-            public void run() {
-                saveConfig();
-            }
-        }));*/
     }
 
     @FXML
@@ -281,11 +281,13 @@ public class Controller {
         ObservableList<String> insert = FXCollections.observableArrayList(inputList);
         motion_list.setItems(insert);
     }
+
     private void fillVoiceList(List<String> inputList) {
         ObservableList<String> insert = FXCollections.observableArrayList(inputList);
         cb_voice.setItems(insert);
         cb_voice.getSelectionModel().selectFirst();
     }
+
     private void fillSoundList(List<String> inputList) {
         try {
             if (nao1.getSoundFiles()==null){
@@ -310,6 +312,7 @@ public class Controller {
             connectionLost();
         }
     }
+
     public void head_down(ActionEvent actionEvent) {
         try {
             nao1.moveHead("down");
@@ -317,6 +320,7 @@ public class Controller {
             connectionLost();
         }
     }
+
     public void head_left(ActionEvent actionEvent) {
         try {
             nao1.moveHead("left");
@@ -324,6 +328,7 @@ public class Controller {
             connectionLost();
         }
     }
+
     public void head_right(ActionEvent actionEvent) {
         try {
             nao1.moveHead("right");
@@ -343,6 +348,7 @@ public class Controller {
         }
 
     }
+
     public void left(ActionEvent actionEvent) {
         lbl_toolbar.setText("left");
         try {
@@ -351,6 +357,7 @@ public class Controller {
             connectionLost();
         }
     }
+
     public void backward(ActionEvent actionEvent) {
         lbl_toolbar.setText("backward");
         try {
@@ -359,6 +366,7 @@ public class Controller {
             connectionLost();
         }
     }
+
     public void right(ActionEvent actionEvent) {
         lbl_toolbar.setText("right");
         try {
@@ -367,6 +375,7 @@ public class Controller {
             connectionLost();
         }
     }
+
     public void turnRight(ActionEvent actionEvent) {
         try {
             nao1.setMoveT(-1f);
@@ -374,6 +383,7 @@ public class Controller {
             connectionLost();
         }
     }
+
     public void turnLeft(ActionEvent actionEvent) {
         try {
             nao1.setMoveT(1f);
@@ -381,6 +391,7 @@ public class Controller {
             connectionLost();
         }
     }
+
 
     //#####################  SAY-TEXT #####################
     public void sayText(ActionEvent actionEvent)  {
@@ -391,6 +402,7 @@ public class Controller {
             connectionLost();
         }
     }
+
 
     //#####################  LED-CONTROL ##################
     //After picking a color in ColorPicker
@@ -407,6 +419,7 @@ public class Controller {
             connectionLost();
         }
     }
+
     public void colorchoice_right(ActionEvent actionEvent) {
         color = col_picker_right.getValue();
         lbl_toolbar.setText(color.toString());
@@ -421,10 +434,12 @@ public class Controller {
         }
     }
 
+
     //#####################  MENU-BAR ##################
     public void menu_quit(ActionEvent actionEvent) {
         System.exit(0);
     }
+
     public void menu_help(ActionEvent actionEvent) {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -434,9 +449,10 @@ public class Controller {
 
         alert.showAndWait();
     }
+
     public void menu_prefs(ActionEvent actionEvent) {
         try {
-            Parent prefsParent = FXMLLoader.load(getClass().getResource("../GUI/preferences.fxml"));
+            Parent prefsParent = FXMLLoader.load(getClass().getResource("../gui/preferences.fxml"));
             prefs = new Stage();
             prefs.setScene(new Scene(prefsParent));
 
@@ -446,8 +462,9 @@ public class Controller {
         prefs.show();
     }
 
+
     //  Executors for sound and postures
-    public void p_sound(ActionEvent actionEvent) throws ConnectionException {
+    public void p_sound(ActionEvent actionEvent) {
         String sound = sound_list.getSelectionModel().getSelectedItem();
            try {
                nao1.playSoundFile(sound);
@@ -456,6 +473,7 @@ public class Controller {
            }
         lbl_toolbar.setText("play " + sound);
        }
+
     public void p_motion(ActionEvent actionEvent) {
         String motion = motion_list.getSelectionModel().getSelectedItem();
         try {
@@ -466,6 +484,7 @@ public class Controller {
         lbl_toolbar.setText("execute " + motion);
     }
 
+
     // Setter
     private void setbatteryView() {
         try {
@@ -475,6 +494,7 @@ public class Controller {
             connectionLost();
         }
     }
+
     private void settempView()  {
 
         try {
@@ -511,6 +531,7 @@ public class Controller {
         }
     }
 
+
     //timelines for battery and temperature refresh and Connection check
     private void startConnectionCheck(){
         connectionCheckTimeline = new Timeline(new KeyFrame(
@@ -519,6 +540,7 @@ public class Controller {
         connectionCheckTimeline.setCycleCount(Animation.INDEFINITE);
         connectionCheckTimeline.play();
     }
+
     private void batteryViewer() {
         batteryTimeline = new Timeline(new KeyFrame(
                 Duration.millis(5000),
@@ -526,6 +548,7 @@ public class Controller {
         batteryTimeline.setCycleCount(Animation.INDEFINITE);
         batteryTimeline.play();
     }
+
     private void tempViewer(){
         tempTimeline = new Timeline(new KeyFrame(
                 Duration.millis(5000),
@@ -533,7 +556,6 @@ public class Controller {
         tempTimeline.setCycleCount(Animation.INDEFINITE);
         tempTimeline.play();
     }
-
 
     public void set_switchRest (MouseEvent mouseEvent) {
 
@@ -561,7 +583,7 @@ public class Controller {
 
     }
 
-    //#####################  ARM-CONTROL ##################
+    //#####################  ARM-CONTROL #########################
     //Buttons TFGH for arm-control
     public void arm_up(ActionEvent actionEvent) {
 
@@ -575,6 +597,7 @@ public class Controller {
         }
 
     }
+
     public void arm_down(ActionEvent actionEvent) {
         try {
             if (armModeSide == 2) {
@@ -596,6 +619,7 @@ public class Controller {
             connectionLost();
         }
     }
+
     public void arm_right(ActionEvent actionEvent) {
         try {
             if(armModeSide == 2){
@@ -606,6 +630,7 @@ public class Controller {
             connectionLost();
         }
     }
+
     public void handSelect(MouseEvent mouseEvent) {
         if (ts_hand.isSelected()) {
             ts_hand.setDisable(true);
@@ -616,6 +641,7 @@ public class Controller {
             armModeJoint = 2;
         }
     }
+
     public void shoulderSelect(MouseEvent mouseEvent) {
         if (ts_shoulder.isSelected()) {
             ts_shoulder.setDisable(true);
@@ -626,6 +652,7 @@ public class Controller {
             armModeJoint = 0;
         }
     }
+
     public void elbowSelect(MouseEvent mouseEvent) {
         if (ts_elbow.isSelected()) {
             ts_elbow.setDisable(true);
@@ -636,6 +663,7 @@ public class Controller {
             armModeJoint = 1;
         }
     }
+
     public void armLeftChecked(MouseEvent mouseEvent) {
         armModeSide = 1;
         chb_left.setDisable(true);
@@ -644,6 +672,7 @@ public class Controller {
         chb_mirror_arm.setSelected(false);
         chb_mirror_arm.setDisable(false);
     }
+
     public void armRightChecked(MouseEvent mouseEvent) {
         armModeSide = 0;
         chb_right.setDisable(true);
@@ -652,6 +681,7 @@ public class Controller {
         chb_mirror_arm.setSelected(false);
         chb_mirror_arm.setDisable(false);
     }
+
     public void armMirrorChecked(MouseEvent mouseEvent) {
         armModeSide = 2;
         chb_mirror_arm.setDisable(true);
@@ -660,6 +690,7 @@ public class Controller {
         chb_right.setSelected(false);
         chb_right.setDisable(false);
     }
+
 
     //What happens when NAO-connection is lost
     public static void connectionLost (){
@@ -678,8 +709,10 @@ public class Controller {
         connectionAlert.show();
     }
 
+
     //When clicking on main-pane then deselect textfields etc...
-    public void setFocus(MouseEvent mouseEvent) {
+    @FXML
+    private void setFocus(MouseEvent mouseEvent) {
         pane_main.requestFocus();
     }
 

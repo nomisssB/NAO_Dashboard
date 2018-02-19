@@ -1,8 +1,6 @@
-package GUI;
+package gui;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 class Configurator {

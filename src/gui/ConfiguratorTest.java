@@ -1,6 +1,5 @@
-package GUI;
+package gui;
 
-import javax.management.OperationsException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 /*
 FILE: InputParse.java
 USAGE: Used for parsing strings on regular expressions

@@ -25,7 +25,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.controlsfx.control.ToggleSwitch?>
 
-<AnchorPane fx:id="pane_main" onMouseClicked="#setFocus" prefHeight="628.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="naoDash_main.Controller">
+<AnchorPane fx:id="pane_main" onMouseClicked="#setFocus" prefHeight="628.0" prefWidth="830.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller">
     <stylesheets>
         <URL value="@style_main_scene.css" />
     </stylesheets>
