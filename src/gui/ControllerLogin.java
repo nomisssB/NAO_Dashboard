@@ -1,6 +1,6 @@
 package gui;
 /*
-FILE: LoginController.java
+FILE: ControllerLogin.java
 USAGE: Controls "Login-Window" (Connection establishment)
  */
 import nao.NAO;
@@ -12,7 +12,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -21,37 +20,38 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import static naoDash_main.Main.loginWindow;
 
-public class LoginController{
+import static main.Main.loginWindow;
 
-    public static NAO nao1;  //Instance of NAO-class, which will be created due to the connection establishment
-    private String robotURL; //String for calling "establishConnection" method
-    public static Stage rootWindow; //Static string for the main dashboard
+public class ControllerLogin {
 
-    @FXML   // FXML-Annotations
-    public Button btn_connect;
-    public Button btn_close;
-    public Button btn_delete;
-    public TextField txt_port;
-    public TextField txt_ipaddress;
-    public ListView<String> connection_list;
+    // Variables declaration
+    static NAO nao1;  // Var of NAO, instance will be created due to the connection establishment
+    private String robotURL; // String for calling "establishConnection" method
+    static Stage rootWindow; // Static Stage for main window
 
+    // FXML-Annotations
+    @FXML
+    private TextField txt_port;
+    @FXML
+    private TextField txt_ipaddress;
+    @FXML
+    private ListView<String> connection_list;
 
     @FXML
-    public void initialize(){     // is called after Construktor and FXML annotations
+    public void initialize(){     // is called after constructor and FXML annotations
     Configurator.loader();// loads settings from config-file
-        if(!Configurator.props.get("urls").toString().equals("")){
-            List<String> connections1 = new ArrayList<String>                    //temporary list with last connections
+        if(!Configurator.props.get("urls").toString().equals("")){  //only when "urls"-value is not empty...
+            List<String> connections1 = new ArrayList<>            // temporary list with last connections
                     (Arrays.asList(Configurator.props.get("urls").toString().split("\\,")));
-            //all URLs of the last connections are stored as one comma seperated string in config-file
-            //first they had to be split in single items
-            fillConnectionList(connections1);//fills ListView with items
+            /* all last connections are stored as one comma seperated string in dashboard-file
+            * first: split in single items and save in ArrayList*/
+            fillConnectionList(connections1);// fills ListView with items out of the ArrayList
         }
     }
 
     private void fillConnectionList(List<String> inputList) {
-        ObservableList<String> insert = FXCollections.observableArrayList(inputList); //Observable list is needed for javafx ListView
+        ObservableList<String> insert = FXCollections.observableArrayList(inputList); // Observable list needed for javafx ListView
         connection_list.setItems(insert); //fills ListView with items
     }
 
@@ -71,12 +71,12 @@ public class LoginController{
                 alert.showAndWait();
                 }else { //when connection was successful
                 try {
-                    Parent root = FXMLLoader.load(getClass().getResource("/main_scene.fxml"));
-                    rootWindow = new Stage(); //create Main-Stage
+                    Parent root = FXMLLoader.load(getClass().getResource("/scene_main.fxml"));
+                    rootWindow = new Stage(); //create stage for main-window
                     rootWindow.setScene(new Scene(root));
                     rootWindow.setResizable(false); //static window size
                     rootWindow.show();
-                    loginWindow.hide(); //hide login-Window
+                    loginWindow.hide(); //hides current-window (login-window)
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -84,10 +84,10 @@ public class LoginController{
 
     }
 
-    private void store(){ //store connection list to .dashboard - file
+    private void store(){ //stores connection list to .dashboard - file
 
-        if(!connection_list.getItems().isEmpty()){ //store only when list isn't empty
-            String connectionListString = String.join(",",connection_list.getItems());
+        if(!connection_list.getItems().isEmpty()){ //stores the list only when it is not empty
+            String connectionListString = String.join(",",connection_list.getItems()); //whole list in one String
             Configurator.saver("urls",connectionListString);
         }
 
@@ -140,13 +140,13 @@ public class LoginController{
         }
     }
 
-    public void close(ActionEvent actionEvent) { //close the program
+    public void close(ActionEvent actionEvent) { //close program
         store();
         System.exit(0);
     }
 
     private boolean checkDuplicate(String value, List<String> list) { //Searches for a String in a List<String>
-        for (String string : list) { //every item in the list...
+        for (String string : list) { //every String-item in the list...
             if (string.matches(value)) { //compare
                 return true;
             }
