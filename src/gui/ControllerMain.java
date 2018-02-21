@@ -3,6 +3,7 @@ package gui;
 FILE: Controller.java
 USAGE: Controller for Main-Dashboard-Window. Contains all Methods which are needed for GUI-control
  */
+import javafx.scene.layout.Region;
 import nao.ConnectionException;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -232,6 +233,7 @@ public class ControllerMain {
             fillVoiceList(nao1.getVoices());
             fillSoundList(nao1.getSoundFiles());
             nao1.setMoveV(motionspeed);
+            nao1.setVolume(50);
 
             if(nao1.isInRestMode()){
                 ts_rest.setSelected(false);
@@ -264,7 +266,7 @@ public class ControllerMain {
 
     // #####################  Connection Control ####################
     @FXML
-    private void disconnect(ActionEvent actionEvent) {
+    private void disconnect(ActionEvent actionEvent) {      //stops all timelines, closes the connection and shows login-window.
         nao1.closeConnection();
         nao1 = null;
         batteryTimeline.stop();
@@ -274,7 +276,7 @@ public class ControllerMain {
         loginWindow.show();
     }
 
-    private void checkConnection(){
+    private void checkConnection(){ //calls checks current connection. When connection is lost, call connectionLost
         if (!nao1.checkConnection(true)) {
             connectionLost();
         }
@@ -297,19 +299,19 @@ public class ControllerMain {
     }
 
 
-    // #####################  Fillers ####################
-    private void fillPostureList(List<String> inputList) {
+    // #####################  Fillers  for GUI-elements####################
+    private void fillPostureList(List<String> inputList) { // fills posture list with predefined postures
         ObservableList<String> insert = FXCollections.observableArrayList(inputList);
         motion_list.setItems(insert);
     }
 
-    private void fillVoiceList(List<String> inputList) {
+    private void fillVoiceList(List<String> inputList) { // fills voice list with installed voices and selects the first
         ObservableList<String> insert = FXCollections.observableArrayList(inputList);
         cb_voice.setItems(insert);
         cb_voice.getSelectionModel().selectFirst();
     }
 
-    private void fillSoundList(List<String> inputList) {
+    private void fillSoundList(List<String> inputList) { // fills sound list with sounds on nao (if available)
         try {
             if (nao1.getSoundFiles()==null){ // if there are no sound files, hide gui-module for sounds
                 pane_sounds.setVisible(false);
@@ -563,15 +565,16 @@ public class ControllerMain {
     // Setter for GUI-elements
     private void setbatteryView() {
         try {
+            Region pBarbar = (Region) battery_Bar.lookup(".bar");
             boolean lowBat = nao1.getBatteryPercent() <= 20;
             boolean midBat = (nao1.getBatteryPercent() > 20) && (nao1.getBatteryPercent() < 50);
             if(lowBat) {
-                battery_Bar.setStyle("-fx-control-inner-background: #ff5d61");
+                pBarbar.setStyle("-fx-background-color:#ff5d61");
             }else if (midBat){
-                battery_Bar.setStyle("-fx-control-inner-background: #fffb84");
+                pBarbar.setStyle("-fx-background-color: #fffb84");
             }
             else{
-                battery_Bar.setStyle("-fx-control-inner-background: #c3ff8f");
+                pBarbar.setStyle("-fx-background-color: #8eff95");
             }
             battery_Bar.setProgress(nao1.getBatteryPercent());
             lbl_battery.setText(Double.toString(nao1.getBatteryPercent())+"%");
