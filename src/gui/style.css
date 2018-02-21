@@ -62,8 +62,11 @@
     -fx-padding: 5px;
 
 }
-.labeling.armcontrol{
+.armcontrol{
+    -fx-font-family: "Calibri";
+    -fx-text-fill: #ffffff;
     -fx-alignment: left;
+    -fx-padding: 5px;
 }
 
 /*GUI-Modules*/
@@ -121,7 +124,7 @@
 #temp_pane{
     -fx-border-color: #505050;
     -fx-border-width: 1px;
-    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-background-color: rgba(255, 255, 255, 0.4);
     -fx-background-radius: 5;
     -fx-border-radius: 5;
 }

@@ -184,30 +184,14 @@
                         <ToggleSwitch fx:id="ts_shoulder" disable="true" layoutX="101.0" layoutY="23.0" onMouseClicked="#shoulderSelect" prefHeight="21.0" prefWidth="36.0" selected="true" styleClass="toggle-switch" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="25.0" />
                         <ToggleSwitch fx:id="ts_elbow" layoutX="101.0" layoutY="47.0" onMouseClicked="#elbowSelect" prefHeight="21.0" prefWidth="36.0" styleClass="toggle-switch" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="50.0" />
                         <ToggleSwitch fx:id="ts_hand" layoutX="101.0" layoutY="70.0" onMouseClicked="#handSelect" prefHeight="21.0" prefWidth="36.0" styleClass="toggle-switch" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="75.0" />
-                        <Label layoutX="12.0" layoutY="26.0" text="shoulder" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="26.0">
-                     <styleClass>
-                        <String fx:value="labeling" />
-                        <String fx:value="armcontrol" />
-                     </styleClass></Label>
-                        <Label layoutX="22.0" layoutY="45.0" prefHeight="24.0" prefWidth="63.0" text="elbow" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="72.0" AnchorPane.topAnchor="50.0">
-                     <styleClass>
-                        <String fx:value="labeling" />
-                        <String fx:value="armcontrol" />
-                     </styleClass></Label>
-                        <Label layoutX="22.0" layoutY="68.0" prefHeight="24.0" prefWidth="63.0" text="hand" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="72.0" AnchorPane.topAnchor="75.0">
-                     <styleClass>
-                        <String fx:value="labeling" />
-                        <String fx:value="armcontrol" />
-                     </styleClass></Label>
+                        <Label layoutX="12.0" layoutY="26.0" prefHeight="24.0" prefWidth="75.0" styleClass="armcontrol" text="shoulder" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="26.0" />
+                        <Label layoutX="22.0" layoutY="45.0" prefHeight="24.0" prefWidth="75.0" styleClass="armcontrol" text="elbow" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="50.0" />
+                        <Label layoutX="22.0" layoutY="68.0" prefHeight="24.0" prefWidth="75.0" styleClass="armcontrol" text="hand" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="75.0" />
                         <CheckBox fx:id="chb_left" layoutX="19.0" layoutY="107.0" mnemonicParsing="false" onMouseClicked="#armLeftChecked" styleClass="labeling" text="left" />
                         <CheckBox fx:id="chb_right" disable="true" layoutX="65.0" layoutY="107.0" mnemonicParsing="false" onMouseClicked="#armRightChecked" selected="true" styleClass="labeling" text="right" />
                         <CheckBox fx:id="chb_mirror_arm" layoutX="38.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#armMirrorChecked" styleClass="labeling" text="mirror" />
                   <ToggleSwitch fx:id="ts_armMovement" layoutX="86.6" layoutY="163.0" onMouseClicked="#toggleMoveArms" AnchorPane.rightAnchor="5.0" />
-                  <Label layoutX="7.0" layoutY="162.0" prefHeight="24.0" prefWidth="98.0" text="while walking" textOverrun="CLIP">
-                     <styleClass>
-                        <String fx:value="labeling" />
-                        <String fx:value="armcontrol" />
-                     </styleClass></Label>
+                  <Label layoutX="7.0" layoutY="162.0" prefHeight="24.0" prefWidth="98.0" styleClass="armcontrol" text="while walking" textOverrun="CLIP" />
                     </children>
                     <styleClass>
                         <String fx:value="module" />
