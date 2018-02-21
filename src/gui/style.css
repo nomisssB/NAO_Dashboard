@@ -188,6 +188,3 @@
     -fx-border-width: 2px;
     -fx-border-color: #1d4360;
 }
-#battery_Bar .bar{
-    -fx-background-color: #ffffff;
-}
