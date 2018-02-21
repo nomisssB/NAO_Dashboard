@@ -106,7 +106,7 @@
                 </AnchorPane>
                 <AnchorPane layoutX="320.0" layoutY="229.0" prefHeight="221.0" prefWidth="292.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="320.0">
                     <children>
-                          <ImageView fx:id="imageView11" fitHeight="156.0" fitWidth="270.0" layoutX="55.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+                          <ImageView fx:id="iV_Cam" fitHeight="156.0" fitWidth="270.0" layoutX="55.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
                         <Label layoutY="2.0" prefHeight="14.0" prefWidth="200.0" styleClass="headlines" text="Camera" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         <ToggleSwitch fx:id="ts_camera" layoutX="164.0" layoutY="-1.0" onMouseClicked="#toggle_Camera" AnchorPane.rightAnchor="85.0" AnchorPane.topAnchor="0.0" />
                     </children>
@@ -224,7 +224,7 @@
                                 <Font size="8.0" />
                             </font></Label>
                         <Slider fx:id="sldr_volume" blockIncrement="1" layoutX="10.0" layoutY="128.0" majorTickUnit="50.0" minorTickCount="1" prefWidth="140.0" snapToTicks="true" value="50.0" AnchorPane.bottomAnchor="52.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-                      <ToggleSwitch fx:id="ts_rest" layoutX="32.0" layoutY="114.0" onMouseClicked="#set_switchRest" AnchorPane.bottomAnchor="20.0" />
+                      <ToggleSwitch fx:id="ts_rest" layoutX="32.0" layoutY="114.0" onMouseClicked="#switchRest" AnchorPane.bottomAnchor="20.0" />
                   <Label layoutX="3.0" layoutY="113.0" prefHeight="24.0" prefWidth="59.0" styleClass="labeling" text="rest" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="0.0" />
                   <Label layoutX="84.0" layoutY="113.0" prefHeight="24.0" prefWidth="59.0" styleClass="labeling" text="wake up" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="0.0" />
                   <Label layoutX="31.0" layoutY="106.0" styleClass="labeling" text="general volume" AnchorPane.bottomAnchor="64.0" />

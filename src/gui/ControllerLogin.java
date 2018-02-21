@@ -53,31 +53,30 @@ public class ControllerLogin {
     // ######################### Establish Connection #####################
     public void connect(ActionEvent actionEvent) {
         if(!createRobotUrl()) return; // parses correct IP and Port
-            nao1 = new NAO(); // new Instance of NAO-class, will be forwarded to Main-Controller
-            if(!nao1.establishConnection(robotURL)) {
-                Alert alert = new Alert(Alert.AlertType.WARNING); // when connection couldn't be established
-                alert.setTitle("Connection failed!");
-                alert.setHeaderText("Something went wrong...");
-                alert.setContentText("Connection is not established. \nThis could be caused due to different reasons..." +
-                        "\ne.g. wrong WiFi-Network or ip-address/port");
-                alert.showAndWait();
-                }else { // when connection was successfully established
-                if(!checkDuplicate(robotURL,connection_list.getItems())) { // Check for an already existing entry in connection list
-                    connection_list.getItems().add(robotURL);
-                    store();
-                }
-                try {
-                    Parent root = FXMLLoader.load(getClass().getResource("/scene_main.fxml"));
-                    rootWindow = new Stage(); // create stage for main-window
-                    rootWindow.setScene(new Scene(root));
-                    rootWindow.setResizable(false); // static window size
-                    rootWindow.show(); // shows main-window
-                    loginWindow.hide(); // hides current-window (login-window)
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        nao1 = new NAO(); // new Instance of NAO-class, will be forwarded to Main-Controller
+        if(!nao1.establishConnection(robotURL)) {
+            Alert alert = new Alert(Alert.AlertType.WARNING); // when connection couldn't be established
+            alert.setTitle("Connection failed!");
+            alert.setHeaderText("Something went wrong...");
+            alert.setContentText("Connection is not established. \nThis could be caused due to different reasons..." +
+                    "\ne.g. wrong WiFi-Network or ip-address/port");
+            alert.showAndWait();
+        } else { // when connection was successfully established
+            if(!checkDuplicate(robotURL,connection_list.getItems())) { // Check for an already existing entry in connection list
+                connection_list.getItems().add(robotURL);
+                store();
             }
-
+            try {
+                Parent root = FXMLLoader.load(getClass().getResource("scene_main.fxml"));
+                rootWindow = new Stage(); // create stage for main-window
+                rootWindow.setScene(new Scene(root));
+                rootWindow.setResizable(false); // static window size
+                rootWindow.show(); // shows main-window
+                loginWindow.hide(); // hides current-window (login-window)
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     // ######################### filler ###################################
@@ -107,27 +106,33 @@ public class ControllerLogin {
 
     // ######################### Helpers ##################################
     private boolean createRobotUrl() {
-        InputHelper parser = new InputHelper();       // new instance of InputParser
-        String warning = ""; // Variable warning for alert-message
+        InputHelper parser = new InputHelper();     // new instance of InputParser
+        String warning = "";                        // Variable warning for alert-message
 
         // Create alert-message, if user-inputs aren't valid ip-address/port
         if (!parser.validateIP(txt_ipaddress.getText()) || !parser.validatePort(txt_port.getText())) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Wrong Input");
             alert.setHeaderText("Please check your Input");
+
             // textfield ip-address empty:
             if (txt_ipaddress.getText().isEmpty()) {
                 warning = "Please type in an IP address!";
-            } // textfield ip-address wrong input:
+            }
+            // textfield ip-address wrong input:
             else if (!parser.validateIP(txt_ipaddress.getText())) {
                 warning = txt_ipaddress.getText() + " is not a valid IP address!";
-            } // textfield port empty:
+            }
+            // textfield port empty:
             if (txt_port.getText().isEmpty()) {
                 warning = warning + "\n" + "Please type in a port number!";
-            } // textfield port wrong input:
+            }
+            // textfield port wrong input:
             else if (!parser.validatePort(txt_port.getText())) {
                 warning = warning + "\n" + txt_port.getText() + " is not a valid port number!";
-            } // bind alert-message to alert-dialogue and show it
+            }
+
+            // bind alert-message to alert-dialogue and show it
             alert.setContentText(warning);
             alert.showAndWait();
             return false;

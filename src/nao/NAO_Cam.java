@@ -12,9 +12,9 @@ import java.util.List;
 
 public class NAO_Cam extends Thread{
     //Variable Declarations
-    ALVideoDevice videoDevice;
-    ImageView imageView;
-    int camera = 0;
+    private ALVideoDevice videoDevice;
+    private ImageView imageView;
+    private int camera = 0;
 
     public NAO_Cam(ALVideoDevice videoDevice, ImageView imageView){
         setDaemon(true);

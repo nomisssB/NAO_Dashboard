@@ -36,7 +36,7 @@ public class NAO {
     private String tactileHeadTextFront = "";
     private String tactileHeadTextMiddle = "";
     private String tactileHeadTextRear = "";
-    public static ImageView imageView;
+    private ImageView imageView;
     private NAO_Cam naoCam;
 
 
