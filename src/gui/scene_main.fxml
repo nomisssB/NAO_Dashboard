@@ -190,8 +190,8 @@
                         <CheckBox fx:id="chb_left" layoutX="19.0" layoutY="107.0" mnemonicParsing="false" onMouseClicked="#armLeftChecked" styleClass="labeling" text="left" />
                         <CheckBox fx:id="chb_right" disable="true" layoutX="65.0" layoutY="107.0" mnemonicParsing="false" onMouseClicked="#armRightChecked" selected="true" styleClass="labeling" text="right" />
                         <CheckBox fx:id="chb_mirror_arm" layoutX="38.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#armMirrorChecked" styleClass="labeling" text="mirror" />
-                  <ToggleSwitch fx:id="ts_armMovement" layoutX="86.6" layoutY="163.0" onMouseClicked="#toggleMoveArms" AnchorPane.rightAnchor="5.0" />
                   <Label layoutX="7.0" layoutY="162.0" prefHeight="24.0" prefWidth="98.0" styleClass="armcontrol" text="while walking" textOverrun="CLIP" />
+                  <ToggleSwitch fx:id="ts_armMovement" layoutX="86.6" layoutY="163.0" onMouseClicked="#toggle_ArmMovmentDuringWalking" AnchorPane.rightAnchor="5.0" />
                     </children>
                     <styleClass>
                         <String fx:value="module" />
@@ -212,7 +212,7 @@
                 <AnchorPane layoutX="480.0" prefHeight="194.0" prefWidth="174.0">
                     <children>
                         <ProgressBar fx:id="battery_Bar" layoutX="27.0" layoutY="60.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="30.0" prefWidth="48.0" progress="0.37" AnchorPane.bottomAnchor="104.0" AnchorPane.leftAnchor="27.0" />
-                        <AnchorPane fx:id="temp_pane" layoutX="95.0" layoutY="43.0" prefHeight="63.0" prefWidth="28.0" AnchorPane.bottomAnchor="87.8" AnchorPane.rightAnchor="27.0">
+                        <AnchorPane fx:id="pane_temp" layoutX="95.0" layoutY="43.0" prefHeight="63.0" prefWidth="28.0" AnchorPane.bottomAnchor="87.8" AnchorPane.rightAnchor="27.0">
                             <children>
                                 <Circle fx:id="highTemp" fill="DODGERBLUE" layoutX="12.0" layoutY="19.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.0" styleClass="circle" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
                                 <Circle fx:id="midTemp" fill="DODGERBLUE" layoutX="16.0" layoutY="32.0" radius="8.0" stroke="BLACK" strokeType="INSIDE" styleClass="circle" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="23.0" />
