@@ -581,33 +581,32 @@ public class ControllerMain {
     }
 
     private void settempView()  {
-
         try {
-
             switch ((int) nao1.getTemp()) {
-                case -1:
+                case 0:
                     lowTemp.setOpacity(1.0);
                     midTemp.setOpacity(0.2);
                     highTemp.setOpacity(0.2);
                     break;
-                case 0:
-                    lowTemp.setOpacity(0.4);
+                case 1:
+                    lowTemp.setOpacity(0.2);
                     midTemp.setOpacity(1.0);
                     highTemp.setOpacity(0.2);
                     break;
-                case 1:
+                case 2:
                     lowTemp.setOpacity(0.2);
                     midTemp.setOpacity(0.2);
                     highTemp.setOpacity(1.0);
-                case -2:
+                    break;
+                case -1:
+                    lowTemp.setOpacity(0.2);
                     midTemp.setOpacity(0.2);
-                    midTemp.setOpacity(0.2);
-                    midTemp.setOpacity(0.2);
+                    highTemp.setOpacity(0.2);
+                    break;
             }
         } catch (ConnectionException e) {
             connectionLost();
         }
-
     }
 
 
