@@ -493,7 +493,7 @@ public class ControllerMain {
     }
 
 
-    // Setter
+    // Setter for GUI-elements
     private void setbatteryView() {
         try {
             boolean lowBat = nao1.getBatteryPercent() <= 20;
@@ -535,7 +535,7 @@ public class ControllerMain {
                 case -2:
                     midTemp.setOpacity(0.2);
                     midTemp.setOpacity(0.2);
-                    midTemp.setOpacity(0.2);;
+                    midTemp.setOpacity(0.2);
             }
         } catch (ConnectionException e) {
             connectionLost();

@@ -1,3 +1,6 @@
+
+/********Element styles********/
+
 /*Button-Style*/
 .button{
     -fx-background-radius: 1;
@@ -25,6 +28,14 @@
     -fx-pref-height: 25;
 }
 
+
+.circle:default{
+    -fx-border-color:none;
+    -fx-border-radius: 70%;
+}
+
+
+/********own style-classes********/
 /*Label-Style*/
 .headlines {
     -fx-font-family: "Calibri";
@@ -32,45 +43,45 @@
     -fx-font-weight: bold;
     -fx-alignment: center;
     -fx-padding: 5px;
+    -fx-background-color: rgba(53, 122, 175, 0.2);
+    -fx-background-radius: 2;
 }
+.labeling {
+    -fx-font-family: "Calibri";
+    -fx-text-fill: #ffffff;
+    -fx-alignment: center;
+    -fx-padding: 5px;
 
-
-/*Style-classes*/
-
+}
 /*GUI-Modules*/
 .module {
     -fx-background-color: rgba(0, 0, 0, 0.5);
     -fx-background-radius: 2;
 }
+/*single width*/
 .module.once {
     -fx-pref-width: 150;
 }
+/*double width*/
 .module.twice {
     -fx-pref-width: 310;
 }
-.toggle-switch
-{
-    -fx-font-size: 11pt;
-}
 
-/*Single Elements*/
+/********Styles for single lements********/
 
+/*Backgrounds*/
 #pane_main {
     -fx-background-image: url("/pic/nao_main.jpg");
     -fx-background-size: stretch;
 }
-/*
-#pane_cam {
-    -fx-background-image: url("/pic/cam.png");
-    -fx-background-color: rgba(255,255,255,0.7);
-    -fx-background-size: cover;
-}*/
+
 #pane_login {
     -fx-background-color: rgba(255,255,255,0);
     -fx-background-image: url("/pic/nao_login.png");
     -fx-background-size: cover;
 }
 
+/*Toolbar*/
 #lbl_toolbar{
     -fx-font-size: 10pt;
     -fx-text-fill: #8e8e8e;
@@ -79,38 +90,27 @@
     -fx-padding: 1px;
 }
 
+/*Menu*/
 #menu1{
     -fx-text-fill: #000000;
 }
+
+/*Temperature bar*/
 #temp_Bar{
     -fx-rotate: -90;
 }
 #temp_pane{
     -fx-border-color:black;
-    fx-background-color: none;
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-background-radius: 5;
     -fx-fill: none;
+    -fx-border-radius: 5;
     -fx-padding: 1px;
 }
-#temp_Ampel2{
-    -fx-border-color: #1d4360;
-    -fx-fill: none;
-    -fx-padding: 1px;
-}
-.circle:default{
-    -fx-opacity: 1.0;
-    -fx-border-color:none;
-    -fx-border-radius: 70%;
 
-    }
-.circle:disabled{
-
-    -fx-opacity: 0.4;
-
-}
 #highTemp{
     -fx-fill: #ff0000;
      }
-
 #midTemp{
     -fx-fill: #ffff00;
 }
@@ -118,6 +118,7 @@
     -fx-fill: #00ff00;
 }
 
+/*Button on login-window*/
 #btn_delete{
     -fx-background-image: url("/pic/icon_trash.png");
     -fx-background-size: contain;
@@ -126,13 +127,9 @@
 #btn_delete:hover{
     -fx-background-color: white;
 }
-#h_connections{
-    -fx-text-fill: white;
-    -fx-font-size: 12pt;
-    -fx-font-weight: bold;
-}
 
-/*List-View on Login-Window*/
+
+/*List-View on login-window*/
 #connection_list{
     -fx-background-color: rgba(135, 135, 135, 0.7);
 }
