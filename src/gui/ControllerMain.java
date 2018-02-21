@@ -19,6 +19,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import org.controlsfx.control.ToggleSwitch;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -60,7 +61,7 @@ public class ControllerMain {
     @FXML
     private CheckBox chb_pitch, chb_left, chb_right, chb_mirror_arm;
     @FXML
-    private ToggleSwitch ts_shoulder, ts_elbow, ts_hand, ts_mirror_led, ts_camera, ts_rest;
+    private ToggleSwitch ts_shoulder, ts_elbow, ts_hand, ts_mirror_led, ts_camera, ts_rest, ts_armMovement;
     @FXML
     private Circle highTemp, midTemp, lowTemp;
     // ImageView must be public due to the special camera-thread
@@ -249,6 +250,12 @@ public class ControllerMain {
                 ts_camera.setSelected(false);
             }
 
+            if(nao1.isMoveArmsEnabled()){
+                ts_armMovement.setSelected(true);
+            } else {
+                ts_armMovement.setSelected(false);
+            }
+
             //initializes value for battery-ProgressBar and starts timeline for battery and temperature refresh
             battery_Bar.setProgress(nao1.getBatteryPercent());
             startConnectionCheck();
@@ -410,6 +417,15 @@ public class ControllerMain {
         }
     }
 
+    public void stopWalk(ActionEvent actionEvent) {
+        try {
+            nao1.setMoveT(0f);
+            nao1.setMoveX(0f);
+            nao1.setMoveY(0f);
+        } catch ( ConnectionException e) {
+            connectionLost();
+        }
+    }
 
     // #####################  SAY-TEXT #####################
     // calls "sayText"-method in Nao-class with parameters "TextToSay" from textfield, "Voice" from choicebox and pitch effect value
@@ -573,7 +589,7 @@ public class ControllerMain {
     public void set_switchRest (MouseEvent mouseEvent) {
 
         try {
-            nao1.switchRest();
+            nao1.toggleRest();
             if(nao1.isInRestMode()){
                 ts_rest.setSelected(true);
             } else {
@@ -703,6 +719,19 @@ public class ControllerMain {
         chb_left.setDisable(false);
         chb_right.setSelected(false);
         chb_right.setDisable(false);
+    }
+
+    public void toggle_ArmMovmentDuringWalking (){
+        try {
+            nao1.toggleMoveArms();
+            if(nao1.isMoveArmsEnabled()){
+                ts_armMovement.setSelected(true);
+            } else {
+                ts_armMovement.setSelected(false);
+            }
+        } catch (ConnectionException e) {
+            connectionLost();
+        }
     }
 
 
