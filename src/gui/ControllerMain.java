@@ -64,18 +64,13 @@ public class ControllerMain {
     private ToggleSwitch ts_shoulder, ts_elbow, ts_hand, ts_mirror_led, ts_camera, ts_rest, ts_armMovement;
     @FXML
     private Circle highTemp, midTemp, lowTemp;
-    // ImageView must be public due to the special camera-thread
-    public ImageView imageView11;
+    public ImageView iV_Cam; // ImageView must be public due to the special camera-thread
 
     //Constructor (Called first, then FXML Annotations, then "initialize"
-
     public ControllerMain() {
-        // Arrays to determine the right joint for the arm control.
-        // first digit is for left/right // second digit for wrist/elbow/shoulder
-        // 1 -> left, 0-> right || 0 -> shoulder, 1 -> Elbow, 2 -> Hand/Wrist
-        armControl1 = new String[2][3];
-        armControl2 = new String[2][3];
-        armControl1[1][0] = "LShoulderPitch";
+        armControl1 = new String[2][3];         // Arrays to determine the right joint for the arm control.
+        armControl2 = new String[2][3];         // first digit is for left/right // second digit for wrist/elbow/shoulder
+        armControl1[1][0] = "LShoulderPitch";   // 1 -> left, 0-> right || 0 -> shoulder, 1 -> Elbow, 2 -> Hand/Wrist
         armControl2[1][0] = "LShoulderRoll";
         armControl1[1][1] = "LElbowRoll";
         armControl2[1][1] = "LElbowYaw";
@@ -229,7 +224,7 @@ public class ControllerMain {
             }
         });
 
-        nao1.initialize(imageView11);
+        nao1.initialize(iV_Cam);
 
         try {
             //fill ListView, Choicebox
@@ -266,6 +261,7 @@ public class ControllerMain {
         }
     }
 
+
     // #####################  Connection Control ####################
     @FXML
     private void disconnect(ActionEvent actionEvent) {
@@ -283,8 +279,8 @@ public class ControllerMain {
             connectionLost();
         }
     }
-    //What happens when NAO-connection is lost
-    private static void connectionLost (){
+
+    private static void connectionLost (){ //What happens when NAO-connection is lost
         nao1.closeConnection();
         nao1 = null;
         batteryTimeline.stop();
@@ -299,6 +295,7 @@ public class ControllerMain {
                 "\ne.g. Network failed");
         connectionAlert.show();
     }
+
 
     // #####################  Fillers ####################
     private void fillPostureList(List<String> inputList) {
@@ -328,7 +325,6 @@ public class ControllerMain {
 
     //#####################  HEAD-CONTROL ##################
     //Buttons IJKL for head control, call "moveHead"-method in Nao-Class with corresponding parameters
-
     public void head_up(ActionEvent actionEvent) {
         try {
             nao1.moveHead("up");
@@ -361,9 +357,9 @@ public class ControllerMain {
         }
     }
 
+
     //#####################  BODY-CONTROL ##################
     // Buttons WASD (direction) TE (angle) for body control, call corresponding "setMove_" in Nao-Class with direction (1f/-1f)
-
     public void forward(ActionEvent actionEvent) {
         lbl_toolbar.setText("forward");
         try {
@@ -427,6 +423,22 @@ public class ControllerMain {
         }
     }
 
+    public void switchRest(MouseEvent mouseEvent) {
+
+        try {
+            nao1.toggleRest();
+            if(nao1.isInRestMode()){
+                ts_rest.setSelected(true);
+            } else {
+                ts_rest.setSelected(false);
+            }
+        } catch (ConnectionException e) {
+            connectionLost();
+        }
+    }
+
+
+
     // #####################  SAY-TEXT #####################
     // calls "sayText"-method in Nao-class with parameters "TextToSay" from textfield, "Voice" from choicebox and pitch effect value
     public void sayText(ActionEvent actionEvent)  {
@@ -486,6 +498,7 @@ public class ControllerMain {
         alert.showAndWait();
     }
 
+
     // #####################  Executors for sound and postures ##################
     // calls methods in Nao-class with corresponding parameters
     public void p_sound(ActionEvent actionEvent) {
@@ -508,6 +521,44 @@ public class ControllerMain {
         lbl_toolbar.setText("execute " + motion);
     }
 
+
+    // #####################  Backgroundtasks ##################
+    // Timelines for battery and temperature refresh and Connection check
+    private void startConnectionCheck(){
+        connectionCheckTimeline = new Timeline(new KeyFrame(
+                Duration.millis(3000),
+                ae -> checkConnection()));
+        connectionCheckTimeline.setCycleCount(Animation.INDEFINITE);
+        connectionCheckTimeline.play();
+    }
+
+    private void batteryViewer() {
+        batteryTimeline = new Timeline(new KeyFrame(
+                Duration.millis(5000),
+                ae -> setbatteryView()));
+        batteryTimeline.setCycleCount(Animation.INDEFINITE);
+        batteryTimeline.play();
+    }
+
+    private void tempViewer(){
+        tempTimeline = new Timeline(new KeyFrame(
+                Duration.millis(5000),
+                    ae -> settempView()));
+        tempTimeline.setCycleCount(Animation.INDEFINITE);
+        tempTimeline.play();
+    }
+
+    public void toggle_Camera (){
+        nao1.toggleCamera();
+        if(nao1.isCameraActivated()){
+            iV_Cam.setVisible(true);
+            ts_camera.setSelected(true);
+        } else {
+            iV_Cam.setVisible(false);
+            ts_camera.setSelected(false);
+        }
+
+    }
 
     // Setter for GUI-elements
     private void setbatteryView() {
@@ -555,59 +606,6 @@ public class ControllerMain {
             }
         } catch (ConnectionException e) {
             connectionLost();
-        }
-
-    }
-
-
-
-    //timelines for battery and temperature refresh and Connection check
-    private void startConnectionCheck(){
-        connectionCheckTimeline = new Timeline(new KeyFrame(
-                Duration.millis(3000),
-                ae -> checkConnection()));
-        connectionCheckTimeline.setCycleCount(Animation.INDEFINITE);
-        connectionCheckTimeline.play();
-    }
-
-    private void batteryViewer() {
-        batteryTimeline = new Timeline(new KeyFrame(
-                Duration.millis(5000),
-                ae -> setbatteryView()));
-        batteryTimeline.setCycleCount(Animation.INDEFINITE);
-        batteryTimeline.play();
-    }
-
-    private void tempViewer(){
-        tempTimeline = new Timeline(new KeyFrame(
-                Duration.millis(5000),
-                    ae -> settempView()));
-        tempTimeline.setCycleCount(Animation.INDEFINITE);
-        tempTimeline.play();
-    }
-
-    public void set_switchRest (MouseEvent mouseEvent) {
-
-        try {
-            nao1.toggleRest();
-            if(nao1.isInRestMode()){
-                ts_rest.setSelected(true);
-            } else {
-                ts_rest.setSelected(false);
-            }
-        } catch (ConnectionException e) {
-            connectionLost();
-        }
-    }
-
-    public void toggle_Camera (){
-        nao1.toggleCamera();
-        if(nao1.isCameraActivated()){
-            imageView11.setVisible(true);
-            ts_camera.setSelected(true);
-        } else {
-            imageView11.setVisible(false);
-            ts_camera.setSelected(false);
         }
 
     }
