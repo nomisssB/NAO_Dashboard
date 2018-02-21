@@ -75,9 +75,9 @@ public class NAO_Cam extends Thread{
 
             }
 
-            // Sleep for half a second...
+            // Sleep for 75 milliseconds...
             try {
-                sleep(500);
+                sleep(75);
             } catch (InterruptedException ex) {
                 this.interrupt();
             }
