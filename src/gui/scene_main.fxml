@@ -60,7 +60,7 @@
                         <Button fx:id="btn_d" layoutX="95.0" layoutY="68.0" mnemonicParsing="false" onAction="#right" styleClass="movingbutton" text="D" AnchorPane.bottomAnchor="83.0" AnchorPane.rightAnchor="10.0" />
                         <Button fx:id="btn_a" layoutX="10.0" layoutY="68.0" mnemonicParsing="false" onAction="#left" styleClass="movingbutton" text="A" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="10.0" />
                         <Slider fx:id="sldr_speed" blockIncrement="0.01" layoutX="17.0" layoutY="117.0" max="1.0" prefHeight="17.0" prefWidth="112.0" value="0.5" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
-                        <Label layoutX="12.0" styleClass="headlines" text="body control" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Label layoutX="12.0" styleClass="headlines" text="Body Control" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         <Label layoutX="1.0" layoutY="133.0" prefHeight="24.0" prefWidth="149.0" styleClass="labeling" text="speed" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" />
                         <Button fx:id="btn_e" layoutX="100.0" layoutY="34.0" mnemonicParsing="false" onAction="#turnRight" prefHeight="30.0" prefWidth="41.0" styleClass="movingbutton" text="E" />
                         <Button fx:id="btn_q" layoutX="10.0" layoutY="34.0" mnemonicParsing="false" onAction="#turnLeft" prefHeight="30.0" prefWidth="41.0" styleClass="movingbutton" text="Q" />
@@ -82,7 +82,7 @@
                      <cursor>
                         <Cursor fx:constant="HAND" />
                      </cursor></ToggleSwitch>
-                        <Label layoutX="34.0" layoutY="47.0" styleClass="labeling" text="mirror" AnchorPane.topAnchor="47.0" />
+                        <Label layoutX="10.0" layoutY="47.0" prefHeight="24.0" prefWidth="59.0" styleClass="labeling" text="mirror" AnchorPane.topAnchor="47.0" />
                     </children>
                     <styleClass>
                         <String fx:value="module" />
@@ -104,9 +104,9 @@
                         <String fx:value="once" />
                     </styleClass>
                 </AnchorPane>
-                <AnchorPane layoutX="320.0" layoutY="229.0" prefHeight="221.0" prefWidth="292.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="320.0">
+                <AnchorPane layoutX="320.0" layoutY="229.0" prefHeight="268.0" prefWidth="292.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="320.0">
                     <children>
-                          <ImageView fx:id="iV_Cam" fitHeight="156.0" fitWidth="270.0" layoutX="55.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+                          <ImageView fx:id="iV_Cam" fitHeight="202.5" fitWidth="270.0" layoutX="20.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
                         <Label layoutY="2.0" prefHeight="14.0" prefWidth="200.0" styleClass="headlines" text="Camera" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         <ToggleSwitch fx:id="ts_camera" layoutX="164.0" layoutY="-1.0" onMouseClicked="#toggle_Camera" AnchorPane.rightAnchor="85.0" AnchorPane.topAnchor="0.0" />
                     </children>
@@ -132,7 +132,7 @@
                 </AnchorPane>
                 <AnchorPane layoutY="223.0" prefHeight="120.0" prefWidth="150.0" AnchorPane.bottomAnchor="190.0" AnchorPane.topAnchor="210.0">
                     <children>
-                        <Label layoutX="-7.0" layoutY="2.0" styleClass="headlines" text="head control" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Label layoutX="-7.0" layoutY="2.0" styleClass="headlines" text="Head Control" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         <Button fx:id="btn_i" layoutX="56.0" layoutY="22.0" mnemonicParsing="false" onAction="#head_up" prefHeight="25.0" prefWidth="46.0" styleClass="movingbutton" text="I" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0" />
                         <Button fx:id="btn_k" layoutX="56.0" layoutY="71.0" mnemonicParsing="false" onAction="#head_down" prefHeight="25.0" prefWidth="46.0" styleClass="movingbutton" text="K" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0" />
                         <Button fx:id="btn_l" layoutX="95.0" layoutY="71.0" mnemonicParsing="false" onAction="#head_right" prefHeight="65.0" prefWidth="42.0" styleClass="movingbutton" text="L" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="10.0" />
@@ -160,7 +160,7 @@
                 </AnchorPane>
                 <AnchorPane layoutX="611.0" layoutY="412.0" prefHeight="268.0" prefWidth="150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
                     <children>
-                        <Label layoutX="-7.0" layoutY="2.0" prefWidth="150.0" styleClass="headlines" text="arm control" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <Label layoutX="-7.0" layoutY="2.0" prefWidth="150.0" styleClass="headlines" text="Arm Control" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                         <Button fx:id="btn_t" layoutX="56.0" layoutY="22.0" mnemonicParsing="false" onAction="#arm_up" prefHeight="25.0" prefWidth="46.0" text="T" AnchorPane.bottomAnchor="45.0" AnchorPane.leftAnchor="55.0" AnchorPane.rightAnchor="55.0">
                             <styleClass>
                                 <String fx:value="movingbutton" />
@@ -184,14 +184,30 @@
                         <ToggleSwitch fx:id="ts_shoulder" disable="true" layoutX="101.0" layoutY="23.0" onMouseClicked="#shoulderSelect" prefHeight="21.0" prefWidth="36.0" selected="true" styleClass="toggle-switch" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="25.0" />
                         <ToggleSwitch fx:id="ts_elbow" layoutX="101.0" layoutY="47.0" onMouseClicked="#elbowSelect" prefHeight="21.0" prefWidth="36.0" styleClass="toggle-switch" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="50.0" />
                         <ToggleSwitch fx:id="ts_hand" layoutX="101.0" layoutY="70.0" onMouseClicked="#handSelect" prefHeight="21.0" prefWidth="36.0" styleClass="toggle-switch" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="75.0" />
-                        <Label layoutX="22.0" layoutY="24.0" styleClass="labeling" text="shoulder" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="57.0" AnchorPane.topAnchor="25.0" />
-                        <Label layoutX="22.0" layoutY="45.0" styleClass="labeling" text="elbow" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="57.0" AnchorPane.topAnchor="50.0" />
-                        <Label layoutX="22.0" layoutY="68.0" styleClass="labeling" text="hand" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="57.0" AnchorPane.topAnchor="75.0" />
+                        <Label layoutX="12.0" layoutY="26.0" text="shoulder" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="75.0" AnchorPane.topAnchor="26.0">
+                     <styleClass>
+                        <String fx:value="labeling" />
+                        <String fx:value="armcontrol" />
+                     </styleClass></Label>
+                        <Label layoutX="22.0" layoutY="45.0" prefHeight="24.0" prefWidth="63.0" text="elbow" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="72.0" AnchorPane.topAnchor="50.0">
+                     <styleClass>
+                        <String fx:value="labeling" />
+                        <String fx:value="armcontrol" />
+                     </styleClass></Label>
+                        <Label layoutX="22.0" layoutY="68.0" prefHeight="24.0" prefWidth="63.0" text="hand" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="72.0" AnchorPane.topAnchor="75.0">
+                     <styleClass>
+                        <String fx:value="labeling" />
+                        <String fx:value="armcontrol" />
+                     </styleClass></Label>
                         <CheckBox fx:id="chb_left" layoutX="19.0" layoutY="107.0" mnemonicParsing="false" onMouseClicked="#armLeftChecked" styleClass="labeling" text="left" />
                         <CheckBox fx:id="chb_right" disable="true" layoutX="65.0" layoutY="107.0" mnemonicParsing="false" onMouseClicked="#armRightChecked" selected="true" styleClass="labeling" text="right" />
                         <CheckBox fx:id="chb_mirror_arm" layoutX="38.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#armMirrorChecked" styleClass="labeling" text="mirror" />
                   <ToggleSwitch fx:id="ts_armMovement" layoutX="86.6" layoutY="163.0" onMouseClicked="#toggleMoveArms" AnchorPane.rightAnchor="5.0" />
-                  <Label layoutX="7.0" layoutY="162.0" styleClass="labeling" text="while walking" />
+                  <Label layoutX="7.0" layoutY="162.0" prefHeight="24.0" prefWidth="98.0" text="while walking" textOverrun="CLIP">
+                     <styleClass>
+                        <String fx:value="labeling" />
+                        <String fx:value="armcontrol" />
+                     </styleClass></Label>
                     </children>
                     <styleClass>
                         <String fx:value="module" />
@@ -203,7 +219,7 @@
                         <TextField fx:id="txt_tactileFront" layoutX="10.0" layoutY="50.0" promptText="front" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0" />
                         <TextField fx:id="txt_tactileMiddle" layoutX="10.0" layoutY="96.0" promptText="middle" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="96.0" />
                         <TextField fx:id="txt_tactileRear" layoutX="10.0" layoutY="146.0" promptText="rear" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="146.0" />
-                        <Label layoutX="8.0" prefHeight="24.0" prefWidth="106.0" styleClass="headlines" text="tactile head sensors" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                        <Label layoutX="8.0" prefHeight="24.0" prefWidth="106.0" styleClass="headlines" text="Head Sensors" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
                         <Label layoutY="26.0" prefHeight="20.0" prefWidth="75.0" styleClass="labeling" text="front" AnchorPane.leftAnchor="0.0" />
                         <Label layoutY="75.0" prefHeight="20.0" prefWidth="75.0" styleClass="labeling" text="middle" AnchorPane.leftAnchor="0.0" />
                         <Label layoutY="121.0" prefHeight="20.0" prefWidth="75.0" styleClass="labeling" text="rear" AnchorPane.leftAnchor="0.0" />

@@ -62,6 +62,10 @@
     -fx-padding: 5px;
 
 }
+.labeling.armcontrol{
+    -fx-alignment: left;
+}
+
 /*GUI-Modules*/
 .module {
     -fx-background-color: rgba(0, 0, 0, 0.5);
@@ -98,7 +102,7 @@
     -fx-alignment: center-left;
     -fx-padding: 1px;
 }
-
+/*Battery*/
 #lbl_battery{
     -fx-font-family: "Calibri Light";
     -fx-font-size: 6pt;
