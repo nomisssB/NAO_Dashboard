@@ -239,9 +239,9 @@ public class ControllerMain {
             nao1.setMoveV(motionspeed);
 
             if(nao1.isInRestMode()){
-                ts_rest.setSelected(true);
-            } else {
                 ts_rest.setSelected(false);
+            } else {
+                ts_rest.setSelected(true);
             }
 
             if(nao1.isCameraActivated()){

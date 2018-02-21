@@ -182,11 +182,7 @@
                             </styleClass>
                         </Button>
                         <ToggleSwitch fx:id="ts_shoulder" disable="true" layoutX="101.0" layoutY="23.0" onMouseClicked="#shoulderSelect" prefHeight="21.0" prefWidth="36.0" selected="true" styleClass="toggle-switch" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="25.0" />
-                        <ToggleSwitch fx:id="ts_elbow" layoutX="101.0" layoutY="47.0" onMouseClicked="#elbowSelect" prefHeight="14.0" prefWidth="28.0" styleClass="toggle-switch" textFill="WHITE" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="50.0">
-                            <font>
-                                <Font size="6.0" />
-                            </font>
-                        </ToggleSwitch>
+                        <ToggleSwitch fx:id="ts_elbow" layoutX="101.0" layoutY="47.0" onMouseClicked="#elbowSelect" prefHeight="21.0" prefWidth="36.0" styleClass="toggle-switch" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="50.0"></ToggleSwitch>
                         <ToggleSwitch fx:id="ts_hand" layoutX="101.0" layoutY="70.0" onMouseClicked="#handSelect" prefHeight="21.0" prefWidth="36.0" styleClass="toggle-switch" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="75.0" />
                         <Label layoutX="22.0" layoutY="24.0" styleClass="headlines" text="shoulder" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="57.0" AnchorPane.topAnchor="25.0" />
                         <Label layoutX="22.0" layoutY="45.0" styleClass="headlines" text="elbow" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="57.0" AnchorPane.topAnchor="50.0" />
