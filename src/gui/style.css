@@ -65,7 +65,7 @@
 .armcontrol{
     -fx-font-family: "Calibri";
     -fx-text-fill: #ffffff;
-    -fx-alignment: left;
+    -fx-text-alignment: left;
     -fx-padding: 5px;
 }
 
@@ -187,4 +187,7 @@
     -fx-text-fill: black;
     -fx-border-width: 2px;
     -fx-border-color: #1d4360;
+}
+#battery_Bar .bar{
+    -fx-background-color: #ffffff;
 }

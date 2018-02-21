@@ -566,12 +566,12 @@ public class ControllerMain {
             boolean lowBat = nao1.getBatteryPercent() <= 20;
             boolean midBat = (nao1.getBatteryPercent() > 20) && (nao1.getBatteryPercent() < 50);
             if(lowBat) {
-                battery_Bar.setStyle("-fx-progress-color: red");
+                battery_Bar.setStyle("-fx-control-inner-background: #ff5d61");
             }else if (midBat){
-                battery_Bar.setStyle("-fx-progress-color: yellow");
+                battery_Bar.setStyle("-fx-control-inner-background: #fffb84");
             }
             else{
-                battery_Bar.setStyle("-fx-progress-color: lime");
+                battery_Bar.setStyle("-fx-control-inner-background: #c3ff8f");
             }
             battery_Bar.setProgress(nao1.getBatteryPercent());
             lbl_battery.setText(Double.toString(nao1.getBatteryPercent())+"%");
