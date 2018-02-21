@@ -110,7 +110,7 @@ public class ControllerMain {
             }
         });
 
-        // Listener for Checkbox to enable/disable "Pitch"-Slider
+        // Listener for checkboc to enable/disable "Pitch"-Slider
         chb_pitch.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (chb_pitch.isSelected()) {
                 sldr_pitch.setDisable(false);
@@ -225,7 +225,7 @@ public class ControllerMain {
             }
         });
 
-        nao1.initialize(iV_Cam);
+        nao1.initialize(iV_Cam); //calls initalize method from NAO-class (for access to gui element imageView)
 
         try {
             //fill ListView, Choicebox
@@ -415,7 +415,7 @@ public class ControllerMain {
         }
     }
 
-    public void stopWalk(ActionEvent actionEvent) {
+    public void stopWalk(ActionEvent actionEvent) { // stops walking action
         try {
             nao1.setMoveT(0f);
             nao1.setMoveX(0f);
@@ -425,7 +425,7 @@ public class ControllerMain {
         }
     }
 
-    public void switchRest(MouseEvent mouseEvent) {
+    public void switchRest(MouseEvent mouseEvent) { // toggles between rest  and wakeup mode
 
         try {
             nao1.toggleRest();
@@ -550,7 +550,7 @@ public class ControllerMain {
         tempTimeline.play();
     }
 
-    public void toggle_Camera (){
+    public void toggle_Camera (){ // turn on/off camera view
         nao1.toggleCamera();
         if(nao1.isCameraActivated()){
             iV_Cam.setVisible(true);
@@ -565,25 +565,25 @@ public class ControllerMain {
     // Setter for GUI-elements
     private void setbatteryView() {
         try {
-            Region pBarbar = (Region) battery_Bar.lookup(".bar");
+            Region pBarbar = (Region) battery_Bar.lookup(".bar"); //searches CSS-class for progress bar
             boolean lowBat = nao1.getBatteryPercent() <= 20;
             boolean midBat = (nao1.getBatteryPercent() > 20) && (nao1.getBatteryPercent() < 50);
             if(lowBat) {
-                pBarbar.setStyle("-fx-background-color:#ff5d61");
+                pBarbar.setStyle("-fx-background-color:#ff5d61"); //changes css-style
             }else if (midBat){
                 pBarbar.setStyle("-fx-background-color: #fffb84");
             }
             else{
                 pBarbar.setStyle("-fx-background-color: #8eff95");
             }
-            battery_Bar.setProgress(nao1.getBatteryPercent());
+            battery_Bar.setProgress(nao1.getBatteryPercent()/100);
             lbl_battery.setText(Double.toString(nao1.getBatteryPercent())+"%");
         } catch (ConnectionException e) {
             connectionLost();
         }
     }
 
-    private void settempView()  {
+    private void settempView()  { //changes opacity of circles in temperature element
         try {
             switch ((int) nao1.getTemp()) {
                 case 0:
@@ -614,7 +614,8 @@ public class ControllerMain {
 
 
     //#####################  ARM-CONTROL #########################
-    //Buttons TFGH for arm-control
+    // Buttons TFGH for arm-control
+    // Calls arm movement method with relevant parameters (joint, direction... etc)
     public void arm_up(ActionEvent actionEvent) {
 
         try {
@@ -735,7 +736,7 @@ public class ControllerMain {
     }
 
 
-    //When clicking on main-pane then deselect textfields etc...
+    //When clicking on main-pane then deselect textfields and set keyboard focus on main pane
     @FXML
     private void setFocus(MouseEvent mouseEvent) {
         pane_main.requestFocus();
