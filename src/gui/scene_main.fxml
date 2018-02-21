@@ -61,10 +61,10 @@
                         <Button fx:id="btn_a" layoutX="10.0" layoutY="68.0" mnemonicParsing="false" onAction="#left" styleClass="movingbutton" text="A" AnchorPane.bottomAnchor="83.0" AnchorPane.leftAnchor="10.0" />
                         <Slider fx:id="sldr_speed" blockIncrement="0.01" layoutX="17.0" layoutY="117.0" max="1.0" prefHeight="17.0" prefWidth="112.0" value="0.5" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                         <Label layoutX="12.0" styleClass="headlines" text="body control" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                        <Label layoutX="1.0" layoutY="130.0" prefHeight="24.0" prefWidth="149.0" styleClass="labeling" text="speed" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" />
+                        <Label layoutX="1.0" layoutY="133.0" prefHeight="24.0" prefWidth="149.0" styleClass="labeling" text="speed" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" />
                         <Button fx:id="btn_e" layoutX="100.0" layoutY="34.0" mnemonicParsing="false" onAction="#turnRight" prefHeight="30.0" prefWidth="41.0" styleClass="movingbutton" text="E" />
                         <Button fx:id="btn_q" layoutX="10.0" layoutY="34.0" mnemonicParsing="false" onAction="#turnLeft" prefHeight="30.0" prefWidth="41.0" styleClass="movingbutton" text="Q" />
-                  <Button layoutX="35.0" layoutY="106.0" mnemonicParsing="false" onAction="#stopWalk" text="stop moving" />
+                  <Button fx:id="btn_stopMoving" layoutX="12.0" layoutY="106.0" mnemonicParsing="false" onAction="#stopWalk" prefHeight="18.0" prefWidth="130.0" text="stop moving" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" />
                     </children>
                     <styleClass>
                         <String fx:value="module" />
@@ -182,7 +182,7 @@
                             </styleClass>
                         </Button>
                         <ToggleSwitch fx:id="ts_shoulder" disable="true" layoutX="101.0" layoutY="23.0" onMouseClicked="#shoulderSelect" prefHeight="21.0" prefWidth="36.0" selected="true" styleClass="toggle-switch" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="25.0" />
-                        <ToggleSwitch fx:id="ts_elbow" layoutX="101.0" layoutY="47.0" onMouseClicked="#elbowSelect" prefHeight="21.0" prefWidth="36.0" styleClass="toggle-switch"  AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="50.0"></ToggleSwitch>
+                        <ToggleSwitch fx:id="ts_elbow" layoutX="101.0" layoutY="47.0" onMouseClicked="#elbowSelect" prefHeight="21.0" prefWidth="36.0" styleClass="toggle-switch" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="50.0" />
                         <ToggleSwitch fx:id="ts_hand" layoutX="101.0" layoutY="70.0" onMouseClicked="#handSelect" prefHeight="21.0" prefWidth="36.0" styleClass="toggle-switch" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="75.0" />
                         <Label layoutX="22.0" layoutY="24.0" styleClass="labeling" text="shoulder" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="57.0" AnchorPane.topAnchor="25.0" />
                         <Label layoutX="22.0" layoutY="45.0" styleClass="labeling" text="elbow" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="57.0" AnchorPane.topAnchor="50.0" />
@@ -190,8 +190,8 @@
                         <CheckBox fx:id="chb_left" layoutX="19.0" layoutY="107.0" mnemonicParsing="false" onMouseClicked="#armLeftChecked" styleClass="labeling" text="left" />
                         <CheckBox fx:id="chb_right" disable="true" layoutX="65.0" layoutY="107.0" mnemonicParsing="false" onMouseClicked="#armRightChecked" selected="true" styleClass="labeling" text="right" />
                         <CheckBox fx:id="chb_mirror_arm" layoutX="38.0" layoutY="128.0" mnemonicParsing="false" onMouseClicked="#armMirrorChecked" styleClass="labeling" text="mirror" />
-                  <ToggleSwitch fx:id="ts_armMovement" layoutX="72.0" layoutY="163.0" onMouseClicked="#toggleMoveArms" AnchorPane.rightAnchor="15.0" />
-                  <Label layoutX="11.0" layoutY="162.0" styleClass="headlines" text="while walking" />
+                  <ToggleSwitch fx:id="ts_armMovement" layoutX="86.6" layoutY="163.0" onMouseClicked="#toggleMoveArms" AnchorPane.rightAnchor="5.0" />
+                  <Label layoutX="7.0" layoutY="162.0" styleClass="labeling" text="while walking" />
                     </children>
                     <styleClass>
                         <String fx:value="module" />

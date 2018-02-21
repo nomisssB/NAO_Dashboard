@@ -99,6 +99,12 @@
     -fx-padding: 1px;
 }
 
+#lbl_battery{
+    -fx-font-family: "Calibri Light";
+    -fx-font-size: 6pt;
+    -fx-alignment: center;
+}
+
 /*Menu*/
 #menu1{
     -fx-text-fill: #000000;
@@ -134,6 +140,14 @@
 }
 #btn_delete:hover{
     -fx-background-color: white;
+}
+
+#btn_stopMoving{
+
+    -fx-font-size: 12;
+    -fx-text-fill: white;
+    -fx-pref-height: 17px;
+    -fx-background-color: rgba(210,30,50,0.7);
 }
 
 
