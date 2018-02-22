@@ -526,6 +526,9 @@ public class ControllerMain {
 
     // #####################  Backgroundtasks ##################
     // Timelines for battery and temperature refresh and Connection check
+    /* Timelines ar usually used for animations... in this case it's an easy way to schedule background tasks
+     * withoud opening a new thread --> may cause performance-loss*/
+
     private void startConnectionCheck(){
         connectionCheckTimeline = new Timeline(new KeyFrame(
                 Duration.millis(3000),

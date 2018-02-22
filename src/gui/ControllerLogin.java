@@ -3,6 +3,7 @@ package gui;
 * FILE: ControllerLogin.java
 * USAGE: Controls "Login-Window" (Connection establishment)
 */
+import javafx.scene.image.Image;
 import nao.NAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +17,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -70,6 +72,8 @@ public class ControllerLogin {
                 Parent root = FXMLLoader.load(getClass().getResource("scene_main.fxml"));
                 rootWindow = new Stage(); // create stage for main-window
                 rootWindow.setScene(new Scene(root));
+                rootWindow.setTitle("NAO-Dashboard by MKSM"); // Window-title
+                rootWindow.getIcons().add(new Image(getClass().getResourceAsStream("../pic/icon.png"))); // Window-Icon
                 rootWindow.setResizable(false); // static window size
                 rootWindow.show(); // shows main-window
                 loginWindow.hide(); // hides current-window (login-window)
