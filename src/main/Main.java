@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.fxml.*;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -23,6 +24,7 @@ public class Main extends Application {
         stage.initStyle(StageStyle.TRANSPARENT); // transparent background!
         scene.setFill(null);
         stage.setScene(scene);
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("../pic/icon.png"))); // Window-Icon
         stage.setResizable(false); // static window size
         stage.show();
         loginWindow = stage;
